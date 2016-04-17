@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pdswgr3.pdsw.entities;
+package pdswgr3.pdsw.persistence;
 
 /**
  *
- * @author amoto
+ * @author Zawsx
  */
-public class Equipo {
+public interface DAOPersona {
     
 }
