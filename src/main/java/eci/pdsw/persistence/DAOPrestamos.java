@@ -9,6 +9,6 @@ package eci.pdsw.persistence;
  *
  * @author Hugo Alvarez
  */
-public interface DAOPersona {
+public class DAOPrestamos {
     
 }
