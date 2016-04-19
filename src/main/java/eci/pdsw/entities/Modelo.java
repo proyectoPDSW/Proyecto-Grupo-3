@@ -5,23 +5,44 @@
  */
 package eci.pdsw.entities;
 
+import com.mysql.jdbc.Blob;
+
 /**
  *
  * @author Zawsx
  */
 public class Modelo {
-    int vidaUtil;
-    String nombre;
-    String clase;
-    long valorComercial;
-    byte[] fotografia;
+    private int vidaUtil;
+    private String nombre;
+    private String clase;
+    private long valorComercial;
+    private Blob fotografia;
+    private String descripcion;
 
-    public Modelo(int vidaU, String name, byte[] foto, String clas, long valor) {
+
+
+    public Modelo(int vidaU, String name, Blob foto, String clas, long valor) {
        vidaUtil=vidaU;
        nombre=name;
        clase=clas;
        valorComercial=valor;
        fotografia=foto;
+    }
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    public void setFotografia(Blob fotografia) {
+        this.fotografia = fotografia;
+    }
+
+    public Blob getFotografia() {
+        return fotografia;
     }
     
     public void setVidaUtil(int vu){
@@ -54,14 +75,6 @@ public class Modelo {
     
     public long getValorComercial(){
         return valorComercial;
-    }
-    
-    public void setFotografia(byte[] f){
-        this.fotografia=f;
-    }
-    
-    public byte[] getFotografia(){
-        return fotografia;
     }
     
     @Override
