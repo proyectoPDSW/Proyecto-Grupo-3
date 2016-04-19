@@ -6,7 +6,7 @@
 package eci.pdsw.persistence;
 
 import java.util.Properties;
-import pdswgr3.pdsw.persistence.mybatis.MyBatisDAOFactory;
+import eci.pdsw.persistence.mybatis.MyBatisDAOFactory;
 /**
  *
  * @author Zawsx

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pdswgr3.pdsw.persistence.mybatis;
+package eci.pdsw.persistence.mybatis;
 
 import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
-import pdswgr3.pdsw.entities.EquipoSencillo;
-import pdswgr3.pdsw.persistence.DAOEquipoSencillo;
-import pdswgr3.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper;
+import eci.pdsw.entities.EquipoSencillo;
+import eci.pdsw.persistence.DAOEquipoSencillo;
+import eci.pdsw.persistence.mappers.mybatis.EquipoSencilloMapper;
 
 /**
  *

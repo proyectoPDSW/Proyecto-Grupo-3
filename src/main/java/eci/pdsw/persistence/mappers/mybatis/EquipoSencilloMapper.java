@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eci.pdsw.persistence.mybatis.mappers;
+package eci.pdsw.persistence.mappers.mybatis;
 
 /**
  *
- * @author amoto
+ * @author 2107803
  */
-public class EquipoMapper {
+public interface EquipoSencilloMapper {
     
 }
