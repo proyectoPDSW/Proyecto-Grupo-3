@@ -32,8 +32,8 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(1, 100, "ModeloPrueba", null, "Operario", 100000000);
-        EquipoComplejo aConsultar = new EquipoComplejo(1, true, true, "Disponible", "1823", null, "Toshiba", model);
+        Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         dec.save(aConsultar);
         daof.commitTransaction();
         ArrayList<EquipoComplejo> loaded = dec.loadByModelo("ModeloPrueba");
@@ -51,9 +51,9 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(1, 100, "ModeloPrueba", null, "Operario", 100000000);
-        EquipoComplejo aConsultar = new EquipoComplejo(1, true, true, "Disponible", "1823", null, "Toshiba", model);
-        EquipoComplejo aConsultar2 = new EquipoComplejo(2, true, true, "Disponible", null, null, "Asus", model);
+        Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
+        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F");
         dec.save(aConsultar);
         dec.save(aConsultar2);
         daof.commitTransaction();
@@ -72,8 +72,8 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(1, 100, "ModeloPrueba", null, "Operario", 100000000);
-        EquipoComplejo aConsultar = new EquipoComplejo(1, true, true, "Disponible", "1823", 189, "Toshiba", model);
+        Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         dec.save(aConsultar);
         daof.commitTransaction();
         EquipoComplejo loaded = dec.load(189);
@@ -90,8 +90,8 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(1, 100, "ModeloPrueba", null, "Operario", 100000000);
-        EquipoComplejo aConsultar = new EquipoComplejo(1, true, true, "Disponible", "1823", null, "Toshiba", model);
+        Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         dec.save(aConsultar);
         daof.commitTransaction();
         EquipoComplejo loaded = dec.load("1823");
@@ -109,7 +109,7 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoSencillo des = daof.getDaoEquipoSencillo();
-        EquipoSencillo aConsultar=new EquipoSencillo("Cable",null,"Electronica",100,500);
+        EquipoSencillo aConsultar=new EquipoSencillo("Cable", "Electronica", 1000, 100);
         des.save(aConsultar);
         daof.commitTransaction();
         EquipoSencillo loaded=des.load("Cable");
