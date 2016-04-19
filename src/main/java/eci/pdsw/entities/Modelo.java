@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pdswgr3.pdsw.entities;
+package eci.pdsw.entities;
 
 /**
  *
- * @author amoto
+ * @author Zawsx
  */
-public class EquipoSencillo {
+public class Modelo {
 
-    public EquipoSencillo(String nombre, byte[] foto, String clase, int cantidad, long valor) {
+    public Modelo(int id, int vidaUtil, String nombre, byte[] foto, String clase, long valor) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

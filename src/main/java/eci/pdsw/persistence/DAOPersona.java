@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pdswgr3.pdsw.persistence.mybatis.mappers;
+package eci.pdsw.persistence;
 
 /**
  *
- * @author amoto
+ * @author Zawsx
  */
-public class EquipoMapper {
+public interface DAOPersona {
     
 }

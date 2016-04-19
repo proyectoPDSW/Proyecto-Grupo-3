@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pdswgr3.pdsw.managedbeans;
+package eci.pdsw.persistence.mybatis.mappers;
 
 /**
  *
  * @author amoto
  */
-public class RegistroEquipoManagedBean {
+public class EquipoMapper {
     
 }

@@ -1,4 +1,10 @@
 
+import eci.pdsw.persistence.DAOEquipoComplejo;
+import eci.pdsw.persistence.DAOFactory;
+import eci.pdsw.persistence.DAOEquipoSencillo;
+import eci.pdsw.entities.Modelo;
+import eci.pdsw.entities.EquipoComplejo;
+import eci.pdsw.entities.EquipoSencillo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -8,8 +14,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Assert;
 import org.junit.Test;
-import pdswgr3.pdsw.persistence.*;
-import pdswgr3.pdsw.entities.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
