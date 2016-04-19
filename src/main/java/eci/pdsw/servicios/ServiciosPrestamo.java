@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eci.pdsw.persistence.mappers.mybatis;
+package eci.pdsw.servicios;
 
 /**
  *
- * @author 2107803
+ * @author 2105684
  */
-public interface EquipoComplejoMapper {
+public abstract class ServiciosPrestamo {
+    
+    private static final ServiciosPrestamo instance=new ServiciosPrestamoDAO();
     
 }

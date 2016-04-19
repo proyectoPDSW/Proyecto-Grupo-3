@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eci.pdsw.persistence;
+package eci.pdsw.persistence.mybatis.mappers;
 
 /**
  *
- * @author Hugo Alvarez
+ * @author amoto
  */
-public interface DAOPersona {
+public class EquipoMapper {
     
 }

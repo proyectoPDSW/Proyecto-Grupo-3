@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
 import eci.pdsw.entities.EquipoSencillo;
 import eci.pdsw.persistence.DAOEquipoSencillo;
-import eci.pdsw.persistence.mappers.mybatis.EquipoSencilloMapper;
+import eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper;
 
 /**
  *
