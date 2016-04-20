@@ -7,11 +7,12 @@ package eci.pdsw.servicios;
 
 /**
  *
- * @author 2105684
+ * @author 2107803
  */
-class ServiciosPrestamoDAO extends ServiciosPrestamo {
+public class ExcepcionServicios extends Exception{
 
-    public ServiciosPrestamoDAO() {
+    ExcepcionServicios(String message) {
+        super(message);
     }
     
 }

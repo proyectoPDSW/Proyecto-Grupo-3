@@ -22,4 +22,6 @@ public interface EquipoSencilloMapper {
    public void update(@Param("Eq_Viejo") EquipoSencillo eqv, @Param("Eq_Nuevo") EquipoSencillo eqn);
    
    public ArrayList<EquipoSencillo> loadAll();
+   
+   public int loadEquipoByNombreDisponibilidad(@Param("Eq_Nombre") String nombre);
 }

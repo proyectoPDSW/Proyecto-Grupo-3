@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package eci.pdsw.persistence;
+package eci.pdsw.servicios;
 
 /**
  *
- * @author Hugo Alvarez
+ * @author 2105684
  */
-public interface DAOPrestamos {
+class ServiciosPrestamoPersistence extends ServiciosPrestamo {
+
+    public ServiciosPrestamoPersistence() {
+    }
     
 }

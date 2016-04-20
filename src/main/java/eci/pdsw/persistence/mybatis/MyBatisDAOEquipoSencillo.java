@@ -20,29 +20,35 @@ public class MyBatisDAOEquipoSencillo implements DAOEquipoSencillo {
 
     private SqlSession ses;
     private EquipoSencilloMapper eMap;
-    
+
     public MyBatisDAOEquipoSencillo(SqlSession sesion) {
-        ses=sesion;
-        eMap=ses.getMapper(EquipoSencilloMapper.class);
+        ses = sesion;
+        eMap = ses.getMapper(EquipoSencilloMapper.class);
     }
 
     @Override
     public EquipoSencillo load(String nombre) throws PersistenceException {
-        if(eMap.loadEquipoByNombre(nombre)==null) throw new PersistenceException("El equipo con nombre "+nombre+" no esta registrado");
+        if (eMap.loadEquipoByNombre(nombre) == null) {
+            throw new PersistenceException("El equipo con nombre " + nombre + " no esta registrado");
+        }
         return eMap.loadEquipoByNombre(nombre);
     }
 
     @Override
-    public void save(EquipoSencillo toSave) throws PersistenceException{
-        if(eMap.loadEquipoByNombre(toSave.getNombre())!=null) throw new PersistenceException("El equipo con nombre "+toSave.getNombre()+" ya esta registrado");
+    public void save(EquipoSencillo toSave) throws PersistenceException {
+        if (eMap.loadEquipoByNombre(toSave.getNombre()) != null) {
+            throw new PersistenceException("El equipo con nombre " + toSave.getNombre() + " ya esta registrado");
+        }
         eMap.insertEquipo(toSave);
     }
 
     @Override
     public void update(EquipoSencillo toUpdate) throws PersistenceException {
-        if(eMap.loadEquipoByNombre(toUpdate.getNombre())==null) throw new PersistenceException("El equipo con nombre "+toUpdate.getNombre()+" a actualizar no esta registrado");
-        EquipoSencillo test= eMap.loadEquipoByNombre(toUpdate.getNombre());
-        if(test.toString()!=toUpdate.toString()){
+        if (eMap.loadEquipoByNombre(toUpdate.getNombre()) == null) {
+            throw new PersistenceException("El equipo con nombre " + toUpdate.getNombre() + " a actualizar no esta registrado");
+        }
+        EquipoSencillo test = eMap.loadEquipoByNombre(toUpdate.getNombre());
+        if (test.toString() != toUpdate.toString()) {
             eMap.update(test, toUpdate);
         }
     }
@@ -50,6 +56,14 @@ public class MyBatisDAOEquipoSencillo implements DAOEquipoSencillo {
     @Override
     public ArrayList<EquipoSencillo> loadAll() throws PersistenceException {
         return eMap.loadAll();
+    }
+
+    @Override
+    public int loadByNombreDisponibles(String nombre) throws PersistenceException {
+        if (eMap.loadEquipoByNombre(nombre) == null) {
+            throw new PersistenceException("El equipo con nombre " + nombre + " no esta registrado");
+        }
+        return eMap.loadEquipoByNombreDisponibilidad(nombre);
     }
 
 }

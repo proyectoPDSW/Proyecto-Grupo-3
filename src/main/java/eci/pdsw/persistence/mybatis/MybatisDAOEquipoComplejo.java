@@ -8,6 +8,7 @@ package eci.pdsw.persistence.mybatis;
 import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
 import eci.pdsw.entities.EquipoComplejo;
+import eci.pdsw.entities.Modelo;
 import eci.pdsw.persistence.DAOEquipoComplejo;
 import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper;
@@ -16,6 +17,8 @@ import eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper;
  *
  * @author 2107803
  */
+
+//NECESARIO REVISAR ASTAH E IMPLEMENTAR METODOS DE EMAP
 public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
 
     private SqlSession ses;
@@ -41,6 +44,11 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
     @Override
     public void save(EquipoComplejo toSave)throws PersistenceException  {
        if(eMap.loadEquipoByPlaca(toSave.getPlaca())!=null & eMap.loadEquipoBySerial(toSave.getSerial())!=null) throw new PersistenceException("El equipo con nombre "+toSave.getModelo_Eq().getNombre()+" ya esta registrado");
+       //Como si el modelo no esta registrado se registra automaticamente, tengo que ver si existe
+       if(eMap.loadEquipoByModelo(toSave.getModelo_Eq().getNombre())==null){
+           //Si el modelo no existe lo registro
+           save(toSave.getModelo_Eq());
+       }
        eMap.insertEquipo(toSave);
     }
 
@@ -79,6 +87,12 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
     public ArrayList<EquipoComplejo> loadByModelo(String modelo)throws PersistenceException  {
         if(eMap.loadEquipoByModelo(modelo)==null) throw new PersistenceException("El modelo "+modelo+" no esta registrado");
         return eMap.loadEquipoByModelo(modelo);
+    }
+
+    @Override
+    public void save(Modelo model) throws PersistenceException {
+        if(eMap.loadEquipoByModelo(model.getNombre())!=null)throw new PersistenceException("El modelo "+model.getNombre()+" ya existe");
+        eMap.insertModelo(model);
     }
 
 }

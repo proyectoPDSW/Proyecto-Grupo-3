@@ -18,6 +18,8 @@ public interface EquipoComplejoMapper {
     
     public void insertEquipo(@Param("EqComplejo") EquipoComplejo ec);
     
+    public void insertModelo(@Param("Modelo")Modelo m);
+    
     public ArrayList<EquipoComplejo> loadDisponibles();
     
     public EquipoComplejo loadEquipoBySerial(@Param("Eq_Serial") String serial);

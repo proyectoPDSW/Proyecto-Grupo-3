@@ -11,6 +11,6 @@ package eci.pdsw.servicios;
  */
 public abstract class ServiciosPrestamo {
     
-    private static final ServiciosPrestamo instance=new ServiciosPrestamoDAO();
+    private static final ServiciosPrestamo instance=new ServiciosPrestamoPersistence();
     
 }
