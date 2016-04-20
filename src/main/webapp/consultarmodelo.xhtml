@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html >
 
-<html xmlns="http://www.w3c.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -9,37 +10,38 @@
         <br></br><b><title>Consultar Modelo</title></b>
     </h:head>
     <h:body>
-        <cente><br></br><b><h1>Consultar Modelo</h1></b></center>
-            <h:form id="consultarModelo">
-                <p:panel id="consultaModelo" style="height:50px" >
-                    <br></br><b><p:outputLabel value="Nombre: "/></b>
-                    <br></br><b><p:inputText></p:inputText>
-                        <p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/>
-                </p:panel>
-            </h:form>
-            <p:separator />
-            <h:form id="modelos">
-                <p:panelGrid columns="2">
-                    <f:facet name="header">
-                        <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" />
-                    </f:facet>
+        <center><br></br><b><h1>Consultar Modelo</h1></b></center>
+        <h:form id="consultarModelo">
+            <p:panel id="consultaModelo" style="height:160px" >
+                <b><p:outputLabel value="Nombre: "/></b>
+                <br></br><b><p:inputText value="#{RegistroEquiposComplejos.nombreModelo}"></p:inputText></b>
+                <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/>
+                <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
+            </p:panel>
+        </h:form>
+        <p:separator />
+        <h:form id="modelos">
+            <p:panelGrid id="modeloconsultado" style="height:100px" columns="2">
+                <f:facet name="header">
+                    <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" />
+                </f:facet>
 
-                    <h:outputLabel value="Nombre:" />
-                    <h:outputText value="#{RegistroEquiposComplejos.modelo.nombre}" />
+                <h:outputLabel value="Nombre:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.nombre}" />
 
-                    <h:outputLabel value="Clase:" />
-                    <h:outputText value="#{RegistroEquiposComplejos.modelo.clase}" />
+                <h:outputLabel value="Clase:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.clase}" />
 
-                    <h:outputLabel value="Valor Comercial:" />
-                    <h:outputText value="#{RegistroEquiposComplejos.modelo.valorComercial}" />
+                <h:outputLabel value="Valor Comercial:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.valorComercial}" />
 
-                    <h:outputLabel value="Vida Util:" />
-                    <h:outputText value="#{RegistroEquiposComplejos.modelo.vidaUtil}" />
-                    
-                    <h:outputLabel value="Descripcion:" />
-                    <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
-                </p:panelGrid>
-            </h:form>
-            
+                <h:outputLabel value="Vida Util:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.vidaUtil}" />
+
+                <h:outputLabel value="Descripcion:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
+            </p:panelGrid>
+        </h:form>
+
     </h:body>
 </html>
