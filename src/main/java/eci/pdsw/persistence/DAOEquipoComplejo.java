@@ -12,13 +12,13 @@ import eci.pdsw.entities.EquipoComplejo;
  *
  * @author Zawsx
  */
-public interface DAOEquipoComplejo {
-    public EquipoComplejo load(String serial);
-    public EquipoComplejo load(int placa);
-    public void save(EquipoComplejo toSave);
-    public void update(EquipoComplejo toUpdate);
-    public void reemplazar(EquipoComplejo old,EquipoComplejo novo);
-    public ArrayList<EquipoComplejo> loadAll();
-    public ArrayList<EquipoComplejo> loadDisponibles();
-    public ArrayList<EquipoComplejo> loadByModelo(String modelo);
+public interface DAOEquipoComplejo{
+    public EquipoComplejo load(String serial) throws PersistenceException;
+    public EquipoComplejo load(int placa) throws PersistenceException;
+    public void save(EquipoComplejo toSave) throws PersistenceException;
+    public void update(EquipoComplejo toUpdate) throws PersistenceException;
+    public void reemplazar(EquipoComplejo old,EquipoComplejo novo) throws PersistenceException;
+    public ArrayList<EquipoComplejo> loadAll() throws PersistenceException;
+    public ArrayList<EquipoComplejo> loadDisponibles() throws PersistenceException;
+    public ArrayList<EquipoComplejo> loadByModelo(String modelo) throws PersistenceException;
 }

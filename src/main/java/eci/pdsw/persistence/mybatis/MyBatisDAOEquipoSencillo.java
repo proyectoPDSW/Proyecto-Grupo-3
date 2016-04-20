@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
 import eci.pdsw.entities.EquipoSencillo;
 import eci.pdsw.persistence.DAOEquipoSencillo;
+import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper;
 
 /**
@@ -26,23 +27,29 @@ public class MyBatisDAOEquipoSencillo implements DAOEquipoSencillo {
     }
 
     @Override
-    public EquipoSencillo load(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public EquipoSencillo load(String nombre) throws PersistenceException {
+        if(eMap.loadEquipoByNombre(nombre)==null) throw new PersistenceException("El equipo con nombre "+nombre+" no esta registrado");
+        return eMap.loadEquipoByNombre(nombre);
     }
 
     @Override
-    public void save(EquipoSencillo toSave) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void save(EquipoSencillo toSave) throws PersistenceException{
+        if(eMap.loadEquipoByNombre(toSave.getNombre())!=null) throw new PersistenceException("El equipo con nombre "+toSave.getNombre()+" ya esta registrado");
+        eMap.insertEquipo(toSave);
     }
 
     @Override
-    public void update(EquipoSencillo toUpdate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update(EquipoSencillo toUpdate) throws PersistenceException {
+        if(eMap.loadEquipoByNombre(toUpdate.getNombre())==null) throw new PersistenceException("El equipo con nombre "+toUpdate.getNombre()+" a actualizar no esta registrado");
+        EquipoSencillo test= eMap.loadEquipoByNombre(toUpdate.getNombre());
+        if(test.toString()!=toUpdate.toString()){
+            eMap.update(test, toUpdate);
+        }
     }
 
     @Override
-    public ArrayList<EquipoSencillo> loadAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<EquipoSencillo> loadAll() throws PersistenceException {
+        return eMap.loadAll();
     }
 
 }

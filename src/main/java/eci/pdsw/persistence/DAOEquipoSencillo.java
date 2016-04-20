@@ -11,8 +11,8 @@ import eci.pdsw.entities.*;
  * @author Zawsx
  */
 public interface DAOEquipoSencillo {
-    public EquipoSencillo load(String nombre);
-    public void save(EquipoSencillo toSave);
-    public void update(EquipoSencillo toUpdate);
-    public ArrayList<EquipoSencillo> loadAll();
+    public EquipoSencillo load(String nombre) throws PersistenceException;
+    public void save(EquipoSencillo toSave) throws PersistenceException;
+    public void update(EquipoSencillo toUpdate) throws PersistenceException;
+    public ArrayList<EquipoSencillo> loadAll() throws PersistenceException;
 }

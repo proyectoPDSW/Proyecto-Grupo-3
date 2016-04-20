@@ -5,10 +5,21 @@
  */
 package eci.pdsw.persistence.mybatis.mappers;
 
+import eci.pdsw.entities.EquipoSencillo;
+import java.util.ArrayList;
+import org.apache.ibatis.annotations.Param;
+
 /**
  *
  * @author 2107803
  */
 public interface EquipoSencilloMapper {
-    
+   
+   public void insertEquipo(@Param("EqSencillo") EquipoSencillo es);
+   
+   public EquipoSencillo loadEquipoByNombre(@Param("Eq_Nombre") String nombre);
+   
+   public void update(@Param("Eq_Viejo") EquipoSencillo eqv, @Param("Eq_Nuevo") EquipoSencillo eqn);
+   
+   public ArrayList<EquipoSencillo> loadAll();
 }
