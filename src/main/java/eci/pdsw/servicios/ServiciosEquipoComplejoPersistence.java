@@ -31,7 +31,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
         InputStream input = null;
         Properties properties = new Properties();
         try {
-            ServiciosEquipoComplejoPersistence.class.getClassLoader().getResource("applicationconfig.properties").openStream();
+            input=ServiciosEquipoComplejoPersistence.class.getClassLoader().getResource("applicationconfig.properties").openStream();
             properties.load(input);
         } catch (IOException ex) {
             Logger.getLogger(ServiciosEquipoComplejoPersistence.class.getName()).log(Level.SEVERE, null, ex);

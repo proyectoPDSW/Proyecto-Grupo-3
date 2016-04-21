@@ -32,7 +32,7 @@ public class MyBatisDAOFactory extends DAOFactory {
                 inputStream = Resources.getResourceAsStream(config);
                 sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
             } catch (Exception e) {
-                throw new RuntimeException(e.getCause());
+                throw new RuntimeException(e);
             }
         }
         return sqlSessionFactory;
