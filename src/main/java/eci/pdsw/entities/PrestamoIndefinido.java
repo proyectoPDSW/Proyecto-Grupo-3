@@ -23,7 +23,7 @@ public class PrestamoIndefinido extends Prestamo{
 
     @Override
     public String toString() {
-        return elQuePideElPrestamo + " " + equiposComplejosPrestados.toString() + " " + equiposSencillosPrestados.toString();
+        return getElQuePideElPrestamo() + " " + getEquiposComplejosPrestados().toString() + " " + getEquiposSencillosPrestados().toString();
     }
 
     @Override

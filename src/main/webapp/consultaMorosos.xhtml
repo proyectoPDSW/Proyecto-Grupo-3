@@ -5,7 +5,7 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3c.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
@@ -14,34 +14,34 @@ and open the template in the editor.
     <h:body>
         <h:form id="consultaMorosos">
             <p:panel id="conultMorosos" header="Consulta estudiantes morosos" style="margin-bottom:20px">
-                <p:dataTable >
-                <!--p:dataTable var="prestamo" value="#{consultaMorosos.morosos}" sortBy="#{prestamo.tiempoMora} sortOrder="descending" -->
+                <!--p:dataTable -->
+                <p:dataTable var="prestamo" value="#{consultaMorosos.morosos}">
                     <p:column headerText="fecha">
-                        
+                        <p:outputLabel value="#{prestamo.fechaEstimadaDeEntrega}"/>
                     </p:column>
 
-                    <p:column headerText="Equipo">
-                    <!--p:column headerText="Equipo" var="equipo" value="#{prestamo.equiposMorosos}" sortBy="#{equipo.valor}" -->
-                        <p:dataTable >
+                    <!--p:column headerText="Equipo"-->
+                    <p:column headerText="Equipo"  >
+                        <p:dataTable  value="#{prestamo.equiposComplejosFaltantes}" var="equipo">
                             <p:column headerText="Equipo">
-                                
+                                <p:outputLabel value=""/>
                             </p:column>
                             <p:column headerText="Valor">
-                                
+                                <p:outputLabel value=""/>
                             </p:column>
                         </p:dataTable>
                     </p:column>
                     <p:column headerText="Tiempo de mora">
                     <!--p:column headerText="Tiempo de mora" sortBy="#{prestamo.tiempoMora}" sortOrder="descending" -->
-                        
+                        <p:outputLabel value="#{consultaMorosos.diffDate(prestamo.fechaEstimadaDeEntrega)}"/>
                     </p:column>
 
                     <p:column headerText="Estudiante">
-                        
+                        <p:outputLabel value="#{prestamo.elQuePideElPrestamo.nombre} #{prestamo.elQuePideElPrestamo.apellido}"/>
                     </p:column>
                     
                     <p:column headerText="Correo">
-                        
+                        <p:outputLabel value="#{prestamo.elQuePideElPrestamo.email}"/>
                     </p:column>
                 </p:dataTable>
             </p:panel>

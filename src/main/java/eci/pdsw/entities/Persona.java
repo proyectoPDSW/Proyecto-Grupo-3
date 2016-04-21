@@ -38,7 +38,7 @@ public class Persona {
      */
     public boolean perteneceA(String departamento){
         boolean estaElDepartamento = false;
-        for (Iterator<String> iterator = roles.iterator();!estaElDepartamento && iterator.hasNext();) {
+        for (Iterator<String> iterator = getRoles().iterator();!estaElDepartamento && iterator.hasNext();) {
             String next = iterator.next();
             estaElDepartamento = next.equals(departamento);
         }
@@ -53,7 +53,7 @@ public class Persona {
      */
     public boolean esUn(String rol){
         boolean estaElRol = false;
-        for (Iterator<String> iterator = roles.iterator();!estaElRol && iterator.hasNext();) {
+        for (Iterator<String> iterator = getRoles().iterator();!estaElRol && iterator.hasNext();) {
             String next = iterator.next();
             estaElRol = next.equals(rol);
         }
@@ -68,6 +68,55 @@ public class Persona {
     @Override
     public String toString() {
         return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * @return the carnet
+     */
+    public String getCarnet() {
+        return carnet;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @return the apellido
+     */
+    public String getApellido() {
+        return apellido;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @return the telefono
+     */
+    public String getTelefono() {
+        return telefono;
+    }
+
+    /**
+     * @return the roles
+     */
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    /**
+     * @return the departamentos
+     */
+    public Set<String> getDepartamentos() {
+        return departamentos;
     }
     
 }

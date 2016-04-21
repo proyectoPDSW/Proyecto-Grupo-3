@@ -26,7 +26,7 @@ public class PrestamoTerminoFijo extends Prestamo {
 
     @Override
     public String toString() {
-        return elQuePideElPrestamo + " " + equiposComplejosPrestados.toString() + " " + equiposSencillosPrestados.toString()+ " " + fechaEstimadaDeEntrega;
+        return getElQuePideElPrestamo() + " " + getEquiposComplejosPrestados().toString() + " " + getEquiposSencillosPrestados().toString()+ " " + getFechaEstimadaDeEntrega();
     }
 
     @Override
