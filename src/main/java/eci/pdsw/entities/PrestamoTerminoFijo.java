@@ -37,5 +37,17 @@ public class PrestamoTerminoFijo extends Prestamo {
     public boolean enMora() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public int compareTo(Prestamo o) {
+        Timestamp curr=new Timestamp(System.currentTimeMillis());
+        int hoursCurr=curr.getHours()+curr.getDay()*24+curr.getMonth()*30*24+curr.getYear()*12*30*24;
+        Timestamp f=getFechaEstimadaDeEntrega();
+        int hoursThis=f.getHours()+f.getDay()*24+f.getMonth()*30*24+f.getYear()*12*30*24;
+        Timestamp of=o.getFechaEstimadaDeEntrega();
+        int hoursOther=of.getHours()+of.getDay()*24+of.getMonth()*30*24+of.getYear()*12*30*24;
+        if(hoursThis<hoursOther) return 1;
+        else return -1;
+    }
     
 }

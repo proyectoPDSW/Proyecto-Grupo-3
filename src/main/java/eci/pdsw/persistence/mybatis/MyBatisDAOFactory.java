@@ -9,6 +9,7 @@ import eci.pdsw.persistence.DAOEquipoComplejo;
 import eci.pdsw.persistence.DAOEquipoSencillo;
 import eci.pdsw.persistence.DAOFactory;
 import eci.pdsw.persistence.DAOPersona;
+import eci.pdsw.persistence.DAOPrestamos;
 import java.io.InputStream;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -74,6 +75,11 @@ public class MyBatisDAOFactory extends DAOFactory {
 
     @Override
     public DAOPersona getDaoPersona() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public DAOPrestamos getDaoPrestamos() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

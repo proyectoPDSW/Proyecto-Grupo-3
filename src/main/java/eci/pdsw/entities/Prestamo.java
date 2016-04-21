@@ -14,7 +14,7 @@ import java.util.Map;
  *
  * @author Hugo Alvarez
  */
-public abstract class Prestamo {
+public abstract class Prestamo implements Comparable<Prestamo> {
     protected int idPrestamo;
     protected Timestamp fechaInicio;
     protected Timestamp fechaEstimadaDeEntrega;
@@ -104,4 +104,6 @@ public abstract class Prestamo {
     public void setEquiposSencillosFaltantes(Map<EquipoSencillo,Integer> equiposSencillosFaltantes) {
         this.equiposSencillosFaltantes = equiposSencillosFaltantes;
     }
+    
+    public abstract int compareTo(Prestamo o);
 }

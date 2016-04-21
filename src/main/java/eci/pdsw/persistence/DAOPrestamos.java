@@ -5,10 +5,21 @@
  */
 package eci.pdsw.persistence;
 
+import eci.pdsw.entities.Prestamo;
+import java.sql.Timestamp;
+
 /**
  *
  * @author Hugo Alvarez
  */
 public interface DAOPrestamos {
+
+    /**
+     *
+     * @param fecha
+     * @param nombre
+     * @return
+     */
+    public Prestamo load(Timestamp fecha, String nombre);
     
 }

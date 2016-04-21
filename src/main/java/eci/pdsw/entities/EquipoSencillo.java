@@ -11,7 +11,7 @@ import com.mysql.jdbc.Blob;
  *
  * @author Julian Devia
  */
-public class EquipoSencillo {
+public class EquipoSencillo implements Comparable<EquipoSencillo> {
     private String nombre;
     private String clase;
     private long valorComercial;
@@ -99,6 +99,12 @@ public class EquipoSencillo {
     public String toString(){
         String res="EquipoSencillo:["+nombre+","+clase+","+valorComercial+","+cantidadTotal+"]\n";
         return res;
+    }
+
+    @Override
+    public int compareTo(EquipoSencillo o) {
+        if(valorComercial<o.valorComercial) return -1;
+        else return 1;
     }
     
 }

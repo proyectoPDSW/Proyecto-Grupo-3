@@ -43,7 +43,9 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
 
     @Override
     public List<Prestamo> consultarPrestamosMorosos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        daoF.beginSession();
+        basePaciente=daoF.getDaoPrestamos();
+        throw  new AssertionError();
     }
 
     @Override

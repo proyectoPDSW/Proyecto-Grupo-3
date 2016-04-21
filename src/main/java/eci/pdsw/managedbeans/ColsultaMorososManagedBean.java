@@ -15,6 +15,7 @@ import eci.pdsw.servicios.ServiciosPrestamo;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -31,13 +32,14 @@ import javax.faces.bean.SessionScoped;
 public class ColsultaMorososManagedBean {
     private final ServiciosPrestamo sp=ServiciosPrestamo.getInstance();
     
-    //private List<Prestamo> morosos;
+    private List<Prestamo> morosos;
 
     /**
+     * Consulta los prestamos en mora
      * @return the morosos
      */
     public List<Prestamo> getMorosos() {
-        /**Persona per=new Persona("2105684", "Julian", "Devia", "yo@asdads.com", "1234567");
+        Persona per=new Persona("2105684", "Julian", "Devia", "yo@asdads.com", "1234567");
         Modelo lod=new Modelo(5, "yonose", null, "grande", 1234);
         EquipoComplejo ec2=new EquipoComplejo(lod, "esta", "132456789");
         EquipoComplejo ec1=new EquipoComplejo(lod, "otra", "213456789");
@@ -49,11 +51,29 @@ public class ColsultaMorososManagedBean {
         Prestamo p= new PrestamoTerminoFijo(per, pres, es, new Timestamp(System.currentTimeMillis()));
         p.setEquiposComplejosFaltantes(falt);
         p.setEquiposSencillosFaltantes(es);
-        morosos=new LinkedList<>();morosos.add(p);
-        return morosos;**/
-        return sp.consultarPrestamosMorosos();
+        
+        Persona oper=new Persona("2107646", "Daniela", "Sepulveda", "ella@asdads.com", "1234567");
+        Modelo mod=new Modelo(5, "yosise", null, "pequeño", 4321);
+        EquipoComplejo oec2=new EquipoComplejo(mod, "este", "13456789");
+        EquipoComplejo oec1=new EquipoComplejo(mod, "otro", "21356789");
+        List<EquipoComplejo> opres=new LinkedList<>();
+        List<EquipoComplejo> ofalt=new LinkedList<>();
+        EquipoSencillo oes1=new EquipoSencillo("chao", "tornillos", 125, 5);
+        HashMap<EquipoSencillo,Integer> oes=new HashMap<>();es.put(oes1,2);
+        opres.add(oec1);opres.add(oec2);ofalt.add(oec2);
+        Prestamo op= new PrestamoTerminoFijo(oper, opres, oes, new Timestamp(System.currentTimeMillis()-10000));
+        op.setEquiposComplejosFaltantes(ofalt);
+        op.setEquiposSencillosFaltantes(oes);
+        morosos=new LinkedList<>();morosos.add(op);morosos.add(p);
+        Collections.sort(morosos);
+        return morosos;
+        //return sp.consultarPrestamosMorosos();
     }
-    
+    /**
+     * halla la diferencia en horas entre d y la hora actual
+     * @param d la hora con la que se quiere comparar la fecha actual
+     * @return la diferencia en horas entre d y la hora actual
+     */
     public int diffHoras(Timestamp d){
         Timestamp curr=new Timestamp(System.currentTimeMillis());
         int hoursCurr=curr.getHours()+curr.getDay()*24+curr.getMonth()*30*24+curr.getYear()*12*30*24;
