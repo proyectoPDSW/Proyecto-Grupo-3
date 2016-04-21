@@ -42,6 +42,13 @@
                 <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
             </p:panelGrid>
         </h:form>
+        <h:form id="registrar">
+
+        </h:form>
+        <h:panelGroup rendered="#{RegistroEquiposComplejos.showPassword}">
+            <h:outputLabel value="Descripcion:" />
+            <h:outputText id="password" value="#{userBean.password}"/>
+        </h:panelGroup>
 
     </h:body>
 </html>
