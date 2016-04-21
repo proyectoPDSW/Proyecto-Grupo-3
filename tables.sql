@@ -1,11 +1,11 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2016-04-18 12:56:58.479
+-- Last modification date: 2016-04-21 03:56:33.007
 
 -- tables
 -- Table: Departamento_persona
 CREATE TABLE Departamento_persona (
     departamento varchar(50) NOT NULL,
-    persona int NOT NULL,
+    persona varchar(20) NOT NULL,
     CONSTRAINT Departamento_persona_pk PRIMARY KEY (departamento,persona)
 )ENGINE=InnoDB;
 
@@ -19,6 +19,7 @@ CREATE TABLE Departamentos (
 CREATE TABLE Equipo_prestamo_complejo (
     equipo_complejo int NOT NULL,
     prestamo int NOT NULL,
+    devuelto bool NOT NULL,
     CONSTRAINT Equipo_prestamo_complejo_pk PRIMARY KEY (equipo_complejo,prestamo)
 )ENGINE=InnoDB;
 
@@ -27,6 +28,7 @@ CREATE TABLE Equipo_prestamo_sencillo (
     prestamo int NOT NULL,
     equipo varchar(100) NOT NULL,
     cantidad int NOT NULL,
+    cantidad_devuelta int NOT NULL,
     CONSTRAINT Equipo_prestamo_sencillo_pk PRIMARY KEY (prestamo,equipo)
 )ENGINE=InnoDB;
 
@@ -37,14 +39,13 @@ CREATE TABLE Equipos_Complejos (
     num_placa int NULL,
     disponibilidad bool NOT NULL,
     estado varchar(50) NOT NULL,
-    modelo varchar(50) NOT NULL,
+    modelo varchar(50) NULL,
     asegurado bool NOT NULL,
     marca varchar(30) NOT NULL,
     UNIQUE INDEX SERIAL_AK (serial),
     UNIQUE INDEX NUM_PLACA_AK (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (id_equipo_complejo)
-)
-ENGINE=InnoDB;
+) ENGINE=InnoDB;
 
 -- Table: Equipos_Sencillos
 CREATE TABLE Equipos_Sencillos (
@@ -55,12 +56,20 @@ CREATE TABLE Equipos_Sencillos (
     valor_comercial int NOT NULL,
     UNIQUE INDEX NOMBRE_AK (nombre),
     CONSTRAINT Equipos_Sencillos_pk PRIMARY KEY (nombre)
-)
-ENGINE=InnoDB;
+) ENGINE=InnoDB;
+
+-- Table: Informacion_Compra
+CREATE TABLE Informacion_Compra (
+    id int NOT NULL AUTO_INCREMENT,
+    equipo int NOT NULL,
+    fecha_compra date NOT NULL,
+    proveedor varchar(100) NOT NULL,
+    fecha_garantia date NOT NULL,
+    CONSTRAINT Informacion_Compra_pk PRIMARY KEY (id)
+)ENGINE=InnoDB;
 
 -- Table: Modelos
 CREATE TABLE Modelos (
-    id_modelo varchar(50) NOT NULL,
     vida_util int NOT NULL,
     fotografia blob NOT NULL,
     valor_comercial int NOT NULL,
@@ -68,29 +77,20 @@ CREATE TABLE Modelos (
     descripcion varchar(200) NOT NULL,
     accesorios varchar(300) NOT NULL,
     nombre varchar(100) NOT NULL,
-    CONSTRAINT Modelos_pk PRIMARY KEY (id_modelo)
-)ENGINE=InnoDB;
-
--- Table: Ordenes_compra
-CREATE TABLE Ordenes_compra (
-    id int NOT NULL AUTO_INCREMENT,
-    equipo int NOT NULL,
-    fecha_compra date NOT NULL,
-    proveedor varchar(100) NOT NULL,
-    fecha_garantia date NOT NULL,
-    CONSTRAINT Ordenes_compra_pk PRIMARY KEY (id)
+    CONSTRAINT Modelos_pk PRIMARY KEY (nombre)
 )ENGINE=InnoDB;
 
 -- Table: Personas
 CREATE TABLE Personas (
-    carne int NOT NULL,
+    carne varchar(20) NOT NULL,
     nombre varchar(100) NOT NULL,
     apellido varchar(100) NOT NULL,
     email varchar(50) NOT NULL,
     telefono varchar(20) NOT NULL,
+    rol varchar(50) NOT NULL,
     UNIQUE INDEX EMAIL_AK (email),
     CHECK (email like '%.escuelaing.edu.co'),
-    
+    CHECK (rol in ("estudiante","profesor","laboratorista")),
     CONSTRAINT Personas_pk PRIMARY KEY (carne)
 )ENGINE=InnoDB;
 
@@ -98,29 +98,17 @@ CREATE TABLE Personas (
 CREATE TABLE Prestamos (
     id_prestamo int NOT NULL AUTO_INCREMENT,
     fecha_inicio date NOT NULL,
-    persona int NOT NULL,
+    persona varchar(20) NOT NULL,
     fecha_fin_estimada date NULL,
     fecha_fin_real date NULL,
+    tipo_prestamo varchar(100) NOT NULL,
     CONSTRAINT Prestamos_pk PRIMARY KEY (id_prestamo)
-)ENGINE=InnoDB;
-
--- Table: Rol_persona
-CREATE TABLE Rol_persona (
-    persona int NOT NULL,
-    rol varchar(50) NOT NULL,
-    CHECK (rol in ('estudiante','profesor','laboratorista')),
-    CONSTRAINT Rol_persona_pk PRIMARY KEY (persona,rol)
-)ENGINE=InnoDB;
-
--- Table: Roles
-CREATE TABLE Roles (
-    rol varchar(50) NOT NULL,
-    CONSTRAINT Roles_pk PRIMARY KEY (rol)
 )ENGINE=InnoDB;
 
 -- foreign keys
 -- Reference: Departamento_persona_Departamentos (table: Departamento_persona)
-ALTER TABLE Departamento_persona ADD CONSTRAINT Departa_persona_Departa FOREIGN KEY(departamento) REFERENCES Departamentos(departamento);
+ALTER TABLE Departamento_persona ADD CONSTRAINT Departamento_persona_Departamentos FOREIGN KEY (departamento)
+    REFERENCES Departamentos (departamento);
 
 -- Reference: Departamento_persona_Personas (table: Departamento_persona)
 ALTER TABLE Departamento_persona ADD CONSTRAINT Departamento_persona_Personas FOREIGN KEY (persona)
@@ -143,24 +131,16 @@ ALTER TABLE Equipo_prestamo_sencillo ADD CONSTRAINT Equipo_prestamo_sencillo_Pre
     REFERENCES Prestamos (id_prestamo);
 
 -- Reference: Equipos_Complejos_Modelos (table: Equipos_Complejos)
-ALTER TABLE Equipos_Complejos ADD CONSTRAINT Equipos_Complejos_Modelos FOREIGN KEY (modelo)
-    REFERENCES Modelos (id_modelo);
+ALTER TABLE Equipos_Complejos ADD CONSTRAINT Equipos_Complejos_Modelos FOREIGN KEY (marca)
+    REFERENCES Modelos (nombre);
 
--- Reference: Ordenes_compra_Equipos_Complejos (table: Ordenes_compra)
-ALTER TABLE Ordenes_compra ADD CONSTRAINT Ordenes_compra_Equipos_Complejos FOREIGN KEY (equipo)
+-- Reference: Ordenes_compra_Equipos_Complejos (table: Informacion_Compra)
+ALTER TABLE Informacion_Compra ADD CONSTRAINT Ordenes_compra_Equipos_Complejos FOREIGN KEY (equipo)
     REFERENCES Equipos_Complejos (id_equipo_complejo);
 
 -- Reference: Persona_Prestamo (table: Prestamos)
 ALTER TABLE Prestamos ADD CONSTRAINT Persona_Prestamo FOREIGN KEY (persona)
     REFERENCES Personas (carne);
-
--- Reference: Table_17_Personas (table: Rol_persona)
-ALTER TABLE Rol_persona ADD CONSTRAINT Table_17_Personas FOREIGN KEY(persona)
-    REFERENCES Personas (carne);
-
--- Reference: Table_17_Roles (table: Rol_persona)
-ALTER TABLE Rol_persona ADD CONSTRAINT Table_17_Roles FOREIGN KEY (rol)
-    REFERENCES Roles (rol);
 
 -- End of file.
 
