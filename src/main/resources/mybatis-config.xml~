@@ -26,9 +26,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			</dataSource>
 		</environment>
 	</environments>
-	<typeHandlers>
-		<typeHandler handler="org.mybatis.example.ExampleTypeHandler"/>
-	</typeHandlers>
 	<mappers>
 		<mapper resource="mappers/EquipoComplejoMapper.xml"></mapper>
 		<mapper resource="mappers/EquipoSencilloMapper.xml"></mapper>

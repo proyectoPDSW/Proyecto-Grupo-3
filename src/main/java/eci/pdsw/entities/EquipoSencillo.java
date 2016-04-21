@@ -5,6 +5,8 @@
  */
 package eci.pdsw.entities;
 
+import com.mysql.jdbc.Blob;
+
 /**
  *
  * @author amoto
@@ -14,7 +16,7 @@ public class EquipoSencillo {
     private String clase;
     private long valorComercial;
     private int cantidadTotal;
-    private byte[] fotografia;
+    private Blob fotografia;
 
     public EquipoSencillo(String name, String clas,long valorC, int cantidad) {
         nombre=name;
@@ -82,14 +84,14 @@ public class EquipoSencillo {
     /**
      * @return the fotografia
      */
-    public byte[] getFotografia() {
+    public Blob getFotografia() {
         return fotografia;
     }
 
     /**
      * @param fotografia the fotografia to set
      */
-    public void setFotografia(byte[] fotografia) {
+    public void setFotografia(Blob fotografia) {
         this.fotografia = fotografia;
     }
     
