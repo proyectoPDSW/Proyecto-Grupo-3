@@ -81,4 +81,12 @@ public interface DAOEquipoComplejo {
      * @throws PersistenceException si el modelo ya existe
      */
     public void save(Modelo model) throws PersistenceException;
+    
+    /**
+     * Carga un modelo de la base de datos
+     * @param nombre del modelo a cargar
+     * @return modelo cargado
+     * @throws PersistenceException si el modelo no existe
+     */
+    public Modelo loadModelo(String nombre)throws PersistenceException;
 }

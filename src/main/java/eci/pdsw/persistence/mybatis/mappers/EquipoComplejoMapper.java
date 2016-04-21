@@ -33,4 +33,6 @@ public interface EquipoComplejoMapper {
     public ArrayList<EquipoComplejo> loadAll();
     
     public ArrayList<EquipoComplejo> loadEquipoByModelo(@Param("Eq_Modelo") String modelo);
+
+    public Modelo loadModelo(String nombre);
 }

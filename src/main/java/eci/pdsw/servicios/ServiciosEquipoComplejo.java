@@ -80,4 +80,11 @@ public abstract class ServiciosEquipoComplejo {
      */
     public abstract void actualizarEquipo(EquipoComplejo toUpdate)throws ExcepcionServicios;
 
+    /**
+     * Consulta un modelo basado en el nombre
+     * @param nombre del modelo
+     * @return Modelo cargado
+     * @throws ExcepcionServicios Si el modelo no esta registrado
+     */
+    public abstract Modelo consultarModelo(String nombre)throws ExcepcionServicios;
 }
