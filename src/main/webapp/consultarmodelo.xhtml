@@ -14,14 +14,15 @@
         <h:form id="consultarModelo">
             <p:panel id="consultaModelo" style="height:160px" >
                 <b><p:outputLabel value="Nombre: "/></b>
-                <br></br><b><p:inputText value="#{RegistroEquiposComplejos.nombreModelo}" required="true" ></p:inputText></b>
-                <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/><space></space><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarModelo()}" update =":registrar" />
+                <br></br><b><p:inputText value="#{RegistroEquiposComplejos.nombreModelo}"></p:inputText></b>
+                <br></br>
+                <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/><space> </space><p:commandButton value="Agregar Modelo" actionListener="#{RegistroEquiposComplejos.agregarModelo()}" update =":modelos" icon="ui-icon-plusthick"/>
                 <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
-            </p:panel>
+            </p:panel>	
         </h:form>
         <p:separator />
         <h:form id="modelos">
-            <p:panelGrid id="modeloconsultado" style="height:100px" columns="2" rendered="#{RegistroEquiposComplejos.showPanelConsulta}">
+            <p:panelGrid id="modeloconsultado" style="height:100px" columns="2" rendered="#{RegistroEquiposComplejos.showPanelConsulta()}">
                 <f:facet name="header">
                     <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" />
                 </f:facet>
@@ -41,28 +42,34 @@
                 <h:outputLabel value="Descripcion:" />
                 <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
             </p:panelGrid>
-        </h:form>
-        <h:form id="registrar">
-            <p:panelGrid id="registrarModelo" style="height:200px" columns="2" rendered="#{RegistroEquiposComplejos.showPanelConsulta}">
-                <f:facet name="header">
-                    <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" />
-                </f:facet>
+            <p:panel id="registrarModelo" rendered="#{RegistroEquiposComplejos.showPanelRegistro()}">
+                <p:panelGrid columns="2" rendered="#{RegistroEquiposComplejos.showPanelRegistro()}">
+                    <h:outputLabel for="image" value="Select Image: *" />
+                    <p:fileUpload value="#{RegistroEquiposComplejos.file}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                    <f:facet name="footer">
+                        <p:commandButton value="Submit" ajax="false" actionListener="#{RegistroEquiposComplejos.upload}"/></f:facet>
+                </p:panelGrid>
+                <br></br><h:outputLabel value="Nombre:" />
+                <br></br><h:inputText value="#{RegistroEquiposComplejos.nombre}" />
 
-                <h:outputLabel value="Nombre:" />
-                <h:outputText value="#{RegistroEquiposComplejos.modelo.nombre}" />
+                <br></br><h:outputLabel value="Clase:" />
+                <br></br><h:inputText value="#{RegistroEquiposComplejos.clase}" />
 
-                <h:outputLabel value="Clase:" />
-                <h:outputText value="#{RegistroEquiposComplejos.modelo.clase}" />
+                <br></br><h:outputLabel value="Valor Comercial:" />
+                <br></br><h:inputText value="#{RegistroEquiposComplejos.valorComercial}" />
 
-                <h:outputLabel value="Valor Comercial:" />
-                <h:outputText value="#{RegistroEquiposComplejos.modelo.valorComercial}" />
+                <br></br><h:outputLabel value="Vida Util:" />
+                <br></br><h:inputText value="#{RegistroEquiposComplejos.vidaUtil}" />
 
-                <h:outputLabel value="Vida Util:" />
-                <h:outputText value="#{RegistroEquiposComplejos.modelo.vidaUtil}" />
+                <br></br> <h:outputLabel value="Descripcion:" />
+                <br></br><h:inputText value="#{RegistroEquiposComplejos.descripcion}" />
 
-                <h:outputLabel value="Descripcion:" />
-                <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
-            </p:panelGrid>
+                <br></br><p:column colspan="7"><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarModelo()}"/></p:column>
+                <br></br>
+                <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
+            </p:panel>
+            <p:separator />
+
         </h:form>
     </h:body>
 </html>

@@ -48,7 +48,7 @@ public class MyBatisDAOEquipoSencillo implements DAOEquipoSencillo {
             throw new PersistenceException("El equipo con nombre " + toUpdate.getNombre() + " a actualizar no esta registrado");
         }
         EquipoSencillo test = eMap.loadEquipoByNombre(toUpdate.getNombre());
-        if (test.toString() != toUpdate.toString()) {
+        if (!test.toString().equals(toUpdate.toString())) {
             eMap.update(test, toUpdate);
         }
     }
