@@ -6,12 +6,9 @@
 package eci.pdsw.managedbeans;
 
 import com.mysql.jdbc.Blob;
-import com.mysql.jdbc.BlobFromLocator;
 import eci.pdsw.entities.Modelo;
 import eci.pdsw.servicios.ExcepcionServicios;
 import eci.pdsw.servicios.ServiciosEquipoComplejo;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,17 +30,28 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
     private final ServiciosEquipoComplejo servicios=ServiciosEquipoComplejo.getInstance();
         
     private String nombreModelo;
+    
     private Modelo modelo;
+
+        private int vidaUtil;
+        private String nombre;
+        private String clase;
+        private long valorComercial;
+        private Blob fotografia;
+        private String descripcion;
+        private String accesorios;
      
 
-    private boolean showPassword = true;
+    private boolean showPanelConsultaModelo = false;
+    private boolean showPanelRegistroModelo = false;
     
-    public Blob getFotografia() {
-        return modelo.getFotografia();
-    }
-
-    public Modelo getModelo() {
-        return modelo;
+  
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }
     
     public void setNombreModelo(String nombreModelo) {
@@ -53,28 +61,98 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
     public String getNombreModelo() {
         return nombreModelo;
     }
+    public Modelo getModelo() {
+        return modelo;
+    }
+    public boolean showPanelConsulta(){
+        return showPanelConsultaModelo;
+    }
     
+    public boolean showPanelRegistro(){
+        return showPanelRegistroModelo;
+    }
     public void consultarModelo(){
         try {
             servicios.consultarPorModelo(nombreModelo);
+            showPanelRegistroModelo=false;
+            showPanelConsultaModelo=true;
         } catch (ExcepcionServicios ex) {
-            facesError("");
+            facesError("No se ha encontrado el modelos con nombre "+nombreModelo);
             Logger.getLogger(RegistroEquipoComplejoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
     public void registrarModelo(){
-        
+        try {
+            modelo=new Modelo(vidaUtil,nombre,fotografia,clase,valorComercial);
+            if(!(descripcion==null || descripcion.length()==0)){
+                modelo.setDescripcion(descripcion);
+            }
+            if(!(accesorios==null || accesorios.length()==0)){
+                modelo.setAccesorios(accesorios);
+            }
+            servicios.registrarModelo(modelo);
+            showPanelConsultaModelo=false;
+            showPanelRegistroModelo=true;
+        } catch (ExcepcionServicios ex) {
+            facesError("Los datos no son correctos");
+            Logger.getLogger(RegistroEquipoComplejoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }  
+
+    public int getVidaUtil() {
+        return vidaUtil;
     }
-     
-    public boolean isShowPassword(){
-        return showPassword;
+
+    public void setVidaUtil(int vidaUtil) {
+        this.vidaUtil = vidaUtil;
     }
-    /**
-     * Adds a new SEVERITY_ERROR FacesMessage for the ui
-     * @param message Error Message
-     */
-    private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getClase() {
+        return clase;
+    }
+
+    public void setClase(String clase) {
+        this.clase = clase;
+    }
+
+    public long getValorComercial() {
+        return valorComercial;
+    }
+
+    public void setValorComercial(long valorComercial) {
+        this.valorComercial = valorComercial;
+    }
+
+    public Blob getFotografia() {
+        return fotografia;
+    }
+
+    public void setFotografia(Blob fotografia) {
+        this.fotografia = fotografia;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getAccesorios() {
+        return accesorios;
+    }
+
+    public void setAccesorios(String accesorios) {
+        this.accesorios = accesorios;
     }
 }
