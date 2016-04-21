@@ -149,4 +149,18 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
         }
     }
 
+    @Override
+    public Modelo consultarModelo(String nombre) throws ExcepcionServicios {
+        try {
+            dao.beginSession();
+            complejoPersistencia=dao.getDaoEquipoComplejo();
+            Modelo ans=complejoPersistencia.loadModelo(nombre);
+            dao.commitTransaction();
+            dao.endSession();
+            return ans;
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServicios(ex.getMessage());
+        }
+    }
+
 }

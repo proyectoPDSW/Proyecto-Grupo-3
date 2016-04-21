@@ -15,6 +15,11 @@ public abstract class DAOFactory {
 
     private static DAOFactory instance = null;
 
+    /**
+     * Obtiene una instancia del DAOFactory
+     * @param appProperties Las propiedades del instance
+     * @return La DAOFactory concerniente a las properties
+     */
     public static DAOFactory getInstance(Properties appProperties) {
         if (instance == null) {
             synchronized (DAOFactory.class) {
@@ -30,18 +35,42 @@ public abstract class DAOFactory {
         return instance;
     }
 
+    /**
+     * Inicia una nueva sesion
+     */
     public abstract void beginSession();
 
+    /**
+     * Hace commit a los cambios hechos
+     */
     public abstract void commitTransaction();
 
+    /**
+     * Hace rollback de los cambios hechos
+     */
     public abstract void rollbackTransaction();
 
+    /**
+     * Cierra la sesion actual
+     */
     public abstract void endSession();
 
+    /**
+     * Obtiene un DAOEquipoComplejo
+     * @return el DAOEquipoComplejo correspondiente a las propiedades del DAOFactory
+     */
     public abstract DAOEquipoComplejo getDaoEquipoComplejo();
 
+    /**
+     * Obtiene un DAOEquipoSencillo
+     * @return  el DAOEquipoSencillo correspondiente a las propiedades del DAOFactory
+     */
     public abstract DAOEquipoSencillo getDaoEquipoSencillo();
 
+    /**
+     * Obtiene un DAOPersona
+     * @return el DAOPersona correspondiente a las propiedades del DAOFactory
+     */
     public abstract DAOPersona getDaoPersona();
 
 }

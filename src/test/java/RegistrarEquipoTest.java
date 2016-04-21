@@ -100,7 +100,6 @@ public class RegistrarEquipoTest {
             Assert.fail("Registro dos veces el mismo equipo"); 
         }catch(IOException | PersistenceException e){
             Assert.assertEquals(e.getMessage(),"El equipo con nombre "+es.getNombre()+" ya esta registrado");
-
     }
   }
 }
