@@ -32,7 +32,7 @@ and open the template in the editor.
                         </p:dataTable>
                     </p:column>
                     <p:column headerText="Tiempo de mora">
-                    <!--p:column headerText="Tiempo de mora" sortBy="#{prestamo.tiempoMora}" sortOrder="descending" -->
+                    <!--p:column headerText="Tiempo de mora" sortBy="prestamo.tiempoMora" sortOrder="descending" -->
                         <p:outputLabel value="#{consultaMorosos.diffDate(prestamo.fechaEstimadaDeEntrega)}"/>
                     </p:column>
 
