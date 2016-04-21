@@ -5,7 +5,7 @@
  */
 package eci.pdsw.entities;
 
-import com.mysql.jdbc.Blob;
+import java.sql.Blob;
 
 /**
  *
@@ -16,12 +16,12 @@ public class Modelo {
     private String nombre;
     private String clase;
     private long valorComercial;
-    private Blob fotografia;
+    private String fotografia;
     private String descripcion;
     private String accesorios;
 
 
-    public Modelo(int vidaU, String name, Blob foto, String clas, long valor) {
+    public Modelo(int vidaU, String name, String foto, String clas, long valor) {
        vidaUtil=vidaU;
        nombre=name;
        clase=clas;
@@ -37,11 +37,11 @@ public class Modelo {
         this.descripcion = descripcion;
     }
     
-    public void setFotografia(Blob fotografia) {
+    public void setFotografia(String fotografia) {
         this.fotografia = fotografia;
     }
 
-    public Blob getFotografia() {
+    public String getFotografia() {
         return fotografia;
     }
     

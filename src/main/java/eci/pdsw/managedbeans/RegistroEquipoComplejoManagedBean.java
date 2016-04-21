@@ -5,7 +5,7 @@
  */
 package eci.pdsw.managedbeans;
 
-import com.mysql.jdbc.Blob;
+import java.sql.Blob;
 import eci.pdsw.entities.Modelo;
 import eci.pdsw.servicios.ExcepcionServicios;
 import eci.pdsw.servicios.ServiciosEquipoComplejo;
@@ -14,9 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -38,10 +38,10 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         private String nombre;
         private String clase;
         private long valorComercial;
-        private Blob fotografia;
+        private String fotografia;
         private String descripcion;
         private String accesorios;
-    private UploadedFile file;
+    
 
     private boolean showPanelConsultaModelo = false;
     private boolean showPanelRegistroModelo = false;
@@ -110,32 +110,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             Logger.getLogger(RegistroEquipoComplejoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }  
-
- 
-    public UploadedFile getFile() {
-        return file;
-    }
- 
-    public void setFile(UploadedFile file) {
-        this.file = file;
-    }
- 
-    public void upload() {
-        if (file != null) {
-            try {
-                
-                FacesMessage msg = new FacesMessage("Carga exitosa !!", file.getFileName());
-                FacesContext.getCurrentInstance().addMessage(null, msg);
- 
-            } catch (Exception e) {
-                System.out.println("Exception-File Upload." + e.getMessage());
-            }
-        }
-        else{
-        FacesMessage msg = new FacesMessage("Por favor seleccione una imagen !!!");
-                FacesContext.getCurrentInstance().addMessage(null, msg);
-        }
-    }
     public int getVidaUtil() {
         return vidaUtil;
     }
@@ -168,11 +142,11 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         this.valorComercial = valorComercial;
     }
 
-    public Blob getFotografia() {
+    public String getFotografia() {
         return fotografia;
     }
 
-    public void setFotografia(Blob fotografia) {
+    public void setFotografia(String fotografia) {
         this.fotografia = fotografia;
     }
 
