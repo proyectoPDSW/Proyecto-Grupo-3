@@ -7,9 +7,9 @@ package eci.pdsw.entities;
 
 /**
  *
- * @author Zawsx
+ * @author David Useche
  */
-public class EquipoComplejo {
+public class EquipoComplejo implements Comparable<EquipoComplejo> {
     int id_Eq;
     private boolean asegurado;
     private boolean disponibilidad;
@@ -95,6 +95,12 @@ public class EquipoComplejo {
         String res="EquipoComplejo:["+id_Eq+","+asegurado+","+disponibilidad+","+estado+","+serial+","+placa+","+marca+"]\n";
         res+=modelo_Eq.toString();
         return res;
+    }
+
+    @Override
+    public int compareTo(EquipoComplejo o) {
+        if(modelo_Eq.getValorComercial()<o.modelo_Eq.getValorComercial()) return -1;
+        else return 1;
     }
     
 }

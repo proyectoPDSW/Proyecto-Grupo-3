@@ -9,7 +9,7 @@ import eci.pdsw.entities.EquipoComplejo;
 import eci.pdsw.entities.Persona;
 import eci.pdsw.entities.Prestamo;
 import eci.pdsw.persistence.DAOFactory;
-import eci.pdsw.persistence.DAOPrestamos;
+import eci.pdsw.persistence.DAOPrestamo;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
 
-    private DAOPrestamos basePaciente;
+    private DAOPrestamo basePaciente;
     private DAOFactory daoF;
     
     public ServiciosPrestamoPersistence() {
@@ -43,7 +43,9 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
 
     @Override
     public List<Prestamo> consultarPrestamosMorosos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        daoF.beginSession();
+        basePaciente=daoF.getDaoPrestamo();
+        throw  new AssertionError();
     }
 
     @Override

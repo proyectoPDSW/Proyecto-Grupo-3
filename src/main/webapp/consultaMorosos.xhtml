@@ -13,10 +13,10 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h:form id="consultaMorosos">
-            <p:panel id="conultMorosos" header="Consulta estudiantes morosos" style="margin-bottom:20px">
+            <p:panel id="conultMorosos" header="Prestamos en mora" style="margin-bottom:20px">
                 <!--p:dataTable -->
-                <p:dataTable var="prestamo" value="#{consultaMorosos.morosos}">
-                    <p:column headerText="fecha">
+                <p:dataTable var="prestamo" value="#{consultaMorosos.morosos}" >
+                    <p:column headerText="fecha" width="200">
                         <p:outputLabel value="#{prestamo.fechaEstimadaDeEntrega}"/>
                     </p:column>
 
@@ -24,23 +24,36 @@ and open the template in the editor.
                     <p:column headerText="Equipo"  >
                         <p:dataTable  value="#{prestamo.equiposComplejosFaltantes}" var="equipo">
                             <p:column headerText="Equipo">
-                                <p:outputLabel value=""/>
+                                <p:outputLabel value="#{equipo.modelo_Eq.nombre} #{equipo.marca}"/>
                             </p:column>
-                            <p:column headerText="Valor">
-                                <p:outputLabel value=""/>
+                            <p:column headerText="Valor" >
+                                <p:outputLabel value="#{equipo.modelo_Eq.valorComercial}"/>
                             </p:column>
                         </p:dataTable>
                     </p:column>
-                    <p:column headerText="Tiempo de mora">
+                        <p:column headerText="Otros Equipos">
+                            <p:dataTable value="#{prestamo.equiposSencillosFaltantes.keySet()}" var="equipo">
+                                <p:column headerText="Equipo">
+                                    <p:outputLabel value="#{equipo.nombre}"/>
+                                </p:column>
+                                <p:column headerText="Cantidad">
+                                    <p:outputLabel value="#{prestamo.equiposSencillosFaltantes.get(equipo)}"/>
+                                </p:column>
+                                <p:column headerText="Valor">
+                                    <p:outputLabel value="#{equipo.valorComercial}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:column>
+                    <p:column headerText="Tiempo de mora" width="100" >
                     <!--p:column headerText="Tiempo de mora" sortBy="prestamo.tiempoMora" sortOrder="descending" -->
-                        <p:outputLabel value="#{consultaMorosos.diffDate(prestamo.fechaEstimadaDeEntrega)}"/>
+                        <p:outputLabel value="#{consultaMorosos.diffHoras(prestamo.fechaEstimadaDeEntrega)} horas"/>
                     </p:column>
 
-                    <p:column headerText="Estudiante">
+                    <p:column headerText="Estudiante" width="300">
                         <p:outputLabel value="#{prestamo.elQuePideElPrestamo.nombre} #{prestamo.elQuePideElPrestamo.apellido}"/>
                     </p:column>
                     
-                    <p:column headerText="Correo">
+                    <p:column headerText="Correo" width="300">
                         <p:outputLabel value="#{prestamo.elQuePideElPrestamo.email}"/>
                     </p:column>
                 </p:dataTable>

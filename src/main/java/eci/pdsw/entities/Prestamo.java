@@ -6,6 +6,7 @@
 package eci.pdsw.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -13,15 +14,15 @@ import java.util.Map;
  *
  * @author Hugo Alvarez
  */
-public abstract class Prestamo {
+public abstract class Prestamo implements Comparable<Prestamo> {
     protected int idPrestamo;
-    protected Date fechaInicio;
-    protected Date fechaEstimadaDeEntrega;
-    protected Date fechaRealEntregada;
+    protected Timestamp fechaInicio;
+    protected Timestamp fechaEstimadaDeEntrega;
+    protected Timestamp fechaRealEntregada;
     protected List<EquipoComplejo> equiposComplejosPrestados;
     protected List<EquipoComplejo> equiposComplejosFaltantes;
     protected Map<EquipoSencillo,Integer> equiposSencillosPrestados;
-    protected Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
+    private Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
     protected Persona elQuePideElPrestamo;
     
     @Override
@@ -51,21 +52,21 @@ public abstract class Prestamo {
     /**
      * @return the fechaInicio
      */
-    public Date getFechaInicio() {
+    public Timestamp getFechaInicio() {
         return fechaInicio;
     }
 
     /**
      * @return the fechaEstimadaDeEntrega
      */
-    public Date getFechaEstimadaDeEntrega() {
+    public Timestamp getFechaEstimadaDeEntrega() {
         return fechaEstimadaDeEntrega;
     }
 
     /**
      * @return the fechaRealEntregada
      */
-    public Date getFechaRealEntregada() {
+    public Timestamp getFechaRealEntregada() {
         return fechaRealEntregada;
     }
 
@@ -96,4 +97,30 @@ public abstract class Prestamo {
     public Persona getElQuePideElPrestamo() {
         return elQuePideElPrestamo;
     }
+
+    public int getIdPrestamo() {
+        return idPrestamo;
+    }
+
+    public void setIdPrestamo(int idPrestamo) {
+        this.idPrestamo = idPrestamo;
+    }
+
+    public void setEquiposComplejosPrestados(List<EquipoComplejo> equiposComplejosPrestados) {
+        this.equiposComplejosPrestados = equiposComplejosPrestados;
+    }
+
+    public void setEquiposSencillosPrestados(Map<EquipoSencillo, Integer> equiposSencillosPrestados) {
+        this.equiposSencillosPrestados = equiposSencillosPrestados;
+    }
+
+    public void setEquiposSencillosFaltantes(Map<EquipoSencillo, Integer> equiposSencillosFaltantes) {
+        this.equiposSencillosFaltantes = equiposSencillosFaltantes;
+    }
+
+    public void setElQuePideElPrestamo(Persona elQuePideElPrestamo) {
+        this.elQuePideElPrestamo = elQuePideElPrestamo;
+    }
+    
+    public abstract int compareTo(Prestamo o);
 }

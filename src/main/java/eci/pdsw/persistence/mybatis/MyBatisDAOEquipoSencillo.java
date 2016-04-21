@@ -14,7 +14,7 @@ import eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper;
 
 /**
  *
- * @author 2107803
+ * @author German Lopez
  */
 public class MyBatisDAOEquipoSencillo implements DAOEquipoSencillo {
 

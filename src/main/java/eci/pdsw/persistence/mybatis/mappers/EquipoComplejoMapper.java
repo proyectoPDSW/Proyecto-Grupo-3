@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  *
- * @author 2107803
+ * @author German Lopez
  */
 public interface EquipoComplejoMapper {
     
