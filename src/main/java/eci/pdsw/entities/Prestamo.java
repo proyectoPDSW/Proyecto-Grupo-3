@@ -6,6 +6,7 @@
 package eci.pdsw.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +16,13 @@ import java.util.Map;
  */
 public abstract class Prestamo {
     protected int idPrestamo;
-    protected Date fechaInicio;
-    protected Date fechaEstimadaDeEntrega;
-    protected Date fechaRealEntregada;
+    protected Timestamp fechaInicio;
+    protected Timestamp fechaEstimadaDeEntrega;
+    protected Timestamp fechaRealEntregada;
     protected List<EquipoComplejo> equiposComplejosPrestados;
     protected List<EquipoComplejo> equiposComplejosFaltantes;
     protected Map<EquipoSencillo,Integer> equiposSencillosPrestados;
-    protected Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
+    private Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
     protected Persona elQuePideElPrestamo;
     
     @Override
@@ -51,21 +52,21 @@ public abstract class Prestamo {
     /**
      * @return the fechaInicio
      */
-    public Date getFechaInicio() {
+    public Timestamp getFechaInicio() {
         return fechaInicio;
     }
 
     /**
      * @return the fechaEstimadaDeEntrega
      */
-    public Date getFechaEstimadaDeEntrega() {
+    public Timestamp getFechaEstimadaDeEntrega() {
         return fechaEstimadaDeEntrega;
     }
 
     /**
      * @return the fechaRealEntregada
      */
-    public Date getFechaRealEntregada() {
+    public Timestamp getFechaRealEntregada() {
         return fechaRealEntregada;
     }
 
@@ -95,5 +96,12 @@ public abstract class Prestamo {
      */
     public Persona getElQuePideElPrestamo() {
         return elQuePideElPrestamo;
+    }
+
+    /**
+     * @param equiposSencillosFaltantes the equiposSencillosFaltantes to set
+     */
+    public void setEquiposSencillosFaltantes(Map<EquipoSencillo,Integer> equiposSencillosFaltantes) {
+        this.equiposSencillosFaltantes = equiposSencillosFaltantes;
     }
 }

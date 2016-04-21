@@ -17,7 +17,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 /**
  *
- * @author 2107803
+ * @author German Lopez
  */
 public class MyBatisDAOFactory extends DAOFactory {
 

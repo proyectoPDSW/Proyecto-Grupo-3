@@ -10,7 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 /**
  *
- * @author 
+ * @author Daniela Sepulveda
  */
 
 @ManagedBean(name="RegistroConsultaEquipos")

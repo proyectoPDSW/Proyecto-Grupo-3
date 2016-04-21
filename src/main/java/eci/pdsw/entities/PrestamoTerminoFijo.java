@@ -6,6 +6,7 @@
 package eci.pdsw.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -15,18 +16,21 @@ import java.util.Map;
  */
 public class PrestamoTerminoFijo extends Prestamo {
 
-    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, List equiposComplejosPrestados, Map equiposSencillosPrestados, Date fechaEstimadaDeEntrega) {
+    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, List equiposComplejosPrestados, Map equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega) {
         this.elQuePideElPrestamo=elQuePideElPrestamo;
         this.equiposComplejosPrestados=equiposComplejosPrestados;
+        this.equiposComplejosFaltantes=equiposComplejosPrestados;
         this.equiposSencillosPrestados=equiposSencillosPrestados;
         this.fechaEstimadaDeEntrega=fechaEstimadaDeEntrega;
+        this.fechaInicio=new Timestamp(System.currentTimeMillis());
     }
     
     
 
     @Override
     public String toString() {
-        return getElQuePideElPrestamo() + " " + getEquiposComplejosPrestados().toString() + " " + getEquiposSencillosPrestados().toString()+ " " + getFechaEstimadaDeEntrega();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //return getElQuePideElPrestamo() + " " + getEquiposComplejosPrestados().toString() + " " + getEquiposSencillosPrestados().toString()+ " " + getFechaEstimadaDeEntrega();
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.mysql.jdbc.Blob;
 
 /**
  *
- * @author amoto
+ * @author Julian Devia
  */
 public class EquipoSencillo {
     private String nombre;

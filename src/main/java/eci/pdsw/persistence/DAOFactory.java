@@ -9,7 +9,7 @@ import java.util.Properties;
 import eci.pdsw.persistence.mybatis.MyBatisDAOFactory;
 /**
  *
- * @author Zawsx
+ * @author David Useche
  */
 public abstract class DAOFactory {
 

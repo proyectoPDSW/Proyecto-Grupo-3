@@ -11,7 +11,7 @@ import eci.pdsw.entities.Modelo;
 
 /**
  *
- * @author Zawsx
+ * @author David Useche
  */
 public interface DAOEquipoComplejo {
 

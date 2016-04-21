@@ -7,7 +7,7 @@ package eci.pdsw.entities;
 
 /**
  *
- * @author Zawsx
+ * @author David Useche
  */
 public class EquipoComplejo {
     int id_Eq;

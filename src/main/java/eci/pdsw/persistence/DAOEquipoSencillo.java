@@ -10,7 +10,7 @@ import eci.pdsw.entities.*;
 
 /**
  *
- * @author Zawsx
+ * @author David Useche
  */
 public interface DAOEquipoSencillo {
 

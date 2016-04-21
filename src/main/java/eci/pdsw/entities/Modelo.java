@@ -9,7 +9,7 @@ import com.mysql.jdbc.Blob;
 
 /**
  *
- * @author Zawsx
+ * @author David Useche
  */
 public class Modelo {
     private int vidaUtil;

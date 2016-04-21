@@ -7,7 +7,7 @@ package eci.pdsw.persistence.mybatis.mappers;
 
 /**
  *
- * @author amoto
+ * @author Julian Devia
  */
 public class EquipoMapper {
     

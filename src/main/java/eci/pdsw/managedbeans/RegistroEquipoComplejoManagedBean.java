@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author 
+ * @author Daniela Sepulveda
  */
 
 @ManagedBean(name="RegistroEquiposComplejos")
