@@ -18,7 +18,7 @@ public class Modelo {
     private long valorComercial;
     private Blob fotografia;
     private String descripcion;
-
+    private String accesorios;
 
 
     public Modelo(int vidaU, String name, Blob foto, String clas, long valor) {
@@ -75,6 +75,14 @@ public class Modelo {
     
     public long getValorComercial(){
         return valorComercial;
+    }
+    
+    public void setAccesorios(String ac){
+        this.accesorios=ac;
+    }
+    
+    public String getAccesorios(){
+        return accesorios;
     }
     
     @Override
