@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <id property='nombre' column='nombre'/>
         <result property='cantidadTotal' column='cantidad_total'/>
         <result property='clase' column='clase'/>
-        <result property='fotografia' column='fotografia'/>
+        <result property='fotografia' column='fotografia' jdbcType="BLOB" javaType="byte[]"/>
         <result property='valorComercial' column='valor_comercial'/>
     </resultMap>
     
@@ -17,11 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      </select>
     
      <insert id='insertEquipo' parameterType='map'>
-         insert into Equipos_Sencillos values (#{EqSencillo.nombre},#{EqSencillo.cantidadTotal},#{EqSencillo.clase},#{EqSencillo.fotografia},#{EqSencillo.valorComercial})
+         insert into Equipos_Sencillos (nombre,cantidad_total,clase,fotografia,valor_comercial)
+         values (#{EqSencillo.nombre},#{EqSencillo.cantidadTotal},#{EqSencillo.clase},#{EqSencillo.fotografia},#{EqSencillo.valorComercial})
      </insert>
     
     <select id='loadEquipoByNombreDisponibilidad' parameterType='map'>
-       select (es.cantidad_total-eps.cantidad+eps.cantidad_devuelta) as cantidad_disponible from Equipo_Sencillo as es JOIN Equipo_prestamo_sencillo as eps on es.nombre=esp.equipo
+       select (es.cantidad_total-eps.cantidad+eps.cantidad_devuelta) as cantidad_disponible from Equipos_Sencillos as es JOIN Equipo_prestamo_sencillo as eps on es.nombre=esp.equipo
        where es.nombre=#{Eq_Nombre}
     </select>
     
@@ -31,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <update id='update' parameterType='map'>
-        update Equipo_Sencillo as es SET values(#{Eq_Nuevo.nombre},#{Eq_Nuevo.cantidadTotal},#{Eq_Nuevo.clase},#{Eq_Nuevo.fotografia},#{Eq_Nuevo.valorComercial}) 
+        update Equipos_Sencillos as es SET values(#{Eq_Nuevo.nombre},#{Eq_Nuevo.cantidadTotal},#{Eq_Nuevo.clase},#{Eq_Nuevo.fotografia},#{Eq_Nuevo.valorComercial}) 
         where es.nombre=#{Eq_Viejo.nombre}
     </update>
     

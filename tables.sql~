@@ -33,7 +33,7 @@ CREATE TABLE Equipo_prestamo_sencillo (
 )ENGINE=InnoDB;
 
 -- Table: Equipos_Complejos
-CREATE TABLE EQUIPOS_COMPLEJOS (
+CREATE TABLE Equipos_Complejos (
     id_equipo_complejo int NOT NULL AUTO_INCREMENT,
     serial varchar(30) NULL,
     num_placa int NULL,
@@ -53,7 +53,7 @@ CREATE TABLE Equipos_Sencillos (
     cantidad_total int NOT NULL,
     clase varchar(100) NOT NULL,
     fotografia blob NOT NULL,
-    valor_comercial int NOT NULL,
+    valor_comercial int NOT NULL,,
     CONSTRAINT Equipos_Sencillos_pk PRIMARY KEY (nombre)
 ) ENGINE=InnoDB;
 

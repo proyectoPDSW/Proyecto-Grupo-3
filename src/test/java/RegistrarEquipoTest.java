@@ -44,6 +44,7 @@ public class RegistrarEquipoTest {
         daof.endSession();  
         Assert.assertEquals(ec.toString(),test.toString());
     }
+    
     //No deberia registrar dos veces el mismo equipo
     @Test
     public void CE2(){
