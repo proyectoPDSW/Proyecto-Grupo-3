@@ -1,4 +1,4 @@
 /nbproject/
 /target/
-/*.bak
-/*.lock
+/**.bak
+/**.lock
