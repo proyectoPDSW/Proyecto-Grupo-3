@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='modeloEq' column='modelo'/>
         <result property='asegurado' column='asegurado'/>
         <result property='marca' column='marca'/>
-        <result property='modelo' ofType='Modelo' resultMap='ModeloResult' columnPrefix='mo_'/>
+        <association property='modelo' resultMap='ModeloResult' columnPrefix='mo_'/>
     </resultMap>
         
     <resultMap type='Modelo' id='ModeloResult'>
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{EqComplejo.estado},#{EqComplejo.modelo_Eq.nombre},#{EqComplejo.asegurado},#{EqComplejo.marca})
     </insert>
    
-    <insert id='insertModelo' parametersType='map'>
+    <insert id='insertModelo' parameterType='map'>
         insert into Modelos values(#{Modelo.vidaUtil},#{Modelo.fotografia},#{Modelo.valorComercial},#{Modelo.clase},
         #{Modelo.descripcion},#{Modelo.accesorios},#{Modelo.nombre})
     </insert>

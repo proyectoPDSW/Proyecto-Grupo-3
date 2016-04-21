@@ -90,7 +90,7 @@ CREATE TABLE Personas (
     rol varchar(50) NOT NULL,
     UNIQUE INDEX EMAIL_AK (email),
     CHECK (email like '%.escuelaing.edu.co'),
-    CHECK (rol in ("estudiante","profesor","laboratorista")),
+    CHECK (rol in ('estudiante','profesor','laboratorista')),
     CONSTRAINT Personas_pk PRIMARY KEY (carne)
 )ENGINE=InnoDB;
 
