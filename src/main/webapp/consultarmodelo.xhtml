@@ -7,21 +7,21 @@
       xmlns:f="http://java.sun.com/jsf/core"
       >
     <h:head>
-        <br></br><b><title>Consultar Modelo</title></b>
+        <br></br><b><title>Modelo</title></b>
     </h:head>
     <h:body>
-        <center><br></br><b><h1>Consultar Modelo</h1></b></center>
+        <center><br></br><b><h1>Modelo</h1></b></center>
         <h:form id="consultarModelo">
             <p:panel id="consultaModelo" style="height:160px" >
                 <b><p:outputLabel value="Nombre: "/></b>
-                <br></br><b><p:inputText value="#{RegistroEquiposComplejos.nombreModelo}"></p:inputText></b>
-                <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/>
+                <br></br><b><p:inputText value="#{RegistroEquiposComplejos.nombreModelo}" required="true" ></p:inputText></b>
+                <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/><space></space><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarModelo()}" update =":registrar" />
                 <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
             </p:panel>
         </h:form>
         <p:separator />
         <h:form id="modelos">
-            <p:panelGrid id="modeloconsultado" style="height:100px" columns="2">
+            <p:panelGrid id="modeloconsultado" style="height:100px" columns="2" rendered="#{RegistroEquiposComplejos.showPanelConsulta}">
                 <f:facet name="header">
                     <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" />
                 </f:facet>
@@ -43,12 +43,26 @@
             </p:panelGrid>
         </h:form>
         <h:form id="registrar">
+            <p:panelGrid id="registrarModelo" style="height:200px" columns="2" rendered="#{RegistroEquiposComplejos.showPanelConsulta}">
+                <f:facet name="header">
+                    <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" />
+                </f:facet>
 
+                <h:outputLabel value="Nombre:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.nombre}" />
+
+                <h:outputLabel value="Clase:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.clase}" />
+
+                <h:outputLabel value="Valor Comercial:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.valorComercial}" />
+
+                <h:outputLabel value="Vida Util:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.vidaUtil}" />
+
+                <h:outputLabel value="Descripcion:" />
+                <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
+            </p:panelGrid>
         </h:form>
-        <h:panelGroup rendered="#{RegistroEquiposComplejos.showPassword}">
-            <h:outputLabel value="Descripcion:" />
-            <h:outputText id="password" value="#{userBean.password}"/>
-        </h:panelGroup>
-
     </h:body>
 </html>
