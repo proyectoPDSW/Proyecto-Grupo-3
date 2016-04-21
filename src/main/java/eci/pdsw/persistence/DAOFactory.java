@@ -77,6 +77,6 @@ public abstract class DAOFactory {
      * Obtiene un DAOPrestamos
      * @return 
      */
-    public abstract DAOPrestamos getDaoPrestamos();
+    public abstract DAOPrestamo getDaoPrestamo();
 
 }

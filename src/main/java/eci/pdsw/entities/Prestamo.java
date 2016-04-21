@@ -98,11 +98,28 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         return elQuePideElPrestamo;
     }
 
-    /**
-     * @param equiposSencillosFaltantes the equiposSencillosFaltantes to set
-     */
-    public void setEquiposSencillosFaltantes(Map<EquipoSencillo,Integer> equiposSencillosFaltantes) {
+    public int getIdPrestamo() {
+        return idPrestamo;
+    }
+
+    public void setIdPrestamo(int idPrestamo) {
+        this.idPrestamo = idPrestamo;
+    }
+
+    public void setEquiposComplejosPrestados(List<EquipoComplejo> equiposComplejosPrestados) {
+        this.equiposComplejosPrestados = equiposComplejosPrestados;
+    }
+
+    public void setEquiposSencillosPrestados(Map<EquipoSencillo, Integer> equiposSencillosPrestados) {
+        this.equiposSencillosPrestados = equiposSencillosPrestados;
+    }
+
+    public void setEquiposSencillosFaltantes(Map<EquipoSencillo, Integer> equiposSencillosFaltantes) {
         this.equiposSencillosFaltantes = equiposSencillosFaltantes;
+    }
+
+    public void setElQuePideElPrestamo(Persona elQuePideElPrestamo) {
+        this.elQuePideElPrestamo = elQuePideElPrestamo;
     }
     
     public abstract int compareTo(Prestamo o);

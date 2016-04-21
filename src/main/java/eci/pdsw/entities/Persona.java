@@ -118,5 +118,54 @@ public class Persona {
     public Set<String> getDepartamentos() {
         return departamentos;
     }
+    /**
+     * 
+     * @param carnet 
+     */
+    public void setCarnet(String carnet) {
+        this.carnet = carnet;
+    }
+    /**
+     * 
+     * @param nombre 
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    /**
+     * 
+     * @param apellido 
+     */
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    /**
+     * 
+     * @param email 
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    /**
+     * 
+     * @param telefono 
+     */
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+    /**
+     * 
+     * @param roles 
+     */
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+    /**
+     * 
+     * @param departamentos 
+     */
+    public void setDepartamentos(Set<String> departamentos) {
+        this.departamentos = departamentos;
+    }
     
 }
