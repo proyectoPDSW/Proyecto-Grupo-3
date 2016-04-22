@@ -30,4 +30,5 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mappers/EquipoComplejoMapper.xml"></mapper>
 		<mapper resource="mappers/EquipoSencilloMapper.xml"></mapper>
 	</mappers>
+        
 </configuration>

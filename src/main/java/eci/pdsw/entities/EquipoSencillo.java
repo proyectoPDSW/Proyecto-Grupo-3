@@ -16,13 +16,24 @@ public class EquipoSencillo {
     private String clase;
     private long valorComercial;
     private int cantidadTotal;
-    private Blob fotografia;
+    private byte[] fotografia;
 
     public EquipoSencillo(String name, String clas,long valorC, int cantidad) {
         nombre=name;
         clase=clas;
         valorComercial=valorC;
         cantidadTotal=cantidad;
+    }
+
+    public EquipoSencillo() {
+    }
+
+    public EquipoSencillo(String nombre, String clase, long valorComercial, int cantidadTotal, byte[] fotografia) {
+        this.nombre = nombre;
+        this.clase = clase;
+        this.valorComercial = valorComercial;
+        this.cantidadTotal = cantidadTotal;
+        this.fotografia = fotografia;
     }
 
     /**
@@ -84,14 +95,14 @@ public class EquipoSencillo {
     /**
      * @return the fotografia
      */
-    public Blob getFotografia() {
+    public byte[] getFotografia() {
         return fotografia;
     }
 
     /**
      * @param fotografia the fotografia to set
      */
-    public void setFotografia(Blob fotografia) {
+    public void setFotografia(byte[] fotografia) {
         this.fotografia = fotografia;
     }
     

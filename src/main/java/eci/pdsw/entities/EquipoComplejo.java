@@ -24,6 +24,28 @@ public class EquipoComplejo {
         serial=ser;
         modelo_Eq=mod;
     }
+
+    public EquipoComplejo(int id_Eq, boolean asegurado, boolean disponibilidad, String estado, String serial, int placa, String marca, Modelo modelo_Eq) {
+        this.id_Eq = id_Eq;
+        this.asegurado = asegurado;
+        this.disponibilidad = disponibilidad;
+        this.estado = estado;
+        this.serial = serial;
+        this.placa = placa;
+        this.marca = marca;
+        this.modelo_Eq = modelo_Eq;
+    }
+
+    public EquipoComplejo() {
+    }
+
+    public int getId_Eq() {
+        return id_Eq;
+    }
+
+    public void setId_Eq(int id_Eq) {
+        this.id_Eq = id_Eq;
+    }
     
     public void setId(int id){
         this.id_Eq=id;

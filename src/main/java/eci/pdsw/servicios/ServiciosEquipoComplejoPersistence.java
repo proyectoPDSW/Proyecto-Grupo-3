@@ -31,7 +31,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
         InputStream input = null;
         Properties properties = new Properties();
         try {
-            ServiciosEquipoComplejoPersistence.class.getClassLoader().getResource("applicationconfig.properties").openStream();
+            input=ServiciosEquipoComplejoPersistence.class.getClassLoader().getResource("applicationconfig.properties").openStream();
             properties.load(input);
         } catch (IOException ex) {
             Logger.getLogger(ServiciosEquipoComplejoPersistence.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,6 +144,20 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             complejoPersistencia.update(toUpdate);
             dao.commitTransaction();
             dao.endSession();
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServicios(ex.getMessage());
+        }
+    }
+
+    @Override
+    public Modelo consultarModelo(String nombre) throws ExcepcionServicios {
+        try {
+            dao.beginSession();
+            complejoPersistencia=dao.getDaoEquipoComplejo();
+            Modelo ans=complejoPersistencia.loadModelo(nombre);
+            dao.commitTransaction();
+            dao.endSession();
+            return ans;
         } catch (PersistenceException ex) {
             throw new ExcepcionServicios(ex.getMessage());
         }

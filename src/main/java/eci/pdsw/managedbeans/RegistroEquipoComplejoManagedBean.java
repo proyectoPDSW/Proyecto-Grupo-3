@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -27,7 +28,7 @@ import javax.faces.context.FacesContext;
 
 public class RegistroEquipoComplejoManagedBean implements Serializable{
     
-    private final ServiciosEquipoComplejo servicios=ServiciosEquipoComplejo.getInstance();
+    private final ServiciosEquipoComplejo servicios;
         
     private String nombreModelo;
     
@@ -37,10 +38,10 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         private String nombre;
         private String clase;
         private long valorComercial;
-        private Blob fotografia;
+        private byte[] fotografia;
         private String descripcion;
         private String accesorios;
-     
+    private UploadedFile file;
 
     private boolean showPanelConsultaModelo = false;
     private boolean showPanelRegistroModelo = false;
@@ -71,6 +72,16 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
     public boolean showPanelRegistro(){
         return showPanelRegistroModelo;
     }
+    
+    public RegistroEquipoComplejoManagedBean() {
+        servicios=ServiciosEquipoComplejo.getInstance();
+        
+    }
+    
+    public void agregarModelo(){
+        showPanelConsultaModelo=false;
+        showPanelRegistroModelo=true;
+    }
     public void consultarModelo(){
         try {
             servicios.consultarPorModelo(nombreModelo);
@@ -84,6 +95,8 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
     }
     public void registrarModelo(){
         try {
+            showPanelConsultaModelo=false;
+            showPanelRegistroModelo=true;
             modelo=new Modelo(vidaUtil,nombre,fotografia,clase,valorComercial);
             if(!(descripcion==null || descripcion.length()==0)){
                 modelo.setDescripcion(descripcion);
@@ -92,14 +105,37 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
                 modelo.setAccesorios(accesorios);
             }
             servicios.registrarModelo(modelo);
-            showPanelConsultaModelo=false;
-            showPanelRegistroModelo=true;
         } catch (ExcepcionServicios ex) {
             facesError("Los datos no son correctos");
             Logger.getLogger(RegistroEquipoComplejoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }  
 
+ 
+    public UploadedFile getFile() {
+        return file;
+    }
+ 
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+ 
+    public void upload() {
+        if (file != null) {
+            try {
+                
+                FacesMessage msg = new FacesMessage("Carga exitosa !!", file.getFileName());
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+ 
+            } catch (Exception e) {
+                System.out.println("Exception-File Upload." + e.getMessage());
+            }
+        }
+        else{
+        FacesMessage msg = new FacesMessage("Por favor seleccione una imagen !!!");
+                FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
     public int getVidaUtil() {
         return vidaUtil;
     }
@@ -132,11 +168,11 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         this.valorComercial = valorComercial;
     }
 
-    public Blob getFotografia() {
+    public byte[] getFotografia() {
         return fotografia;
     }
 
-    public void setFotografia(Blob fotografia) {
+    public void setFotografia(byte[] fotografia) {
         this.fotografia = fotografia;
     }
 

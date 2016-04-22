@@ -3,16 +3,17 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper">
-    <resultMap type='EquipoComplejo' id='EquipoSencilloResult'>
+    <resultMap type='EquipoSencillo' id='EquipoSencilloResult'>
         <id property='nombre' column='nombre'/>
         <result property='cantidadTotal' column='cantidad_total'/>
         <result property='clase' column='clase'/>
-        <result property='fotografia' column='fotografia' jdbcType="BLOB" javaType="byte[]"/>
+        <result property='fotografia' column='fotografia' jdbcType="BLOB" javaType="_byte[]"/>
         <result property='valorComercial' column='valor_comercial'/>
     </resultMap>
     
      <select id='loadEquipoByNombre' parameterType='map' resultMap='EquipoSencilloResult'>
-         select es.nombre, es.cantidad_total, es.clase, es.fotografia, es.valor_comercial from 
+         select es.nombre as nombre, es.cantidad_total as cantidad_total, es.clase as clase, es.fotografia as fotografia,
+         es.valor_comercial as valor_comercial from 
          Equipos_Sencillos as es where es.nombre=#{Eq_Nombre}
      </select>
     
@@ -27,7 +28,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id='loadAll'  resultMap='EquipoSencilloResult'>
-       select es.nombre, es.cantidad_total, es.clase, es.fotografia, es.valor_comercial from 
+       select es.nombre as nombre, es.cantidad_total as cantidad_total, es.clase as clase, es.fotografia as fotografia,
+       es.valor_comercial as valor_comercial from 
        Equipos_Sencillos as es   
     </select>
     

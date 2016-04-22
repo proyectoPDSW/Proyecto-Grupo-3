@@ -16,18 +16,36 @@ public class Modelo {
     private String nombre;
     private String clase;
     private long valorComercial;
-    private Blob fotografia;
+    private byte[] fotografia;
     private String descripcion;
     private String accesorios;
 
 
-    public Modelo(int vidaU, String name, Blob foto, String clas, long valor) {
+    public Modelo(int vidaU, String name, byte[] foto, String clas, long valor) {
        vidaUtil=vidaU;
        nombre=name;
        clase=clas;
        valorComercial=valor;
        fotografia=foto;
     }
+
+    public Modelo(int vidaUtil, String nombre, String clase, long valorComercial, byte[] fotografia, String descripcion, String accesorios) {
+        this.vidaUtil = vidaUtil;
+        this.nombre = nombre;
+        this.clase = clase;
+        this.valorComercial = valorComercial;
+        this.fotografia = fotografia;
+        this.descripcion = descripcion;
+        this.accesorios = accesorios;
+    }
+
+    public Modelo() {
+    }
+
+    public void setValorComercial(long valorComercial) {
+        this.valorComercial = valorComercial;
+    }
+    
     
     public String getDescripcion() {
         return descripcion;
@@ -37,11 +55,11 @@ public class Modelo {
         this.descripcion = descripcion;
     }
     
-    public void setFotografia(Blob fotografia) {
+    public void setFotografia(byte[] fotografia) {
         this.fotografia = fotografia;
     }
 
-    public Blob getFotografia() {
+    public byte[] getFotografia() {
         return fotografia;
     }
     

@@ -14,7 +14,7 @@ import java.util.Map;
  * @author Hugo Alvarez
  */
 public abstract class Prestamo {
-    protected int idPrestamo;
+    private int idPrestamo;
     protected Date fechaInicio;
     protected Date fechaEstimadaDeEntrega;
     protected Date fechaRealEntregada;
@@ -96,4 +96,41 @@ public abstract class Prestamo {
     public Persona getElQuePideElPrestamo() {
         return elQuePideElPrestamo;
     }
+
+    public int getIdPrestamo() {
+        return idPrestamo;
+    }
+
+    public void setIdPrestamo(int idPrestamo) {
+        this.idPrestamo = idPrestamo;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setFechaEstimadaDeEntrega(Date fechaEstimadaDeEntrega) {
+        this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
+    }
+
+    public void setFechaRealEntregada(Date fechaRealEntregada) {
+        this.fechaRealEntregada = fechaRealEntregada;
+    }
+
+    public void setEquiposComplejosPrestados(List<EquipoComplejo> equiposComplejosPrestados) {
+        this.equiposComplejosPrestados = equiposComplejosPrestados;
+    }
+
+    public void setEquiposSencillosPrestados(Map<EquipoSencillo, Integer> equiposSencillosPrestados) {
+        this.equiposSencillosPrestados = equiposSencillosPrestados;
+    }
+
+    public void setEquiposSencillosFaltantes(Map<EquipoSencillo, Integer> equiposSencillosFaltantes) {
+        this.equiposSencillosFaltantes = equiposSencillosFaltantes;
+    }
+
+    public void setElQuePideElPrestamo(Persona elQuePideElPrestamo) {
+        this.elQuePideElPrestamo = elQuePideElPrestamo;
+    }
+    
 }
