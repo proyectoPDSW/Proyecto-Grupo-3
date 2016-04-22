@@ -22,7 +22,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     protected List<EquipoComplejo> equiposComplejosPrestados;
     protected List<EquipoComplejo> equiposComplejosFaltantes;
     protected Map<EquipoSencillo,Integer> equiposSencillosPrestados;
-    private Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
+    protected Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
     protected Persona elQuePideElPrestamo;
     
     @Override
