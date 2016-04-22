@@ -45,9 +45,7 @@ CREATE TABLE Equipos_Complejos (
     UNIQUE INDEX SERIAL_AK (serial),
     UNIQUE INDEX NUM_PLACA_AK (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (id_equipo_complejo)
-) COMMENT ''
-COMMENT 'Equipos del laboratorio de electrónica con serial o placa'
-ENGINE=InnoDB;
+)ENGINE=InnoDB;
 
 -- Table: Equipos_Sencillos
 CREATE TABLE Equipos_Sencillos (
@@ -58,9 +56,7 @@ CREATE TABLE Equipos_Sencillos (
     valor_comercial int NOT NULL,
     UNIQUE INDEX NOMBRE_AK (nombre),
     CONSTRAINT Equipos_Sencillos_pk PRIMARY KEY (nombre)
-) COMMENT ''
-COMMENT 'Equipos del laboratorio de electronica sin serial ni placa'
-ENGINE=InnoDB;
+)ENGINE=InnoDB;
 
 -- Table: Informacion_Compra
 CREATE TABLE Informacion_Compra (
