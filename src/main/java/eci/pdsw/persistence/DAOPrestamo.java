@@ -60,7 +60,7 @@ public interface DAOPrestamo {
      * @return
      * @throws PersistenceException 
      */
-    public abstract List<Prestamo> loadByNombre(String nombre) throws PersistenceException;
+    public abstract List<Prestamo> loadByCarnet(String carnet) throws PersistenceException;
     
     /**
      * 

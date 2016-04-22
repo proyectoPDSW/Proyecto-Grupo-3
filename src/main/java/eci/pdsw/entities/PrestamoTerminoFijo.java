@@ -21,6 +21,7 @@ public class PrestamoTerminoFijo extends Prestamo {
         this.equiposComplejosPrestados=equiposComplejosPrestados;
         this.equiposComplejosFaltantes=equiposComplejosPrestados;
         this.equiposSencillosPrestados=equiposSencillosPrestados;
+        this.equiposSencillosFaltantes=equiposSencillosPrestados;
         this.fechaEstimadaDeEntrega=fechaEstimadaDeEntrega;
         this.fechaInicio=new Timestamp(System.currentTimeMillis());
     }
