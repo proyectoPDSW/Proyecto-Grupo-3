@@ -10,10 +10,13 @@ import eci.pdsw.entities.Persona;
 import eci.pdsw.entities.Prestamo;
 import eci.pdsw.persistence.DAOFactory;
 import eci.pdsw.persistence.DAOPrestamo;
+import eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,25 +45,68 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public List<Prestamo> consultarPrestamosMorosos() {
-        daoF.beginSession();
-        basePaciente=daoF.getDaoPrestamo();
-        throw  new AssertionError();
+    public List<Prestamo> consultarPrestamosMorosos() throws ExcepcionServicios {
+        List<Prestamo> morosos=new LinkedList<>();
+        try{
+            daoF.beginSession();
+            basePaciente=daoF.getDaoPrestamo();
+            morosos=basePaciente.loadMorosos();
+            Collections.sort(morosos);
+        }catch(PersistenceException e){
+            throw new ExcepcionServicios("");
+        }finally{
+            daoF.endSession();
+            return morosos;
+        }
+        
     }
 
     @Override
     public List<Prestamo> consultarPrestamosPersona(Persona p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Prestamo> prestamos=new LinkedList<>();
+        try{
+            daoF.beginSession();
+            basePaciente=daoF.getDaoPrestamo();
+            prestamos=basePaciente.loadByCarnet(p.getCarnet());
+            Collections.sort(prestamos);
+        }catch(PersistenceException e){
+            throw new ExcepcionServicios("");
+        }finally{
+            daoF.endSession();
+            return prestamos;
+        }
     }
 
     @Override
     public List<Prestamo> consultarPrestamosEquipoComplejo(EquipoComplejo ec) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Prestamo> prestamos=new LinkedList<>();
+        try{
+            daoF.beginSession();
+            basePaciente=daoF.getDaoPrestamo();
+            prestamos=basePaciente.loadByEquipoComplejo(ec);
+            Collections.sort(prestamos);
+        }catch(PersistenceException e){
+            throw new ExcepcionServicios("");
+        }finally{
+            daoF.endSession();
+            return prestamos;
+        }
     }
 
     @Override
     public List<Prestamo> consultarTodos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Prestamo> prestamos=new LinkedList<>();
+        try{
+            daoF.beginSession();
+            basePaciente=daoF.getDaoPrestamo();
+            prestamos=basePaciente.loadAll();
+            Collections.sort(prestamos);
+        }catch(PersistenceException e){
+            throw new ExcepcionServicios("");
+        }finally{
+            daoF.endSession();
+            return prestamos;
+        }
     }
     
 }

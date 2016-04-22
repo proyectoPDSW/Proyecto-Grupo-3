@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <id property='nombre' column='nombre'/>
         <result property='cantidadTotal' column='cantidad_total'/>
         <result property='clase' column='clase'/>
-        <result property='fotografia' column='fotografia' jdbcType="BLOB" javaType="_byte[]"/>
+        <result property='fotografia' column='fotografia'/>
         <result property='valorComercial' column='valor_comercial'/>
     </resultMap>
     

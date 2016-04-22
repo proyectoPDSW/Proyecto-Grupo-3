@@ -44,7 +44,7 @@ public class MyBatisDaoPrestamo  implements DAOPrestamo{
     }
 
     @Override
-    public List<Prestamo> loadByNombre(String nombre) throws PersistenceException {
+    public List<Prestamo> loadByCarnet(String nombre) throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

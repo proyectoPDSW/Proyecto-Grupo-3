@@ -25,7 +25,7 @@ public abstract class ServiciosPrestamo {
      * Consulta todos los prestamos con algun equipo en mora
      * @return los prestamos que posean algun equipo en mora de ser entregado
      */
-    public abstract List<Prestamo> consultarPrestamosMorosos();
+    public abstract List<Prestamo> consultarPrestamosMorosos() throws ExcepcionServicios;
     
     /**
      * Consulta todos los prestamos de una persona determinada

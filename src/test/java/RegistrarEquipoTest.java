@@ -15,9 +15,6 @@ import eci.pdsw.entities.Modelo;
 import eci.pdsw.persistence.DAOEquipoComplejo;
 import eci.pdsw.persistence.DAOEquipoSencillo;
 import eci.pdsw.persistence.DAOFactory;
-import java.sql.Blob;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.Assert;
 
 
@@ -37,13 +34,15 @@ public class RegistrarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo reg=daof.getDaoEquipoComplejo();
         
-        Modelo mod = new Modelo(100000,"Destornillador de estrella",null,"Destornillador",5000);
+        Modelo mod = new Modelo(100000,"Destornillador de estrella","udfyzsiudfyziduvz","Destornillador",5000);
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa");
         ec.setPlaca(123456);
+        ec.setEstado("hola");
         reg.save(ec);
         daof.commitTransaction();
         EquipoComplejo test=reg.load(ec.getPlaca());
-        daof.endSession();  
+        daof.endSession();
+        System.out.println(test.toString());
         Assert.assertEquals(ec.toString(),test.toString());
     }
     
@@ -67,7 +66,6 @@ public class RegistrarEquipoTest {
         daof.endSession();
         Assert.fail("Registro dos veces el mismo equipo");
         }catch(IOException | PersistenceException e){
-            System.out.println("Paso");
             Assert.assertEquals(e.getMessage(),"El equipo con nombre "+ec.getModelo_Eq().getNombre()+" ya esta registrado");
         }finally{
             daof.endSession();
@@ -79,30 +77,15 @@ public class RegistrarEquipoTest {
         try {
             properties.load(input);
             DAOFactory daof=DAOFactory.getInstance(properties);
-            System.out.println("Aqui va");
             daof.beginSession();
-            System.out.println("Aqui va 2");
             DAOEquipoSencillo reg=daof.getDaoEquipoSencillo();
-            System.out.println("Aqui va 3");
             EquipoSencillo es=new EquipoSencillo("Cable UTP","Cable",100,400);
-            System.out.println("Aqui va 4");
             reg.save(es);
-            System.out.println("Aqui va 5");
             daof.commitTransaction();
-            System.out.println("Aqui va 6");
             EquipoSencillo test =reg.load(es.getNombre());
-            System.out.println("Aqui va 7");
             daof.commitTransaction();
-            System.out.println("Aqui va 8");
-            System.out.println(test.toString());
             daof.endSession();
-            System.out.println("Aqui va 9");
-            System.out.println(reg);
-            System.out.println(es);
-            
             Assert.assertEquals("fallo",es.toString(),test.toString());
-            //System.out.println(reg.loadByNombreDisponibles(es.getNombre()));
-            System.out.println("Se murio");
         } catch (PersistenceException ex) {
             System.out.println(ex.getMessage());
         } catch (IOException ex) {
@@ -128,7 +111,6 @@ public class RegistrarEquipoTest {
             daof.endSession();
             Assert.fail("Registro dos veces el mismo equipo"); 
         }catch(IOException | PersistenceException e){
-            System.out.println("PASOASOSOASOASO");
             Assert.assertEquals(e.getMessage(),"El equipo con nombre "+es.getNombre()+" ya esta registrado");
     }finally{
             daof.endSession();

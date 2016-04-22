@@ -5,6 +5,7 @@
  */
 package eci.pdsw.entities;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,10 @@ public class PrestamoIndefinido extends Prestamo{
     public PrestamoIndefinido(Persona elQuePideElPrestamo, List equiposComplejosPrestados, Map equiposSencillosPrestados) {
         this.elQuePideElPrestamo=elQuePideElPrestamo;
         this.equiposComplejosPrestados=equiposComplejosPrestados;
+        this.equiposComplejosFaltantes=equiposComplejosPrestados;
         this.equiposSencillosPrestados=equiposSencillosPrestados;
+        this.equiposSencillosFaltantes=equiposSencillosPrestados;
+        this.fechaInicio=new Timestamp(System.currentTimeMillis());
     }
     
 

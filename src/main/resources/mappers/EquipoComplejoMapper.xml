@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type='Modelo' id='ModeloResult'>
         <id property='nombre' column='nombre'/>
         <result property='vidaUtil' column='vida_util'/>
-        <result property='fotografia' column='fotografia' jdbcType="BLOB" javaType="_byte[]" />
+        <result property='fotografia' column='fotografia'/>
         <result property='valorComercial' column='valor_comercial'/>
         <result property='clase' column='clase'/>
         <result property='descripcion' column='descripcion'/>
@@ -31,7 +31,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <insert id='insertModelo' parameterType='map'>
-        insert into Modelos values(#{Modelo.vidaUtil},#{Modelo.fotografia},#{Modelo.valorComercial},#{Modelo.clase},
+        insert into Modelos (vida_util,fotografia,valor_comercial,clase,descripcion,accesorios,nombre)
+        values(#{Modelo.vidaUtil},#{Modelo.fotografia},#{Modelo.valorComercial},#{Modelo.clase},
         #{Modelo.descripcion},#{Modelo.accesorios},#{Modelo.nombre})
     </insert>
 
