@@ -5,7 +5,6 @@
  */
 package eci.pdsw.managedbeans;
 
-import java.sql.Blob;
 import eci.pdsw.entities.Modelo;
 import eci.pdsw.servicios.ExcepcionServicios;
 import eci.pdsw.servicios.ServiciosEquipoComplejo;
@@ -14,7 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -52,7 +50,19 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
      * @param message Error Message
      */
     private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: "+message, null));
+    }
+    
+    public void facesInfo(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
+     
+    public void facesWarn(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
+    }
+    
+    public void facesFatal(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, message, null));
     }
     
     public void setNombreModelo(String nombreModelo) {
@@ -84,11 +94,11 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
     }
     public void consultarModelo(){
         try {
-            servicios.consultarPorModelo(nombreModelo);
+            modelo=servicios.consultarModelo(nombreModelo);
             showPanelRegistroModelo=false;
             showPanelConsultaModelo=true;
         } catch (ExcepcionServicios ex) {
-            facesError("No se ha encontrado el modelos con nombre "+nombreModelo);
+            facesError("No se ha encontrado el modelo con nombre "+nombreModelo);
             Logger.getLogger(RegistroEquipoComplejoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         

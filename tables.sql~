@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2016-04-21 03:56:33.007
+-- Last modification date: 2016-04-21 23:51:17.484
 
 -- tables
 -- Table: Departamento_persona
@@ -39,23 +39,24 @@ CREATE TABLE Equipos_Complejos (
     num_placa int NULL,
     disponibilidad bool NOT NULL,
     estado varchar(50) NOT NULL,
-    modelo varchar(50) NULL,
+    modelo varchar(50) NOT NULL,
     asegurado bool NOT NULL,
     marca varchar(30) NOT NULL,
     UNIQUE INDEX SERIAL_AK (serial),
     UNIQUE INDEX NUM_PLACA_AK (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (id_equipo_complejo)
-) ENGINE=InnoDB;
+)ENGINE=InnoDB;
 
 -- Table: Equipos_Sencillos
 CREATE TABLE Equipos_Sencillos (
     nombre varchar(100) NOT NULL,
     cantidad_total int NOT NULL,
     clase varchar(100) NOT NULL,
-    fotografia blob NOT NULL,
-    valor_comercial int NOT NULL,,
+    fotografia varchar(500) NOT NULL,
+    valor_comercial int NOT NULL,
+    UNIQUE INDEX NOMBRE_AK (nombre),
     CONSTRAINT Equipos_Sencillos_pk PRIMARY KEY (nombre)
-) ENGINE=InnoDB;
+)ENGINE=InnoDB;
 
 -- Table: Informacion_Compra
 CREATE TABLE Informacion_Compra (
@@ -70,7 +71,7 @@ CREATE TABLE Informacion_Compra (
 -- Table: Modelos
 CREATE TABLE Modelos (
     vida_util int NOT NULL,
-    fotografia blob NOT NULL,
+    fotografia varchar(500) NOT NULL,
     valor_comercial int NOT NULL,
     clase varchar(50) NOT NULL,
     descripcion varchar(200) NOT NULL,
@@ -96,10 +97,10 @@ CREATE TABLE Personas (
 -- Table: Prestamos
 CREATE TABLE Prestamos (
     id_prestamo int NOT NULL AUTO_INCREMENT,
-    fecha_inicio date NOT NULL,
+    fecha_inicio timestamp NOT NULL,
     persona varchar(20) NOT NULL,
-    fecha_fin_estimada date NULL,
-    fecha_fin_real date NULL,
+    fecha_fin_estimada timestamp NULL,
+    fecha_fin_real timestamp NULL,
     tipo_prestamo varchar(100) NOT NULL,
     CONSTRAINT Prestamos_pk PRIMARY KEY (id_prestamo)
 )ENGINE=InnoDB;
@@ -130,7 +131,7 @@ ALTER TABLE Equipo_prestamo_sencillo ADD CONSTRAINT Equipo_prestamo_sencillo_Pre
     REFERENCES Prestamos (id_prestamo);
 
 -- Reference: Equipos_Complejos_Modelos (table: Equipos_Complejos)
-ALTER TABLE Equipos_Complejos ADD CONSTRAINT Equipos_Complejos_Modelos FOREIGN KEY (marca)
+ALTER TABLE Equipos_Complejos ADD CONSTRAINT Equipos_Complejos_Modelos FOREIGN KEY (modelo)
     REFERENCES Modelos (nombre);
 
 -- Reference: Ordenes_compra_Equipos_Complejos (table: Informacion_Compra)
@@ -142,4 +143,3 @@ ALTER TABLE Prestamos ADD CONSTRAINT Persona_Prestamo FOREIGN KEY (persona)
     REFERENCES Personas (carne);
 
 -- End of file.
-

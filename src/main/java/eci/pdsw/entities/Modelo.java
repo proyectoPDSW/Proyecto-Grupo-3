@@ -5,8 +5,6 @@
  */
 package eci.pdsw.entities;
 
-import java.sql.Blob;
-
 /**
  *
  * @author David Useche
