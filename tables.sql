@@ -1,7 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2016-04-21 22:14:40.445
-
-
+-- Last modification date: 2016-04-21 23:51:17.484
 
 -- tables
 -- Table: Departamento_persona
@@ -9,13 +7,13 @@ CREATE TABLE Departamento_persona (
     departamento varchar(50) NOT NULL,
     persona varchar(20) NOT NULL,
     CONSTRAINT Departamento_persona_pk PRIMARY KEY (departamento,persona)
-);
+)ENGINE=InnoDB;
 
 -- Table: Departamentos
 CREATE TABLE Departamentos (
     departamento varchar(50) NOT NULL,
     CONSTRAINT Departamentos_pk PRIMARY KEY (departamento)
-);
+)ENGINE=InnoDB;
 
 -- Table: Equipo_prestamo_complejo
 CREATE TABLE Equipo_prestamo_complejo (
@@ -35,7 +33,7 @@ CREATE TABLE Equipo_prestamo_sencillo (
 )ENGINE=InnoDB;
 
 -- Table: Equipos_Complejos
-CREATE TABLE EQUIPOS_COMPLEJOS (
+CREATE TABLE Equipos_Complejos (
     id_equipo_complejo int NOT NULL AUTO_INCREMENT,
     serial varchar(30) NULL,
     num_placa int NULL,
@@ -47,17 +45,22 @@ CREATE TABLE EQUIPOS_COMPLEJOS (
     UNIQUE INDEX SERIAL_AK (serial),
     UNIQUE INDEX NUM_PLACA_AK (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (id_equipo_complejo)
-)ENGINE=InnoDB;
+) COMMENT ''
+COMMENT 'Equipos del laboratorio de electrónica con serial o placa'
+ENGINE=InnoDB;
 
 -- Table: Equipos_Sencillos
 CREATE TABLE Equipos_Sencillos (
     nombre varchar(100) NOT NULL,
     cantidad_total int NOT NULL,
     clase varchar(100) NOT NULL,
-    fotografia blob NOT NULL,
+    fotografia varchar(500) NOT NULL,
     valor_comercial int NOT NULL,
+    UNIQUE INDEX NOMBRE_AK (nombre),
     CONSTRAINT Equipos_Sencillos_pk PRIMARY KEY (nombre)
-)ENGINE=InnoDB;
+) COMMENT ''
+COMMENT 'Equipos del laboratorio de electronica sin serial ni placa'
+ENGINE=InnoDB;
 
 -- Table: Informacion_Compra
 CREATE TABLE Informacion_Compra (
@@ -72,7 +75,7 @@ CREATE TABLE Informacion_Compra (
 -- Table: Modelos
 CREATE TABLE Modelos (
     vida_util int NOT NULL,
-    fotografia blob NOT NULL,
+    fotografia varchar(500) NOT NULL,
     valor_comercial int NOT NULL,
     clase varchar(50) NOT NULL,
     descripcion varchar(200) NOT NULL,
@@ -108,40 +111,39 @@ CREATE TABLE Prestamos (
 
 -- foreign keys
 -- Reference: Departamento_persona_Departamentos (table: Departamento_persona)
-ALTER TABLE Departamento_persona ADD CONSTRAINT Departamento_persona_Departamentos FOREIGN KEY  (departamento)
+ALTER TABLE Departamento_persona ADD CONSTRAINT Departamento_persona_Departamentos FOREIGN KEY (departamento)
     REFERENCES Departamentos (departamento);
 
 -- Reference: Departamento_persona_Personas (table: Departamento_persona)
-ALTER TABLE Departamento_persona ADD CONSTRAINT Departamento_persona_Personas FOREIGN KEY  (persona)
+ALTER TABLE Departamento_persona ADD CONSTRAINT Departamento_persona_Personas FOREIGN KEY (persona)
     REFERENCES Personas (carne);
 
 -- Reference: Equipo_prestamo_complejo_Equipos_Complejos (table: Equipo_prestamo_complejo)
-ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Equipos_Complejos FOREIGN KEY  (equipo_complejo)
+ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Equipos_Complejos FOREIGN KEY (equipo_complejo)
     REFERENCES Equipos_Complejos (id_equipo_complejo);
 
 -- Reference: Equipo_prestamo_complejo_Prestamos_complejos (table: Equipo_prestamo_complejo)
-ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Prestamos_complejos FOREIGN KEY  (prestamo)
+ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Prestamos_complejos FOREIGN KEY (prestamo)
     REFERENCES Prestamos (id_prestamo);
 
 -- Reference: Equipo_prestamo_sencillo_Equipos_Sencillos (table: Equipo_prestamo_sencillo)
-ALTER TABLE Equipo_prestamo_sencillo ADD CONSTRAINT Equipo_prestamo_sencillo_Equipos_Sencillos FOREIGN KEY  (equipo)
+ALTER TABLE Equipo_prestamo_sencillo ADD CONSTRAINT Equipo_prestamo_sencillo_Equipos_Sencillos FOREIGN KEY (equipo)
     REFERENCES Equipos_Sencillos (nombre);
 
 -- Reference: Equipo_prestamo_sencillo_Prestamos_complejos (table: Equipo_prestamo_sencillo)
-ALTER TABLE Equipo_prestamo_sencillo ADD CONSTRAINT Equipo_prestamo_sencillo_Prestamos_complejos FOREIGN KEY  (prestamo)
+ALTER TABLE Equipo_prestamo_sencillo ADD CONSTRAINT Equipo_prestamo_sencillo_Prestamos_complejos FOREIGN KEY (prestamo)
     REFERENCES Prestamos (id_prestamo);
 
 -- Reference: Equipos_Complejos_Modelos (table: Equipos_Complejos)
-ALTER TABLE Equipos_Complejos ADD CONSTRAINT Equipos_Complejos_Modelos FOREIGN KEY  (modelo)
+ALTER TABLE Equipos_Complejos ADD CONSTRAINT Equipos_Complejos_Modelos FOREIGN KEY (modelo)
     REFERENCES Modelos (nombre);
 
 -- Reference: Ordenes_compra_Equipos_Complejos (table: Informacion_Compra)
-ALTER TABLE Informacion_Compra ADD CONSTRAINT Ordenes_compra_Equipos_Complejos FOREIGN KEY  (equipo)
+ALTER TABLE Informacion_Compra ADD CONSTRAINT Ordenes_compra_Equipos_Complejos FOREIGN KEY (equipo)
     REFERENCES Equipos_Complejos (id_equipo_complejo);
 
 -- Reference: Persona_Prestamo (table: Prestamos)
-ALTER TABLE Prestamos ADD CONSTRAINT Persona_Prestamo FOREIGN KEY  (persona)
+ALTER TABLE Prestamos ADD CONSTRAINT Persona_Prestamo FOREIGN KEY (persona)
     REFERENCES Personas (carne);
 
 -- End of file.
-
