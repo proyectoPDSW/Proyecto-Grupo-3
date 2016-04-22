@@ -5,6 +5,8 @@
  */
 package eci.pdsw.entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author David Useche
@@ -123,6 +125,36 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     public int compareTo(EquipoComplejo o) {
         if(modelo_Eq.getValorComercial()<o.modelo_Eq.getValorComercial()) return -1;
         else return 1;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EquipoComplejo other = (EquipoComplejo) obj;
+        if (this.placa != other.placa) {
+            return false;
+        }
+        if (!Objects.equals(this.serial, other.serial)) {
+            return false;
+        }
+        if (!Objects.equals(this.marca, other.marca)) {
+            return false;
+        }
+        return true;
     }
     
 }

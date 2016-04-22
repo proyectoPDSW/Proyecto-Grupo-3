@@ -42,8 +42,7 @@ public class RegistrarEquipoTest {
         daof.commitTransaction();
         EquipoComplejo test=reg.load(ec.getPlaca());
         daof.endSession();
-        System.out.println(test.toString());
-        Assert.assertEquals(ec.toString(),test.toString());
+        Assert.assertEquals(ec,test);
     }
     
     //No deberia registrar dos veces el mismo equipo
