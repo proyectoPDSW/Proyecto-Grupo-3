@@ -6,6 +6,7 @@
 package eci.pdsw.entities;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -13,15 +14,15 @@ import java.util.Map;
  *
  * @author Hugo Alvarez
  */
-public abstract class Prestamo {
-    private int idPrestamo;
-    protected Date fechaInicio;
-    protected Date fechaEstimadaDeEntrega;
-    protected Date fechaRealEntregada;
+public abstract class Prestamo implements Comparable<Prestamo> {
+    protected int idPrestamo;
+    protected Timestamp fechaInicio;
+    protected Timestamp fechaEstimadaDeEntrega;
+    protected Timestamp fechaRealEntregada;
     protected List<EquipoComplejo> equiposComplejosPrestados;
     protected List<EquipoComplejo> equiposComplejosFaltantes;
     protected Map<EquipoSencillo,Integer> equiposSencillosPrestados;
-    protected Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
+    private Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
     protected Persona elQuePideElPrestamo;
     
     @Override
@@ -51,21 +52,21 @@ public abstract class Prestamo {
     /**
      * @return the fechaInicio
      */
-    public Date getFechaInicio() {
+    public Timestamp getFechaInicio() {
         return fechaInicio;
     }
 
     /**
      * @return the fechaEstimadaDeEntrega
      */
-    public Date getFechaEstimadaDeEntrega() {
+    public Timestamp getFechaEstimadaDeEntrega() {
         return fechaEstimadaDeEntrega;
     }
 
     /**
      * @return the fechaRealEntregada
      */
-    public Date getFechaRealEntregada() {
+    public Timestamp getFechaRealEntregada() {
         return fechaRealEntregada;
     }
 
@@ -105,18 +106,6 @@ public abstract class Prestamo {
         this.idPrestamo = idPrestamo;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public void setFechaEstimadaDeEntrega(Date fechaEstimadaDeEntrega) {
-        this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
-    }
-
-    public void setFechaRealEntregada(Date fechaRealEntregada) {
-        this.fechaRealEntregada = fechaRealEntregada;
-    }
-
     public void setEquiposComplejosPrestados(List<EquipoComplejo> equiposComplejosPrestados) {
         this.equiposComplejosPrestados = equiposComplejosPrestados;
     }
@@ -133,4 +122,5 @@ public abstract class Prestamo {
         this.elQuePideElPrestamo = elQuePideElPrestamo;
     }
     
+    public abstract int compareTo(Prestamo o);
 }

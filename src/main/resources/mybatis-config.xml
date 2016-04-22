@@ -26,7 +26,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			</dataSource>
 		</environment>
 	</environments>
-  
 	<mappers>
 		<mapper resource="mappers/EquipoComplejoMapper.xml"></mapper>
 		<mapper resource="mappers/EquipoSencilloMapper.xml"></mapper>

@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  *
- * @author 2107803
+ * @author German Lopez
  */
 public interface EquipoComplejoMapper {
     
@@ -24,7 +24,7 @@ public interface EquipoComplejoMapper {
     
     public EquipoComplejo loadEquipoBySerial(@Param("Eq_Serial") String serial);
     
-    public EquipoComplejo loadEquipoByPlaca(@Param("Eq_Placa") long placa);
+    public EquipoComplejo loadEquipoByPlaca(@Param("Eq_Placa") int placa);
     
     public void update(@Param("Eq_Viejo") EquipoComplejo eqv,@Param("Eq_Nuevo") EquipoComplejo eqn);
     
@@ -34,5 +34,5 @@ public interface EquipoComplejoMapper {
     
     public ArrayList<EquipoComplejo> loadEquipoByModelo(@Param("Eq_Modelo") String modelo);
 
-    public Modelo loadModelo(String nombre);
+    public Modelo loadModelo(@Param("Modelo")String nombre);
 }

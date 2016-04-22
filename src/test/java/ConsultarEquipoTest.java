@@ -36,7 +36,7 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
+        Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         dec.save(aConsultar);
         daof.commitTransaction();
@@ -76,7 +76,7 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
+        Modelo model = new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         dec.save(aConsultar);
         daof.commitTransaction();
@@ -94,7 +94,7 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
+        Modelo model = new Modelo(7, "Modelo de prueba", null, "Clase x", 100000);
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         dec.save(aConsultar);
         daof.commitTransaction();

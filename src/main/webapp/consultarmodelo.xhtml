@@ -21,7 +21,7 @@
             </p:panel>	
         </h:form>
         <p:separator />
-        <h:form id="modelos">
+        <h:form id="modelos" enctype="multipart/form-data">
             <p:panelGrid id="modeloconsultado" style="height:100px" columns="2" rendered="#{RegistroEquiposComplejos.showPanelConsulta()}">
                 <f:facet name="header">
                     <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" />
@@ -44,10 +44,10 @@
             </p:panelGrid>
             <p:panel id="registrarModelo" rendered="#{RegistroEquiposComplejos.showPanelRegistro()}">
                 <p:panelGrid columns="2" rendered="#{RegistroEquiposComplejos.showPanelRegistro()}">
-                    <h:outputLabel for="image" value="Select Image: *" />
-                    <p:fileUpload value="#{RegistroEquiposComplejos.file}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
-                    <f:facet name="footer">
-                        <p:commandButton value="Submit" ajax="false" actionListener="#{RegistroEquiposComplejos.upload}"/></f:facet>
+                    <h:outputLabel for="image" value="Seleccionar Imagen: *" />
+                    <p:fileUpload value="#{RegistroEquiposComplejos.uploadImage.file}" mode="simple" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                    <f:facet name="header">
+                        <p:commandButton value="Enviar" ajax="false" actionListener="#{RegistroEquiposComplejos.uploadImage.upload}"/></f:facet>
                 </p:panelGrid>
                 <br></br><h:outputLabel value="Nombre:" />
                 <br></br><h:inputText value="#{RegistroEquiposComplejos.nombre}" />

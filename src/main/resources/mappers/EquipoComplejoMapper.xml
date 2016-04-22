@@ -10,24 +10,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='placa' column='num_placa'/>
         <result property='disponibilidad' column='disponibilidad'/>
         <result property='estado' column='estado'/>
-        <result property='modeloEq' column='modelo'/>
         <result property='asegurado' column='asegurado'/>
         <result property='marca' column='marca'/>
-        <association property='modelo' resultMap='ModeloResult' columnPrefix='mo_'/>
+        <association property='modelo_Eq' resultMap='ModeloResult' columnPrefix='mo_'/>
     </resultMap>
 
     <resultMap type='Modelo' id='ModeloResult'>
         <id property='nombre' column='nombre'/>
         <result property='vidaUtil' column='vida_util'/>
-        <result property='fotografia' column='fotografia' jdbcType="BLOB" javaType="byte[]" />
-        <result property='valorComercia' column='valor_comercial'/>
+        <result property='fotografia' column='fotografia' jdbcType="BLOB" javaType="_byte[]" />
+        <result property='valorComercial' column='valor_comercial'/>
         <result property='clase' column='clase'/>
         <result property='descripcion' column='descripcion'/>
         <result property='accesorios' column='accesorios'/>
     </resultMap>
 
     <insert id='insertEquipo' parameterType='map'>
-        insert into Equipos_Complejos values(#{EqComplejo.id_Eq},#{EqComplejo.serial},#{EqComplejo.placa},#{EqComplejo.disponibilidad},
+        insert into Equipos_Complejos (serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values(#{EqComplejo.serial},#{EqComplejo.placa},#{EqComplejo.disponibilidad},
         #{EqComplejo.estado},#{EqComplejo.modelo_Eq.nombre},#{EqComplejo.asegurado},#{EqComplejo.marca})
     </insert>
 
@@ -37,46 +36,62 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <select id='loadDisponibles' parameterType='map' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo, ec.serial, ec.num_placa, ec.disponibilidad, ec.estado, ec.modelo, ec.asegurado,
-        ec.marca, mo_.vida_util, mo_.fotografia, mo_.valor_comercial, mo_.clase, mo_.descripcion, mo_.accesorios,
-        mo_.nombre from Equipos_Complejos as ec LEFT JOIN Modelos as mo_ on ec.modelo=mo_.nombre where
+        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
+        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
+        from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where
         ec.disponible=#{'true'}
     </select>
 
     <select id='loadEquipoBySerial' parameterType='map' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo, ec.serial, ec.num_placa, ec.disponibilidad, ec.estado, ec.modelo, ec.asegurado,
-        ec.marca, mo_.vida_util, mo_.fotografia, mo_.valor_comercial, mo_.clase, mo_.descripcion, mo_.accesorios,
-        mo_.nombre from Equipos_Complejos as ec LEFT JOIN Modelos as mo_ on ec.modelo=mo_.nombre where
+        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
+        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
+        from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where
         ec.serial=#{Eq_Serial}
     </select>
 
     <select id='loadEquipoByPlaca' parameterType='map' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo, ec.serial, ec.num_placa, ec.disponibilidad, ec.estado, ec.modelo, ec.asegurado,
-        ec.marca, mo_.vida_util, mo_.fotografia, mo_.valor_comercial, mo_.clase, mo_.descripcion, mo_.accesorios,
-        mo_.nombre from Equipos_Complejos as ec LEFT JOIN Modelos as mo_ on ec.modelo=mo_.nombre where
-        ec.placa=#{Eq_Placa}
+        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
+        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
+        from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where
+        ec.num_placa=#{Eq_Placa}
     </select>
 
     <update id='update' parameterType='map'>
-        update Equipo_Complejo as ec SET values(#{Eq_Nuevo.id_Eq},#{Eq_Nuevo.serial},#{Eq_Nuevo.placa},#{Eq_Nuevo.disponibilidad},
+        update Equipos_Complejos as ec SET values(#{Eq_Nuevo.id_Eq},#{Eq_Nuevo.serial},#{Eq_Nuevo.placa},#{Eq_Nuevo.disponibilidad},
         #{Eq_Nuevo.estado},#{Eq_Nuevo.modelo_Eq.nombre},#{Eq_Nuevo.asegurado},#{Eq_Nuevo.marca}) where ec.serial=#{Eq_Viejo.serial} or ec.placa=#{Eq_Viejo.placa}
     </update>
 
     <delete id='delete' parameterType='map'>
-        delete from Equipo_Complejo as ec where ec.serial=#{Eq_Complejo.serial} or ec.placa=#{Eq_Complejo.placa}
+        delete from Equipos_Complejos as ec where ec.serial=#{Eq_Complejo.serial} or ec.placa=#{Eq_Complejo.placa}
     </delete>
 
     <select id='loadAll' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo, ec.serial, ec.num_placa, ec.disponibilidad, ec.estado, ec.modelo, ec.asegurado,
-        ec.marca, mo_.vida_util, mo_.fotografia, mo_.valor_comercial, mo_.clase, mo_.descripcion, mo_.accesorios,
-        mo_.nombre from Equipos_Complejos as ec LEFT JOIN Modelos as mo_ on ec.modelo=mo_.nombre
+        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
+        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
+        from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
     </select>
 
     <select id='loadEquipoByModelo' parameterType='map' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo, ec.serial, ec.num_placa, ec.disponibilidad, ec.estado, ec.modelo, ec.asegurado,
-        ec.marca, mo_.vida_util, mo_.fotografia, mo_.valor_comercial, mo_.clase, mo_.descripcion, mo_.accesorios,
-        mo_.nombre from Equipos_Complejos as ec LEFT JOIN Modelos as mo_ on ec.modelo=mo_.nombre where 
+        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
+        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
+        from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where 
         ec.modelo=#{Eq_Modelo}
-    </select>  
+    </select>
+    
+      <select id='loadModelo' parameterType='map' resultMap='ModeloResult'>
+          select mo.vida_util as vida_util, mo.fotografia as fotografia, mo.valor_comercial as valor_comercial,
+          mo.clase as clase, mo.descripcion as descripcion, mo.accesorios as accesorios,
+          mo.nombre as nombre from Modelos as mo where mo.nombre=#{Modelo}
+      </select>
 
 </mapper>

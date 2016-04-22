@@ -111,7 +111,7 @@
                 </dependencies>
                 <configuration>
                     <driver>org.h2.Driver</driver>                    
-                    <url>jdbc:h2:file:./target/db/testdb;MODE=MYSQL</url>
+                    <url>jdbc:h2:file:./target/db/testdb2;MODE=MYSQL</url>
                     <username>anonymous</username>
                     <password></password>
                     <autocommit>false</autocommit>
