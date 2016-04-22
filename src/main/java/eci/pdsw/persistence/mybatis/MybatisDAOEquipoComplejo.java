@@ -15,7 +15,7 @@ import eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper;
 
 /**
  *
- * @author 2107803
+ * @author German Lopez
  */
 //NECESARIO REVISAR ASTAH E IMPLEMENTAR METODOS DE EMAP
 public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {

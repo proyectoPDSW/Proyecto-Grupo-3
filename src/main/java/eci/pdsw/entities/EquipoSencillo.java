@@ -5,18 +5,18 @@
  */
 package eci.pdsw.entities;
 
-import com.mysql.jdbc.Blob;
+import java.sql.Blob;
 
 /**
  *
- * @author amoto
+ * @author Julian Devia
  */
-public class EquipoSencillo {
+public class EquipoSencillo implements Comparable<EquipoSencillo> {
     private String nombre;
     private String clase;
     private long valorComercial;
     private int cantidadTotal;
-    private byte[] fotografia;
+    private String fotografia;
 
     public EquipoSencillo(String name, String clas,long valorC, int cantidad) {
         nombre=name;
@@ -28,7 +28,7 @@ public class EquipoSencillo {
     public EquipoSencillo() {
     }
 
-    public EquipoSencillo(String nombre, String clase, long valorComercial, int cantidadTotal, byte[] fotografia) {
+    public EquipoSencillo(String nombre, String clase, long valorComercial, int cantidadTotal, String fotografia) {
         this.nombre = nombre;
         this.clase = clase;
         this.valorComercial = valorComercial;
@@ -95,14 +95,14 @@ public class EquipoSencillo {
     /**
      * @return the fotografia
      */
-    public byte[] getFotografia() {
+    public String getFotografia() {
         return fotografia;
     }
 
     /**
      * @param fotografia the fotografia to set
      */
-    public void setFotografia(byte[] fotografia) {
+    public void setFotografia(String fotografia) {
         this.fotografia = fotografia;
     }
     
@@ -110,6 +110,12 @@ public class EquipoSencillo {
     public String toString(){
         String res="EquipoSencillo:["+nombre+","+clase+","+valorComercial+","+cantidadTotal+"]\n";
         return res;
+    }
+
+    @Override
+    public int compareTo(EquipoSencillo o) {
+        if(valorComercial<o.valorComercial) return -1;
+        else return 1;
     }
     
 }

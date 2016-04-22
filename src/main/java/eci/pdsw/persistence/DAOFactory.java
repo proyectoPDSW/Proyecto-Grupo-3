@@ -9,7 +9,7 @@ import java.util.Properties;
 import eci.pdsw.persistence.mybatis.MyBatisDAOFactory;
 /**
  *
- * @author Zawsx
+ * @author David Useche
  */
 public abstract class DAOFactory {
 
@@ -72,5 +72,11 @@ public abstract class DAOFactory {
      * @return el DAOPersona correspondiente a las propiedades del DAOFactory
      */
     public abstract DAOPersona getDaoPersona();
+    
+    /**
+     * Obtiene un DAOPrestamos
+     * @return 
+     */
+    public abstract DAOPrestamo getDaoPrestamo();
 
 }
