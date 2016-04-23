@@ -26,10 +26,10 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
     private DAOEquipoSencillo sencilloPersistencia;
 
     public ServiciosEquipoSencilloPersistence() {
-        InputStream input = null;
+        InputStream input;
         Properties properties = new Properties();
         try {
-            ServiciosEquipoSencilloPersistence.class.getClassLoader().getResource("applicationconfig.properties").openStream();
+            input=ServiciosEquipoSencilloPersistence.class.getClassLoader().getResource("applicationconfig.properties").openStream();
             properties.load(input);
         } catch (IOException ex) {
             Logger.getLogger(ServiciosEquipoSencilloPersistence.class.getName()).log(Level.SEVERE, null, ex);

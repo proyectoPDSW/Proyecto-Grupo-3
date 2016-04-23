@@ -1,16 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <br></br><b><title>Registro Equipo Sencillo</title></b>
+    </h:head>
+    <h:body>
+        <h:form id="registroEquipoSencillo">
+            
+            <p:panel id="registroEquipo"  header="Registro Nuevo Equipo Sencillo" style="margin-bottom:20px">
+
+                <h:panelGrid columns="3" cellpadding="5">
+
+                    <h:outputLabel for="url" value="URL imagen:  " />
+                    <p:inputText id="url" value="#{RegistroEquipoSencillo.fotografia}" />
+                    <p:message for="url" display="icon" />
+
+                    <h:outputLabel for="nombre" value="Nombre: (*) " />
+                    <p:inputText id="nombre" value="#{RegistroEquipoSencillo.nombre}" required="true"/>
+                    <p:message for="nombre" display="icon" />
+
+                    <h:outputLabel for="clase" value="Clase: (*) " />
+                    <p:inputText id="clase" value="#{RegistroEquipoSencillo.clase}" required="true"/>
+                    <p:message for="clase" display="icon" />
+
+                    <h:outputLabel for="valorcomercial" value="Valor Comercial: (*) " />
+                    <p:inputText id="valorcomercial" value="#{RegistroEquipoSencillo.valorComercial}" required="true"/>
+                    <p:message for="valorcomercial" display="icon" />
+
+                    <h:outputLabel for="cantidad" value="Cantidad: (*) " />
+                    <p:spinner id="cantidad" required="true" value="#{RegistroEquipoSencillo.cantidadTotal}" min="1" max="100000" />
+                    <p:message for="cantidad" display="icon" />
+                    
+                </h:panelGrid>
+
+                <p:commandButton value="Registrar" actionListener="#{RegistroEquipoSencillo.registrarEquipo()}" ajax="false" icon="ui-icon-plusthick"/>
+                <p:messages id="messages" autoUpdate="true" closable="true" />
+            </p:panel>
+        </h:form>
+    </h:body>
 </html>

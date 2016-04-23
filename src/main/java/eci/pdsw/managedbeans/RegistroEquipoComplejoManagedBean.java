@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 
 public class RegistroEquipoComplejoManagedBean implements Serializable{
     
-    private final ServiciosEquipoComplejo servicios;
+    private final ServiciosEquipoComplejo SERVICIOS;
         
     private String nombreModelo;
     
@@ -84,7 +84,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
     }
     
     public RegistroEquipoComplejoManagedBean() {
-        servicios=ServiciosEquipoComplejo.getInstance();
+        SERVICIOS=ServiciosEquipoComplejo.getInstance();
         
     }
     
@@ -94,7 +94,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
     }
     public void consultarModelo(){
         try {
-            modelo=servicios.consultarModelo(nombreModelo);
+            modelo=SERVICIOS.consultarModelo(nombreModelo);
             showPanelRegistroModelo=false;
             showPanelConsultaModelo=true;
         } catch (ExcepcionServicios ex) {
@@ -114,7 +114,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             if(!(accesorios==null || accesorios.length()==0)){
                 modelo.setAccesorios(accesorios);
             }
-            servicios.registrarModelo(modelo);
+            SERVICIOS.registrarModelo(modelo);
         } catch (ExcepcionServicios ex) {
             facesError("Los datos no son correctos");
             Logger.getLogger(RegistroEquipoComplejoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
