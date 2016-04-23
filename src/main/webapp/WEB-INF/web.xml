@@ -25,6 +25,6 @@
         <param-value>Development</param-value>
     </context-param>
     <welcome-file-list>
-        <welcome-file>faces/consultaEquipos.xhtml</welcome-file>
+        <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>
