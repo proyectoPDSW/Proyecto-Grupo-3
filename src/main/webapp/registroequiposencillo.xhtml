@@ -13,7 +13,7 @@
             
             <p:panel id="registroEquipo"  header="Registro Nuevo Equipo Sencillo" style="margin-bottom:20px">
 
-                <h:panelGrid columns="3" cellpadding="5">
+                <h:panelGrid columns="3" cellpadding="5" rendered="#{RegistroEquipoSencillo.showPanelRegistro}">
 
                     <h:outputLabel for="url" value="URL imagen:  " />
                     <p:inputText id="url" value="#{RegistroEquipoSencillo.fotografia}" />
@@ -38,8 +38,11 @@
                 </h:panelGrid>
 
                 <p:commandButton value="Registrar" actionListener="#{RegistroEquipoSencillo.registrarEquipo()}" ajax="false" icon="ui-icon-plusthick"/>
+                <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 <p:messages id="messages" autoUpdate="true" closable="true" />
+    
             </p:panel>
+            
         </h:form>
     </h:body>
 </html>

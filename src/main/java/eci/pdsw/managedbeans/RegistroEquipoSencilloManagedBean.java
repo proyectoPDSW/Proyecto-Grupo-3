@@ -10,8 +10,6 @@ import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.servicios.ExcepcionServicios;
 import eci.pdsw.servicios.ServiciosEquipoSencillo;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -32,7 +30,9 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
         private long valorComercial;
         private int cantidadTotal;
         private String fotografia;
-        
+
+   
+    private boolean showPanelRegistro=true;
     private EquipoSencillo equipoSencillo;
     
        
@@ -43,13 +43,15 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
     public void registrarEquipo(){
         if(0==fotografia.length()){
             fotografia="http://deloresvan.com/wp-content/themes/nucleare-pro/images/no-image-box.png";
-        }
-       
+        }     
         try {
             equipoSencillo=new EquipoSencillo(nombre, clase, valorComercial, cantidadTotal);
+            equipoSencillo.setFotografia(fotografia);
             SERVICIOS.registrarEquipoSencillo(equipoSencillo);
+            facesInfo("Se ha resgistrado el equipo");
+            showPanelRegistro=false;
         } catch (ExcepcionServicios | PersistenceException ex) {
-            facesError("asdsa");
+            facesError(ex.getMessage());
         }
     
     }
@@ -93,23 +95,49 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
     public void setFotografia(String fotografia) {
         this.fotografia = fotografia;
     }
+       public boolean isShowPanelRegistro() {
+        return showPanelRegistro;
+    }
+
+    public void setShowPanelRegistro(boolean showPanelRegistro) {
+        this.showPanelRegistro = showPanelRegistro;
+    }
+
+    public EquipoSencillo getEquipoSencillo() {
+        return equipoSencillo;
+    }
+
+    public void setEquipoSencillo(EquipoSencillo equipoSencillo) {
+        this.equipoSencillo = equipoSencillo;
+    }
     
     /**
-     * Adds a new SEVERITY_ERROR FacesMessage for the ui
-     * @param message Error Message
+     * Muestra un mensaje de error en la vista
+     * @param message Mensaje de error
      */
     private void facesError(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: "+message, null));
     }
     
+    /**
+     * Muestra un mensaje de informacion en la vista
+     * @param message Mensaje de informativo
+     */
     public void facesInfo(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
-     
+    /**
+     * Muestra un mensaje de alarma en la vista
+     * @param message Mensaje de Alarma
+     */
     public void facesWarn(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
     }
     
+    /**
+     * Muestra un mensaje de error grave en la vista
+     * @param message Mensaje fatal
+     */
     public void facesFatal(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, message, null));
     }
