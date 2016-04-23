@@ -15,7 +15,13 @@ import eci.pdsw.entities.Modelo;
 import eci.pdsw.persistence.DAOEquipoComplejo;
 import eci.pdsw.persistence.DAOEquipoSencillo;
 import eci.pdsw.persistence.DAOFactory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 
 
 /**
@@ -25,6 +31,23 @@ import org.junit.Assert;
 public class RegistrarEquipoTest {
     public static InputStream input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
     public static Properties properties=new Properties();
+    
+     public RegistrarEquipoTest() {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void clearDB() throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb2;MODE=MYSQL", "anonymous", "");
+        Statement stmt = conn.createStatement();
+        stmt.execute("delete from Equipos_Complejos");
+        stmt.execute("delete from Equipos_Sencillos");
+        conn.commit();
+    }
+      
     
         //Deberia registrar un equipo complejo
     @Test
