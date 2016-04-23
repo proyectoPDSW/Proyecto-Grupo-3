@@ -15,7 +15,14 @@ import eci.pdsw.entities.Modelo;
 import eci.pdsw.persistence.DAOEquipoComplejo;
 import eci.pdsw.persistence.DAOEquipoSencillo;
 import eci.pdsw.persistence.DAOFactory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 
 
 /**
@@ -25,6 +32,23 @@ import org.junit.Assert;
 public class RegistrarEquipoTest {
     public static InputStream input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
     public static Properties properties=new Properties();
+    
+     public RegistrarEquipoTest() {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void clearDB() throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb2;MODE=MYSQL", "anonymous", "");
+        Statement stmt = conn.createStatement();
+        stmt.execute("delete from Equipos_Complejos");
+        stmt.execute("delete from Equipos_Sencillos");
+        conn.commit();
+    }
+      
     
         //Deberia registrar un equipo complejo
     @Test
@@ -47,7 +71,7 @@ public class RegistrarEquipoTest {
     
     //No deberia registrar dos veces el mismo equipo
     @Test
-    public void CE2(){
+    public void CE2() throws PersistenceException{
         Modelo mod = new Modelo(100000,"Destornillador de estrella",null,"Destornillador",5000);
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa");
         ec.setPlaca(123456);
@@ -94,7 +118,7 @@ public class RegistrarEquipoTest {
     
     //No deberia registrar mas de una vez el mismo equipo sencillo dos veces
     @Test
-     public void CE4(){
+     public void CE4() throws PersistenceException{
          EquipoSencillo es=new EquipoSencillo("Cable UTP","Cable",100,400);
          DAOFactory daof=null;
         try{
@@ -111,9 +135,30 @@ public class RegistrarEquipoTest {
             Assert.fail("Registro dos veces el mismo equipo"); 
         }catch(IOException | PersistenceException e){
             Assert.assertEquals(e.getMessage(),"El equipo con nombre "+es.getNombre()+" ya esta registrado");
-    }finally{
+        }finally{
             daof.endSession();
         }
-  }
+    }
+     
+     //Deberia registrar el modelo del equipo
+    @Test
+     public void CE5() throws IOException,PersistenceException{
+        properties.load(input);
+        DAOFactory daof=DAOFactory.getInstance(properties);
+        daof.beginSession();
+        DAOEquipoComplejo reg=daof.getDaoEquipoComplejo();
+        
+        Modelo mod=new Modelo(4000,"Nombre","Foto","Clase",2000);
+        reg.save(mod);
+        daof.commitTransaction();
+        Modelo test=reg.loadModelo(mod.getNombre());
+        EquipoComplejo ec=new EquipoComplejo(test,"marca","serial");
+        reg.save(ec);
+        daof.commitTransaction();
+        ArrayList<EquipoComplejo> prueba=reg.loadByModelo(mod.getNombre());
+        daof.commitTransaction();
+        daof.endSession();
+        Assert.assertEquals(ec, prueba.get(0));
+     }
 }
     

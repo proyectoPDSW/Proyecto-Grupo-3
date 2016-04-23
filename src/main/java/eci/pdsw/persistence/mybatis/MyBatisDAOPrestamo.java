@@ -16,10 +16,10 @@ import java.util.List;
  *
  * @author Hugo Alvarez
  */
-public class MyBatisDaoPrestamo  implements DAOPrestamo{
+public class MyBatisDAOPrestamo  implements DAOPrestamo{
 
     @Override
-    public Prestamo load(Timestamp fecha, String carne) throws PersistenceException {
+    public List<Prestamo> load(Timestamp fecha, String carne) throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -44,7 +44,7 @@ public class MyBatisDaoPrestamo  implements DAOPrestamo{
     }
 
     @Override
-    public List<Prestamo> loadByCarnet(String nombre) throws PersistenceException {
+    public List<Prestamo> loadByCarne(String nombre) throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

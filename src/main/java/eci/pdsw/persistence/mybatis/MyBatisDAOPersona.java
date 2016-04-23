@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Hugo Alvarez
  */
-public class MyBatisDaoPersona implements DAOPersona{
+public class MyBatisDAOPersona implements DAOPersona{
 
     @Override
     public Persona load(String carne) throws PersistenceException {

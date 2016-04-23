@@ -19,6 +19,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 /*
@@ -31,6 +32,22 @@ import org.junit.Test;
  * @author Zawsx
  */
 public class ConsultarEquipoTest {
+    
+     public ConsultarEquipoTest() {
+    }
+
+    @Before
+    public void setUp() {
+    }
+
+    @After
+    public void clearDB() throws SQLException {
+        Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb2;MODE=MYSQL", "anonymous", "");
+        Statement stmt = conn.createStatement();
+        stmt.execute("delete from Equipos_Complejos");
+        stmt.execute("delete from Equipos_Sencillos");
+        conn.commit();
+    }
 
     //Clase equivalencia 1, Deberia consultar un equipo por modelo
     @Test
@@ -48,7 +65,8 @@ public class ConsultarEquipoTest {
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
         daof.commitTransaction();
-        ArrayList<EquipoComplejo> loaded = dec.loadByModelo("Modelo de Prueba");
+        ArrayList<EquipoComplejo> loaded = dec.loadByModelo(aConsultar.getModelo_Eq().getNombre());
+        daof.commitTransaction();
         daof.endSession();
         Assert.assertTrue(loaded.size() == 1 && aConsultar.equals(loaded.get(0)));
     }
@@ -71,9 +89,11 @@ public class ConsultarEquipoTest {
         aConsultar.setEstado("En prueba");
         aConsultar2.setEstado("En prueba");
         dec.save(aConsultar);
+        daof.commitTransaction();
         dec.save(aConsultar2);
         daof.commitTransaction();
-        ArrayList<EquipoComplejo> loaded = dec.loadByModelo("Modelo de Prueba");
+        ArrayList<EquipoComplejo> loaded = dec.loadByModelo(aConsultar.getModelo_Eq().getNombre());
+        daof.commitTransaction();
         daof.endSession();
         Assert.assertTrue(loaded.size() == 2 && aConsultar.equals(loaded.get(0)) && aConsultar2.equals(loaded.get(1)));
     }

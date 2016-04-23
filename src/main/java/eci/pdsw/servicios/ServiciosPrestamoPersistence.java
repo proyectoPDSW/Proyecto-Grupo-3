@@ -67,7 +67,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         try{
             daoF.beginSession();
             basePaciente=daoF.getDaoPrestamo();
-            prestamos=basePaciente.loadByCarnet(p.getCarnet());
+            prestamos=basePaciente.loadByCarne(p.getCarnet());
             Collections.sort(prestamos);
         }catch(PersistenceException e){
             throw new ExcepcionServicios("");
