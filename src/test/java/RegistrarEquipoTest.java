@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -134,9 +135,30 @@ public class RegistrarEquipoTest {
             Assert.fail("Registro dos veces el mismo equipo"); 
         }catch(IOException | PersistenceException e){
             Assert.assertEquals(e.getMessage(),"El equipo con nombre "+es.getNombre()+" ya esta registrado");
-    }finally{
+        }finally{
             daof.endSession();
         }
-  }
+    }
+     
+     //Deberia registrar el modelo del equipo
+    @Test
+     public void CE5() throws IOException,PersistenceException{
+        properties.load(input);
+        DAOFactory daof=DAOFactory.getInstance(properties);
+        daof.beginSession();
+        DAOEquipoComplejo reg=daof.getDaoEquipoComplejo();
+        
+        Modelo mod=new Modelo(4000,"Nombre","Foto","Clase",2000);
+        reg.save(mod);
+        daof.commitTransaction();
+        Modelo test=reg.loadModelo(mod.getNombre());
+        EquipoComplejo ec=new EquipoComplejo(test,"marca","serial");
+        reg.save(ec);
+        daof.commitTransaction();
+        ArrayList<EquipoComplejo> prueba=reg.loadByModelo(mod.getNombre());
+        daof.commitTransaction();
+        daof.endSession();
+        Assert.assertEquals(ec, prueba.get(0));
+     }
 }
     

@@ -5,6 +5,8 @@
  */
 package eci.pdsw.entities;
 
+import eci.pdsw.persistence.PersistenceException;
+
 /**
  *
  * @author David Useche
@@ -20,7 +22,9 @@ public class Modelo {
 
 
 
-    public Modelo(int vidaU, String name, String foto, String clas, long valor) {
+    public Modelo(int vidaU, String name, String foto, String clas, long valor) throws PersistenceException {
+       if(valor<0) throw new PersistenceException("Favor colocar un valor de compra adecuado");
+       if(vidaU<0) throw new PersistenceException("Favor colocar un valor de vida util adecuado");
        vidaUtil=vidaU;
        nombre=name;
        clase=clas;
