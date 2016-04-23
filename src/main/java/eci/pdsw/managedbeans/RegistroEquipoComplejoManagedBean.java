@@ -6,6 +6,7 @@
 package eci.pdsw.managedbeans;
 
 import eci.pdsw.entities.Modelo;
+import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.servicios.ExcepcionServicios;
 import eci.pdsw.servicios.ServiciosEquipoComplejo;
 import java.io.Serializable;
@@ -103,7 +104,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         }
         
     }
-    public void registrarModelo(){
+    public void registrarModelo() throws PersistenceException{
         try {
             showPanelConsultaModelo=false;
             showPanelRegistroModelo=true;

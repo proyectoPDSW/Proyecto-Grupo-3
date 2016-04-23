@@ -71,7 +71,7 @@ public class RegistrarEquipoTest {
     
     //No deberia registrar dos veces el mismo equipo
     @Test
-    public void CE2(){
+    public void CE2() throws PersistenceException{
         Modelo mod = new Modelo(100000,"Destornillador de estrella",null,"Destornillador",5000);
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa");
         ec.setPlaca(123456);
@@ -118,7 +118,7 @@ public class RegistrarEquipoTest {
     
     //No deberia registrar mas de una vez el mismo equipo sencillo dos veces
     @Test
-     public void CE4(){
+     public void CE4() throws PersistenceException{
          EquipoSencillo es=new EquipoSencillo("Cable UTP","Cable",100,400);
          DAOFactory daof=null;
         try{

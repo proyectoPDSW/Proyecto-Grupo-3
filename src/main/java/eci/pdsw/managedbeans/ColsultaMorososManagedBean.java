@@ -11,6 +11,7 @@ import eci.pdsw.entities.Modelo;
 import eci.pdsw.entities.Persona;
 import eci.pdsw.entities.Prestamo;
 import eci.pdsw.entities.PrestamoTerminoFijo;
+import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.servicios.ServiciosPrestamo;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -38,7 +39,7 @@ public class ColsultaMorososManagedBean {
      * Consulta los prestamos en mora
      * @return the morosos
      */
-    public List<Prestamo> getMorosos() {
+    public List<Prestamo> getMorosos() throws PersistenceException {
         Persona per=new Persona("2105684", "Julian", "Devia", "yo@asdads.com", "1234567");
         Modelo lod=new Modelo(5, "yonose", null, "grande", 1234);
         EquipoComplejo ec2=new EquipoComplejo(lod, "esta", "132456789");
