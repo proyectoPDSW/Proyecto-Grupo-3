@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2016-04-21 23:51:17.484
+-- Last modification date: 2016-04-23 04:17:38.51
 
 -- tables
 -- Table: Departamento_persona
@@ -52,7 +52,7 @@ CREATE TABLE Equipos_Sencillos (
     nombre varchar(100) NOT NULL,
     cantidad_total int NOT NULL,
     clase varchar(100) NOT NULL,
-    fotografia varchar(500) NOT NULL,
+    fotografia varchar(500) NULL,
     valor_comercial int NOT NULL,
     UNIQUE INDEX NOMBRE_AK (nombre),
     CONSTRAINT Equipos_Sencillos_pk PRIMARY KEY (nombre)
@@ -71,7 +71,7 @@ CREATE TABLE Informacion_Compra (
 -- Table: Modelos
 CREATE TABLE Modelos (
     vida_util int NOT NULL,
-    fotografia varchar(500) NOT NULL,
+    fotografia varchar(500) NULL,
     valor_comercial int NOT NULL,
     clase varchar(50) NOT NULL,
     descripcion varchar(200) NOT NULL,
@@ -143,3 +143,4 @@ ALTER TABLE Prestamos ADD CONSTRAINT Persona_Prestamo FOREIGN KEY (persona)
     REFERENCES Personas (carne);
 
 -- End of file.
+
