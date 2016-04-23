@@ -6,9 +6,12 @@
 package eci.pdsw.managedbeans;
 
 import eci.pdsw.entities.EquipoSencillo;
+import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.servicios.ExcepcionServicios;
 import eci.pdsw.servicios.ServiciosEquipoSencillo;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -41,10 +44,11 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
         if(0==fotografia.length()){
             fotografia="http://deloresvan.com/wp-content/themes/nucleare-pro/images/no-image-box.png";
         }
-        equipoSencillo=new EquipoSencillo(nombre, clase, valorComercial, cantidadTotal);
+       
         try {
+            equipoSencillo=new EquipoSencillo(nombre, clase, valorComercial, cantidadTotal);
             SERVICIOS.registrarEquipoSencillo(equipoSencillo);
-        } catch (ExcepcionServicios ex) {
+        } catch (ExcepcionServicios | PersistenceException ex) {
             facesError("asdsa");
         }
     
