@@ -7,6 +7,7 @@ package eci.pdsw.entities;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -74,6 +75,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposComplejosPrestados
      */
     public List<EquipoComplejo> getEquiposComplejosPrestados() {
+        Arrays.sort(equiposComplejosPrestados.toArray());
         return equiposComplejosPrestados;
     }
 
@@ -88,6 +90,10 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposSencillosPrestados
      */
     public Map<EquipoSencillo,Integer> getEquiposSencillosPrestados() {
+        
+        for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
+            
+        }
         return equiposSencillosPrestados;
     }
 
@@ -122,5 +128,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         this.elQuePideElPrestamo = elQuePideElPrestamo;
     }
     
+    @Override
     public abstract int compareTo(Prestamo o);
 }
