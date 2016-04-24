@@ -33,12 +33,12 @@
                     <p:commandButton value="Registrar" actionListener="#{RegistroEquipoSencillo.registrarEquipo()}" ajax="false" icon="ui-icon-plusthick"/>
                     <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 </h:panelGrid>
-                
+
                 <p:messages id="messages" autoUpdate="true" closable="true" />
-                
+
                 <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroEquipoSencillo.showPanelRegistrado}">
                     <f:facet name="header">
-                        <p:graphicImage url="#{RegistroEquipoSencillo.fotografia}" height="200px" width="200px" />
+                        <p:graphicImage url="#{RegistroEquipoSencillo.equipoSencillo.fotografia}" height="200px" width="200px" />
                     </f:facet>
 
                     <h:outputLabel value="Nombre:" />
