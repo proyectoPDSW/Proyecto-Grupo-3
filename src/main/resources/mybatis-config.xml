@@ -29,6 +29,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="mappers/EquipoComplejoMapper.xml"></mapper>
 		<mapper resource="mappers/EquipoSencilloMapper.xml"></mapper>
+                <mapper resource="mappers/PersonaMapper.xml"></mapper>
+                <mapper resource="mappers/PrestamoMapper.xml"></mapper>
 	</mappers>
         
 </configuration>
