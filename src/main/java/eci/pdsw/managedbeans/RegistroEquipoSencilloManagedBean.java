@@ -5,6 +5,7 @@
  */
 package eci.pdsw.managedbeans;
 
+import eci.pdsw.entities.EquipoException;
 import eci.pdsw.entities.EquipoSencillo;
 import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.servicios.ExcepcionServicios;
@@ -48,7 +49,7 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
                 facesInfo("El equipo ha sido registrado satisfactoriamente");
                 showPanelRegistro=false;
                 showPanelRegistrado=true;
-        } catch (ExcepcionServicios | PersistenceException ex) {
+        } catch (ExcepcionServicios | EquipoException ex) {
                 facesError(ex.getMessage());
         }
         

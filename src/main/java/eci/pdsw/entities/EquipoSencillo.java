@@ -5,7 +5,7 @@
  */
 package eci.pdsw.entities;
 
-import eci.pdsw.persistence.PersistenceException;
+
 
 /**
  *
@@ -18,10 +18,11 @@ public class EquipoSencillo implements Comparable<EquipoSencillo> {
     private int cantidadTotal;
     private String fotografia;
 
-    public EquipoSencillo(String name, String clas,long valorC, int cantidad) throws PersistenceException {
-        if(name==null) throw new PersistenceException("El equipo no tiene nombre, favor colocar uno");
-        if(cantidad<0) throw new PersistenceException("Favor colocar valor de cantidad adecuado");
-        if(valorC<0) throw new PersistenceException("Favor colocar un valor de compra adecuado");
+    public EquipoSencillo(String name, String clas,long valorC, int cantidad) throws EquipoException {
+        if(name.length()<=0) throw new EquipoException(EquipoException.EQUIPO_S_SIN_NOMBRE);
+        if(clas.length()<=0) throw new EquipoException(EquipoException.EQUIPO_S_SIN_CLASE);
+        if(valorC<0) throw new EquipoException(EquipoException.EQUIPO_S_COMPRA_NEGATIVO);
+        if(cantidad<0) throw new EquipoException(EquipoException.EQUIPO_S_CANTIDAD_NEGATIVA);
         nombre=name;
         clase=clas;
         valorComercial=valorC;

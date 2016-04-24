@@ -5,7 +5,6 @@
  */
 package eci.pdsw.entities;
 
-import eci.pdsw.persistence.PersistenceException;
 import java.util.Objects;
 
 /**
@@ -22,8 +21,10 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     private String marca;
     private Modelo modelo_Eq;
 
-    public EquipoComplejo(Modelo mod,String mar, String ser)throws PersistenceException {
-        if(mod==null) throw new PersistenceException("El equipo no posee modelo");
+    public EquipoComplejo(Modelo mod,String mar, String ser)throws EquipoException {
+        if(mod==null) throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
+        if(ser.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
+        if(mar.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
         marca=mar;
         serial=ser;
         modelo_Eq=mod;

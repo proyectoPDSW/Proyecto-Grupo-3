@@ -5,6 +5,7 @@
  */
 
 import eci.pdsw.entities.EquipoComplejo;
+import eci.pdsw.entities.EquipoException;
 import eci.pdsw.entities.EquipoSencillo;
 import eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
@@ -52,7 +53,7 @@ public class RegistrarEquipoTest {
     
         //Deberia registrar un equipo complejo
     @Test
-    public void CE1() throws IOException, PersistenceException{
+    public void CE1() throws IOException, PersistenceException, EquipoException{
         properties.load(input);
         DAOFactory daof=DAOFactory.getInstance(properties);
         daof.beginSession();
@@ -71,7 +72,7 @@ public class RegistrarEquipoTest {
     
     //No deberia registrar dos veces el mismo equipo
     @Test
-    public void CE2() throws PersistenceException{
+    public void CE2() throws PersistenceException, EquipoException{
         Modelo mod = new Modelo(100000,"Destornillador de estrella",null,"Destornillador",5000);
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa");
         ec.setPlaca(123456);
@@ -96,7 +97,7 @@ public class RegistrarEquipoTest {
     }
     //Deberia registrar un equipo sencillo
     @Test
-    public void CE3(){
+    public void CE3() throws EquipoException{
         try {
             properties.load(input);
             DAOFactory daof=DAOFactory.getInstance(properties);
@@ -118,7 +119,7 @@ public class RegistrarEquipoTest {
     
     //No deberia registrar mas de una vez el mismo equipo sencillo dos veces
     @Test
-     public void CE4() throws PersistenceException{
+     public void CE4() throws PersistenceException, EquipoException{
          EquipoSencillo es=new EquipoSencillo("Cable UTP","Cable",100,400);
          DAOFactory daof=null;
         try{
@@ -142,7 +143,7 @@ public class RegistrarEquipoTest {
      
      //Deberia registrar el modelo del equipo
     @Test
-     public void CE5() throws IOException,PersistenceException{
+     public void CE5() throws IOException,PersistenceException, EquipoException{
         properties.load(input);
         DAOFactory daof=DAOFactory.getInstance(properties);
         daof.beginSession();

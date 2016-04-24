@@ -5,6 +5,7 @@
  */
 package eci.pdsw.managedbeans;
 
+import eci.pdsw.entities.EquipoException;
 import eci.pdsw.entities.Modelo;
 import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.servicios.ExcepcionServicios;
@@ -104,7 +105,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         }
         
     }
-    public void registrarModelo() throws PersistenceException{
+    public void registrarModelo(){
         try {
             showPanelConsultaModelo=false;
             showPanelRegistroModelo=true;
@@ -116,7 +117,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
                 modelo.setAccesorios(accesorios);
             }
             SERVICIOS.registrarModelo(modelo);
-        } catch (ExcepcionServicios ex) {
+        } catch (ExcepcionServicios | EquipoException ex) {
             facesError("Los datos no son correctos");
             Logger.getLogger(RegistroEquipoComplejoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }

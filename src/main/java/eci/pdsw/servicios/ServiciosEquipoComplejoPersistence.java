@@ -6,6 +6,7 @@
 package eci.pdsw.servicios;
 
 import eci.pdsw.entities.EquipoComplejo;
+import eci.pdsw.entities.EquipoException;
 import eci.pdsw.entities.Modelo;
 import eci.pdsw.persistence.DAOEquipoComplejo;
 import eci.pdsw.persistence.DAOFactory;
@@ -47,7 +48,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             complejoPersistencia.save(model);
             dao.commitTransaction();
             dao.endSession();
-        } catch (PersistenceException ex) {
+        } catch (PersistenceException  ex) {
             throw new ExcepcionServicios(ex.getMessage());
         }
     }

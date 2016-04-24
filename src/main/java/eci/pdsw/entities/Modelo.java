@@ -5,7 +5,6 @@
  */
 package eci.pdsw.entities;
 
-import eci.pdsw.persistence.PersistenceException;
 
 /**
  *
@@ -22,9 +21,11 @@ public class Modelo {
 
 
 
-    public Modelo(int vidaU, String name, String foto, String clas, long valor) throws PersistenceException {
-       if(valor<0) throw new PersistenceException("Favor colocar un valor de compra adecuado");
-       if(vidaU<0) throw new PersistenceException("Favor colocar un valor de vida util adecuado");
+    public Modelo(int vidaU, String name, String foto, String clas, long valor) throws EquipoException {
+       if(vidaU<0) throw new EquipoException(EquipoException.MODELO_VIDA_UTIL_NEGATVA);
+       if(name.length()<=0) throw new EquipoException(EquipoException.MODELO_SIN_NOMBRE);
+       if(clas.length()<=0) throw new EquipoException(EquipoException.MODELO_SIN_CLASE);
+       if(valor<0) throw new EquipoException(EquipoException.MODELO_VALOR_COMPRA_NEGATVO);
        vidaUtil=vidaU;
        nombre=name;
        clase=clas;

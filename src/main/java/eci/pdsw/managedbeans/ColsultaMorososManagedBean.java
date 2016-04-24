@@ -6,6 +6,7 @@
 package eci.pdsw.managedbeans;
 
 import eci.pdsw.entities.EquipoComplejo;
+import eci.pdsw.entities.EquipoException;
 import eci.pdsw.entities.EquipoSencillo;
 import eci.pdsw.entities.Modelo;
 import eci.pdsw.entities.Persona;
@@ -39,7 +40,7 @@ public class ColsultaMorososManagedBean {
      * Consulta los prestamos en mora
      * @return the morosos
      */
-    public List<Prestamo> getMorosos() throws PersistenceException {
+    public List<Prestamo> getMorosos() throws PersistenceException, EquipoException {
         Persona per=new Persona("2105684", "Julian", "Devia", "yo@asdads.com", "1234567");
         Modelo lod=new Modelo(5, "yonose", null, "grande", 1234);
         EquipoComplejo ec2=new EquipoComplejo(lod, "esta", "132456789");
