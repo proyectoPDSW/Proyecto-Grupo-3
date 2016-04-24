@@ -41,18 +41,14 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
     }
     
     public void registrarEquipo(){ 
-        try {                
-            if(0==fotografia.length()){
-                fotografia="http://deloresvan.com/wp-content/themes/nucleare-pro/images/no-image-box.png";
-            }   
+        try {                  
                 equipoSencillo=new EquipoSencillo(nombre, clase, valorComercial, cantidadTotal);
                 equipoSencillo.setFotografia(fotografia);
                 SERVICIOS.registrarEquipoSencillo(equipoSencillo);
-                facesInfo("Se ha resgistrado el equipo");
+                facesInfo("El equipo ha sido registrado satisfactoriamente");
                 showPanelRegistro=false;
                 showPanelRegistrado=true;
         } catch (ExcepcionServicios | PersistenceException ex) {
-                fotografia="";
                 facesError(ex.getMessage());
         }
         
@@ -64,6 +60,8 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
         fotografia="";
         showPanelRegistro=true;
         showPanelRegistrado=false;
+        valorComercial=new Long("0");
+        cantidadTotal=0;
     }
 
     public String getNombre() {
