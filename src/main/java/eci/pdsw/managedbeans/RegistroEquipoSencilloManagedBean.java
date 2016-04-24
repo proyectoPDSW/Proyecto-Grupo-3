@@ -31,8 +31,8 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
         private int cantidadTotal;
         private String fotografia;
 
-   
     private boolean showPanelRegistro=true;
+    private boolean showPanelRegistrado=false;
     private EquipoSencillo equipoSencillo;
     
        
@@ -40,20 +40,30 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
         SERVICIOS=ServiciosEquipoSencillo.getInstance();
     }
     
-    public void registrarEquipo(){
-        if(0==fotografia.length()){
-            fotografia="http://deloresvan.com/wp-content/themes/nucleare-pro/images/no-image-box.png";
-        }     
-        try {
-            equipoSencillo=new EquipoSencillo(nombre, clase, valorComercial, cantidadTotal);
-            equipoSencillo.setFotografia(fotografia);
-            SERVICIOS.registrarEquipoSencillo(equipoSencillo);
-            facesInfo("Se ha resgistrado el equipo");
-            showPanelRegistro=false;
+    public void registrarEquipo(){ 
+        try {                
+            if(0==fotografia.length()){
+                fotografia="http://deloresvan.com/wp-content/themes/nucleare-pro/images/no-image-box.png";
+            }   
+                equipoSencillo=new EquipoSencillo(nombre, clase, valorComercial, cantidadTotal);
+                equipoSencillo.setFotografia(fotografia);
+                SERVICIOS.registrarEquipoSencillo(equipoSencillo);
+                facesInfo("Se ha resgistrado el equipo");
+                showPanelRegistro=false;
+                showPanelRegistrado=true;
         } catch (ExcepcionServicios | PersistenceException ex) {
-            facesError(ex.getMessage());
+                fotografia="";
+                facesError(ex.getMessage());
         }
+        
+    }
     
+    public void registrarOtroEquipo(){
+        nombre="";
+        clase="";
+        fotografia="";
+        showPanelRegistro=true;
+        showPanelRegistrado=false;
     }
 
     public String getNombre() {
@@ -95,13 +105,6 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
     public void setFotografia(String fotografia) {
         this.fotografia = fotografia;
     }
-       public boolean isShowPanelRegistro() {
-        return showPanelRegistro;
-    }
-
-    public void setShowPanelRegistro(boolean showPanelRegistro) {
-        this.showPanelRegistro = showPanelRegistro;
-    }
 
     public EquipoSencillo getEquipoSencillo() {
         return equipoSencillo;
@@ -109,6 +112,23 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
 
     public void setEquipoSencillo(EquipoSencillo equipoSencillo) {
         this.equipoSencillo = equipoSencillo;
+    }
+    
+    
+    public boolean isShowPanelRegistro() {
+        return showPanelRegistro;
+    }
+
+    public void setShowPanelRegistro(boolean showPanelRegistro) {
+        this.showPanelRegistro = showPanelRegistro;
+    }
+
+    public boolean isShowPanelRegistrado() {
+        return showPanelRegistrado;
+    }
+
+    public void setShowPanelRegistrado(boolean showPanelRegistrado) {
+        this.showPanelRegistrado = showPanelRegistrado;
     }
     
     /**
