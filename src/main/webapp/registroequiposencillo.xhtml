@@ -10,39 +10,55 @@
     </h:head>
     <h:body>
         <h:form id="registroEquipoSencillo">
-            
+
             <p:panel id="registroEquipo"  header="Registro Nuevo Equipo Sencillo" style="margin-bottom:20px">
 
-                <h:panelGrid columns="3" cellpadding="5" rendered="#{RegistroEquipoSencillo.showPanelRegistro}">
+                <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroEquipoSencillo.showPanelRegistro}">
 
-                    <h:outputLabel for="url" value="URL imagen:  " />
+                    <h:outputLabel value="URL imagen:  " />
                     <p:inputText id="url" value="#{RegistroEquipoSencillo.fotografia}" />
-                    <p:message for="url" display="icon" />
 
-                    <h:outputLabel for="nombre" value="Nombre: (*) " />
-                    <p:inputText id="nombre" value="#{RegistroEquipoSencillo.nombre}" required="true"/>
-                    <p:message for="nombre" display="icon" />
+                    <h:outputLabel  value="Nombre: (*) " />
+                    <p:inputText id="nombre" value="#{RegistroEquipoSencillo.nombre}" />
 
-                    <h:outputLabel for="clase" value="Clase: (*) " />
-                    <p:inputText id="clase" value="#{RegistroEquipoSencillo.clase}" required="true"/>
-                    <p:message for="clase" display="icon" />
+                    <h:outputLabel  value="Clase: (*) " />
+                    <p:inputText id="clase" value="#{RegistroEquipoSencillo.clase}" />
 
-                    <h:outputLabel for="valorcomercial" value="Valor Comercial: (*) " />
-                    <p:inputText id="valorcomercial" value="#{RegistroEquipoSencillo.valorComercial}" required="true"/>
-                    <p:message for="valorcomercial" display="icon" />
+                    <h:outputLabel value="Valor Comercial: (*) " />
+                    <p:spinner id="valorcomercial" value="#{RegistroEquipoSencillo.valorComercial}" prefix="$" stepFactor="50" min="50"/>
 
-                    <h:outputLabel for="cantidad" value="Cantidad: (*) " />
-                    <p:spinner id="cantidad" required="true" value="#{RegistroEquipoSencillo.cantidadTotal}" min="1" max="100000" />
-                    <p:message for="cantidad" display="icon" />
-                    
+                    <h:outputLabel value="Cantidad: (*) " />
+                    <p:spinner id="cantidad" value="#{RegistroEquipoSencillo.cantidadTotal}" min="1" max="100000" />
+
+                    <p:commandButton value="Registrar" actionListener="#{RegistroEquipoSencillo.registrarEquipo()}" ajax="false" icon="ui-icon-plusthick"/>
+                    <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 </h:panelGrid>
 
-                <p:commandButton value="Registrar" actionListener="#{RegistroEquipoSencillo.registrarEquipo()}" ajax="false" icon="ui-icon-plusthick"/>
-                <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 <p:messages id="messages" autoUpdate="true" closable="true" />
-    
+
+                <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroEquipoSencillo.showPanelRegistrado}">
+                    <f:facet name="header">
+                        <p:graphicImage url="#{RegistroEquipoSencillo.equipoSencillo.fotografia}" height="200px" width="200px" />
+                    </f:facet>
+
+                    <h:outputLabel value="Nombre:" />
+                    <h:outputText id="nombreregistrado" value="#{RegistroEquipoSencillo.equipoSencillo.nombre}" />
+
+                    <h:outputLabel value="Clase:" />
+                    <h:outputText id="claseregistrada" value="#{RegistroEquipoSencillo.equipoSencillo.clase}" />
+
+                    <h:outputLabel value="Valor Comercial:" />
+                    <h:outputText id="valorcomercialregistrado" value="#{RegistroEquipoSencillo.equipoSencillo.valorComercial}"/>
+
+                    <h:outputLabel  value="Cantidad:" />
+                    <h:outputText id="cantidadregistrada" value="#{RegistroEquipoSencillo.equipoSencillo.cantidadTotal}" />
+
+                    <p:commandButton value="Registrar otro equipo" actionListener="#{RegistroEquipoSencillo.registrarOtroEquipo()}" ajax="false" icon="ui-icon-plusthick"/>
+                    <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
+                </h:panelGrid>
+
             </p:panel>
-            
+
         </h:form>
     </h:body>
 </html>
