@@ -7,6 +7,7 @@ package eci.pdsw.entities;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     protected List<EquipoComplejo> equiposComplejosFaltantes;
     protected Map<EquipoSencillo,Integer> equiposSencillosPrestados;
     protected Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
+    protected List<EquipoSencillo> sencillosFaltantes;
     protected Persona elQuePideElPrestamo;
     
     @Override
@@ -123,4 +125,5 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     }
     
     public abstract int compareTo(Prestamo o);
+
 }

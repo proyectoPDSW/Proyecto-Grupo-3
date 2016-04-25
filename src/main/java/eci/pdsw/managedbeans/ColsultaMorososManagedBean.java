@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -81,6 +82,13 @@ public class ColsultaMorososManagedBean {
         int hoursCurr=curr.getHours()+curr.getDay()*24+curr.getMonth()*30*24+curr.getYear()*12*30*24;
         int hoursD=d.getHours()+d.getDay()*24+d.getMonth()*30*24+d.getYear()*12*30*24;
         return hoursCurr-hoursD;
+    }
+    public List<EquipoSencillo> convert(Set<EquipoSencillo> s){
+
+        List<EquipoSencillo> es=new LinkedList<EquipoSencillo>();
+        es.addAll(s);
+        Collections.sort(es);
+        return es;
     }
     
 
