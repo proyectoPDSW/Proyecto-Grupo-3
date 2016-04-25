@@ -2,4 +2,97 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="eci.pdsw.persistence.mybatis.mappers.PrestamoMapper"/>
+<mapper namespace="eci.pdsw.persistence.mybatis.mappers.PrestamoMapper">
+    <resultMap type='Prestamo' id='PrestamoResult' columnPrefix='pre_'>
+        <id property='fechaInicio' column='fecha_inicio'/>
+        <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
+        <result property='fechaRealEntregada' column='fecha_real'/>
+        <collection property='equiposComplejosPrestados' columnPrefix='eqco_'>
+            <id property='id_Eq' column='id'/>
+            <result property='serial' column='serial,'/>
+            <result property='placa' column='placa'/>
+            <result property='disponibilidad' column='disponibilidad'/>
+            <result property='estado' column='estado'/>
+            <result property='asegurado' column='asegurado'/>
+            <result property='marca' column='marca'/>
+            <association property='modelo_Eq' columnPrefix='mo_'>
+                <id property='nombre' column='nombre'/>
+                <result property='vidaUtil' column='vida_util'/>
+                <result property='fotografia' column='fotografia'/>
+                <result property='valorComercial' column='valor_comercial'/>
+                <result property='clase' column='clase'/>
+                <result property='descripcion' column='descripcion'/>
+                <result property='accesorios' column='accesorios'/>
+            </association>
+        </collection>
+        <collection property='equiposSencillosPrestados' columnPrefix='eqse_'>
+            <id property='nombre' column='nombre'/>
+            <result property='cantidadTotal' column='cantidad'/>
+            <result property='clase' column='clase'/>
+            <result property='fotografia' column='fotografia'/>
+            <result property='valorComercial' column='valor_comercial'/>
+        </collection>
+        <association property='elQuePideElPrestamo' columnPrefix='per_'>
+            <id property='carnet' column='carne'/>
+            <result property='nombre' column='nombre'/>
+            <result property='apellido' column='apellido'/>
+            <result property='email' column='email'/>
+            <result property='telefono' column='telefono'/>
+            <result property='rol' column='rol'/>
+        </association>
+    </resultMap>
+    <select id='loadAll' parameterType='map' resultMap='PrestamoResult'>
+        select
+            Prestamos.fecha_inicio as pre_fecha_inicio,
+            Prestamos.fecha_fin_estimada as pre_fecha_estimada,
+            Prestamos.fecha_fin_real as pre_fecha_real,
+            Equipos_Complejos.id_equipo_complejo as eqco_id,
+            Equipos_Complejos.serial as eqco_serial,
+            Equipos_Complejos.num_placa as eqco_placa,
+            Equipos_Complejos.disponibilidad as eqco_disponibilidad,
+            Equipos_Complejos.estado as eqco_estado,
+            Equipos_Complejos.asegurado as eqco_asegurado,
+            Equipos_Complejos.marca as eqco_marca,
+            Modelos.nombre as mo_nombre,
+            Modelos.vida_util as mo_vida_util,
+            Modelos.fotografia as mo_fotografia,
+            Modelos.valor_comercial as mo_valor_comercial,
+            Modelos.clase as mo_clase,
+            Modelos.descripcion as mo_descripcion,
+            Modelos.accesorios as mo_accesorios,
+            Equipos_Sencillos.nombre as eqse_nombre,
+            Equipos_Sencillos.cantidad_total as eqse_cantidad,
+            Equipos_Sencillos.clase as eqse_clase,
+            Equipos_Sencillos.fotografia as eqse_fotografia,
+            Equipos_Sencillos.valor_comercial as eqse_valor_comercial,
+            Personas.carne as per_carne,
+            Personas.nombre as per_nombre,
+            Personas.apellido as per_apellido,
+            Personas.email as per_email,
+            Personas.telefono as per_telefono,
+            Personas.rol as per_rol
+        from Prestamos
+            left join Personas on Prestamos.persona = Personas.carne
+            left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.prestamo = Prestamos.id_prestamo 
+            left join Equipos_Complejos on Equipo_prestamo_complejo.equipo_complejo = Equipos_Complejos.id_equipo_complejo
+            left join Modelos on  Equipos_Complejos.modelo = Modelos.nombre
+            left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
+            left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre;
+	
+    </select>
+     <!--public void insertPrestamo(@Param("Prestamo")Prestamo p);
+    
+    public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
+    
+    public List<Prestamo> loadPrestamo(@Param("time")Timestamp fecha,@Param("carnet") String carne);
+    
+    public List<Prestamo> loadAll();
+    
+    public List<Prestamo> loadByFecha(@Param("fecha")Timestamp fecha);
+
+    public List<Prestamo> loadByCarne(@Param("carne")String carne);
+
+    public List<Prestamo> loadMorosos();
+
+    public List<Prestamo> loadByEquipoComplejo(@Param("Eq_Complejo")EquipoComplejo equipocomplejo);-->
+</mapper>
