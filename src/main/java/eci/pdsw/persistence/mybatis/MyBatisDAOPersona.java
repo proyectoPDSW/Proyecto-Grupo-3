@@ -29,22 +29,28 @@ public class MyBatisDAOPersona implements DAOPersona{
 
     @Override
     public Persona load(String carne) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(carne==null) throw new PersistenceException("El carnet no puede ser nula");
+        if(pmap.load(carne)==null) throw new PersistenceException("La persona no existe en la base de datos");
+        return pmap.load(carne);
     }
 
     @Override
     public void save(Persona persona) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(persona==null) throw new PersistenceException("La Persona no puede ser nula");
+        if(persona.equals(load(persona.getCarnet()))) throw new PersistenceException("La Persona "+persona.getNombre()+" ya existe en la base de datos");
+        pmap.insertPersona(persona);
     }
 
     @Override
     public void update(Persona persona) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(persona==null) throw new PersistenceException("La Persona no puede ser nula");
+        Persona anterior = load(persona.getCarnet());
+        if(!anterior.toString().equals(persona.toString())) pmap.update(anterior, persona);
     }
 
     @Override
     public List<Persona> loadAll() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return pmap.loadAll();
     }
     
 }

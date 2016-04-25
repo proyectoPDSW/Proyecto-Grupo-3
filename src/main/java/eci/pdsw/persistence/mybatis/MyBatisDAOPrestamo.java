@@ -11,6 +11,7 @@ import eci.pdsw.persistence.DAOPrestamo;
 import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.persistence.mybatis.mappers.PrestamoMapper;
 import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
@@ -28,12 +29,19 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
     }
     @Override
     public List<Prestamo> load(Timestamp fecha, String carne) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(carne==null) throw new PersistenceException("El carnet no puede ser nulo");
+        if(fecha==null) throw new PersistenceException("La fecha no puede ser nulo");
+        if(pmap.loadPrestamo(fecha,carne).isEmpty()) 
+            throw new PersistenceException("no existe ningun Prestamo en la base de datos con la fecha "+fecha.toString()+" y el carnet "+carne);
+        return pmap.loadPrestamo(fecha,carne);
     }
 
     @Override
     public void save(Prestamo prestamo) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(prestamo==null) throw new PersistenceException("El prestamo no puede ser nulo");
+        List<Prestamo> lisp = load(prestamo.getFechaInicio(),prestamo.getElQuePideElPrestamo().getCarnet());
+        for (Prestamo prestamo1 : lisp) if(prestamo1.equals(prestamo)) throw new PersistenceException("El prestamo ya existe ");
+        pmap.insertPrestamo(prestamo);
     }
 
     @Override
@@ -43,27 +51,30 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
 
     @Override
     public List<Prestamo> loadAll() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return pmap.loadAll();
     }
 
     @Override
     public List<Prestamo> loadByFecha(Timestamp fecha) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(fecha==null) throw new PersistenceException("La fecha no puede ser nulo");
+        return pmap.loadByFecha(fecha);
     }
 
     @Override
-    public List<Prestamo> loadByCarne(String nombre) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Prestamo> loadByCarne(String carne) throws PersistenceException {
+        if(carne==null) throw new PersistenceException("El carnet no puede ser nulo");
+        return pmap.loadByCarne(carne);
     }
 
     @Override
     public List<Prestamo> loadMorosos() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return pmap.loadMorosos();
     }
 
     @Override
     public List<Prestamo> loadByEquipoComplejo(EquipoComplejo equipocomplejo) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(equipocomplejo==null) throw new PersistenceException("El equipo complejo no puede ser nulo");
+        return pmap.loadByEquipoComplejo(equipocomplejo);
     }
     
 }

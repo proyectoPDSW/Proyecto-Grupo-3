@@ -18,15 +18,16 @@ public class Persona {
     private String apellido;
     private String email;
     private String telefono;
-    private Set<String> roles;
+    private String rol;
     private Set<String> departamentos;
 
-    public Persona(String carnet, String nombre, String apellido, String email, String telefono) {
+    public Persona(String carnet, String nombre, String apellido, String email, String telefono, String rol) {
         this.carnet = carnet;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.telefono = telefono;
+        this.rol=rol;
     }
     
     /**
@@ -38,26 +39,11 @@ public class Persona {
      */
     public boolean perteneceA(String departamento){
         boolean estaElDepartamento = false;
-        for (Iterator<String> iterator = getRoles().iterator();!estaElDepartamento && iterator.hasNext();) {
+        for (Iterator<String> iterator = getDepartamentos().iterator();!estaElDepartamento && iterator.hasNext();) {
             String next = iterator.next();
             estaElDepartamento = next.equals(departamento);
         }
         return estaElDepartamento;
-    }
-    /**
-     * Obj: Sirve para saber que rol es la persona.
-     * pre: un rol
-     * pos: Si, la persona tiene ese rol, No d.l.c.
-     * @param rol, el rol a revisar
-     * @return True si tiene ese rol, False d.l.c
-     */
-    public boolean esUn(String rol){
-        boolean estaElRol = false;
-        for (Iterator<String> iterator = getRoles().iterator();!estaElRol && iterator.hasNext();) {
-            String next = iterator.next();
-            estaElRol = next.equals(rol);
-        }
-        return estaElRol;
     }
 
     @Override
@@ -108,8 +94,8 @@ public class Persona {
     /**
      * @return the roles
      */
-    public Set<String> getRoles() {
-        return roles;
+    public String getRol() {
+        return rol;
     }
 
     /**
@@ -155,10 +141,10 @@ public class Persona {
     }
     /**
      * 
-     * @param roles 
+     * @param rol
      */
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
+    public void setRol(String rol) {
+        this.rol = rol;
     }
     /**
      * 
