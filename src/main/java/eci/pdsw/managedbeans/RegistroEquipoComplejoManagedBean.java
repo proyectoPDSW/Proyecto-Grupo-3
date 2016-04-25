@@ -101,6 +101,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             modelo=SERVICIOS.consultarModelo(nombreModelo);
             showPanelRegistroModelo=false;
             showPanelConsultaModelo=true;
+            showPanelRegistroExitoso = false;
             limpiar();
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
@@ -113,6 +114,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             equipo=new EquipoComplejo(modelo, marca, serial);
             equipo.setAsegurado(asegurado);
             equipo.setMarca(marca);
+            equipo.setPlaca(placa);
             equipo.setDisponibilidad(true);
             equipo.setEstado("Activo");
             SERVICIOS.registrarEquipoComplejo(equipo);
@@ -139,6 +141,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             SERVICIOS.registrarModelo(modelo);
             equipo=new EquipoComplejo(modelo, marca, serial);
             equipo.setAsegurado(asegurado);
+            equipo.setPlaca(placa);
             equipo.setMarca(marca);
             equipo.setDisponibilidad(true);
             equipo.setEstado("Activo");

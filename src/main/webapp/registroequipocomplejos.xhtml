@@ -62,16 +62,16 @@
                         <p:panelGrid id="registrarEquipoR"  columns="2" style="margin-bottom:20px">
 
                             <h:outputLabel value="Serial: (*)" />
-                            <h:inputText id="serialR" value="#{RegistroEquiposComplejos.serial}" />
+                            <h:inputText  value="#{RegistroEquiposComplejos.serial}" />
 
                             <h:outputLabel value="Placa: (*)" />
-                            <p:spinner  id="placaR" value="#{RegistroEquiposComplejos.placa}" />
+                            <p:spinner value="#{RegistroEquiposComplejos.placa}" min="1" max="1000000000" />
 
                             <h:outputLabel value="Marca: (*)" />
-                            <h:inputText id="marcaR" value="#{RegistroEquiposComplejos.marca}" />
+                            <h:inputText value="#{RegistroEquiposComplejos.marca}" />
 
                             <h:outputLabel value="¿Se encuentra asegurado?" />
-                            <p:selectBooleanButton id="aseguradoR" value="#{RegistroEquiposComplejos.asegurado}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
+                            <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
                         </p:panelGrid> 
 
                     </p:panel>
@@ -102,7 +102,7 @@
                             <p:spinner id="valorcomercial" value="#{RegistroEquiposComplejos.valorComercial}" prefix="$" stepFactor="50" min="50"/>
 
                             <h:outputLabel value="Vida Util: (*)" />
-                            <p:spinner id="vidautil" value="#{RegistroEquiposComplejos.vidaUtil}" min="1" max="100000" />
+                            <p:spinner id="vidautil" value="#{RegistroEquiposComplejos.vidaUtil}" min="1" max="1000000000" />
 
                             <h:outputLabel value="Descripcion:" />
                             <h:inputText value="#{RegistroEquiposComplejos.descripcion}" />
@@ -117,16 +117,16 @@
                         <p:panelGrid id="registrarEquipo"  columns="2" style="margin-bottom:20px">
 
                             <h:outputLabel value="Serial: (*)" />
-                            <h:inputText id="serial" value="#{RegistroEquiposComplejos.serial}" />
+                            <h:inputText  value="#{RegistroEquiposComplejos.serial}" />
 
                             <h:outputLabel value="Placa: (*)" />
-                            <p:spinner  id="placa" value="#{RegistroEquiposComplejos.placa}" />
+                            <p:spinner  value="#{RegistroEquiposComplejos.placa}" min="1" max="100000000"/>
 
                             <h:outputLabel value="Marca: (*)" />
-                            <h:inputText id="marca" value="#{RegistroEquiposComplejos.marca}" />
+                            <h:inputText  value="#{RegistroEquiposComplejos.marca}" />
 
                             <h:outputLabel value="¿Se encuentra asegurado?" />
-                            <p:selectBooleanButton id="asegurado" value="#{RegistroEquiposComplejos.asegurado}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
+                            <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
                         </p:panelGrid> 
 
                     </p:panel>
