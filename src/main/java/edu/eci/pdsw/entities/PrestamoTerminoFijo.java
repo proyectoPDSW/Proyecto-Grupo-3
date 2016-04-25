@@ -5,10 +5,12 @@
  */
 package edu.eci.pdsw.entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  *
@@ -30,13 +32,22 @@ public class PrestamoTerminoFijo extends Prestamo {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //return getElQuePideElPrestamo() + " " + getEquiposComplejosPrestados().toString() + " " + getEquiposSencillosPrestados().toString()+ " " + getFechaEstimadaDeEntrega();
+        StringBuffer sb = new StringBuffer();
+        sb.append(getElQuePideElPrestamo().toString() + "\n ");
+        for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
+            sb.append(" "+equiposComplejosPrestado.toString()+" \n");
+        }
+        for (Entry<EquipoSencillo,Integer> equiposSencillosPrestado : equiposSencillosPrestados.entrySet()) {
+            sb.append(equiposSencillosPrestado.getKey().toString() +" "+equiposSencillosPrestado.getValue()+" \n");
+        }
+        sb.append(fechaEstimadaDeEntrega+"\n");
+        return sb.toString();
     }
 
     @Override
     public boolean enMora() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(fechaEstimadaDeEntrega.before(new Timestamp(new Date().getTime()))) return true;
+        return false;
     }
 
     @Override

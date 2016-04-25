@@ -308,6 +308,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
             left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
         where
-            Prestamos.fecha_fin_real is null and year(Prestamos.fecha_fin_estimada) &lt;= year(now()) and month(Prestamos.fecha_fin_estimada) &lt;= month(now()) and day(Prestamos.fecha_fin_estimada) &lt; day(now());
+            Prestamos.fecha_fin_real is null and year(Prestamos.fecha_fin_estimada) &lt;= year(now()) and month(Prestamos.fecha_fin_estimada) &lt;= month(now()) and day(Prestamos.fecha_fin_estimada) &lt; day(now())
     </select>
+    
+    <insert id='insertPrestamo' parameterType='map'>
+        insert into Prestamos(fecha_inicio, persona, fecha_fin_estimada, fecha_fin_real, tipo_prestamo)
+        values(#{Prestamo.fechaInicio}, #{Prestamo.elQuePideElPrestamo.carnet}, #{Prestamo.fechaEstimadaDeEntrega}, #{Prestamo.fechaRealEntregada}, #{Prestamo.tipo_prestamo})
+    </insert>
+    <insert id='insertEquipoComplejo_Prestamo' parameterType='map'>
+        insert into Equipo_prestamo_complejo(equipo_complejo, prestamo, devuelto) 
+        values (#{Equipo_id},#{Prestamo_id},0)
+    </insert>
+    <insert id='insertEquipoSencillo_Prestamo' parameterType='map'>
+        insert into Equipo_prestamo_sencillo(prestamo,equipo,cantidad,cantidad_devuelta) 
+        values(#{Prestamo_id},#{Equipo_id},#{cantidad},0);
+    </insert>
+    <!--
+    
+    public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
+    -->
 </mapper>

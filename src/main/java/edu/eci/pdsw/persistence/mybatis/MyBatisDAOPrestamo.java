@@ -49,9 +49,10 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
 
     @Override
     public void save(Prestamo prestamo) throws PersistenceException {
-     /*   if(prestamo==null) throw new PersistenceException("El prestamo no puede ser nulo");
+        if(prestamo==null) throw new PersistenceException("El prestamo no puede ser nulo");
         List<Prestamo> lisp = load(prestamo.getFechaInicio(),prestamo.getElQuePideElPrestamo().getCarnet());
-        for (Prestamo prestamo1 : lisp) if(prestamo1.equals(prestamo)) throw new PersistenceException("El prestamo ya existe ");
+        for (Prestamo prestamo1 : lisp) if(prestamo1.equals(prestamo)) throw new PersistenceException("El prestamo ya existe");
+        System.out.println("------------>>>>>>"+ppmp.load(prestamo.getElQuePideElPrestamo().getCarnet()));
         if(ppmp.load(prestamo.getElQuePideElPrestamo().getCarnet())==null) throw new PersistenceException("La persona no existe para poder realizar el prestamo");
         pmap.insertPrestamo(prestamo);
         Prestamo car_prestamo= null;
@@ -68,8 +69,6 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
             if(esmp.loadEquipoByNombre(p.getNombre())==null) throw new PersistenceException("El equipo sencillo no existe para poder realizar el prestamo");
             pmap.insertEquipoSencillo_Prestamo(car_prestamo.getIdPrestamo(), p.getNombre(), p.getCantidadTotal());
         }
-       */
-     throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

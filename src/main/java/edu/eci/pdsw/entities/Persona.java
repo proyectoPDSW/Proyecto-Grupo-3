@@ -48,12 +48,13 @@ public class Persona {
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
+        Persona p=(Persona)obj; 
+        return carnet.equals(p.getCarnet());
     }
 
     @Override
     public String toString() {
-        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+        return "Persona["+carnet+ " \n"+nombre+" \n"+apellido+" \n"+email+" \n"+telefono+" \n"+rol+"] \n";
     }
 
     /**

@@ -32,12 +32,13 @@ public class PrestamoIndefinido extends Prestamo{
 
     @Override
     public boolean enMora() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     @Override
     public int compareTo(Prestamo o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(fechaInicio.before(o.getFechaInicio())) return -1;
+        else return 1;
     }
     
 }

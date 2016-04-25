@@ -7,7 +7,10 @@ import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
+import edu.eci.pdsw.persistence.DAOEquipoComplejo;
+import edu.eci.pdsw.persistence.DAOEquipoSencillo;
 import edu.eci.pdsw.persistence.DAOFactory;
+import edu.eci.pdsw.persistence.DAOPersona;
 import edu.eci.pdsw.persistence.DAOPrestamo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
@@ -37,13 +40,14 @@ import org.junit.Test;
 
 /**
  *
- * @author Hugo
+ * @author Hugo Alvarez
  */
 public class RegistrarPrestamosTest {
     @After
     public void clearDB() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb2;MODE=MYSQL", "anonymous", "");
         Statement stmt = conn.createStatement();
+        stmt.execute("delete from Modelos");
         stmt.execute("delete from Equipos_Complejos");
         stmt.execute("delete from Equipos_Sencillos");
         stmt.execute("delete from Personas");
@@ -65,13 +69,21 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
+        eqco.save(model);
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
+        eqco.save(ec);
         //EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
         //Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","Profesor");
+        persona.save(per);
         Prestamo p = new PrestamoIndefinido(per,lec,null);
         prestamo.save(p);
         daof.commitTransaction();
@@ -93,13 +105,20 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
-        Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
+        
+        Modelo model = new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
+        eqco.save(model);
         //EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
         EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
+        eqse.save(es);
         //List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","Profesor");
+        persona.save(per);
         Prestamo p = new PrestamoIndefinido(per,null,les);
         prestamo.save(p);
         daof.commitTransaction();
@@ -317,7 +336,7 @@ public class RegistrarPrestamosTest {
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
         //Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","Estudiante");
-        Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000 2 1 0 0 0"));
+        Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000-2-1 0:0:0"));
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadMorosos();
@@ -345,7 +364,7 @@ public class RegistrarPrestamosTest {
         //List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","Estudiante");
-        Prestamo p = new PrestamoTerminoFijo(per, null, les, Timestamp.valueOf("2000 2 1 0 0 0"));
+        Prestamo p = new PrestamoTerminoFijo(per, null, les, Timestamp.valueOf("2000-2-1 0:0:0"));
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
@@ -374,7 +393,7 @@ public class RegistrarPrestamosTest {
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);lec.add(ec2);
         //Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","Estudiante");
-        Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000 2 1 0 0 0"));
+        Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000-2-1 0:0:0"));
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByEquipoComplejo(ec);
@@ -404,7 +423,7 @@ public class RegistrarPrestamosTest {
         //List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());les.put(es1,es1.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","Estudiante");
-        Timestamp time = Timestamp.valueOf("2000 2 1 0 0 0");
+        Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
         Prestamo p = new PrestamoTerminoFijo(per, null, les, time);
         prestamo.save(p);
         daof.commitTransaction();
@@ -435,7 +454,7 @@ public class RegistrarPrestamosTest {
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);lec.add(ec2);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());les.put(es1,es1.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","Estudiante");
-        Timestamp time = Timestamp.valueOf("2000 2 1 0 0 0");
+        Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
         Prestamo p = new PrestamoTerminoFijo(per, lec, les, time);
         prestamo.save(p);
         daof.commitTransaction();
@@ -466,7 +485,7 @@ public class RegistrarPrestamosTest {
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);//lec.add(ec2);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());//les.put(es1,es1.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","Estudiante");
-        Timestamp time = Timestamp.valueOf("2000 2 1 0 0 0");
+        Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
         Prestamo p = new PrestamoTerminoFijo(per, lec, les, time);
         prestamo.save(p);
         daof.commitTransaction();
@@ -535,7 +554,7 @@ public class RegistrarPrestamosTest {
             //List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);//lec.add(ec2);
             //Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());//les.put(es1,es1.getCantidadTotal());
             Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","Estudiante");
-            Timestamp time = Timestamp.valueOf("2000 2 1 0 0 0");
+            Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
             Prestamo p = new PrestamoTerminoFijo(per, null, null, time);
             prestamo.save(p);
             daof.commitTransaction();
@@ -572,7 +591,7 @@ public class RegistrarPrestamosTest {
             List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);//lec.add(ec2);
             Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());//les.put(es1,es1.getCantidadTotal());
             //Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494");
-            Timestamp time = Timestamp.valueOf("2000 2 1 0 0 0");
+            Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
             Prestamo p = new PrestamoTerminoFijo(null, lec, les, time);
             prestamo.save(p);
             daof.commitTransaction();
