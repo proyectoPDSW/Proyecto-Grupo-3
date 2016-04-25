@@ -17,6 +17,7 @@
                 <br></br><b><p:inputText id="nombreconsul" value="#{RegistroEquiposComplejos.nombreModelo}"  required="true"></p:inputText></b>
                 <p:message for="nombreconsul" display="nombreconsul" />
                 <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/>
+                <br></br><p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
             </p:panel>	
         </h:form>
