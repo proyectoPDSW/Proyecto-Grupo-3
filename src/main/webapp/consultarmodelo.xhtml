@@ -16,7 +16,7 @@
                 <b><p:outputLabel for="nombreconsul" value="Nombre: "/></b>
                 <br></br><b><p:inputText id="nombreconsul" value="#{RegistroEquiposComplejos.nombreModelo}"  required="true"></p:inputText></b>
                 <p:message for="nombreconsul" display="nombreconsul" />
-                <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/><space> </space><p:commandButton value="Agregar Modelo" actionListener="#{RegistroEquiposComplejos.agregarModelo()}" update =":modelos" icon="ui-icon-plusthick"/>
+                <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/>
                 <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
             </p:panel>	
         </h:form>
@@ -45,42 +45,7 @@
                 <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
                 
             </p:panelGrid>
-            <p:panelGrid id="registrarModelo"  columns="2" rendered="#{RegistroEquiposComplejos.showPanelRegistro()}">
-                
-                <br></br><h:outputLabel value="* URL imagen:" />
-                <br></br><h:inputText id="url" value="#{RegistroEquiposComplejos.fotografia}"  required="true"/>
-                <p:message for="url" display="icon"/>
-                
-                <f:facet name="header">
-                    <p:graphicImage url="#{RegistroEquiposComplejos.modelo.fotografia}" height="500px" width="500px" />
-                </f:facet>
-                
-                <br></br><h:outputLabel value="* Nombre:" />
-                <br></br><h:outputLabel value="#{RegistroEquiposComplejos.nombreModelo}" />
-
-                <br></br><h:outputLabel value="* Clase:" />
-                <br></br><h:inputText id="clase" value="#{RegistroEquiposComplejos.clase}"  required="true"/>
-                <p:message for="clase" display="icon" />
-
-                <br></br><h:outputLabel value="* Valor Comercial:" />
-                <br></br><h:inputText id="valorcomercial" value="#{RegistroEquiposComplejos.valorComercial}"  required="true"/>
-                 <p:message for="valorcomercial" display="icon" />
-
-                <br></br><h:outputLabel value="* Vida Util:" />
-                <br></br><h:inputText id="vidautil" value="#{RegistroEquiposComplejos.vidaUtil}"  required="true" />
-                 <p:message for="vidautil" display="icon" />
-
-                <br></br> <h:outputLabel value="Descripcion:" />
-                <br></br><h:inputText value="#{RegistroEquiposComplejos.descripcion}" />
-                
-                <br></br> <h:outputLabel value="Accesorios:" />
-                <br></br><h:inputText value="#{RegistroEquiposComplejos.accesorios}" />
-                
-                <br></br><p:column colspan="7"><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarModelo()}"/></p:column>
-                
-                <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
-                
-            </p:panelGrid>
+            
         </h:form>
     </h:body>
 </html>

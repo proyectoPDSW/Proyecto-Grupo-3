@@ -152,6 +152,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
 
     @Override
     public Modelo consultarModelo(String nombre) throws ExcepcionServicios {
+        if(nombre.length()==0)throw new ExcepcionServicios(ExcepcionServicios.NOMBRE_INVALIDO);
         try {
             dao.beginSession();
             complejoPersistencia=dao.getDaoEquipoComplejo();
