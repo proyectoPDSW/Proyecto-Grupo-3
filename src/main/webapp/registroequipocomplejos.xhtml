@@ -67,7 +67,7 @@
                             <h:outputLabel value="Placa: (*)" />
                             <p:spinner  id="placaR" value="#{RegistroEquiposComplejos.placa}" />
 
-                            <h:outputLabel value="Marca:" />
+                            <h:outputLabel value="Marca: (*)" />
                             <h:inputText id="marcaR" value="#{RegistroEquiposComplejos.marca}" />
 
                             <h:outputLabel value="¿Se encuentra asegurado?" />
@@ -78,7 +78,7 @@
 
                 </p:panelGrid>
 
-                <p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":registro" icon="ui-icon-plusthick"/>
+                 <br/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":registro" icon="ui-icon-plusthick"/>
 
             </p:panel> 
             <p:panel header="Registro modelo y equipo" rendered="#{RegistroEquiposComplejos.showPanelRegistro()}">
@@ -122,7 +122,7 @@
                             <h:outputLabel value="Placa: (*)" />
                             <p:spinner  id="placa" value="#{RegistroEquiposComplejos.placa}" />
 
-                            <h:outputLabel value="Marca:" />
+                            <h:outputLabel value="Marca: (*)" />
                             <h:inputText id="marca" value="#{RegistroEquiposComplejos.marca}" />
 
                             <h:outputLabel value="¿Se encuentra asegurado?" />
@@ -131,7 +131,7 @@
 
                     </p:panel>
                 </p:panelGrid>
-                <p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipoModelo()}" update=":registro" icon="ui-icon-plusthick"/>
+                <br/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipoModelo()}" update=":registro" icon="ui-icon-plusthick"/>
             </p:panel> 
             <p:panel header="Registro equipo complejo" rendered="#{RegistroEquiposComplejos.showPanelRegistroExitoso()}">
                 <p:panelGrid columns="2" >

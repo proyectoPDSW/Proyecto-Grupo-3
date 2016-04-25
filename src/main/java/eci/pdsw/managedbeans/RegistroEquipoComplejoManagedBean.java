@@ -129,7 +129,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         showPanelRegistroModelo=true;
         showPanelConsultaModelo=false;
         showPanelRegistroExitoso = false;
-        nombreModelo="";
     }
   
     public void registrarEquipoModelo(){
