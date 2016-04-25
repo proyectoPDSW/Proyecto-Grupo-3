@@ -5,10 +5,21 @@
  */
 package eci.pdsw.persistence.mybatis.mappers;
 
+import eci.pdsw.entities.Persona;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
 /**
  *
  * @author Hugo Alvarez
  */
 public interface PersonaMapper {
     
+    public void insertPersona(@Param("Persona") Persona p);
+    
+    public List<Persona> loadAll();
+    
+    public void update(@Param("Per_viejo") Persona pv,@Param("Per_nuevo") Persona pn);
+    
+    public Persona load(@Param("Carne") String carne);
 }

@@ -41,6 +41,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposComplejosFaltantes
      */
     public List<EquipoComplejo> getEquiposComplejosFaltantes() {
+        Collections.sort(equiposComplejosFaltantes);
         return equiposComplejosFaltantes;
     }
 
@@ -90,6 +91,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposSencillosPrestados
      */
     public Map<EquipoSencillo,Integer> getEquiposSencillosPrestados() {
+        
         return equiposSencillosPrestados;
     }
 
@@ -124,6 +126,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         this.elQuePideElPrestamo = elQuePideElPrestamo;
     }
     
+    @Override
     public abstract int compareTo(Prestamo o);
 
 }

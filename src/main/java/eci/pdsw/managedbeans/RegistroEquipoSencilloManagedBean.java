@@ -7,7 +7,6 @@ package eci.pdsw.managedbeans;
 
 import eci.pdsw.entities.EquipoException;
 import eci.pdsw.entities.EquipoSencillo;
-import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.servicios.ExcepcionServicios;
 import eci.pdsw.servicios.ServiciosEquipoSencillo;
 import java.io.Serializable;
@@ -40,7 +39,9 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
     public RegistroEquipoSencilloManagedBean(){
         SERVICIOS=ServiciosEquipoSencillo.getInstance();
     }
-    
+    /**
+     * Registra un equipo sencillo
+    */
     public void registrarEquipo(){ 
         try {                  
                 equipoSencillo=new EquipoSencillo(nombre, clase, valorComercial, cantidadTotal);
@@ -54,7 +55,9 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
         }
         
     }
-    
+    /**
+     * Reinicia el formulario para agregar otro equipo
+     */
     public void registrarOtroEquipo(){
         nombre="";
         clase="";

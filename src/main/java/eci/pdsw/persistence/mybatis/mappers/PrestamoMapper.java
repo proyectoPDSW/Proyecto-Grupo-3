@@ -5,10 +5,32 @@
  */
 package eci.pdsw.persistence.mybatis.mappers;
 
+import eci.pdsw.entities.EquipoComplejo;
+import eci.pdsw.entities.Prestamo;
+import eci.pdsw.persistence.PersistenceException;
+import java.sql.Timestamp;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
+
 /**
  *
  * @author Hugo Alvarez
  */
 public interface PrestamoMapper {
     
+    public void insertPrestamo(@Param("Prestamo")Prestamo p);
+    
+    public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
+    
+    public List<Prestamo> loadPrestamo(@Param("time")Timestamp fecha,@Param("carnet") String carne);
+    
+    public List<Prestamo> loadAll();
+    
+    public List<Prestamo> loadByFecha(@Param("fecha")Timestamp fecha);
+
+    public List<Prestamo> loadByCarne(@Param("carne")String carne);
+
+    public List<Prestamo> loadMorosos();
+
+    public List<Prestamo> loadByEquipoComplejo(@Param("Eq_Complejo")EquipoComplejo equipocomplejo);
 }

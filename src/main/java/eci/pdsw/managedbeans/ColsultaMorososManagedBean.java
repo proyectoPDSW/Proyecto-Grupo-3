@@ -42,7 +42,7 @@ public class ColsultaMorososManagedBean {
      * @return the morosos
      */
     public List<Prestamo> getMorosos() throws PersistenceException, EquipoException {
-        Persona per=new Persona("2105684", "Julian", "Devia", "yo@asdads.com", "1234567");
+        Persona per=new Persona("2105684", "Julian", "Devia", "yo@asdads.com", "1234567","Estudiante");
         Modelo lod=new Modelo(5, "yonose", null, "grande", 1234);
         EquipoComplejo ec2=new EquipoComplejo(lod, "esta", "132456789");
         EquipoComplejo ec1=new EquipoComplejo(lod, "otra", "213456789");
@@ -55,7 +55,7 @@ public class ColsultaMorososManagedBean {
         p.setEquiposComplejosFaltantes(falt);
         p.setEquiposSencillosFaltantes(es);
         
-        Persona oper=new Persona("2107646", "Daniela", "Sepulveda", "ella@asdads.com", "1234567");
+        Persona oper=new Persona("2107646", "Daniela", "Sepulveda", "ella@asdads.com", "1234567","Estudiante");
         Modelo mod=new Modelo(5, "yosise", null, "pequeño", 4321);
         EquipoComplejo oec2=new EquipoComplejo(mod, "este", "13456789");
         EquipoComplejo oec1=new EquipoComplejo(mod, "otro", "21356789");

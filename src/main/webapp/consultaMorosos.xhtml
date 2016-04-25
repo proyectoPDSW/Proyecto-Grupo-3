@@ -13,6 +13,7 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h:form id="consultaMorosos">
+            <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
             <p:panel id="conultMorosos" header="Prestamos en mora" style="margin-bottom:20px">
                 <!--p:dataTable -->
                 <p:dataTable var="prestamo" value="#{consultaMorosos.morosos}" >

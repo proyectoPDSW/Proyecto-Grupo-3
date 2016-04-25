@@ -5,18 +5,17 @@
  */
 package eci.pdsw.managedbeans;
 
+import eci.pdsw.entities.EquipoComplejo;
 import eci.pdsw.entities.EquipoException;
 import eci.pdsw.entities.Modelo;
-import eci.pdsw.persistence.PersistenceException;
 import eci.pdsw.servicios.ExcepcionServicios;
 import eci.pdsw.servicios.ServiciosEquipoComplejo;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -29,7 +28,8 @@ import javax.faces.context.FacesContext;
 public class RegistroEquipoComplejoManagedBean implements Serializable{
     
     private final ServiciosEquipoComplejo SERVICIOS;
-        
+    
+    @Size(min=1,max=50, message="Es un campo requerido*")
     private String nombreModelo;
     
     private Modelo modelo;
@@ -42,40 +42,51 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         private String descripcion;
         private String accesorios;
     
+    private EquipoComplejo equipo;
+    
+        private boolean asegurado;
+        private boolean disponibilidad;
+        private String estado;
+        private String serial;
+        private int placa;
+        private String marca;
+    
+    private String aseguradoEquipo="";
+    private String disponibilidadEquipo="";
 
     private boolean showPanelConsultaModelo = false;
     private boolean showPanelRegistroModelo = false;
-    
-  
-    /**
-     * Adds a new SEVERITY_ERROR FacesMessage for the ui
-     * @param message Error Message
-     */
-    private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: "+message, null));
-    }
-    
-    public void facesInfo(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
-    }
+    private boolean showPanelRegistroExitoso = false;
      
-    public void facesWarn(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
+    public RegistroEquipoComplejoManagedBean() {
+        SERVICIOS=ServiciosEquipoComplejo.getInstance();    
     }
     
-    public void facesFatal(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, message, null));
+    public void limpiar(){
+       vidaUtil=0;
+       nombre="";
+       clase="";
+       valorComercial=0;
+       fotografia="";
+       descripcion="";
+       accesorios="";
+       serial="";
+       placa=0;
+       marca="";
+            
     }
-    
-    public void setNombreModelo(String nombreModelo) {
-        this.nombreModelo = nombreModelo;
-    }
-    
-    public String getNombreModelo() {
-        return nombreModelo;
-    }
-    public Modelo getModelo() {
-        return modelo;
+    public boolean showPanelRegistroExitoso(){
+        if(equipo!=null && equipo.getAsegurado()){
+            aseguradoEquipo="Si";
+        }else{
+            aseguradoEquipo="No";
+        }
+        if(equipo!=null && equipo.getDisponibilidad()){
+            disponibilidadEquipo="Si";
+        }else{
+            disponibilidadEquipo="No";
+        }
+        return showPanelRegistroExitoso;
     }
     public boolean showPanelConsulta(){
         return showPanelConsultaModelo;
@@ -84,44 +95,64 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
     public boolean showPanelRegistro(){
         return showPanelRegistroModelo;
     }
-    
-    public RegistroEquipoComplejoManagedBean() {
-        SERVICIOS=ServiciosEquipoComplejo.getInstance();
-        
-    }
-    
-    public void agregarModelo(){
-        showPanelConsultaModelo=false;
-        showPanelRegistroModelo=true;
-    }
+   
     public void consultarModelo(){
         try {
             modelo=SERVICIOS.consultarModelo(nombreModelo);
             showPanelRegistroModelo=false;
             showPanelConsultaModelo=true;
+            limpiar();
         } catch (ExcepcionServicios ex) {
-            facesError("No se ha encontrado el modelo con nombre "+nombreModelo);
-            Logger.getLogger(RegistroEquipoComplejoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            facesError(ex.getMessage());
         }
         
     }
-    public void registrarModelo(){
+    
+    public void registrarEquipo(){
         try {
+            equipo=new EquipoComplejo(modelo, marca, serial);
+            equipo.setAsegurado(asegurado);
+            equipo.setMarca(marca);
+            equipo.setDisponibilidad(true);
+            equipo.setEstado("Activo");
+            SERVICIOS.registrarEquipoComplejo(equipo);
             showPanelConsultaModelo=false;
-            showPanelRegistroModelo=true;
-            modelo=new Modelo(vidaUtil,nombre,fotografia,clase,valorComercial);
-            if(!(descripcion==null || descripcion.length()==0)){
-                modelo.setDescripcion(descripcion);
-            }
-            if(!(accesorios==null || accesorios.length()==0)){
-                modelo.setAccesorios(accesorios);
-            }
-            SERVICIOS.registrarModelo(modelo);
+            showPanelRegistroModelo=false;
+            showPanelRegistroExitoso=true;
+            facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios | EquipoException ex) {
-            facesError("Los datos no son correctos");
-            Logger.getLogger(RegistroEquipoComplejoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            facesError(ex.getMessage());
+        }
+    }
+    
+    public void agregarModelo(){
+        showPanelRegistroModelo=true;
+        showPanelConsultaModelo=false;
+        showPanelRegistroExitoso = false;
+        nombreModelo="";
+    }
+  
+    public void registrarEquipoModelo(){
+        try {
+            modelo=new Modelo(vidaUtil,nombre,fotografia,clase,valorComercial);
+            modelo.setDescripcion(descripcion);
+            modelo.setAccesorios(accesorios);
+            SERVICIOS.registrarModelo(modelo);
+            equipo=new EquipoComplejo(modelo, marca, serial);
+            equipo.setAsegurado(asegurado);
+            equipo.setMarca(marca);
+            equipo.setDisponibilidad(true);
+            equipo.setEstado("Activo");
+            SERVICIOS.registrarEquipoComplejo(equipo);
+            showPanelConsultaModelo=false;
+            showPanelRegistroModelo=false;
+            showPanelRegistroExitoso=true;
+            facesInfo("El equipo ha sido registrado satisfactoriamente");
+        } catch (ExcepcionServicios | EquipoException ex) {
+            facesError(ex.getMessage());
         }
     }  
+    //////////////////////informacion Modelo
     public int getVidaUtil() {
         return vidaUtil;
     }
@@ -177,5 +208,120 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
 
     public void setAccesorios(String accesorios) {
         this.accesorios = accesorios;
+        
     }
+    
+    public Modelo getModelo() {
+        return modelo;
+    }
+    //////////////////informacion consulta
+    public void setNombreModelo(String nombreModelo) {
+        this.nombreModelo = nombreModelo;
+    }
+    
+    public String getNombreModelo() {
+        return nombreModelo;
+    }
+/////////////////////////////////////////////////informacion Equipo
+    public EquipoComplejo getEquipo() {
+        return equipo;
+    }
+    
+    public boolean isAsegurado() {
+        return asegurado;
+    }
+
+    public void setAsegurado(boolean asegurado) {
+        this.asegurado = asegurado;
+    }
+
+    public boolean isDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    public int getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(int placa) {
+        this.placa = placa;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    /**
+     * Muestra un mensaje de error en la vista
+     * @param message Mensaje de error
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: "+message, null));
+    }
+    
+    /**
+     * Muestra un mensaje de informacion en la vista
+     * @param message Mensaje de informativo
+     */
+    public void facesInfo(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
+    /**
+     * Muestra un mensaje de alarma en la vista
+     * @param message Mensaje de Alarma
+     */
+    public void facesWarn(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
+    }
+    
+    /**
+     * Muestra un mensaje de error grave en la vista
+     * @param message Mensaje fatal
+     */
+    public void facesFatal(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, message, null));
+    }
+////////////////////////////////datos registro exitoso
+    public String getAseguradoEquipo() {
+        return aseguradoEquipo;
+    }
+
+    public void setAseguradoEquipo(String aseguradoEquipo) {
+        this.aseguradoEquipo = aseguradoEquipo;
+    }
+
+    public String getDisponibilidadEquipo() {
+        return disponibilidadEquipo;
+    }
+
+    public void setDisponibilidadEquipo(String disponibilidadEquipo) {
+        this.disponibilidadEquipo = disponibilidadEquipo;
+    }
+
 }
+
+

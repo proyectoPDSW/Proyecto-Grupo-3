@@ -28,6 +28,7 @@ public interface DAOPrestamo {
      */
     public abstract List<Prestamo> load(Timestamp fecha, String carne) throws PersistenceException;
     
+    
     /**
      * Obj: Guarda un prestamo.
      * pre: el prestamo a guardar, no debe ser null
