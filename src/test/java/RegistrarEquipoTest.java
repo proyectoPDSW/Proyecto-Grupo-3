@@ -4,18 +4,18 @@
  * and open the template in the editor.
  */
 
-import eci.pdsw.entities.EquipoComplejo;
-import eci.pdsw.entities.EquipoException;
-import eci.pdsw.entities.EquipoSencillo;
-import eci.pdsw.persistence.PersistenceException;
+import edu.eci.pdsw.entities.EquipoComplejo;
+import edu.eci.pdsw.entities.EquipoException;
+import edu.eci.pdsw.entities.EquipoSencillo;
+import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import org.junit.Test;
-import eci.pdsw.entities.Modelo;
-import eci.pdsw.persistence.DAOEquipoComplejo;
-import eci.pdsw.persistence.DAOEquipoSencillo;
-import eci.pdsw.persistence.DAOFactory;
+import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.persistence.DAOEquipoComplejo;
+import edu.eci.pdsw.persistence.DAOEquipoSencillo;
+import edu.eci.pdsw.persistence.DAOFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

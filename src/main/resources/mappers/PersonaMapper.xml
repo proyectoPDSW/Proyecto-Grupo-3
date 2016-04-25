@@ -2,4 +2,37 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="eci.pdsw.persistence.mybatis.mappers.PersonaMapper"/> 
+<mapper namespace="eci.pdsw.persistence.mybatis.mappers.PersonaMapper">
+    <resultMap type='Persona' id='PersonaResult'>
+        <id property='carnet' column='carne'/>
+        <result property='nombre' column='nombre'/>
+        <result property='apellido' column='apellido'/>
+        <result property='email' column='email'/>
+        <result property='telefono' column='telefono'/>
+        <result property='rol' column='rol'/>
+    </resultMap>
+    <insert id='insertPersona' parameterType='map'>
+        insert into Personas(carne,nombre,apellido,email,telefono,rol)
+        values(#{Persona.carnet},#{Persona.nombre},#{Persona.apellido},#{Persona.email},#{Persona.telefono},#{Persona.rol})
+    </insert>
+    <select id='loadAll' parameterType='map' resultMap='PersonaResult'>
+        select carne,nombre,apellido,email,telefono,rol from Personas
+    </select>
+    <update id='update' parameterType='map'>
+        update Personas set nombre=#{Per_nuevo.nombre},apellido=#{Per_nuevo.apellido}, email=#{Per_nuevo.email}, telefono=#{Per_nuevo.telefono},rol=#{Per_nuevo.rol} where carne=#{Per_viejo.carnet}
+    </update>
+     <select id='load' parameterType='map' resultMap='PersonaResult'>
+        select carne,nombre,apellido,email,telefono,rol from Personas where carne = #{Carne};
+    </select>
+    
+
+    <!--
+    public void insertPersona(@Param("Persona") Persona p);
+    
+    public List<Persona> loadAll();
+    
+    public void update(@Param("Per_viejo") Persona pv,@Param("Per_nuevo") Persona pn);
+    
+    public Persona load(@Param("Carne") String carne);
+    -->
+</mapper>

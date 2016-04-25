@@ -1,11 +1,11 @@
 
-import eci.pdsw.persistence.DAOEquipoComplejo;
-import eci.pdsw.persistence.DAOFactory;
-import eci.pdsw.persistence.DAOEquipoSencillo;
-import eci.pdsw.entities.Modelo;
-import eci.pdsw.entities.EquipoComplejo;
-import eci.pdsw.entities.EquipoSencillo;
-import eci.pdsw.persistence.PersistenceException;
+import edu.eci.pdsw.persistence.DAOEquipoComplejo;
+import edu.eci.pdsw.persistence.DAOFactory;
+import edu.eci.pdsw.persistence.DAOEquipoSencillo;
+import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.entities.EquipoComplejo;
+import edu.eci.pdsw.entities.EquipoSencillo;
+import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;

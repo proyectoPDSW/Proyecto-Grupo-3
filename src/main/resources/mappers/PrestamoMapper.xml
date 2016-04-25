@@ -27,12 +27,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
     
     <resultMap type='Persona' id='PersonaResult'>
-        <id property='carnet' column='nombre'/>
-        <result property='nombre' column='cantidad_total'/>
-        <result property='apellido' column='clase'/>
-        <result property='email' column='fotografia'/>
-        <result property='telefono' column='valor_comercial'/>
-        <result property='rol' column='valor_comercial'/>
+        <id property='carnet' column='carne'/>
+        <result property='nombre' column='nombre'/>
+        <result property='apellido' column='apellido'/>
+        <result property='email' column='email'/>
+        <result property='telefono' column='telefono'/>
+        <result property='rol' column='rol'/>
     </resultMap>
     
     <resultMap type='EquipoSencillo' id='EquipoSencilloResult'>
