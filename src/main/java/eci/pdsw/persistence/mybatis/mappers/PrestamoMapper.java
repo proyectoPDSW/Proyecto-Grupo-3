@@ -17,9 +17,14 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface PrestamoMapper {
     
-    public void insertPrestamo(@Param("Prestamo")Prestamo p);
     
-    public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
+    //public void insertPrestamo(@Param("Prestamo")Prestamo p);
+    
+    //public void insertEquipoComplejo_Prestamo(@Param("Prestamo_id")int p, @Param("Equipo_id")int e);
+    
+    //public void insertEquipoSencillo_Prestamo(@Param("Prestamo_id")int p, @Param("Equipo_id")String e, @Param("cantidad")int c);
+    
+    //public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
     
     public List<Prestamo> loadPrestamo(@Param("time")Timestamp fecha,@Param("carnet") String carne);
     

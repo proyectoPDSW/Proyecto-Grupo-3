@@ -69,22 +69,6 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     
     /**
      * 
-     * @param id 
-     */
-    public void setId(int id){
-        this.id_Eq=id;
-    }
-    
-    /**
-     * 
-     * @return el id del equipo complejo
-     */
-    public int getId(){
-        return id_Eq;
-    }
-    
-    /**
-     * 
      * @param ase 
      */
     public void setAsegurado(boolean ase){
