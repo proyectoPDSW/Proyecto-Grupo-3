@@ -7,7 +7,6 @@ package eci.pdsw.persistence.mybatis.mappers;
 
 import eci.pdsw.entities.EquipoComplejo;
 import eci.pdsw.entities.Prestamo;
-import eci.pdsw.persistence.PersistenceException;
 import java.sql.Timestamp;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
