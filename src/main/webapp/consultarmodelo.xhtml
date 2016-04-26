@@ -12,25 +12,17 @@
     <h:body>
         <center><br></br><b><h1>Modelo</h1></b></center>
         <h:form id="consultarModelo">
-            <p:panel id="consultaModelo" style="height:200px" >
+            <p:panel id="consultaModelo" style="height:250px" >
                 <b><p:outputLabel for="nombreconsul" value="Nombre: "/></b>
                 <br></br><b><p:inputText id="nombreconsul" value="#{RegistroEquiposComplejos.nombreModelo}"  required="true"></p:inputText></b>
                 <p:message for="nombreconsul" display="nombreconsul" />
+                <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/>
                 <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
-                    <f:facet name="default">
-                        <h:outputText value="Status: StandBy" />
-                    </f:facet>
-
                     <f:facet name="start">
-                        <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
-                    </f:facet>
-
-                    <f:facet name="complete">
-                        <h:outputText value="Status: Completed" />
+                        <p:graphicImage url="resource/loading.gif" height="20" width="20" />
                     </f:facet>
                 </p:ajaxStatus>
-                <br></br><p:commandButton value="Consultar" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update =":modelos" icon="ui-icon-search"/>
-                <br></br><p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
+                <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
             </p:panel>	
         </h:form>

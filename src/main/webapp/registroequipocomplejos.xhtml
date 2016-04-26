@@ -78,16 +78,8 @@
 
                 </p:panelGrid>
                 <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
-                    <f:facet name="default">
-                        <h:outputText value="Status: StandBy" />
-                    </f:facet>
-
                     <f:facet name="start">
-                        <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
-                    </f:facet>
-
-                    <f:facet name="complete">
-                        <h:outputText value="Status: Completed" />
+                        <p:graphicImage url="resource/loading.gif" height="20" width="20" />
                     </f:facet>
                 </p:ajaxStatus>
                  <br/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":registro" icon="ui-icon-plusthick"/>
@@ -144,16 +136,8 @@
                     </p:panel>
                 </p:panelGrid>
                 <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
-                    <f:facet name="default">
-                        <h:outputText value="Status: StandBy" />
-                    </f:facet>
-
                     <f:facet name="start">
-                        <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
-                    </f:facet>
-
-                    <f:facet name="complete">
-                        <h:outputText value="Status: Completed" />
+                        <p:graphicImage url="resource/loading.gif" height="20" width="20" />
                     </f:facet>
                 </p:ajaxStatus>
                 <br/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipoModelo()}" update=":registro" icon="ui-icon-plusthick"/>
