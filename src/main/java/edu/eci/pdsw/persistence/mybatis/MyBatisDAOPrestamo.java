@@ -54,21 +54,15 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         if(prestamo.getEquiposComplejosPrestados()== null && prestamo.getEquiposSencillosPrestados()==null) throw new PersistenceException("Los equipos no pueden ser nulos");
         if(prestamo.getElQuePideElPrestamo()==null)throw new PersistenceException("La persona no puede ser nulo");
         List<Prestamo> lisp = load(prestamo.getFechaInicio(),prestamo.getElQuePideElPrestamo().getCarnet());
-        //System.out.println(lisp.size()+" LONGITUD");
         for (Prestamo prestamo1 : lisp) if(prestamo1.equals(prestamo)) throw new PersistenceException("El prestamo ya existe");
-        //System.out.println("------------>>>>>>"+ppmp.load(prestamo.getElQuePideElPrestamo().getCarnet()));
         if(ppmp.load(prestamo.getElQuePideElPrestamo().getCarnet())==null) throw new PersistenceException("La persona no existe para poder realizar el prestamo");
         pmap.insertPrestamo(prestamo);
         Prestamo car_prestamo= null;
         int id = -1;
         List<Prestamo> pt = pmap.loadPrestamo(prestamo.getFechaInicio(), prestamo.getElQuePideElPrestamo().getCarnet());
-        System.out.println(Arrays.toString(pt.toArray()));
         for (Prestamo pres : pt) {
             if(pres.equals(prestamo)) car_prestamo=pres;
         }
-        System.out.println("LLEGOOOOOOOOOOOOOO!!!!!!!!!!!!!!!!!!!!!");
-        System.out.println(car_prestamo);
-        System.out.println("sdaasdasdsadasdasdasdasdasd!!!!!!!!!!!!!!!!!!!!!");
         if(prestamo.getEquiposComplejosPrestados()!=null){
             for (EquipoComplejo ec : prestamo.getEquiposComplejosPrestados()) {
                 if(ecmp.loadEquipoBySerial(ec.getSerial())==null) throw new PersistenceException("El equipo complejo no existe para poder realizar el prestamo");

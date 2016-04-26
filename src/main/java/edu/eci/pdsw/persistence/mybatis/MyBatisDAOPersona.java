@@ -40,7 +40,6 @@ public class MyBatisDAOPersona implements DAOPersona{
             if(persona.equals(load(persona.getCarnet()))) throw new PersistenceException("La Persona "+persona.getNombre()+" ya existe en la base de datos");
         }
         pmap.insertPersona(persona);
-        System.out.println("Inserto Bien -sa-s-ad-as-d-asd-sa-dsa-");
     }
 
     @Override

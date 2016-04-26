@@ -144,7 +144,6 @@ public class ConsultarEquipoTest {
         dec.save(aConsultar);
         daof.commitTransaction();
         EquipoComplejo loaded = dec.load("AC3X");
-        System.out.println(loaded.toString());
         daof.endSession();
         Assert.assertEquals(aConsultar, loaded);
     }
@@ -164,7 +163,6 @@ public class ConsultarEquipoTest {
         daof.commitTransaction();
         EquipoSencillo loaded = des.load("Cable");
         daof.endSession();
-        //System.out.println(loaded.toString());
         Assert.assertEquals(aConsultar.toString(), loaded.toString());
     }
 }

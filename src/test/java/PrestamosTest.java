@@ -163,7 +163,6 @@ public class PrestamosTest {
         persona.save(per);
         Prestamo p = new PrestamoIndefinido(per,lec,null);
         prestamo.save(p);
-        System.out.println(p.toString());
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByEquipoComplejo(ec);
         daof.endSession();
@@ -321,7 +320,6 @@ public class PrestamosTest {
             daof.commitTransaction();
             Assert.fail("No debio continuar");
         } catch (PersistenceException ex) {
-            Logger.getLogger(PrestamosTest.class.getName()).log(Level.SEVERE, null, ex);
             Assert.assertEquals("Los equipos no pueden ser nulos", ex.getMessage());
         }finally{
             daof.endSession();
@@ -356,7 +354,6 @@ public class PrestamosTest {
             daof.commitTransaction();
             Assert.fail("No debio continuar");
         } catch (PersistenceException ex) {
-            Logger.getLogger(PrestamosTest.class.getName()).log(Level.SEVERE, null, ex);
             Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
         }finally{
             daof.endSession();
@@ -508,7 +505,6 @@ public class PrestamosTest {
         Prestamo p = new PrestamoTerminoFijo(per, null, les, time);
         prestamo.save(p);
         daof.commitTransaction();
-        System.out.println(time);
         List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
         
         daof.endSession();

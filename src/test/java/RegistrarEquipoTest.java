@@ -115,10 +115,8 @@ public class RegistrarEquipoTest {
             daof.commitTransaction();
             daof.endSession();
             Assert.assertEquals("fallo",es.toString(),test.toString());
-        } catch (PersistenceException ex) {
-            System.out.println(ex.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        } catch (PersistenceException | IOException ex) {
+            Assert.fail("no debio lanzar excepcion");
         }
     }
     
