@@ -46,6 +46,7 @@ public class ConsultarEquipoTest {
         Statement stmt = conn.createStatement();
         stmt.execute("delete from Equipos_Complejos");
         stmt.execute("delete from Equipos_Sencillos");
+        stmt.execute("delete from Modelos");
         conn.commit();
     }
 
@@ -60,6 +61,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
+        dec.save(model);
+        daof.commitTransaction();
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         aConsultar.setPlaca(2);
         aConsultar.setEstado("En prueba");
@@ -82,6 +85,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
+        dec.save(model);
+        daof.commitTransaction();
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F");
         aConsultar2.setPlaca(3);
@@ -109,6 +114,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
+        dec.save(model);
+        daof.commitTransaction();
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         aConsultar.setPlaca(189);
         aConsultar.setEstado("En prueba");
@@ -129,13 +136,14 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(7, "Modelo de prueba", null, "Clase x", 100000);
+        dec.save(model);
+        daof.commitTransaction();
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         aConsultar.setPlaca(2);
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
         daof.commitTransaction();
         EquipoComplejo loaded = dec.load("AC3X");
-        System.out.println(loaded.toString());
         daof.endSession();
         Assert.assertEquals(aConsultar, loaded);
     }
@@ -155,7 +163,6 @@ public class ConsultarEquipoTest {
         daof.commitTransaction();
         EquipoSencillo loaded = des.load("Cable");
         daof.endSession();
-        //System.out.println(loaded.toString());
         Assert.assertEquals(aConsultar.toString(), loaded.toString());
     }
 }

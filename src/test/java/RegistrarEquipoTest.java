@@ -47,6 +47,7 @@ public class RegistrarEquipoTest {
         Statement stmt = conn.createStatement();
         stmt.execute("delete from Equipos_Complejos");
         stmt.execute("delete from Equipos_Sencillos");
+        stmt.execute("delete from Modelos");
         conn.commit();
     }
       
@@ -60,6 +61,8 @@ public class RegistrarEquipoTest {
         DAOEquipoComplejo reg=daof.getDaoEquipoComplejo();
         
         Modelo mod = new Modelo(100000,"Destornillador de estrella","udfyzsiudfyziduvz","Destornillador",5000);
+        reg.save(mod);
+        daof.commitTransaction();
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa");
         ec.setPlaca(123456);
         ec.setEstado("hola");
@@ -82,6 +85,8 @@ public class RegistrarEquipoTest {
         daof=DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo reg=daof.getDaoEquipoComplejo();
+        reg.save(mod);
+        daof.commitTransaction();
        
         reg.save(ec);
         daof.commitTransaction();
@@ -90,7 +95,7 @@ public class RegistrarEquipoTest {
         daof.endSession();
         Assert.fail("Registro dos veces el mismo equipo");
         }catch(IOException | PersistenceException e){
-            Assert.assertEquals(e.getMessage(),"El equipo con nombre "+ec.getModelo_Eq().getNombre()+" ya esta registrado");
+            Assert.assertEquals(e.getMessage(),"El equipo con nombre " + ec.getModelo_Eq().getNombre() + " ya esta registrado");
         }finally{
             daof.endSession();
         }
@@ -110,10 +115,8 @@ public class RegistrarEquipoTest {
             daof.commitTransaction();
             daof.endSession();
             Assert.assertEquals("fallo",es.toString(),test.toString());
-        } catch (PersistenceException ex) {
-            System.out.println(ex.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        } catch (PersistenceException | IOException ex) {
+            Assert.fail("no debio lanzar excepcion");
         }
     }
     

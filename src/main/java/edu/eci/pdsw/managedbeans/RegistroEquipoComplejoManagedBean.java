@@ -8,6 +8,7 @@ package edu.eci.pdsw.managedbeans;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import java.io.Serializable;
@@ -105,6 +106,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             limpiar();
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
+            Registro.anotar(ex);
         }
         
     }
@@ -124,6 +126,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios | EquipoException ex) {
             facesError(ex.getMessage());
+            Registro.anotar(ex);
         }
     }
     
@@ -152,6 +155,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios | EquipoException ex) {
             facesError(ex.getMessage());
+            Registro.anotar(ex);
         }
     }  
     //////////////////////informacion Modelo

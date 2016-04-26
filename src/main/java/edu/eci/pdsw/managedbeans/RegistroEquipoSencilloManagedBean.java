@@ -7,6 +7,7 @@ package edu.eci.pdsw.managedbeans;
 
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.EquipoSencillo;
+import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoSencillo;
 import java.io.Serializable;
@@ -52,6 +53,7 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
                 showPanelRegistrado=true;
         } catch (ExcepcionServicios | EquipoException ex) {
                 facesError(ex.getMessage());
+                Registro.anotar(ex);
         }
         
     }
