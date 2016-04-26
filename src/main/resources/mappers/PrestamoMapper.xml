@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
         <result property='fechaRealEntregada' column='fecha_real'/>
         <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
-        <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
+        <collection property='equiposSencillosPrestados2' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
         <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
         <discriminator javaType='int' column='tipo_prestamo'>
             <case value='1' resultMap='PrestamoTFResult'/>
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
         <result property='fechaRealEntregada' column='fecha_real'/>
         <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
-        <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
+        <collection property='equiposSencillosPrestados2' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
         <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
     </resultMap>
     
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
         <result property='fechaRealEntregada' column='fecha_real'/>
         <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
-        <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
+        <collection property='equiposSencillosPrestados2' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
         <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
     </resultMap>
     
@@ -289,7 +289,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
         where
             Equipos_Complejos.serial = #{Eq_Complejo.serial} and
-            Equipos_Complejos.num_placa = #{Eq_Complejo.placa}
+            Equipos_Complejos.modelo = #{Eq_Complejo.modelo_Eq.nombre}
     </select>
     <select id='loadMorosos' parameterType='map' resultMap='PrestamoResult'>
         select

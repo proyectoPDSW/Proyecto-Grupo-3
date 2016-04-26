@@ -42,7 +42,7 @@ import org.junit.Test;
  *
  * @author Hugo Alvarez
  */
-public class RegistrarPrestamosTest {
+public class PrestamosTest {
     @After
     public void clearDB() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb2;MODE=MYSQL", "anonymous", "");
@@ -90,8 +90,9 @@ public class RegistrarPrestamosTest {
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne(per.getCarnet());
-        Assert.assertEquals(1,lp.size());
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
+        
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido con 1 Equipo Sencillo.
@@ -125,8 +126,9 @@ public class RegistrarPrestamosTest {
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByFecha(new Timestamp(new Date().getTime()));
-        Assert.assertEquals(1,lp.size());
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
+        
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido por muchos equipos complejos.
@@ -161,10 +163,12 @@ public class RegistrarPrestamosTest {
         persona.save(per);
         Prestamo p = new PrestamoIndefinido(per,lec,null);
         prestamo.save(p);
+        System.out.println(p.toString());
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByEquipoComplejo(ec);
-        Assert.assertEquals(1,lp.size());
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
+        
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido por muchos equipos sencillos.
@@ -180,21 +184,27 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba 4", null, "Clase x", 100000);
         //EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
         //EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
         EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         EquipoSencillo es1 = new EquipoSencillo("cable UTP", "cable", 2000, 10);
+        eqse.save(es);eqse.save(es1);
         //List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);lec.add(ec2);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());les.put(es1,es1.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","profesor");
+        persona.save(per);
         Prestamo p = new PrestamoIndefinido(per,null,les);
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
-        Assert.assertEquals(1,lp.size());
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido por muchos equipos sencillos y muchos equipos complejos.
@@ -210,21 +220,33 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba 4", null, "Clase x", 100000);
+        eqco.save(model);
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
         EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
+        ec.setPlaca(26);
+        ec2.setPlaca(45);
+        eqco.save(ec);eqco.save(ec2);
         EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         EquipoSencillo es1 = new EquipoSencillo("cable UTP", "cable", 2000, 10);
+        eqse.save(es);eqse.save(es1);
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);lec.add(ec2);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());les.put(es1,es1.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","profesor");
+        persona.save(per);
         Prestamo p = new PrestamoIndefinido(per, lec, les);
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
-        Assert.assertEquals(1,lp.size());
+        
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido por 1 equipo sencillo y 1 equipo complejo.
@@ -240,21 +262,30 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba 5", null, "Clase x", 100000);
+        eqco.save(model);
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
+        ec.setPlaca(26);eqco.save(ec);
         //EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
         EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
+        eqse.save(es);
         //EquipoSencillo es1 = new EquipoSencillo("cable UTP", "cable", 2000, 10);
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);//lec.add(ec2);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());//les.put(es1,es1.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","profesor");
+        persona.save(per);
         Prestamo p = new PrestamoIndefinido(per, lec, les);
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
-        Assert.assertEquals(1,lp.size());
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
     }
     /**
      * Clase de Equivalencia: no deberia registrar un prestamo indefinido sin equipos.
@@ -271,7 +302,12 @@ public class RegistrarPrestamosTest {
         try {
             
             daof.beginSession();
+            
+            DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+            DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+            DAOPersona persona = daof.getDaoPersona();
             DAOPrestamo prestamo= daof.getDaoPrestamo();
+            
             Modelo model = new Modelo(4, "Modelo de prueba 6", null, "Clase x", 100000);
             //EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
             //EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
@@ -283,10 +319,10 @@ public class RegistrarPrestamosTest {
             Prestamo p = new PrestamoIndefinido(per, null, null);
             prestamo.save(p);
             daof.commitTransaction();
-            Assert.fail();
+            Assert.fail("No debio continuar");
         } catch (PersistenceException ex) {
-            Logger.getLogger(RegistrarPrestamosTest.class.getName()).log(Level.SEVERE, null, ex);
-            Assert.assertEquals("No registro el prestamo", ex.getMessage());
+            Logger.getLogger(PrestamosTest.class.getName()).log(Level.SEVERE, null, ex);
+            Assert.assertEquals("Los equipos no pueden ser nulos", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -318,10 +354,10 @@ public class RegistrarPrestamosTest {
             Prestamo p = new PrestamoIndefinido(null, lec, les);
             prestamo.save(p);
             daof.commitTransaction();
-            Assert.fail();
+            Assert.fail("No debio continuar");
         } catch (PersistenceException ex) {
-            Logger.getLogger(RegistrarPrestamosTest.class.getName()).log(Level.SEVERE, null, ex);
-            Assert.assertEquals("No registro el prestamo", ex.getMessage());
+            Logger.getLogger(PrestamosTest.class.getName()).log(Level.SEVERE, null, ex);
+            Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -340,19 +376,27 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
         Modelo model = new Modelo(4, "Modelo de prueba 8", null, "Clase x", 100000);
+        eqco.save(model);
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
+        ec.setPlaca(12);
+        eqco.save(ec);
         //EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
         //Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","estudiante");
+        persona.save(per);
         Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000-2-1 0:0:0"));
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadMorosos();
-        Assert.assertEquals(1,lp.size());
+        
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo 1 Equipo Sencillo .
@@ -368,19 +412,28 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba 9", null, "Clase x", 100000);
+        eqco.save(model);
         //EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
         EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
+        eqse.save(es);
         //List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","estudiante");
+        persona.save(per);
         Prestamo p = new PrestamoTerminoFijo(per, null, les, Timestamp.valueOf("2000-2-1 0:0:0"));
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
-        Assert.assertEquals(1,lp.size());
+        
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo muchos Equipos Complejos .
@@ -396,20 +449,30 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba 10", null, "Clase x", 100000);
+        eqco.save(model);
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
         EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
+        ec.setPlaca(12);ec2.setPlaca(13);
+        eqco.save(ec);eqco.save(ec2);
         //EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);lec.add(ec2);
         //Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","estudiante");
+        persona.save(per);
         Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000-2-1 0:0:0"));
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByEquipoComplejo(ec);
-        Assert.assertEquals(1,lp.size());
+        
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo muchos Equipos Sencillos.
@@ -425,22 +488,31 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba 11", null, "Clase x", 100000);
         //EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
         //EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
         EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         EquipoSencillo es1 = new EquipoSencillo("cable UTP", "cable", 2000, 10);
+        eqse.save(es1);eqse.save(es);
         //List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());les.put(es1,es1.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","estudiante");
+        persona.save(per);
         Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
         Prestamo p = new PrestamoTerminoFijo(per, null, les, time);
         prestamo.save(p);
         daof.commitTransaction();
-        List<Prestamo> lp = prestamo.loadByFecha(time);
-        Assert.assertEquals(1,lp.size());
+        System.out.println(time);
+        List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
+        
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo muchos Equipos Complejos y muchos Equipos Sencillos.
@@ -456,22 +528,33 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba 12", null, "Clase x", 100000);
+        eqco.save(model);
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
         EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
+        ec.setPlaca(12);ec2.setPlaca(13);
+        eqco.save(ec);eqco.save(ec2);
         EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         EquipoSencillo es1 = new EquipoSencillo("cable UTP", "cable", 2000, 10);
+        eqse.save(es1);eqse.save(es);
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);lec.add(ec2);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());les.put(es1,es1.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","estudiante");
+        persona.save(per);
         Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
         Prestamo p = new PrestamoTerminoFijo(per, lec, les, time);
         prestamo.save(p);
         daof.commitTransaction();
-        List<Prestamo> lp = prestamo.loadByFecha(time);
-        Assert.assertEquals(1,lp.size());
+        List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
+        
         daof.endSession();
+        Assert.assertEquals(1,lp.size());
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo 1 Equipo Complejo y 1 Equipo Sencillo.
@@ -487,59 +570,32 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba 13", null, "Clase x", 100000);
+        eqco.save(model);
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
+        eqco.save(ec);
         //EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
         EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
+        eqse.save(es);
         //EquipoSencillo es1 = new EquipoSencillo("cable UTP", "cable", 2000, 10);
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);//lec.add(ec2);
         Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());//les.put(es1,es1.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","estudiante");
+        persona.save(per);
         Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
         Prestamo p = new PrestamoTerminoFijo(per, lec, les, time);
         prestamo.save(p);
         daof.commitTransaction();
-        List<Prestamo> lp = prestamo.loadByFecha(time);
-        Assert.assertEquals(1,lp.size());
+        List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
+        
         daof.endSession();
-    }
-    /**
-     * Clase de Equivalencia: no deberia registrar un prestamo Termino Fijo sin fecha.
-     * @throws java.io.IOException
-     * @throws edu.eci.pdsw.entities.EquipoException
-     */
-    @Test
-    public void CE15() throws IOException, EquipoException{
-        InputStream input;
-            input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
-            Properties properties = new Properties();
-            properties.load(input);
-            DAOFactory daof = DAOFactory.getInstance(properties);
-        try {
-            
-            daof.beginSession();
-            DAOPrestamo prestamo= daof.getDaoPrestamo();
-            Modelo model = new Modelo(4, "Modelo de prueba 14", null, "Clase x", 100000);
-            EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
-            //EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
-            EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
-            //EquipoSencillo es1 = new EquipoSencillo("cable UTP", "cable", 2000, 10);
-            List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);//lec.add(ec2);
-            Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());//les.put(es1,es1.getCantidadTotal());
-            Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","estudiante");
-            //Timestamp time = Timestamp.valueOf(LocalDateTime.of(2000, Month.MARCH, 1, 0, 0));
-            Prestamo p = new PrestamoTerminoFijo(per, lec, les, null);
-            prestamo.save(p);
-            daof.commitTransaction();
-            Assert.fail("Siguio y no debia");
-            
-        } catch (PersistenceException ex) {
-            Logger.getLogger(RegistrarPrestamosTest.class.getName()).log(Level.SEVERE, null, ex);
-            Assert.assertEquals("No registro el prestamo", ex.getMessage());
-        }finally{
-            daof.endSession();
-        }
+        Assert.assertEquals(1,lp.size());
     }
     /**
      * Clase de Equivalencia: no deberia registrar un prestamo Termino Fijo sin equipos.
@@ -547,7 +603,7 @@ public class RegistrarPrestamosTest {
      * @throws edu.eci.pdsw.entities.EquipoException
      */
     @Test
-    public void CE16() throws IOException, EquipoException{
+    public void CE15() throws IOException, EquipoException{
         InputStream input;
             input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
             Properties properties = new Properties();
@@ -572,8 +628,7 @@ public class RegistrarPrestamosTest {
             Assert.fail("Siguio y no debia");
             
         } catch (PersistenceException ex) {
-            Logger.getLogger(RegistrarPrestamosTest.class.getName()).log(Level.SEVERE, null, ex);
-            Assert.assertEquals("No registro el prestamo", ex.getMessage());
+            Assert.assertEquals("Los equipos no pueden ser nulos", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -584,7 +639,7 @@ public class RegistrarPrestamosTest {
      * @throws edu.eci.pdsw.entities.EquipoException
      */
     @Test
-    public void CE17() throws IOException, EquipoException{
+    public void CE16() throws IOException, EquipoException{
         InputStream input;
             input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
             Properties properties = new Properties();
@@ -609,8 +664,7 @@ public class RegistrarPrestamosTest {
             Assert.fail("Siguio y no debia");
             
         } catch (PersistenceException ex) {
-            Logger.getLogger(RegistrarPrestamosTest.class.getName()).log(Level.SEVERE, null, ex);
-            Assert.assertEquals("No registro el prestamo", ex.getMessage());
+            Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
         }finally{
             daof.endSession();
         }

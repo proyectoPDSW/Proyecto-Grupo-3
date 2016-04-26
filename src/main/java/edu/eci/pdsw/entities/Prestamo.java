@@ -24,7 +24,8 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     protected List<EquipoComplejo> equiposComplejosFaltantes;
     protected Map<EquipoSencillo,Integer> equiposSencillosPrestados;
     protected Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
-    protected List<EquipoSencillo> sencillosFaltantes;
+    protected List<EquipoSencillo> equiposSencillosPrestados2;
+    protected List<Integer> equiposSencillosPrestadosCantidad2;
     protected Persona elQuePideElPrestamo;
     protected int tipo_prestamo;
 
@@ -38,7 +39,20 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     
     @Override
-    public abstract String toString();
+    public String toString(){
+        StringBuffer sb = new StringBuffer();
+        sb.append("Aqui esta el id "+idPrestamo + "\n ");
+        sb.append(fechaInicio.toString() + "\n ");
+        sb.append(getElQuePideElPrestamo().toString() + "\n ");
+        for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
+            sb.append(" "+equiposComplejosPrestado.toString()+" \n");
+        }
+        if(equiposSencillosPrestados==null) return sb.toString();
+        for (Map.Entry<EquipoSencillo,Integer> equiposSencillosPrestado : equiposSencillosPrestados.entrySet()) {
+            sb.append(equiposSencillosPrestado.getKey().toString() +" "+equiposSencillosPrestado.getValue()+" \n");
+        }
+        return sb.toString();
+    }
     /**
      * Obj: Saber si el prestamo esta en mora o no.
      * Pre: Ninguna.
@@ -136,11 +150,11 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         this.elQuePideElPrestamo = elQuePideElPrestamo;
     }
     public List<EquipoSencillo> getSencillosFaltantes() {
-        return sencillosFaltantes;
+        return equiposSencillosPrestados2;
     }
 
     public void setSencillosFaltantes(List<EquipoSencillo> sencillosFaltantes) {
-        this.sencillosFaltantes = sencillosFaltantes;
+        this.equiposSencillosPrestados2 = sencillosFaltantes;
     }
 
     public int getTipo_prestamo() {

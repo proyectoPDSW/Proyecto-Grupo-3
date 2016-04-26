@@ -15,13 +15,13 @@ import java.util.Map;
  */
 public class PrestamoIndefinido extends Prestamo{
     
-    public PrestamoIndefinido(int idPrestamo, Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, List<EquipoComplejo> equiposComplejosPrestados, Map<EquipoSencillo, Integer> equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
+    public PrestamoIndefinido(int idPrestamo, Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, List equiposComplejosPrestados, List equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
         this.idPrestamo = idPrestamo;
         this.fechaInicio = fechaInicio;
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
         this.fechaRealEntregada = fechaRealEntregada;
         this.equiposComplejosPrestados = equiposComplejosPrestados;
-        this.equiposSencillosPrestados = equiposSencillosPrestados;
+        this.equiposSencillosPrestados2 = equiposSencillosPrestados;
         this.elQuePideElPrestamo = elQuePideElPrestamo;
         this.tipo_prestamo = 2;
     }
@@ -43,6 +43,7 @@ public class PrestamoIndefinido extends Prestamo{
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
+        sb.append("Aqui esta el id "+idPrestamo + "\n ");
         sb.append(fechaInicio.toString() + "\n ");
         sb.append(getElQuePideElPrestamo().toString() + "\n ");
         for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
