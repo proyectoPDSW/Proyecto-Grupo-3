@@ -66,12 +66,14 @@ public class PrestamoIndefinido extends Prestamo{
         sb.append("Aqui esta el id "+idPrestamo + "\n ");
         sb.append(fechaInicio.toString() + "\n ");
         sb.append(getElQuePideElPrestamo().toString() + "\n ");
-        for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
-            sb.append(" "+equiposComplejosPrestado.toString()+" \n");
-        }
-        for (EquipoSencillo equiposSencillosPrestado : equiposSencillosPrestados2) {
-            sb.append(" "+equiposSencillosPrestado.toString()+" \n");
-        }
+        if(equiposComplejosPrestados!=null)
+            for (int i = 0; i < equiposComplejosPrestados.size(); i++) {
+                sb.append(" "+equiposComplejosPrestados.get(i).toString()+" \n");
+            }
+        if(equiposSencillosPrestados2!=null)
+            for (int i = 0; i < equiposSencillosPrestados2.size(); i++) {
+                sb.append(" "+equiposSencillosPrestados2.get(i).toString()+" \n");
+            }
         return sb.toString();
     }
 

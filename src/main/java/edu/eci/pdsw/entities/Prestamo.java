@@ -39,6 +39,19 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     @Override
     public boolean equals(Object obj) {
         Prestamo p = (Prestamo)obj;
+        /*boolean check = true;
+        check=fechaInicio.equals(p.getFechaInicio());
+        check = check && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
+        if(equiposComplejosPrestados!=null){
+            check = check && equiposComplejosPrestados.size()==p.getEquiposComplejosPrestados().size();
+            for (int i = 0; i < equiposComplejosPrestados.size(); i++) {
+                
+            }
+        }
+        if(equiposSencillosPrestados2!=null)
+            for (int i = 0; i < equiposSencillosPrestados2.size(); i++) {
+                //sb.append(" "+equiposSencillosPrestados2.get(i).toString()+" \n");
+            }*/
         return fechaInicio.equals(p.getFechaInicio()) && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
     }
     

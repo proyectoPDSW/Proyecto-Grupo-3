@@ -91,7 +91,13 @@ public class PrestamosTest {
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne(per.getCarnet());
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
         
     }
     /**
@@ -248,8 +254,7 @@ public class PrestamosTest {
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
         for (Prestamo prestamo1 : lp) {
-            System.out.println("Entro aqui");
-            System.out.println(prestamo1.toString());
+            
         }
         daof.endSession();
         Assert.assertEquals(1,lp.size());
