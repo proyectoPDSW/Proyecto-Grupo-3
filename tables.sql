@@ -52,7 +52,7 @@ CREATE TABLE Equipos_Sencillos (
     nombre varchar(100) NOT NULL,
     cantidad_total int NOT NULL,
     clase varchar(100) NOT NULL,
-    fotografia varchar(1000) NULL,
+    fotografia varchar(500) NULL,
     valor_comercial int NOT NULL,
     UNIQUE INDEX NOMBRE_AK (nombre),
     CONSTRAINT Equipos_Sencillos_pk PRIMARY KEY (nombre)

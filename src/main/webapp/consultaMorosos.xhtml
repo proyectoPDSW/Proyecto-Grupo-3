@@ -17,7 +17,7 @@ and open the template in the editor.
             <p:panel id="conultMorosos" header="Prestamos en mora" style="margin-bottom:20px">
                 <!--p:dataTable -->
                 <p:dataTable var="prestamo" value="#{consultaMorosos.morosos}" >
-                    <p:column headerText="fecha" width="200">
+                    <p:column headerText="fecha" >
                         <p:outputLabel value="#{prestamo.fechaEstimadaDeEntrega}"/>
                     </p:column>
 
@@ -45,16 +45,16 @@ and open the template in the editor.
                                 </p:column>
                             </p:dataTable>
                         </p:column>
-                    <p:column headerText="Tiempo de mora" width="100" >
+                    <p:column headerText="Tiempo de mora"  >
                     <!--p:column headerText="Tiempo de mora" sortBy="prestamo.tiempoMora" sortOrder="descending" -->
                         <p:outputLabel value="#{consultaMorosos.diffHoras(prestamo.fechaEstimadaDeEntrega)} horas"/>
                     </p:column>
 
-                    <p:column headerText="Estudiante" width="200">
+                    <p:column headerText="Estudiante" >
                         <p:outputLabel value="#{prestamo.elQuePideElPrestamo.nombre} #{prestamo.elQuePideElPrestamo.apellido}"/>
                     </p:column>
                     
-                    <p:column headerText="Correo" width="200">
+                    <p:column headerText="Correo" >
                         <p:outputLabel value="#{prestamo.elQuePideElPrestamo.email}"/>
                     </p:column>
                 </p:dataTable>
