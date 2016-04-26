@@ -46,12 +46,15 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
 
     @Override
     public void save(EquipoComplejo toSave) throws PersistenceException {
-        if (eMap.loadEquipoByPlaca(toSave.getPlaca())!=null  || eMap.loadEquipoBySerial(toSave.getSerial()) != null){
-            throw new PersistenceException("El equipo con nombre " + toSave.getModelo_Eq().getNombre() + " ya esta registrado");
+        if (eMap.loadEquipoByPlaca(toSave.getPlaca())!=null){
+            throw new PersistenceException("El equipo con placa "+toSave.getPlaca()+" ya esta registrado");
         }
-        if(eMap.loadModelo(toSave.getModelo_Eq().getNombre())==null){
+        if(eMap.loadEquipoBySerial(toSave.getSerial()) != null){
+            throw new PersistenceException("El equipo con serial "+toSave.getSerial()+" ya esta registrado");
+        }
+        /*if(eMap.loadModelo(toSave.getModelo_Eq().getNombre())==null){
             throw new PersistenceException("El modelo con nombre "+toSave.getModelo_Eq().getNombre()+" no esta registrado, por lo tanto no se puede registrar el equipo "+toSave.getModelo_Eq().getNombre());
-        }
+        }*/
         //Como si el modelo no esta registrado se registra automaticamente, tengo que ver si existe
         if (eMap.loadModelo(toSave.getModelo_Eq().getNombre()) == null) {
             //Si el modelo no existe lo registro

@@ -56,7 +56,7 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona["+carnet+ " \n"+nombre+" \n"+apellido+" \n"+email+" \n"+telefono+" \n"+rol+"] \n";
+        return "Persona:["+carnet+ " "+nombre+" "+apellido+" "+email+" "+telefono+" "+rol+"] \n";
     }
 
     /**

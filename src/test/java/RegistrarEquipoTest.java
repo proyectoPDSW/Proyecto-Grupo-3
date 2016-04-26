@@ -95,7 +95,7 @@ public class RegistrarEquipoTest {
         daof.endSession();
         Assert.fail("Registro dos veces el mismo equipo");
         }catch(IOException | PersistenceException e){
-            Assert.assertEquals(e.getMessage(),"El equipo con nombre " + ec.getModelo_Eq().getNombre() + " ya esta registrado");
+            Assert.assertEquals(e.getMessage(),"El equipo con placa "+ec.getPlaca()+" ya esta registrado");
         }finally{
             daof.endSession();
         }

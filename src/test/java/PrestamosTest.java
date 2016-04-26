@@ -126,6 +126,10 @@ public class PrestamosTest {
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByFecha(new Timestamp(new Date().getTime()));
+        /*for (Prestamo prestamo1 : lp) {
+            System.out.println("Entro aqui");
+            System.out.println(prestamo1.toString());
+        }*/
         daof.endSession();
         Assert.assertEquals(1,lp.size());
         
@@ -243,7 +247,10 @@ public class PrestamosTest {
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
-        
+        for (Prestamo prestamo1 : lp) {
+            System.out.println("Entro aqui");
+            System.out.println(prestamo1.toString());
+        }
         daof.endSession();
         Assert.assertEquals(1,lp.size());
     }

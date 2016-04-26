@@ -69,9 +69,8 @@ public class PrestamoIndefinido extends Prestamo{
         for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
             sb.append(" "+equiposComplejosPrestado.toString()+" \n");
         }
-        if(equiposSencillosPrestados==null) return sb.toString();
-        for (Map.Entry<EquipoSencillo,Integer> equiposSencillosPrestado : equiposSencillosPrestados.entrySet()) {
-            sb.append(equiposSencillosPrestado.getKey().toString() +" "+equiposSencillosPrestado.getValue()+" \n");
+        for (EquipoSencillo equiposSencillosPrestado : equiposSencillosPrestados2) {
+            sb.append(" "+equiposSencillosPrestado.toString()+" \n");
         }
         return sb.toString();
     }

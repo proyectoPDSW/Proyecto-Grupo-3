@@ -76,10 +76,8 @@ public class PrestamoTerminoFijo extends Prestamo {
         for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
             sb.append(" "+equiposComplejosPrestado.toString()+" \n");
         }
-        if(equiposSencillosPrestados!=null){
-            for (Entry<EquipoSencillo,Integer> equiposSencillosPrestado : equiposSencillosPrestados.entrySet()) {
-                sb.append(equiposSencillosPrestado.getKey().toString() +" "+equiposSencillosPrestado.getValue()+" \n");
-            }
+        for (EquipoSencillo equiposSencillosPrestado : equiposSencillosPrestados2) {
+            sb.append(" "+equiposSencillosPrestado.toString()+" \n");
         }
         sb.append(fechaEstimadaDeEntrega+"\n");
         return sb.toString();

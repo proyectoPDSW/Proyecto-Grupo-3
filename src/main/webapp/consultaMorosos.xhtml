@@ -33,13 +33,12 @@ and open the template in the editor.
                         </p:dataTable>
                     </p:column>
                         <p:column headerText="Otros Equipos">
-                            <p:dataTable value="#{consultaMorosos.convert(prestamo.equiposSencillosFaltantes.keySet())}" var="equipo"  >
-                            <!--p:dataTable value="#{prestamo.equiposSencillosFaltantes.keySet()}" var="equipo" -->
+                            <p:dataTable value="#{prestamo.equiposSencillosFaltantes2}" var="equipo" >
                                 <p:column headerText="Equipo" >
                                     <p:outputLabel value="#{equipo.nombre}"/>
                                 </p:column>
                                 <p:column headerText="Cantidad">
-                                    <p:outputLabel value="#{prestamo.equiposSencillosFaltantes.get(equipo)}"/>
+                                    <p:outputLabel value="#{equipo.getCantidadTotal()}"/>
                                 </p:column>
                                 <p:column headerText="Valor">
                                     <p:outputLabel value="#{equipo.valorComercial}" />

@@ -16,6 +16,7 @@ import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -37,7 +38,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name="consultaMorosos")
 @SessionScoped
-public class ColsultaMorososManagedBean {
+public class ColsultaMorososManagedBean implements Serializable{
     private final ServiciosPrestamo sp=ServiciosPrestamo.getInstance();
     
     private List<Prestamo> morosos;
