@@ -26,7 +26,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     protected Map<EquipoSencillo,Integer> equiposSencillosFaltantes;
     protected List<EquipoSencillo> sencillosFaltantes;
     protected Persona elQuePideElPrestamo;
-    protected String tipo_prestamo;
+    protected int tipo_prestamo;
 
     
     @Override
@@ -135,11 +135,11 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         this.sencillosFaltantes = sencillosFaltantes;
     }
 
-    public String getTipo_prestamo() {
+    public int getTipo_prestamo() {
         return tipo_prestamo;
     }
 
-    public void setTipo_prestamo(String tipo_prestamo) {
+    public void setTipo_prestamo(int tipo_prestamo) {
         this.tipo_prestamo = tipo_prestamo;
     }
     

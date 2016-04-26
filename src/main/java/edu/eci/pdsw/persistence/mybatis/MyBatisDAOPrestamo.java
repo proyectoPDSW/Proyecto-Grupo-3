@@ -42,8 +42,8 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
     public List<Prestamo> load(Timestamp fecha, String carne) throws PersistenceException {
         if(carne==null) throw new PersistenceException("El carnet no puede ser nulo");
         if(fecha==null) throw new PersistenceException("La fecha no puede ser nulo");
-        if(pmap.loadPrestamo(fecha,carne).isEmpty()) 
-            throw new PersistenceException("no existe ningun Prestamo en la base de datos con la fecha "+fecha.toString()+" y el carnet "+carne);
+        /*if(pmap.loadPrestamo(fecha,carne).isEmpty()) 
+            throw new PersistenceException("no existe ningun Prestamo en la base de datos con la fecha "+fecha.toString()+" y el carnet "+carne);*/
         return pmap.loadPrestamo(fecha,carne);
     }
 
@@ -51,6 +51,7 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
     public void save(Prestamo prestamo) throws PersistenceException {
         if(prestamo==null) throw new PersistenceException("El prestamo no puede ser nulo");
         List<Prestamo> lisp = load(prestamo.getFechaInicio(),prestamo.getElQuePideElPrestamo().getCarnet());
+        System.out.println(lisp.size()+" LONGITUD");
         for (Prestamo prestamo1 : lisp) if(prestamo1.equals(prestamo)) throw new PersistenceException("El prestamo ya existe");
         System.out.println("------------>>>>>>"+ppmp.load(prestamo.getElQuePideElPrestamo().getCarnet()));
         if(ppmp.load(prestamo.getElQuePideElPrestamo().getCarnet())==null) throw new PersistenceException("La persona no existe para poder realizar el prestamo");

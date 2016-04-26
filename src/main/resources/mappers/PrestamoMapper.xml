@@ -9,7 +9,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='fechaInicio' column='fecha_inicio'/>
         <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
         <result property='fechaRealEntregada' column='fecha_real'/>
-        <result property='tipo_prestamo' column='tipo_prestamo'/>
+        <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
+        <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
+        <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
+        <discriminator javaType='int' column='tipo_prestamo'>
+            <case value='1' resultMap='PrestamoTFResult'/>
+            <case value='2' resultMap='PrestamoIResult'/>
+        </discriminator>
+    </resultMap>
+    
+    <resultMap type='PrestamoTerminoFijo' id='PrestamoTFResult'>
+        <id property='idPrestamo' column='id_prestamo'/>
+        <result property='fechaInicio' column='fecha_inicio'/>
+        <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
+        <result property='fechaRealEntregada' column='fecha_real'/>
+        <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
+        <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
+        <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
+    </resultMap>
+    
+    <resultMap type='PrestamoIndefinido' id='PrestamoIResult'>
+        <id property='idPrestamo' column='id_prestamo'/>
+        <result property='fechaInicio' column='fecha_inicio'/>
+        <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
+        <result property='fechaRealEntregada' column='fecha_real'/>
         <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
         <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
         <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
@@ -323,8 +346,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into Equipo_prestamo_sencillo(prestamo,equipo,cantidad,cantidad_devuelta) 
         values(#{Prestamo_id},#{Equipo_id},#{cantidad},0);
     </insert>
-    <!--
-    
-    public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
-    -->
 </mapper>

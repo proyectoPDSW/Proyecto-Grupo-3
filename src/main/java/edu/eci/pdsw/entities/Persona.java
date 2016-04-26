@@ -29,7 +29,9 @@ public class Persona {
         this.telefono = telefono;
         this.rol=rol;
     }
-    
+
+    public Persona() {
+    }
     /**
      * Obj: Sirve para saber a que departamento es la persona.
      * pre: un departamento

@@ -22,6 +22,7 @@ public class PrestamoIndefinido extends Prestamo{
         this.equiposSencillosPrestados=equiposSencillosPrestados;
         this.equiposSencillosFaltantes=equiposSencillosPrestados;
         this.fechaInicio=new Timestamp(System.currentTimeMillis());
+        tipo_prestamo=2;
     }
     
 

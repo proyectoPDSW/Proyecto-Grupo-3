@@ -30,15 +30,17 @@ public class MyBatisDAOPersona implements DAOPersona{
     @Override
     public Persona load(String carne) throws PersistenceException {
         if(carne==null) throw new PersistenceException("El carnet no puede ser nula");
-        if(pmap.load(carne)==null) throw new PersistenceException("La persona no existe en la base de datos");
         return pmap.load(carne);
     }
 
     @Override
     public void save(Persona persona) throws PersistenceException {
         if(persona==null) throw new PersistenceException("La Persona no puede ser nula");
-        if(persona.equals(load(persona.getCarnet()))) throw new PersistenceException("La Persona "+persona.getNombre()+" ya existe en la base de datos");
+        if(load(persona.getCarnet())!=null){
+            if(persona.equals(load(persona.getCarnet()))) throw new PersistenceException("La Persona "+persona.getNombre()+" ya existe en la base de datos");
+        }
         pmap.insertPersona(persona);
+        System.out.println("Inserto Bien -sa-s-ad-as-d-asd-sa-dsa-");
     }
 
     @Override
