@@ -101,7 +101,7 @@ CREATE TABLE Prestamos (
     persona varchar(20) NOT NULL,
     fecha_fin_estimada timestamp NULL,
     fecha_fin_real timestamp NULL,
-    tipo_prestamo varchar(100) NOT NULL,
+    tipo_prestamo int NOT NULL,
     CONSTRAINT Prestamos_pk PRIMARY KEY (id_prestamo)
 )ENGINE=InnoDB;
 

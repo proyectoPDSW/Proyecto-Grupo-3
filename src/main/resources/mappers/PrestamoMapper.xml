@@ -2,52 +2,89 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="eci.pdsw.persistence.mybatis.mappers.PrestamoMapper">
-    <resultMap type='Prestamo' id='PrestamoResult' columnPrefix='pre_'>
-        <id property='fechaInicio' column='fecha_inicio'/>
+<mapper namespace="edu.eci.pdsw.persistence.mybatis.mappers.PrestamoMapper">
+    
+    <resultMap type='Prestamo' id='PrestamoResult'>
+        <id property='idPrestamo' column='id_prestamo'/>
+        <result property='fechaInicio' column='fecha_inicio'/>
         <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
         <result property='fechaRealEntregada' column='fecha_real'/>
-        <collection property='equiposComplejosPrestados' columnPrefix='eqco_'>
-            <id property='id_Eq' column='id'/>
-            <result property='serial' column='serial,'/>
-            <result property='placa' column='placa'/>
-            <result property='disponibilidad' column='disponibilidad'/>
-            <result property='estado' column='estado'/>
-            <result property='asegurado' column='asegurado'/>
-            <result property='marca' column='marca'/>
-            <association property='modelo_Eq' columnPrefix='mo_'>
-                <id property='nombre' column='nombre'/>
-                <result property='vidaUtil' column='vida_util'/>
-                <result property='fotografia' column='fotografia'/>
-                <result property='valorComercial' column='valor_comercial'/>
-                <result property='clase' column='clase'/>
-                <result property='descripcion' column='descripcion'/>
-                <result property='accesorios' column='accesorios'/>
-            </association>
-        </collection>
-        <collection property='equiposSencillosPrestados' columnPrefix='eqse_'>
-            <id property='nombre' column='nombre'/>
-            <result property='cantidadTotal' column='cantidad'/>
-            <result property='clase' column='clase'/>
-            <result property='fotografia' column='fotografia'/>
-            <result property='valorComercial' column='valor_comercial'/>
-        </collection>
-        <association property='elQuePideElPrestamo' columnPrefix='per_'>
-            <id property='carnet' column='carne'/>
-            <result property='nombre' column='nombre'/>
-            <result property='apellido' column='apellido'/>
-            <result property='email' column='email'/>
-            <result property='telefono' column='telefono'/>
-            <result property='rol' column='rol'/>
-        </association>
+        <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
+        <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
+        <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
+        <discriminator javaType='int' column='tipo_prestamo'>
+            <case value='1' resultMap='PrestamoTFResult'/>
+            <case value='2' resultMap='PrestamoIResult'/>
+        </discriminator>
     </resultMap>
+    
+    <resultMap type='PrestamoTerminoFijo' id='PrestamoTFResult'>
+        <id property='idPrestamo' column='id_prestamo'/>
+        <result property='fechaInicio' column='fecha_inicio'/>
+        <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
+        <result property='fechaRealEntregada' column='fecha_real'/>
+        <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
+        <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
+        <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
+    </resultMap>
+    
+    <resultMap type='PrestamoIndefinido' id='PrestamoIResult'>
+        <id property='idPrestamo' column='id_prestamo'/>
+        <result property='fechaInicio' column='fecha_inicio'/>
+        <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
+        <result property='fechaRealEntregada' column='fecha_real'/>
+        <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
+        <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
+        <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
+    </resultMap>
+    
+    <resultMap type='EquipoComplejo' id='EquipoComplejoResult'>
+        <id property='id_Eq' column='id_equipo_complejo'/>
+        <result property='serial' column='serial'/>
+        <result property='placa' column='num_placa'/>
+        <result property='disponibilidad' column='disponibilidad'/>
+        <result property='estado' column='estado'/>
+        <result property='asegurado' column='asegurado'/>
+        <result property='marca' column='marca'/>
+        <collection property='modelo_Eq' resultMap='ModeloResult' columnPrefix='mo_'/>
+    </resultMap>
+    
+    <resultMap type='Persona' id='PersonaResult'>
+        <id property='carnet' column='carne'/>
+        <result property='nombre' column='nombre'/>
+        <result property='apellido' column='apellido'/>
+        <result property='email' column='email'/>
+        <result property='telefono' column='telefono'/>
+        <result property='rol' column='rol'/>
+    </resultMap>
+    
+    <resultMap type='EquipoSencillo' id='EquipoSencilloResult'>
+        <id property='nombre' column='nombre'/>
+        <result property='cantidadTotal' column='cantidad'/>
+        <result property='clase' column='clase'/>
+        <result property='fotografia' column='fotografia'/>
+        <result property='valorComercial' column='valor_comercial'/>
+    </resultMap>
+    
+    <resultMap type='Modelo' id='ModeloResult'>
+        <id property='nombre' column='nombre'/>
+        <result property='vidaUtil' column='vida_util'/>
+        <result property='fotografia' column='fotografia'/>
+        <result property='valorComercial' column='valor_comercial'/>
+        <result property='clase' column='clase'/>
+        <result property='descripcion' column='descripcion'/>
+        <result property='accesorios' column='accesorios'/>
+    </resultMap>
+    
     <select id='loadAll' parameterType='map' resultMap='PrestamoResult'>
         select
-            Prestamos.fecha_inicio as pre_fecha_inicio,
-            Prestamos.fecha_fin_estimada as pre_fecha_estimada,
-            Prestamos.fecha_fin_real as pre_fecha_real,
+            Prestamos.id_prestamo as id_prestamo,
+            Prestamos.fecha_inicio as fecha_inicio,
+            Prestamos.fecha_fin_estimada as fecha_estimada,
+            Prestamos.fecha_fin_real as fecha_real,
+            Prestamos.tipo_prestamo as tipo_prestamo,
             Equipos_Complejos.id_equipo_complejo as eqco_id,
-            Equipos_Complejos.serial as eqco_serial,
+            Equipos_Complejos.serial as eqco_serial,	
             Equipos_Complejos.num_placa as eqco_placa,
             Equipos_Complejos.disponibilidad as eqco_disponibilidad,
             Equipos_Complejos.estado as eqco_estado,
@@ -77,22 +114,236 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             left join Equipos_Complejos on Equipo_prestamo_complejo.equipo_complejo = Equipos_Complejos.id_equipo_complejo
             left join Modelos on  Equipos_Complejos.modelo = Modelos.nombre
             left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
-            left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre;
+            left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
 	
     </select>
-     <!--public void insertPrestamo(@Param("Prestamo")Prestamo p);
+    <select id='loadPrestamo' parameterType='map' resultMap='PrestamoResult'>
+        select
+            Prestamos.id_prestamo as id_prestamo,
+            Prestamos.fecha_inicio as fecha_inicio,
+            Prestamos.fecha_fin_estimada as fecha_estimada,
+            Prestamos.fecha_fin_real as fecha_real,
+            Prestamos.tipo_prestamo as tipo_prestamo,
+            Equipos_Complejos.id_equipo_complejo as eqco_id,
+            Equipos_Complejos.serial as eqco_serial,	
+            Equipos_Complejos.num_placa as eqco_placa,
+            Equipos_Complejos.disponibilidad as eqco_disponibilidad,
+            Equipos_Complejos.estado as eqco_estado,
+            Equipos_Complejos.asegurado as eqco_asegurado,
+            Equipos_Complejos.marca as eqco_marca,
+            Modelos.nombre as mo_nombre,
+            Modelos.vida_util as mo_vida_util,
+            Modelos.fotografia as mo_fotografia,
+            Modelos.valor_comercial as mo_valor_comercial,
+            Modelos.clase as mo_clase,
+            Modelos.descripcion as mo_descripcion,
+            Modelos.accesorios as mo_accesorios,
+            Equipos_Sencillos.nombre as eqse_nombre,
+            Equipos_Sencillos.cantidad_total as eqse_cantidad,
+            Equipos_Sencillos.clase as eqse_clase,
+            Equipos_Sencillos.fotografia as eqse_fotografia,
+            Equipos_Sencillos.valor_comercial as eqse_valor_comercial,
+            Personas.carne as per_carne,
+            Personas.nombre as per_nombre,
+            Personas.apellido as per_apellido,
+            Personas.email as per_email,
+            Personas.telefono as per_telefono,
+            Personas.rol as per_rol
+        from Prestamos
+            left join Personas on Prestamos.persona = Personas.carne
+            left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.prestamo = Prestamos.id_prestamo 
+            left join Equipos_Complejos on Equipo_prestamo_complejo.equipo_complejo = Equipos_Complejos.id_equipo_complejo
+            left join Modelos on  Equipos_Complejos.modelo = Modelos.nombre
+            left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
+            left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+        where
+            Month(Prestamos.fecha_inicio) = Month(#{time}) 
+            and Year(Prestamos.fecha_inicio) = Year(#{time})
+            and Day(Prestamos.fecha_inicio) = Day(#{time}) 
+            and Prestamos.persona = #{carnet}
+    </select>
+    <select id='loadByFecha' parameterType='map' resultMap='PrestamoResult'>
+        select
+            Prestamos.id_prestamo as id_prestamo,
+            Prestamos.fecha_inicio as fecha_inicio,
+            Prestamos.fecha_fin_estimada as fecha_estimada,
+            Prestamos.fecha_fin_real as fecha_real,
+            Prestamos.tipo_prestamo as tipo_prestamo,
+            Equipos_Complejos.id_equipo_complejo as eqco_id,
+            Equipos_Complejos.serial as eqco_serial,	
+            Equipos_Complejos.num_placa as eqco_placa,
+            Equipos_Complejos.disponibilidad as eqco_disponibilidad,
+            Equipos_Complejos.estado as eqco_estado,
+            Equipos_Complejos.asegurado as eqco_asegurado,
+            Equipos_Complejos.marca as eqco_marca,
+            Modelos.nombre as mo_nombre,
+            Modelos.vida_util as mo_vida_util,
+            Modelos.fotografia as mo_fotografia,
+            Modelos.valor_comercial as mo_valor_comercial,
+            Modelos.clase as mo_clase,
+            Modelos.descripcion as mo_descripcion,
+            Modelos.accesorios as mo_accesorios,
+            Equipos_Sencillos.nombre as eqse_nombre,
+            Equipos_Sencillos.cantidad_total as eqse_cantidad,
+            Equipos_Sencillos.clase as eqse_clase,
+            Equipos_Sencillos.fotografia as eqse_fotografia,
+            Equipos_Sencillos.valor_comercial as eqse_valor_comercial,
+            Personas.carne as per_carne,
+            Personas.nombre as per_nombre,
+            Personas.apellido as per_apellido,
+            Personas.email as per_email,
+            Personas.telefono as per_telefono,
+            Personas.rol as per_rol
+        from Prestamos
+            left join Personas on Prestamos.persona = Personas.carne
+            left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.prestamo = Prestamos.id_prestamo 
+            left join Equipos_Complejos on Equipo_prestamo_complejo.equipo_complejo = Equipos_Complejos.id_equipo_complejo
+            left join Modelos on  Equipos_Complejos.modelo = Modelos.nombre
+            left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
+            left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+        where
+            Month(Prestamos.fecha_inicio) = Month(#{time}) 
+            and Year(Prestamos.fecha_inicio) = Year(#{time})
+            and Day(Prestamos.fecha_inicio) = Day(#{time}) 
+    </select>
+    <select id='loadByCarne' parameterType='map' resultMap='PrestamoResult'>
+        select
+            Prestamos.id_prestamo as id_prestamo,
+            Prestamos.fecha_inicio as fecha_inicio,
+            Prestamos.fecha_fin_estimada as fecha_estimada,
+            Prestamos.fecha_fin_real as fecha_real,
+            Prestamos.tipo_prestamo as tipo_prestamo,
+            Equipos_Complejos.id_equipo_complejo as eqco_id,
+            Equipos_Complejos.serial as eqco_serial,	
+            Equipos_Complejos.num_placa as eqco_placa,
+            Equipos_Complejos.disponibilidad as eqco_disponibilidad,
+            Equipos_Complejos.estado as eqco_estado,
+            Equipos_Complejos.asegurado as eqco_asegurado,
+            Equipos_Complejos.marca as eqco_marca,
+            Modelos.nombre as mo_nombre,
+            Modelos.vida_util as mo_vida_util,
+            Modelos.fotografia as mo_fotografia,
+            Modelos.valor_comercial as mo_valor_comercial,
+            Modelos.clase as mo_clase,
+            Modelos.descripcion as mo_descripcion,
+            Modelos.accesorios as mo_accesorios,
+            Equipos_Sencillos.nombre as eqse_nombre,
+            Equipos_Sencillos.cantidad_total as eqse_cantidad,
+            Equipos_Sencillos.clase as eqse_clase,
+            Equipos_Sencillos.fotografia as eqse_fotografia,
+            Equipos_Sencillos.valor_comercial as eqse_valor_comercial,
+            Personas.carne as per_carne,
+            Personas.nombre as per_nombre,
+            Personas.apellido as per_apellido,
+            Personas.email as per_email,
+            Personas.telefono as per_telefono,
+            Personas.rol as per_rol
+        from Prestamos
+            left join Personas on Prestamos.persona = Personas.carne
+            left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.prestamo = Prestamos.id_prestamo 
+            left join Equipos_Complejos on Equipo_prestamo_complejo.equipo_complejo = Equipos_Complejos.id_equipo_complejo
+            left join Modelos on  Equipos_Complejos.modelo = Modelos.nombre
+            left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
+            left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+        where
+            Prestamos.persona = #{carnet}
+    </select>
+    <select id='loadByEquipoComplejo' parameterType='map' resultMap='PrestamoResult'>
+        select
+            Prestamos.id_prestamo as id_prestamo,
+            Prestamos.fecha_inicio as fecha_inicio,
+            Prestamos.fecha_fin_estimada as fecha_estimada,
+            Prestamos.fecha_fin_real as fecha_real,
+            Prestamos.tipo_prestamo as tipo_prestamo,
+            Equipos_Complejos.id_equipo_complejo as eqco_id,
+            Equipos_Complejos.serial as eqco_serial,	
+            Equipos_Complejos.num_placa as eqco_placa,
+            Equipos_Complejos.disponibilidad as eqco_disponibilidad,
+            Equipos_Complejos.estado as eqco_estado,
+            Equipos_Complejos.asegurado as eqco_asegurado,
+            Equipos_Complejos.marca as eqco_marca,
+            Modelos.nombre as mo_nombre,
+            Modelos.vida_util as mo_vida_util,
+            Modelos.fotografia as mo_fotografia,
+            Modelos.valor_comercial as mo_valor_comercial,
+            Modelos.clase as mo_clase,
+            Modelos.descripcion as mo_descripcion,
+            Modelos.accesorios as mo_accesorios,
+            Equipos_Sencillos.nombre as eqse_nombre,
+            Equipos_Sencillos.cantidad_total as eqse_cantidad,
+            Equipos_Sencillos.clase as eqse_clase,
+            Equipos_Sencillos.fotografia as eqse_fotografia,
+            Equipos_Sencillos.valor_comercial as eqse_valor_comercial,
+            Personas.carne as per_carne,
+            Personas.nombre as per_nombre,
+            Personas.apellido as per_apellido,
+            Personas.email as per_email,
+            Personas.telefono as per_telefono,
+            Personas.rol as per_rol
+        from Prestamos
+            left join Personas on Prestamos.persona = Personas.carne
+            left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.prestamo = Prestamos.id_prestamo 
+            left join Equipos_Complejos on Equipo_prestamo_complejo.equipo_complejo = Equipos_Complejos.id_equipo_complejo
+            left join Modelos on  Equipos_Complejos.modelo = Modelos.nombre
+            left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
+            left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+        where
+            Equipos_Complejos.serial = #{Eq_Complejo.serial} and
+            Equipos_Complejos.num_placa = #{Eq_Complejo.placa}
+    </select>
+    <select id='loadMorosos' parameterType='map' resultMap='PrestamoResult'>
+        select
+            Prestamos.id_prestamo as id_prestamo,
+            Prestamos.fecha_inicio as fecha_inicio,
+            Prestamos.fecha_fin_estimada as fecha_estimada,
+            Prestamos.fecha_fin_real as fecha_real,
+            Prestamos.tipo_prestamo as tipo_prestamo,
+            Equipos_Complejos.id_equipo_complejo as eqco_id,
+            Equipos_Complejos.serial as eqco_serial,	
+            Equipos_Complejos.num_placa as eqco_placa,
+            Equipos_Complejos.disponibilidad as eqco_disponibilidad,
+            Equipos_Complejos.estado as eqco_estado,
+            Equipos_Complejos.asegurado as eqco_asegurado,
+            Equipos_Complejos.marca as eqco_marca,
+            Modelos.nombre as mo_nombre,
+            Modelos.vida_util as mo_vida_util,
+            Modelos.fotografia as mo_fotografia,
+            Modelos.valor_comercial as mo_valor_comercial,
+            Modelos.clase as mo_clase,
+            Modelos.descripcion as mo_descripcion,
+            Modelos.accesorios as mo_accesorios,
+            Equipos_Sencillos.nombre as eqse_nombre,
+            Equipos_Sencillos.cantidad_total as eqse_cantidad,
+            Equipos_Sencillos.clase as eqse_clase,
+            Equipos_Sencillos.fotografia as eqse_fotografia,
+            Equipos_Sencillos.valor_comercial as eqse_valor_comercial,
+            Personas.carne as per_carne,
+            Personas.nombre as per_nombre,
+            Personas.apellido as per_apellido,
+            Personas.email as per_email,
+            Personas.telefono as per_telefono,
+            Personas.rol as per_rolmvn 
+        from Prestamos
+            left join Personas on Prestamos.persona = Personas.carne
+            left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.prestamo = Prestamos.id_prestamo 
+            left join Equipos_Complejos on Equipo_prestamo_complejo.equipo_complejo = Equipos_Complejos.id_equipo_complejo
+            left join Modelos on  Equipos_Complejos.modelo = Modelos.nombre
+            left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
+            left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+        where
+            Prestamos.fecha_fin_real is null and year(Prestamos.fecha_fin_estimada) &lt;= year(now()) and month(Prestamos.fecha_fin_estimada) &lt;= month(now()) and day(Prestamos.fecha_fin_estimada) &lt; day(now())
+    </select>
     
-    public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
-    
-    public List<Prestamo> loadPrestamo(@Param("time")Timestamp fecha,@Param("carnet") String carne);
-    
-    public List<Prestamo> loadAll();
-    
-    public List<Prestamo> loadByFecha(@Param("fecha")Timestamp fecha);
-
-    public List<Prestamo> loadByCarne(@Param("carne")String carne);
-
-    public List<Prestamo> loadMorosos();
-
-    public List<Prestamo> loadByEquipoComplejo(@Param("Eq_Complejo")EquipoComplejo equipocomplejo);-->
+    <insert id='insertPrestamo' parameterType='map'>
+        insert into Prestamos(fecha_inicio, persona, fecha_fin_estimada, fecha_fin_real, tipo_prestamo)
+        values(#{Prestamo.fechaInicio}, #{Prestamo.elQuePideElPrestamo.carnet}, #{Prestamo.fechaEstimadaDeEntrega}, #{Prestamo.fechaRealEntregada}, #{Prestamo.tipo_prestamo})
+    </insert>
+    <insert id='insertEquipoComplejo_Prestamo' parameterType='map'>
+        insert into Equipo_prestamo_complejo(equipo_complejo, prestamo, devuelto) 
+        values (#{Equipo_id},#{Prestamo_id},0)
+    </insert>
+    <insert id='insertEquipoSencillo_Prestamo' parameterType='map'>
+        insert into Equipo_prestamo_sencillo(prestamo,equipo,cantidad,cantidad_devuelta) 
+        values(#{Prestamo_id},#{Equipo_id},#{cantidad},0);
+    </insert>
 </mapper>

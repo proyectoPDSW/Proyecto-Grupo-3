@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper">
+<mapper namespace="edu.eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper">
     <resultMap type='EquipoSencillo' id='EquipoSencilloResult'>
         <id property='nombre' column='nombre'/>
         <result property='cantidadTotal' column='cantidad_total'/>
