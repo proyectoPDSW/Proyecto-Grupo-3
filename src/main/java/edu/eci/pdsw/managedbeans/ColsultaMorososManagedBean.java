@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -88,9 +89,11 @@ public class ColsultaMorososManagedBean {
      * @return la diferencia en horas entre d y la hora actual
      */
     public int diffHoras(Timestamp d){
-        Timestamp curr=new Timestamp(System.currentTimeMillis());
+        Timestamp curr=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("America/Bogota")).getTimeInMillis());
+        //Timestamp curr=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("Europe/Budapest")).getTime().getTime());
         int hoursCurr=curr.getHours()+curr.getDay()*24+curr.getMonth()*30*24+curr.getYear()*12*30*24;
         int hoursD=d.getHours()+d.getDay()*24+d.getMonth()*30*24+d.getYear()*12*30*24;
+        //System.out.println(curr+" "+d+" "+hoursCurr+" "+hoursD);
         return hoursCurr-hoursD;
     }
     public List<EquipoSencillo> convert(Set<EquipoSencillo> s){

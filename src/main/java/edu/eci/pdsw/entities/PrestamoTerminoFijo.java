@@ -7,12 +7,14 @@ package edu.eci.pdsw.entities;
 
 import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TimeZone;
 
 /**
  *
@@ -60,7 +62,7 @@ public class PrestamoTerminoFijo extends Prestamo {
             this.equiposSencillosFaltantes=equiposSencillosPrestados;
         }
         this.fechaEstimadaDeEntrega=fechaEstimadaDeEntrega;
-        this.fechaInicio=new Timestamp(System.currentTimeMillis());
+        this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
         tipo_prestamo=1;
     }
 
@@ -91,7 +93,7 @@ public class PrestamoTerminoFijo extends Prestamo {
 
     @Override
     public int compareTo(Prestamo o) {
-        Timestamp curr=new Timestamp(System.currentTimeMillis());
+        Timestamp curr=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
         int hoursCurr=curr.getHours()+curr.getDay()*24+curr.getMonth()*30*24+curr.getYear()*12*30*24;
         Timestamp f=getFechaEstimadaDeEntrega();
         int hoursThis=f.getHours()+f.getDay()*24+f.getMonth()*30*24+f.getYear()*12*30*24;

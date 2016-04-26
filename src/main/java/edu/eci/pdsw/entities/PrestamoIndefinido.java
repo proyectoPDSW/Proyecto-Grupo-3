@@ -6,10 +6,12 @@
 package edu.eci.pdsw.entities;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  *
@@ -53,7 +55,7 @@ public class PrestamoIndefinido extends Prestamo{
             this.equiposSencillosPrestados=equiposSencillosPrestados;
             this.equiposSencillosFaltantes=equiposSencillosPrestados;
         }
-        this.fechaInicio=new Timestamp(System.currentTimeMillis());
+        this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
         tipo_prestamo=2;
     }
     
