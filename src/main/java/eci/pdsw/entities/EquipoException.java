@@ -21,7 +21,7 @@ public class EquipoException extends Exception{
     public static final String MODELO_VALOR_COMERCIAL_INADECUADO="Favor colocar un valor comercial adecuado al modelo";
     //Equipo sencillo
     public static final String EQUIPO_S_SIN_NOMBRE="El equipo no puede ser registrado sin un nombre";
-    public static final String EQUIPO_S_SIN_CLASE="Favor coloarle una clase adecuada al equipo";
+    public static final String EQUIPO_S_SIN_CLASE="Favor colocarle una clase adecuada al equipo";
     public static final String EQUIPO_S_CANTIDAD_INADECUADA="Favor colocarle una cantidad adecuada del equipo";
     public static final String EQUIPO_S_COMERCIAL_INADECUADO="Favor colocarle un valor comercial adecuado al equipo";
     
