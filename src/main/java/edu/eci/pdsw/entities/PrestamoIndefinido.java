@@ -14,6 +14,20 @@ import java.util.Map;
  * @author Hugo Alvarez
  */
 public class PrestamoIndefinido extends Prestamo{
+    
+    public PrestamoIndefinido(int idPrestamo, Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, List<EquipoComplejo> equiposComplejosPrestados, Map<EquipoSencillo, Integer> equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
+        this.idPrestamo = idPrestamo;
+        this.fechaInicio = fechaInicio;
+        this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
+        this.fechaRealEntregada = fechaRealEntregada;
+        this.equiposComplejosPrestados = equiposComplejosPrestados;
+        this.equiposSencillosPrestados = equiposSencillosPrestados;
+        this.elQuePideElPrestamo = elQuePideElPrestamo;
+        this.tipo_prestamo = 2;
+    }
+
+    public PrestamoIndefinido() {
+    }
 
     public PrestamoIndefinido(Persona elQuePideElPrestamo, List equiposComplejosPrestados, Map equiposSencillosPrestados) {
         this.elQuePideElPrestamo=elQuePideElPrestamo;
@@ -28,7 +42,17 @@ public class PrestamoIndefinido extends Prestamo{
 
     @Override
     public String toString() {
-        return getElQuePideElPrestamo() + " " + getEquiposComplejosPrestados().toString() + " " + getEquiposSencillosPrestados().toString();
+        StringBuffer sb = new StringBuffer();
+        sb.append(fechaInicio.toString() + "\n ");
+        sb.append(getElQuePideElPrestamo().toString() + "\n ");
+        for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
+            sb.append(" "+equiposComplejosPrestado.toString()+" \n");
+        }
+        if(equiposSencillosPrestados==null) return sb.toString();
+        for (Map.Entry<EquipoSencillo,Integer> equiposSencillosPrestado : equiposSencillosPrestados.entrySet()) {
+            sb.append(equiposSencillosPrestado.getKey().toString() +" "+equiposSencillosPrestado.getValue()+" \n");
+        }
+        return sb.toString();
     }
 
     @Override

@@ -28,6 +28,14 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     protected Persona elQuePideElPrestamo;
     protected int tipo_prestamo;
 
+    @Override
+    public boolean equals(Object obj) {
+        Prestamo p = (Prestamo)obj;
+        return fechaInicio.equals(p.getFechaInicio()) && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
+    }
+
+    
+
     
     @Override
     public abstract String toString();

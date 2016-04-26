@@ -47,11 +47,13 @@ public class RegistrarPrestamosTest {
     public void clearDB() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb2;MODE=MYSQL", "anonymous", "");
         Statement stmt = conn.createStatement();
-        stmt.execute("delete from Modelos");
+        stmt.execute("delete from Equipo_prestamo_complejo");
+        stmt.execute("delete from Equipo_prestamo_sencillo");
         stmt.execute("delete from Equipos_Complejos");
+        stmt.execute("delete from Modelos");
         stmt.execute("delete from Equipos_Sencillos");
-        stmt.execute("delete from Personas");
         stmt.execute("delete from Prestamos");
+        stmt.execute("delete from Personas");
         conn.commit();
     }
 
@@ -140,14 +142,23 @@ public class RegistrarPrestamosTest {
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
+        DAOEquipoComplejo eqco= daof.getDaoEquipoComplejo();
+        DAOEquipoSencillo eqse=daof.getDaoEquipoSencillo();
+        DAOPersona persona = daof.getDaoPersona();
         DAOPrestamo prestamo= daof.getDaoPrestamo();
+        
         Modelo model = new Modelo(4, "Modelo de prueba 3", null, "Clase x", 100000);
+        eqco.save(model);
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
         EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");
+        ec.setPlaca(26);
+        ec2.setPlaca(45);
+        eqco.save(ec);eqco.save(ec2);
         //EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);lec.add(ec2);
         //Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","profesor");
+        persona.save(per);
         Prestamo p = new PrestamoIndefinido(per,lec,null);
         prestamo.save(p);
         daof.commitTransaction();

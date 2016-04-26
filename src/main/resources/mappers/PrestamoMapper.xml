@@ -202,9 +202,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
             left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
         where
-            Month(Prestamos.fecha_inicio) = Month(#{time}) 
-            and Year(Prestamos.fecha_inicio) = Year(#{time})
-            and Day(Prestamos.fecha_inicio) = Day(#{time}) 
+            Month(Prestamos.fecha_inicio) = Month(#{fecha}) 
+            and Year(Prestamos.fecha_inicio) = Year(#{fecha})
+            and Day(Prestamos.fecha_inicio) = Day(#{fecha}) 
     </select>
     <select id='loadByCarne' parameterType='map' resultMap='PrestamoResult'>
         select
@@ -246,7 +246,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
             left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
         where
-            Prestamos.persona = #{carnet}
+            Prestamos.persona = #{carne}
     </select>
     <select id='loadByEquipoComplejo' parameterType='map' resultMap='PrestamoResult'>
         select

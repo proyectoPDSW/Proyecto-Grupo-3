@@ -16,6 +16,7 @@ import edu.eci.pdsw.persistence.mybatis.mappers.PersonaMapper;
 import edu.eci.pdsw.persistence.mybatis.mappers.PrestamoMapper;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +60,7 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         Prestamo car_prestamo= null;
         int id = -1;
         List<Prestamo> pt = pmap.loadPrestamo(prestamo.getFechaInicio(), prestamo.getElQuePideElPrestamo().getCarnet());
+        System.out.println(Arrays.toString(pt.toArray()));
         for (Prestamo pres : pt) {
             if(pres.equals(prestamo)) car_prestamo=pres;
         }
@@ -66,10 +68,11 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
             if(ecmp.loadEquipoBySerial(ec.getSerial())==null) throw new PersistenceException("El equipo complejo no existe para poder realizar el prestamo");
             pmap.insertEquipoComplejo_Prestamo(car_prestamo.getIdPrestamo(), ec.getId_Eq());
         }
-        for (EquipoSencillo p : car_prestamo.getEquiposSencillosPrestados().keySet()) {
-            if(esmp.loadEquipoByNombre(p.getNombre())==null) throw new PersistenceException("El equipo sencillo no existe para poder realizar el prestamo");
-            pmap.insertEquipoSencillo_Prestamo(car_prestamo.getIdPrestamo(), p.getNombre(), p.getCantidadTotal());
-        }
+        if(car_prestamo.getEquiposSencillosPrestados()!=null)
+            for (EquipoSencillo p : car_prestamo.getEquiposSencillosPrestados().keySet()) {
+                if(esmp.loadEquipoByNombre(p.getNombre())==null) throw new PersistenceException("El equipo sencillo no existe para poder realizar el prestamo");
+                pmap.insertEquipoSencillo_Prestamo(car_prestamo.getIdPrestamo(), p.getNombre(), p.getCantidadTotal());
+            }
     }
 
     @Override
