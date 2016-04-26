@@ -61,8 +61,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
-        dec.save(model);
-        daof.commitTransaction();
+        //dec.save(model);
+        //daof.commitTransaction();
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         aConsultar.setPlaca(2);
         aConsultar.setEstado("En prueba");
@@ -85,8 +85,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
-        dec.save(model);
-        daof.commitTransaction();
+        //dec.save(model);
+        //daof.commitTransaction();
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F");
         aConsultar2.setPlaca(3);
@@ -114,13 +114,16 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
-        dec.save(model);
-        daof.commitTransaction();
+        //dec.save(model);
+        //daof.commitTransaction();
+        //System.out.println("Creo modelo");
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         aConsultar.setPlaca(189);
         aConsultar.setEstado("En prueba");
+        //System.out.println("Creo equipo");
         dec.save(aConsultar);
         daof.commitTransaction();
+        //System.out.println("Guardo equipo");
         EquipoComplejo loaded = dec.load(189);
         Assert.assertEquals(aConsultar, loaded);
     }
@@ -136,8 +139,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(7, "Modelo de prueba", null, "Clase x", 100000);
-        dec.save(model);
-        daof.commitTransaction();
+        //dec.save(model);
+        //daof.commitTransaction();
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
         aConsultar.setPlaca(2);
         aConsultar.setEstado("En prueba");

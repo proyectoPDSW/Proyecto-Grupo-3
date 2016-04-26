@@ -141,8 +141,9 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             modelo=new Modelo(vidaUtil,nombre,fotografia,clase,valorComercial);
             modelo.setDescripcion(descripcion);
             modelo.setAccesorios(accesorios);
-            SERVICIOS.registrarModelo(modelo);
+            //SERVICIOS.registrarModelo(modelo);
             equipo=new EquipoComplejo(modelo, marca, serial);
+            equipo.setModelo_Eq(modelo);
             equipo.setAsegurado(asegurado);
             equipo.setPlaca(placa);
             equipo.setMarca(marca);
