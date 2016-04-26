@@ -56,7 +56,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposComplejosFaltantes
      */
     public List<EquipoComplejo> getEquiposComplejosFaltantes() {
-        System.out.println("Entro a los equipos complejos Faltantes");
         if(equiposComplejosFaltantes==null) equiposComplejosFaltantes=new LinkedList<>();
         equiposComplejosFaltantes=getEquiposComplejosPrestados();
         Collections.sort(equiposComplejosFaltantes);
@@ -67,7 +66,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposSencillosFaltantes
      */
     public Map<EquipoSencillo,Integer> getEquiposSencillosFaltantes() {
-        System.out.println("Entro a los equipos sencillos Faltantes mapa");
         return equiposSencillosFaltantes;
     }
 
@@ -75,7 +73,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the fechaInicio
      */
     public Timestamp getFechaInicio() {
-        System.out.println("Entro a fecha inicio");
         return fechaInicio;
     }
 
@@ -83,7 +80,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the fechaEstimadaDeEntrega
      */
     public Timestamp getFechaEstimadaDeEntrega() {
-        System.out.println("Entro a fecha estimada de entraga");
         return fechaEstimadaDeEntrega;
     }
 
@@ -91,7 +87,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the fechaRealEntregada
      */
     public Timestamp getFechaRealEntregada() {
-        System.out.println("Entro a fecha real entregada");
         return fechaRealEntregada;
     }
 
@@ -99,15 +94,11 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposComplejosPrestados
      */
     public List<EquipoComplejo> getEquiposComplejosPrestados() {
-        System.out.println("Entro a los equipos complejos Prestados");
         if(equiposComplejosPrestados!=null){
             Set<EquipoComplejo> tmp =new HashSet<>();tmp.addAll(equiposComplejosPrestados);
-            System.out.println("set: "+Arrays.toString(tmp.toArray()));
-            System.out.println("arr: "+Arrays.toString(equiposComplejosPrestados.toArray()));
             equiposComplejosPrestados=new LinkedList<>();
             equiposComplejosPrestados.addAll(tmp);
             equiposComplejosFaltantes=equiposComplejosPrestados;
-            System.out.println("arr after: "+Arrays.toString(equiposComplejosPrestados.toArray()));
         }
         return equiposComplejosPrestados;
     }
@@ -116,7 +107,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @param equiposComplejosFaltantes the equiposComplejosFaltantes to set
      */
     public void setEquiposComplejosFaltantes(List<EquipoComplejo> equiposComplejosFaltantes) {
-        System.out.println("Entro a  set los equipos complejos Faltantes");
         this.equiposComplejosFaltantes = equiposComplejosFaltantes;
     }
 
@@ -124,7 +114,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposSencillosPrestados
      */
     public Map<EquipoSencillo,Integer> getEquiposSencillosPrestados() {
-        System.out.println("Entro a los equipos sencillos prestamos mapa");
         return equiposSencillosPrestados;
     }
 
@@ -132,17 +121,14 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the elQuePideElPrestamo
      */
     public Persona getElQuePideElPrestamo() {
-        System.out.println("Entro a la persona");
         return elQuePideElPrestamo;
     }
 
     public int getIdPrestamo() {
-        System.out.println("Entro a el id del prestamo");
         return idPrestamo;
     }
 
     public void setIdPrestamo(int idPrestamo) {
-        System.out.println("Entro a set id del prestamo");
         this.idPrestamo = idPrestamo;
     }
 
@@ -162,15 +148,12 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     }
 
     public void setElQuePideElPrestamo(Persona elQuePideElPrestamo) {
-        System.out.println("Entro a set persona");
         this.elQuePideElPrestamo = elQuePideElPrestamo;
     }
     public void setEquiposSencillosPrestados2(List<EquipoSencillo> sencillosFaltantes) {
-        System.out.println("Entro a equipos sencillos faltantes 2");
         this.equiposSencillosPrestados2 = sencillosFaltantes;
         this.equiposSencillosFaltantes2=sencillosFaltantes;
         Collections.sort(equiposSencillosFaltantes2);
-        System.out.println(Arrays.toString(equiposSencillosFaltantes2.toArray()));
     }
 
     public int getTipo_prestamo() {
@@ -188,7 +171,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposSencillosFaltantes2
      */
     public List<EquipoSencillo> getEquiposSencillosFaltantes2() {
-        System.out.println("Entro a equipos sencillos faltantes 2");
         if(equiposSencillosFaltantes2==null) equiposSencillosFaltantes2=new LinkedList<>();
         Collections.sort(equiposSencillosFaltantes2);
         return equiposSencillosFaltantes2;
@@ -198,18 +180,13 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @param equiposSencillosFaltantes2 the equiposSencillosFaltantes2 to set
      */
     public void setEquiposSencillosFaltantes2(List<EquipoSencillo> equiposSencillosFaltantes2) {
-        System.out.println("Entro a set equipos sencillos faltantes 2");
         this.equiposSencillosFaltantes2 = equiposSencillosFaltantes2;
     }
     public List<EquipoSencillo> getEquiposSencillosPrestados2() {
-        System.out.println("Entro a equipos sencillos Prestados 2");
-        /*if(equiposSencillosPrestados2==null) equiposSencillosPrestados2=new LinkedList<>();
-        Collections.sort(equiposSencillosPrestados2);*/
         return equiposSencillosPrestados2;
     }
 
     public List<Integer> getEquiposSencillosPrestadosCantidad2() {
-        System.out.println("Entro a equipos sencillos Prestados cantidad 2");
         return equiposSencillosPrestadosCantidad2;
     }
 }
