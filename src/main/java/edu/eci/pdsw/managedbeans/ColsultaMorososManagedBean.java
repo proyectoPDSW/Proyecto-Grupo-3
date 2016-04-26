@@ -12,6 +12,7 @@ import edu.eci.pdsw.entities.Modelo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
+import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
@@ -77,7 +78,7 @@ public class ColsultaMorososManagedBean {
              * return morosos;**/
             morosos=sp.consultarPrestamosMorosos();
         } catch (ExcepcionServicios ex) {
-            Logger.getLogger(ColsultaMorososManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+            Registro.anotar(ex);
         }
         return morosos;
     }

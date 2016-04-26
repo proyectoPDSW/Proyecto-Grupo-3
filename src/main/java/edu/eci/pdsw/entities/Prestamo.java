@@ -68,7 +68,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public List<EquipoComplejo> getEquiposComplejosFaltantes() {
         if(equiposComplejosFaltantes==null) equiposComplejosFaltantes=new LinkedList<>();
-        System.out.println(toString());
         Collections.sort(equiposComplejosFaltantes);
         return equiposComplejosFaltantes;
     }
@@ -140,10 +139,12 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     public void setEquiposComplejosPrestados(List<EquipoComplejo> equiposComplejosPrestados) {
         this.equiposComplejosPrestados = equiposComplejosPrestados;
+        equiposComplejosFaltantes=equiposComplejosPrestados;
     }
 
     public void setEquiposSencillosPrestados(Map<EquipoSencillo, Integer> equiposSencillosPrestados) {
         this.equiposSencillosPrestados = equiposSencillosPrestados;
+        equiposSencillosFaltantes=equiposSencillosPrestados;
     }
 
     public void setEquiposSencillosFaltantes(Map<EquipoSencillo, Integer> equiposSencillosFaltantes) {

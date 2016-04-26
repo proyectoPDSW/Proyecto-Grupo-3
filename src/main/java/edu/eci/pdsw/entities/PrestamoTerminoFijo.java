@@ -25,10 +25,13 @@ public class PrestamoTerminoFijo extends Prestamo {
         this.fechaInicio = fechaInicio;
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
         this.fechaRealEntregada = fechaRealEntregada;
-        if(equiposComplejosPrestados==null)
-            this.equiposComplejosPrestados=new LinkedList<EquipoComplejo>();
-        else
-            this.equiposComplejosPrestados = equiposComplejosPrestados;
+        if(equiposComplejosPrestados==null){
+            this.equiposComplejosPrestados=new LinkedList<>();
+            this.equiposComplejosFaltantes=new LinkedList<>();
+        }else{
+            this.equiposComplejosPrestados=equiposComplejosPrestados;
+            this.equiposComplejosFaltantes=equiposComplejosPrestados;
+        }
         if(equiposSencillosPrestados==null)
             this.equiposSencillosPrestados2=new LinkedList<>();
         else

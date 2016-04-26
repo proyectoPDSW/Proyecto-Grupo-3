@@ -315,6 +315,7 @@ public class PrestamosTest {
             //List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);//lec.add(ec2);
             //Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());//les.put(es1,es1.getCantidadTotal());
             Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","profesor");
+            persona.save(per);
             Prestamo p = new PrestamoIndefinido(per, null, null);
             prestamo.save(p);
             daof.commitTransaction();

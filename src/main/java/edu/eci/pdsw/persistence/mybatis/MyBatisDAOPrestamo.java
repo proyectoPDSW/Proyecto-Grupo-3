@@ -51,7 +51,7 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
     @Override
     public void save(Prestamo prestamo) throws PersistenceException {
         if(prestamo==null) throw new PersistenceException("El prestamo no puede ser nulo");
-        if(prestamo.getEquiposComplejosPrestados()== null && prestamo.getEquiposSencillosPrestados()==null) throw new PersistenceException("Los equipos no pueden ser nulos");
+        if((prestamo.getEquiposComplejosPrestados()== null || prestamo.getEquiposComplejosPrestados().size()==0) && (prestamo.getEquiposSencillosPrestados()==null || prestamo.getEquiposSencillosPrestados().size()==0)) throw new PersistenceException("Los equipos no pueden ser nulos");
         if(prestamo.getElQuePideElPrestamo()==null)throw new PersistenceException("La persona no puede ser nulo");
         List<Prestamo> lisp = load(prestamo.getFechaInicio(),prestamo.getElQuePideElPrestamo().getCarnet());
         for (Prestamo prestamo1 : lisp) if(prestamo1.equals(prestamo)) throw new PersistenceException("El prestamo ya existe");
