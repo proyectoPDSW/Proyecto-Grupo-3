@@ -69,13 +69,7 @@ public class ColsultaMorososManagedBean implements Serializable{
         //System.out.println(curr+" "+d+" "+hoursCurr+" "+hoursD);
         return hoursCurr-hoursD;
     }
-    public List<EquipoSencillo> convert(Set<EquipoSencillo> s){
-        if(s==null) s=new HashSet<>();
-        List<EquipoSencillo> es=new LinkedList<EquipoSencillo>();
-        es.addAll(s);
-        Collections.sort(es);
-        return es;
-    }
+
     
 
     
