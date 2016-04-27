@@ -137,7 +137,13 @@ public class PrestamosTest {
             System.out.println(prestamo1.toString());
         }*/
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
         
     }
     /**
@@ -176,7 +182,13 @@ public class PrestamosTest {
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByEquipoComplejo(ec);
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
         
     }
     /**
@@ -213,7 +225,13 @@ public class PrestamosTest {
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido por muchos equipos sencillos y muchos equipos complejos.
@@ -257,7 +275,13 @@ public class PrestamosTest {
             
         }
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido por 1 equipo sencillo y 1 equipo complejo.
@@ -296,7 +320,13 @@ public class PrestamosTest {
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
     }
     /**
      * Clase de Equivalencia: no deberia registrar un prestamo indefinido sin equipos.
@@ -406,7 +436,13 @@ public class PrestamosTest {
         List<Prestamo> lp = prestamo.loadMorosos();
         
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo 1 Equipo Sencillo .
@@ -443,7 +479,13 @@ public class PrestamosTest {
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
         
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo muchos Equipos Complejos .
@@ -482,7 +524,13 @@ public class PrestamosTest {
         List<Prestamo> lp = prestamo.loadByEquipoComplejo(ec);
         
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo muchos Equipos Sencillos.
@@ -521,7 +569,13 @@ public class PrestamosTest {
         List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
         
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo muchos Equipos Complejos y muchos Equipos Sencillos.
@@ -563,7 +617,13 @@ public class PrestamosTest {
         List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
         
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo 1 Equipo Complejo y 1 Equipo Sencillo.
@@ -604,7 +664,13 @@ public class PrestamosTest {
         List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
         
         daof.endSession();
-        Assert.assertEquals(1,lp.size());
+        Prestamo check=null;
+        for (Prestamo prestamo1 : lp) {
+            //System.out.println("Entro aqui");
+            //System.out.println(prestamo1.toString());
+            check = prestamo1;
+        }
+        Assert.assertTrue(p.equals(check));
     }
     /**
      * Clase de Equivalencia: no deberia registrar un prestamo Termino Fijo sin equipos.
