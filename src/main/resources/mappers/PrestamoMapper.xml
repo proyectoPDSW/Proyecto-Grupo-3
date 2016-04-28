@@ -78,12 +78,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id='loadAll' parameterType='map' resultMap='PrestamoResult'>
         select
-            Prestamos.id_prestamo as id_prestamo,
             Prestamos.fecha_inicio as fecha_inicio,
             Prestamos.fecha_fin_estimada as fecha_estimada,
             Prestamos.fecha_fin_real as fecha_real,
             Prestamos.tipo_prestamo as tipo_prestamo,
-            Equipos_Complejos.id_equipo_complejo as eqco_id,
             Equipos_Complejos.serial as eqco_serial,	
             Equipos_Complejos.num_placa as eqco_placa,
             Equipos_Complejos.disponibilidad as eqco_disponibilidad,
@@ -106,14 +104,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             Personas.nombre as per_nombre,
             Personas.apellido as per_apellido,
             Personas.email as per_email,
-            Personas.telefono as per_telefono,
-            Personas.rol as per_rol
+            Personas.telefono as per_telefono
         from Prestamos
             left join Personas on Prestamos.persona = Personas.carne
-            left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.prestamo = Prestamos.id_prestamo 
-            left join Equipos_Complejos on Equipo_prestamo_complejo.equipo_complejo = Equipos_Complejos.id_equipo_complejo
+            left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona
+            left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_num_placa = Equipos_Complejos.num_placa and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo
             left join Modelos on  Equipos_Complejos.modelo = Modelos.nombre
-            left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.prestamo = Prestamos.id_prestamo
+            left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona
             left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
 	
     </select>
