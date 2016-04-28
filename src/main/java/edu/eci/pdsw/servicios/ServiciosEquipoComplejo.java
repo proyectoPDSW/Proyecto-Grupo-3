@@ -86,7 +86,15 @@ public abstract class ServiciosEquipoComplejo {
      * Consulta un modelo basado en el nombre
      * @param nombre del modelo
      * @return Modelo cargado
-     * @throws ExcepcionServicios Si el modelo no esta registrado
+     * @throws ExcepcionServicios Si el modelo no esta registrado o Si la cadena esta vacia
      */
     public abstract Modelo consultarModelo(String nombre)throws ExcepcionServicios;
+    
+    /**
+     * Consulta todos los modelos que contengan cierta cadena
+     * @param cadena a buscar
+     * @return todos los equipos que contengan la cadena
+     * @throws ExcepcionServicios si la cadena está vacia
+     */
+    public abstract List<Modelo> consultarAproximado(String cadena)throws ExcepcionServicios;
 }

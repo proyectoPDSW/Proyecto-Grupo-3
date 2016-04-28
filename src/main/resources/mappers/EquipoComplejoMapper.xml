@@ -88,10 +88,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ec.modelo=#{Eq_Modelo}
     </select>
     
-      <select id='loadModelo' parameterType='map' resultMap='ModeloResult'>
-          select mo.vida_util as vida_util, mo.fotografia as fotografia, mo.valor_comercial as valor_comercial,
-          mo.clase as clase, mo.descripcion as descripcion, mo.accesorios as accesorios,
-          mo.nombre as nombre from Modelos as mo where mo.nombre=#{Modelo}
-      </select>
+    <select id='loadModelo' parameterType='map' resultMap='ModeloResult'>
+        select mo.vida_util as vida_util, mo.fotografia as fotografia, mo.valor_comercial as valor_comercial,
+        mo.clase as clase, mo.descripcion as descripcion, mo.accesorios as accesorios,
+        mo.nombre as nombre from Modelos as mo where mo.nombre=#{Modelo}
+    </select>
 
+    <select id='loadModelosAproximados' parameterType='map' resultMap='ModeloResult'>
+        select mo.vida_util as vida_util, mo.fotografia as fotografia, mo.valor_comercial as valor_comercial,
+        mo.clase as clase, mo.descripcion as descripcion, mo.accesorios as accesorios,
+        mo.nombre as nombre from Modelos as mo where mo.nombre like '%#{Aproximado}%'
+    </select>
 </mapper>

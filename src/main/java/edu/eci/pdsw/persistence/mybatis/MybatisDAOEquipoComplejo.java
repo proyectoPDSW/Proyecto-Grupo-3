@@ -12,6 +12,7 @@ import edu.eci.pdsw.entities.Modelo;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper;
+import java.util.List;
 
 /**
  *
@@ -122,4 +123,9 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
         return eMap.loadEquipoByModelo(modelo);
     }
 
+    @Override
+    public ArrayList<Modelo> loadModelosAproximados(String toSearch){
+        ArrayList<Modelo> ans=eMap.loadModelosAproximados(toSearch);
+        return ans;
+    }
 }

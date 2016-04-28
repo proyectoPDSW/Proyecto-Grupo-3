@@ -8,6 +8,7 @@ package edu.eci.pdsw.persistence;
 import java.util.ArrayList;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
+import java.util.List;
 
 /**
  *
@@ -91,4 +92,12 @@ public interface DAOEquipoComplejo {
      * @throws PersistenceException si el modelo no existe
      */
     public Modelo loadModelo(String nombre)throws PersistenceException;
+    
+    /**
+     * Carga todos los modelos que contengan una cadena
+     * @param toSearch la cadena a buscar
+     * @return una lista que contiene los modelos que contienen una cadena
+    */
+    public List<Modelo> loadModelosAproximados(String toSearch);
+    
 }

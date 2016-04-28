@@ -81,4 +81,11 @@ public interface EquipoComplejoMapper {
      * @return un modelo que posea ese nombre
      */
     public Modelo loadModelo(@Param("Modelo")String nombre);
+    
+    /**
+     * Consulta todos los modelos que contengan una cadena
+     * @param toSearch la cadena a buscar
+     * @return una lista que contiene los modelos que contienen una cadena
+    */
+    public ArrayList<Modelo> loadModelosAproximados(@Param("Aproximado") String toSearch);    
 }

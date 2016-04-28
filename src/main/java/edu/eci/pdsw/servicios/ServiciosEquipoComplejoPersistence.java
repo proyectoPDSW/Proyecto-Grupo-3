@@ -165,4 +165,15 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
         }
     }
 
+    @Override
+    public List<Modelo> consultarAproximado(String cadena) throws ExcepcionServicios{
+        if(cadena.length()==0)throw new ExcepcionServicios("Cadena de longitud invalida");
+        dao.beginSession();
+        complejoPersistencia=dao.getDaoEquipoComplejo();
+        List<Modelo> ans=complejoPersistencia.loadModelosAproximados(cadena);
+        dao.commitTransaction();
+        dao.endSession();
+        return ans;
+    }
+
 }
