@@ -35,17 +35,19 @@ public interface EquipoComplejoMapper {
     
     /**
      * Consulta un equipo complejo por un serial especifico
+     * @param modelo del equipo a buscar
      * @param serial
      * @return el euipo complejo que tenga ese serial
      */
-    public EquipoComplejo loadEquipoBySerial(@Param("Eq_Serial") String serial);
+    public EquipoComplejo loadEquipoBySerial(@Param("Modelo_Equipo") String modelo,@Param("Eq_Serial") String serial);
     
     /**
      * Consulta un equipo complejo que posea una placa especifica
+     * @param modelo del equipo a buscar
      * @param placa
      * @return el equipo complejo que posea esa placa
      */
-    public EquipoComplejo loadEquipoByPlaca(@Param("Eq_Placa") int placa);
+    public EquipoComplejo loadEquipoByPlaca(@Param("Modelo_Equipo") String modelo,@Param("Eq_Placa") int placa);
     
     /**
      * Reemplaza un equipo complejo por uno que tenga nueva informacion

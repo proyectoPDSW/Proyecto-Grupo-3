@@ -18,18 +18,20 @@ public interface DAOEquipoComplejo {
     /**
      * Carga un equipo complejo de la base de datos por serial
      * @param serial a buscar
+     * @param modelo del equipo a buscar
      * @return El equipo complejo cargado
-     * @throws PersistenceException si no encontro el serial
+     * @throws PersistenceException si no encontro el serial para ese modelo o el modelo no existe
      */
-    public EquipoComplejo load(String serial) throws PersistenceException;
+    public EquipoComplejo load(String modelo, String serial) throws PersistenceException;
 
     /**
      * Carga un equipo complejo de la base de datos por placa
      * @param placa a buscar
+     * @param modelo del equipo a buscar
      * @return El equipo complejo cargado
-     * @throws PersistenceException si no encontro la placa
+     * @throws PersistenceException si no encontro la placa para ese modelo o el modelo no existe
      */
-    public EquipoComplejo load(int placa) throws PersistenceException;
+    public EquipoComplejo load(String modelo, int placa) throws PersistenceException;
 
     /**
      * Guarda un equipo complejo en la base de datos

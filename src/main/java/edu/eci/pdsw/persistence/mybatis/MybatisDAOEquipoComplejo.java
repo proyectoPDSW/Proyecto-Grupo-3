@@ -29,27 +29,27 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
     }
 
     @Override
-    public EquipoComplejo load(String serial) throws PersistenceException {
-        if (eMap.loadEquipoBySerial(serial) == null) {
+    public EquipoComplejo load(String modelo,String serial) throws PersistenceException {
+        if (eMap.loadEquipoBySerial(modelo,serial) == null) {
             throw new PersistenceException("El equipo con serial " + serial + " no esta registrado");
         }
-        return eMap.loadEquipoBySerial(serial);
+        return eMap.loadEquipoBySerial(modelo,serial);
     }
 
     @Override
-    public EquipoComplejo load(int placa) throws PersistenceException {
-        if (eMap.loadEquipoByPlaca(placa) == null) {
+    public EquipoComplejo load(String modelo,int placa) throws PersistenceException {
+        if (eMap.loadEquipoByPlaca(modelo,placa) == null) {
             throw new PersistenceException("El equipo con serial " + placa + " no esta registrado");
         }
-        return eMap.loadEquipoByPlaca(placa);
+        return eMap.loadEquipoByPlaca(modelo,placa);
     }
 
     @Override
     public void save(EquipoComplejo toSave) throws PersistenceException {
-        if (eMap.loadEquipoByPlaca(toSave.getPlaca())!=null){
+        if (eMap.loadEquipoByPlaca(toSave.getModelo_Eq().getNombre(),toSave.getPlaca())!=null){
             throw new PersistenceException("El equipo con placa "+toSave.getPlaca()+" ya esta registrado");
         }
-        if(eMap.loadEquipoBySerial(toSave.getSerial()) != null){
+        if(eMap.loadEquipoBySerial(toSave.getModelo_Eq().getNombre(),toSave.getSerial()) != null){
             throw new PersistenceException("El equipo con serial "+toSave.getSerial()+" ya esta registrado");
         }
         /*if(eMap.loadModelo(toSave.getModelo_Eq().getNombre())==null){
@@ -65,17 +65,19 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
 
     @Override
     public void update(EquipoComplejo toUpdate) throws PersistenceException {
-        if (eMap.loadEquipoByPlaca(toUpdate.getPlaca()) == null & eMap.loadEquipoBySerial(toUpdate.getSerial()) == null) {
-            throw new PersistenceException("El equipo con nombre " + toUpdate.getModelo_Eq().getNombre() + " no esta registrado");
+        if (eMap.loadEquipoByPlaca(toUpdate.getModelo_Eq().getNombre(),toUpdate.getPlaca()) == null && 
+                eMap.loadEquipoBySerial(toUpdate.getModelo_Eq().getNombre(),toUpdate.getSerial()) == null) {
+            throw new PersistenceException("El equipo con nombre " + toUpdate.getModelo_Eq().getNombre() + 
+                    " no esta registrado");
         }
         EquipoComplejo test = null;
         if (toUpdate.getSerial() == null) {
-            test = eMap.loadEquipoByPlaca(toUpdate.getPlaca());
+            test = eMap.loadEquipoByPlaca(toUpdate.getModelo_Eq().getNombre(),toUpdate.getPlaca());
         } else if (toUpdate.getPlaca() == 0) {
-            test = eMap.loadEquipoBySerial(toUpdate.getSerial());
+            test = eMap.loadEquipoBySerial(toUpdate.getModelo_Eq().getNombre(),toUpdate.getSerial());
         }
 
-        if (test.toString().equals(toUpdate.toString())) {
+        if (test.equals(toUpdate)) {
             eMap.update(test, toUpdate);
         }
     }

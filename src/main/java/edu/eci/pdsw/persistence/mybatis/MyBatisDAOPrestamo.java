@@ -65,8 +65,9 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         }
         if(prestamo.getEquiposComplejosPrestados()!=null){
             for (EquipoComplejo ec : prestamo.getEquiposComplejosPrestados()) {
-                if(ecmp.loadEquipoBySerial(ec.getSerial())==null) throw new PersistenceException("El equipo complejo no existe para poder realizar el prestamo");
-                EquipoComplejo eqc2 = ecmp.loadEquipoByPlaca(ec.getPlaca());
+                if(ecmp.loadEquipoBySerial(ec.getModelo_Eq().getNombre(),ec.getSerial())==null) 
+                    throw new PersistenceException("El equipo complejo no existe para poder realizar el prestamo");
+                EquipoComplejo eqc2 = ecmp.loadEquipoByPlaca(ec.getModelo_Eq().getNombre(),ec.getPlaca());
                 pmap.insertEquipoComplejo_Prestamo(car_prestamo.getIdPrestamo(), eqc2.getId_Eq());
             }
         }

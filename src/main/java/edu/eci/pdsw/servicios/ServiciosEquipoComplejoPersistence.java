@@ -95,12 +95,12 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
     }
 
     @Override
-    public EquipoComplejo consultarPorPlaca(int numPlaca) throws ExcepcionServicios {
+    public EquipoComplejo consultarPorPlaca(String modelo,int numPlaca) throws ExcepcionServicios {
         EquipoComplejo ans;
         try {
             dao.beginSession();
             complejoPersistencia=dao.getDaoEquipoComplejo();
-            ans=complejoPersistencia.load(numPlaca);
+            ans=complejoPersistencia.load(modelo,numPlaca);
             dao.commitTransaction();
             dao.endSession();
             return ans;
@@ -110,12 +110,12 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
     }
 
     @Override
-    public EquipoComplejo consultarPorSerial(String serial) throws ExcepcionServicios {
+    public EquipoComplejo consultarPorSerial(String modelo,String serial) throws ExcepcionServicios {
         EquipoComplejo ans;
         try {
             dao.beginSession();
             complejoPersistencia=dao.getDaoEquipoComplejo();
-            ans=complejoPersistencia.load(serial);
+            ans=complejoPersistencia.load(modelo,serial);
             dao.endSession();
             return ans;
         } catch (PersistenceException ex) {
