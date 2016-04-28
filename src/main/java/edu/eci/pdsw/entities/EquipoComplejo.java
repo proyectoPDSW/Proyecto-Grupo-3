@@ -12,7 +12,6 @@ import java.util.Objects;
  * @author David Useche
  */
 public class EquipoComplejo implements Comparable<EquipoComplejo> {
-    int id_Eq;
     private boolean asegurado;
     private boolean disponibilidad;
     private String estado;
@@ -37,8 +36,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         modelo_Eq=mod;
     }
 
-    public EquipoComplejo(int id_Eq, boolean asegurado, boolean disponibilidad, String estado, String serial, int placa, String marca, Modelo modelo_Eq) {
-        this.id_Eq = id_Eq;
+    public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, int placa, String marca, Modelo modelo_Eq) {
         this.asegurado = asegurado;
         this.disponibilidad = disponibilidad;
         this.estado = estado;
@@ -51,21 +49,6 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     public EquipoComplejo() {
     }
     
-    /**
-     * 
-     * @return el identificador del equipo complejo
-     */
-    public int getId_Eq() {
-        return id_Eq;
-    }
-    
-    /**
-     * 
-     * @param id_Eq 
-     */
-    public void setId_Eq(int id_Eq) {
-        this.id_Eq = id_Eq;
-    }
     
     /**
      * 
@@ -185,7 +168,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      */
     @Override
     public String toString(){
-        String res="EquipoComplejo:["+id_Eq+","+asegurado+","+disponibilidad+","+estado+","+serial+","+placa+","+marca+"]\n";
+        String res="EquipoComplejo:["+asegurado+","+disponibilidad+","+estado+","+serial+","+placa+","+marca+"]\n";
         res+=modelo_Eq.toString();
         return res;
     }

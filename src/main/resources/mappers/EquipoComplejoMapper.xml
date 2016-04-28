@@ -5,9 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="edu.eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper">
 
     <resultMap type='EquipoComplejo' id='EquipoComplejoResult'>
-        <id property='id_Eq' column='id_equipo_complejo'/>
-        <result property='serial' column='serial'/>
-        <result property='placa' column='num_placa'/>
+        <id property='serial' column='serial'/>
+        <id property='placa' column='num_placa'/>
         <result property='disponibilidad' column='disponibilidad'/>
         <result property='estado' column='estado'/>
         <result property='asegurado' column='asegurado'/>
@@ -37,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
 
     <select id='loadDisponibles' parameterType='map' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
         ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
@@ -46,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id='loadEquipoBySerial' parameterType='map' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
         ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
@@ -55,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id='loadEquipoByPlaca' parameterType='map' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
         ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
@@ -73,7 +72,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <select id='loadAll' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
         ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
@@ -81,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id='loadEquipoByModelo' parameterType='map' resultMap='EquipoComplejoResult'>
-        select ec.id_equipo_complejo as id_equipo_complejo, ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
         ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
