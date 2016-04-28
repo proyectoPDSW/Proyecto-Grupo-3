@@ -20,7 +20,6 @@ import java.util.Set;
  * @author Hugo Alvarez
  */
 public abstract class Prestamo implements Comparable<Prestamo> {
-    protected int idPrestamo;
     protected Timestamp fechaInicio;
     protected Timestamp fechaEstimadaDeEntrega;
     protected Timestamp fechaRealEntregada;
@@ -148,13 +147,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         return elQuePideElPrestamo;
     }
 
-    public int getIdPrestamo() {
-        return idPrestamo;
-    }
-
-    public void setIdPrestamo(int idPrestamo) {
-        this.idPrestamo = idPrestamo;
-    }
 
     public void setEquiposComplejosPrestados(List<EquipoComplejo> equiposComplejosP) {
         Set<EquipoComplejo> tmp =new HashSet<>();tmp.addAll(equiposComplejosP);

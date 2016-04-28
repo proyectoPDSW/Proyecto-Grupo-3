@@ -18,16 +18,16 @@ public class Persona {
     private String apellido;
     private String email;
     private String telefono;
-    private String rol;
     private Set<String> departamentos;
+    private Set<Rol> roles;
 
-    public Persona(String carnet, String nombre, String apellido, String email, String telefono, String rol) {
+    public Persona(String carnet, String nombre, String apellido, String email, String telefono, Set<Rol> rol) {
         this.carnet = carnet;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.telefono = telefono;
-        this.rol=rol;
+        this.roles=rol;
     }
 
     public Persona() {
@@ -56,8 +56,14 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona:["+carnet+ " "+nombre+" "+apellido+" "+email+" "+telefono+" "+rol+"] \n";
+        String res="";
+        res="Persona:["+carnet+ " "+nombre+" "+apellido+" "+email+" "+telefono+"] \n";
+        for(Rol e: roles){
+            res+=e.toString();
+        }
+        return res;
     }
+    
 
     /**
      * @return the carnet
@@ -92,13 +98,6 @@ public class Persona {
      */
     public String getTelefono() {
         return telefono;
-    }
-
-    /**
-     * @return the roles
-     */
-    public String getRol() {
-        return rol;
     }
 
     /**
@@ -144,17 +143,24 @@ public class Persona {
     }
     /**
      * 
-     * @param rol
-     */
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-    /**
-     * 
      * @param departamentos 
      */
     public void setDepartamentos(Set<String> departamentos) {
         this.departamentos = departamentos;
+    }
+
+    /**
+     * @return the roles
+     */
+    public Set<Rol> getRoles() {
+        return roles;
+    }
+
+    /**
+     * @param roles the roles to set
+     */
+    public void setRoles(Set<Rol> roles) {
+        this.roles = roles;
     }
     
 }

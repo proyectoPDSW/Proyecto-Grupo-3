@@ -19,8 +19,7 @@ import java.util.TimeZone;
  */
 public class PrestamoIndefinido extends Prestamo{
     
-    public PrestamoIndefinido(int idPrestamo, Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, List equiposComplejosPrestados, List equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
-        this.idPrestamo = idPrestamo;
+    public PrestamoIndefinido(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, List equiposComplejosPrestados, List equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
         this.fechaInicio = fechaInicio;
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
         this.fechaRealEntregada = fechaRealEntregada;
@@ -63,7 +62,6 @@ public class PrestamoIndefinido extends Prestamo{
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("Aqui esta el id "+idPrestamo + "\n ");
         sb.append(fechaInicio.toString() + "\n ");
         sb.append(getElQuePideElPrestamo().toString() + "\n ");
         if(equiposComplejosPrestados!=null)
