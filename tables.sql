@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2016-04-23 04:17:38.51
+-- Last modification date: 2016-04-28 21:09:01.244
 
 -- tables
 -- Table: Departamento_persona
@@ -17,26 +17,29 @@ CREATE TABLE Departamentos (
 
 -- Table: Equipo_prestamo_complejo
 CREATE TABLE Equipo_prestamo_complejo (
-    equipo_complejo int NOT NULL,
-    prestamo int NOT NULL,
     devuelto bool NOT NULL,
-    CONSTRAINT Equipo_prestamo_complejo_pk PRIMARY KEY (equipo_complejo,prestamo)
+    Prestamos_fecha_inicio timestamp NOT NULL,
+    Prestamos_persona varchar(20) NOT NULL,
+    Equipos_Complejos_serial varchar(30) NOT NULL,
+    Equipos_Complejos_num_placa int NOT NULL,
+    Equipos_Complejos_modelo varchar(50) NOT NULL,
+    CONSTRAINT Equipo_prestamo_complejo_pk PRIMARY KEY (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo)
 )ENGINE=InnoDB;
 
 -- Table: Equipo_prestamo_sencillo
 CREATE TABLE Equipo_prestamo_sencillo (
-    prestamo int NOT NULL,
     equipo varchar(100) NOT NULL,
     cantidad int NOT NULL,
     cantidad_devuelta int NOT NULL,
-    CONSTRAINT Equipo_prestamo_sencillo_pk PRIMARY KEY (prestamo,equipo)
+    Prestamos_fecha_inicio timestamp NOT NULL,
+    Prestamos_persona varchar(20) NOT NULL,
+    CONSTRAINT Equipo_prestamo_sencillo_pk PRIMARY KEY (equipo,Prestamos_fecha_inicio,Prestamos_persona)
 )ENGINE=InnoDB;
 
 -- Table: Equipos_Complejos
 CREATE TABLE Equipos_Complejos (
-    id_equipo_complejo int NOT NULL AUTO_INCREMENT,
-    serial varchar(30) NULL,
-    num_placa int NULL,
+    serial varchar(30) NOT NULL,
+    num_placa int NOT NULL,
     disponibilidad bool NOT NULL,
     estado varchar(50) NOT NULL,
     modelo varchar(50) NOT NULL,
@@ -44,7 +47,7 @@ CREATE TABLE Equipos_Complejos (
     marca varchar(30) NOT NULL,
     UNIQUE INDEX SERIAL_AK (serial),
     UNIQUE INDEX NUM_PLACA_AK (num_placa),
-    CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (id_equipo_complejo)
+    CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (serial,num_placa,modelo)
 )ENGINE=InnoDB;
 
 -- Table: Equipos_Sencillos
@@ -61,10 +64,12 @@ CREATE TABLE Equipos_Sencillos (
 -- Table: Informacion_Compra
 CREATE TABLE Informacion_Compra (
     id int NOT NULL AUTO_INCREMENT,
-    equipo int NOT NULL,
     fecha_compra date NOT NULL,
     proveedor varchar(100) NOT NULL,
     fecha_garantia date NOT NULL,
+    Equipos_Complejos_serial varchar(30) NOT NULL,
+    Equipos_Complejos_num_placa int NOT NULL,
+    Equipos_Complejos_modelo varchar(50) NOT NULL,
     CONSTRAINT Informacion_Compra_pk PRIMARY KEY (id)
 )ENGINE=InnoDB;
 
@@ -87,7 +92,6 @@ CREATE TABLE Personas (
     apellido varchar(100) NOT NULL,
     email varchar(50) NOT NULL,
     telefono varchar(20) NOT NULL,
-    rol varchar(50) NOT NULL,
     UNIQUE INDEX EMAIL_AK (email),
     CHECK (email like '%.escuelaing.edu.co'),
     CHECK (rol in ('estudiante','profesor','laboratorista')),
@@ -96,14 +100,28 @@ CREATE TABLE Personas (
 
 -- Table: Prestamos
 CREATE TABLE Prestamos (
-    id_prestamo int NOT NULL AUTO_INCREMENT,
     fecha_inicio timestamp NOT NULL,
     persona varchar(20) NOT NULL,
     fecha_fin_estimada timestamp NULL,
     fecha_fin_real timestamp NULL,
     tipo_prestamo int NOT NULL,
-    CONSTRAINT Prestamos_pk PRIMARY KEY (id_prestamo)
+    CONSTRAINT Prestamos_pk PRIMARY KEY (fecha_inicio,persona)
 )ENGINE=InnoDB;
+
+-- Table: Rol
+CREATE TABLE Rol (
+    rol varchar(50) NOT NULL,
+    CONSTRAINT Rol_pk PRIMARY KEY (rol)
+)ENGINE=InnoDB;
+
+-- Table: Rol_Persona
+CREATE TABLE Rol_Persona (
+    Personas_carne varchar(20) NOT NULL,
+    Rol_rol varchar(50) NOT NULL,
+    contrasena varchar(100) NOT NULL,
+    sal varchar(10) NOT NULL,
+    CONSTRAINT Rol_Persona_pk PRIMARY KEY (Personas_carne,Rol_rol)
+)ENGINE=InnoDB;;
 
 -- foreign keys
 -- Reference: Departamento_persona_Departamentos (table: Departamento_persona)
@@ -115,32 +133,39 @@ ALTER TABLE Departamento_persona ADD CONSTRAINT Departamento_persona_Personas FO
     REFERENCES Personas (carne);
 
 -- Reference: Equipo_prestamo_complejo_Equipos_Complejos (table: Equipo_prestamo_complejo)
-ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Equipos_Complejos FOREIGN KEY (equipo_complejo)
-    REFERENCES Equipos_Complejos (id_equipo_complejo);
+ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Equipos_Complejos FOREIGN KEY  (Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo)
+    REFERENCES Equipos_Complejos (serial,num_placa,modelo);
 
--- Reference: Equipo_prestamo_complejo_Prestamos_complejos (table: Equipo_prestamo_complejo)
-ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Prestamos_complejos FOREIGN KEY (prestamo)
-    REFERENCES Prestamos (id_prestamo);
+-- Reference: Equipo_prestamo_complejo_Prestamos (table: Equipo_prestamo_complejo)
+ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Prestamos FOREIGN KEY (Prestamos_fecha_inicio,Prestamos_persona)
+    REFERENCES Prestamos (fecha_inicio,persona);
 
 -- Reference: Equipo_prestamo_sencillo_Equipos_Sencillos (table: Equipo_prestamo_sencillo)
 ALTER TABLE Equipo_prestamo_sencillo ADD CONSTRAINT Equipo_prestamo_sencillo_Equipos_Sencillos FOREIGN KEY (equipo)
     REFERENCES Equipos_Sencillos (nombre);
 
--- Reference: Equipo_prestamo_sencillo_Prestamos_complejos (table: Equipo_prestamo_sencillo)
-ALTER TABLE Equipo_prestamo_sencillo ADD CONSTRAINT Equipo_prestamo_sencillo_Prestamos_complejos FOREIGN KEY (prestamo)
-    REFERENCES Prestamos (id_prestamo);
+-- Reference: Equipo_prestamo_sencillo_Prestamos (table: Equipo_prestamo_sencillo)
+ALTER TABLE Equipo_prestamo_sencillo ADD CONSTRAINT Equipo_prestamo_sencillo_Prestamos FOREIGN KEY  (Prestamos_fecha_inicio,Prestamos_persona)
+    REFERENCES Prestamos (fecha_inicio,persona);
 
 -- Reference: Equipos_Complejos_Modelos (table: Equipos_Complejos)
-ALTER TABLE Equipos_Complejos ADD CONSTRAINT Equipos_Complejos_Modelos FOREIGN KEY (modelo)
+ALTER TABLE Equipos_Complejos ADD CONSTRAINT Equipos_Complejos_Modelos FOREIGN KEY  (modelo)
     REFERENCES Modelos (nombre);
 
--- Reference: Ordenes_compra_Equipos_Complejos (table: Informacion_Compra)
-ALTER TABLE Informacion_Compra ADD CONSTRAINT Ordenes_compra_Equipos_Complejos FOREIGN KEY (equipo)
-    REFERENCES Equipos_Complejos (id_equipo_complejo);
+-- Reference: Informacion_Compra_Equipos_Complejos (table: Informacion_Compra)
+ALTER TABLE Informacion_Compra ADD CONSTRAINT Informacion_Compra_Equipos_Complejos FOREIGN KEY (Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo)
+    REFERENCES Equipos_Complejos (serial,num_placa,modelo);
 
 -- Reference: Persona_Prestamo (table: Prestamos)
 ALTER TABLE Prestamos ADD CONSTRAINT Persona_Prestamo FOREIGN KEY (persona)
     REFERENCES Personas (carne);
 
--- End of file.
+-- Reference: Rol_Persona_Personas (table: Rol_Persona)
+ALTER TABLE Rol_Persona ADD CONSTRAINT Rol_Persona_Personas FOREIGN KEY  (Personas_carne)
+    REFERENCES Personas (carne);
 
+-- Reference: Rol_Persona_Rol (table: Rol_Persona)
+ALTER TABLE Rol_Persona ADD CONSTRAINT Rol_Persona_Rol FOREIGN KEY (Rol_rol)
+    REFERENCES Rol (rol);
+
+-- End of file.
