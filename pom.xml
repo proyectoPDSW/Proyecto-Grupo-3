@@ -17,6 +17,11 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.ops4j.pax.swissbox</groupId>
+            <artifactId>pax-swissbox-optional-jcl</artifactId>
+            <version>1.6.1</version>
+        </dependency>
         <dependency>  
             <groupId>org.primefaces.themes</groupId>  
             <artifactId>all-themes</artifactId>  
@@ -79,6 +84,26 @@
             <artifactId>h2</artifactId>
             <version>1.4.184</version>
         </dependency>
+        
+        <!--security-->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-core</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-ehcache</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <!--security-->
     </dependencies>
 
     <build>

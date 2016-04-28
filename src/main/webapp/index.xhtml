@@ -1,20 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
- <h:head>
-     <br></br><b><title>Pagina principal</title></b>
+    <h:head>
+        <br></br><b><title>Pagina principal</title></b>
     </h:head>
     <h:body>
         <center><br></br><b><h1>Pagina Principal</h1></b></center>
-        <h:form id="index">
-            <p:panel id="registrarEquipo" style="height:200px">
-                <br></br><p:commandButton value="Consulta morosos" action="consultaMorosos"  />
-                <br></br><p:commandButton value="Registro equipo sencillo" action="registroequiposencillo" />
-                <br></br><p:commandButton value="Registro equipo complejo" action="registroequipocomplejos" />
-                <br></br><p:commandButton value="Consultar modelo" action="consultarmodelo" />
-            </p:panel>
-        </h:form>
+        Application root page
+        <br></br>
+        <h:outputLink value="restricted/">Admin</h:outputLink>
+        <br></br>
+        <h:outputLink value="laboratorista/">Employees</h:outputLink>
+        <br></br>   
+        <h:outputLink value="/">Open content</h:outputLink>
     </h:body>
 </html>
+
+
+
+
