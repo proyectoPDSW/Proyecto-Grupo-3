@@ -53,7 +53,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             morosos=basePaciente.loadMorosos();
             Collections.sort(morosos);
         }catch(PersistenceException e){
-            throw new ExcepcionServicios("");
+            throw new ExcepcionServicios(e.getMessage());
         }finally{
             daoF.endSession();
             return morosos;
@@ -70,7 +70,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             prestamos=basePaciente.loadByCarne(p.getCarnet());
             Collections.sort(prestamos);
         }catch(PersistenceException e){
-            throw new ExcepcionServicios("");
+            throw new ExcepcionServicios(e.getMessage());
         }finally{
             daoF.endSession();
             return prestamos;
@@ -86,7 +86,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             prestamos=basePaciente.loadByEquipoComplejo(ec);
             Collections.sort(prestamos);
         }catch(PersistenceException e){
-            throw new ExcepcionServicios("");
+            throw new ExcepcionServicios(e.getMessage());
         }finally{
             daoF.endSession();
             return prestamos;
@@ -102,7 +102,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             prestamos=basePaciente.loadAll();
             Collections.sort(prestamos);
         }catch(PersistenceException e){
-            throw new ExcepcionServicios("");
+            throw new ExcepcionServicios(e.getMessage());
         }finally{
             daoF.endSession();
             return prestamos;
