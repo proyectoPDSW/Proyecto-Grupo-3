@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2016-04-21 23:51:17.484
+-- Last modification date: 2016-04-28 21:09:01.244
 
 -- foreign keys
 ALTER TABLE Departamento_persona
@@ -12,22 +12,28 @@ ALTER TABLE Equipo_prestamo_complejo
     DROP FOREIGN KEY Equipo_prestamo_complejo_Equipos_Complejos;
 
 ALTER TABLE Equipo_prestamo_complejo
-    DROP FOREIGN KEY Equipo_prestamo_complejo_Prestamos_complejos;
+    DROP FOREIGN KEY Equipo_prestamo_complejo_Prestamos;
 
 ALTER TABLE Equipo_prestamo_sencillo
     DROP FOREIGN KEY Equipo_prestamo_sencillo_Equipos_Sencillos;
 
 ALTER TABLE Equipo_prestamo_sencillo
-    DROP FOREIGN KEY Equipo_prestamo_sencillo_Prestamos_complejos;
+    DROP FOREIGN KEY Equipo_prestamo_sencillo_Prestamos;
 
 ALTER TABLE Equipos_Complejos
     DROP FOREIGN KEY Equipos_Complejos_Modelos;
 
 ALTER TABLE Informacion_Compra
-    DROP FOREIGN KEY Ordenes_compra_Equipos_Complejos;
+    DROP FOREIGN KEY Informacion_Compra_Equipos_Complejos;
 
 ALTER TABLE Prestamos
     DROP FOREIGN KEY Persona_Prestamo;
+
+ALTER TABLE Rol_Persona
+    DROP FOREIGN KEY Rol_Persona_Personas;
+
+ALTER TABLE Rol_Persona
+    DROP FOREIGN KEY Rol_Persona_Rol;
 
 -- tables
 DROP TABLE Departamento_persona;
@@ -49,5 +55,9 @@ DROP TABLE Modelos;
 DROP TABLE Personas;
 
 DROP TABLE Prestamos;
+
+DROP TABLE Rol;
+
+DROP TABLE Rol_Persona;
 
 -- End of file.
