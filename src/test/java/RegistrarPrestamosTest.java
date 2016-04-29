@@ -199,10 +199,10 @@ public class RegistrarPrestamosTest {
         daof.commitTransaction();
         ArrayList<EquipoComplejo> equipos=new ArrayList<>();
         equipos.add(ec);
-        Rol r=new Rol("Estudiante","yuiewq","1232143");
+        Rol r=new Rol("Profesor","yuiewq","1232143");
         ArrayList<Rol> roles=new ArrayList<>();
         roles.add(r);
-        Persona p=new Persona("2105403","German","Lopez","german.lopez-p@mail.escuelaing.edu.co","8945357",roles);
+        Persona p=new Persona("12529585","Hector","Cadavid","hector.cadavid@mail.escuelaing.edu.co","8945357",roles);
         dp.save(p);
         daof.commitTransaction();
         Prestamo pres=new PrestamoIndefinido(p,equipos,null);
