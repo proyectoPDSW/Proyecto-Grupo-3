@@ -5,6 +5,7 @@
  */
 package edu.eci.pdsw.entities;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -19,9 +20,9 @@ public class Persona {
     private String email;
     private String telefono;
     private Set<String> departamentos;
-    private Set<Rol> roles;
+    private ArrayList<Rol> roles;
 
-    public Persona(String carnet, String nombre, String apellido, String email, String telefono, Set<Rol> rol) {
+    public Persona(String carnet, String nombre, String apellido, String email, String telefono, ArrayList<Rol> rol) {
         this.carnet = carnet;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -56,7 +57,7 @@ public class Persona {
 
     @Override
     public String toString() {
-        String res="";
+        String res;
         res="Persona:["+carnet+ " "+nombre+" "+apellido+" "+email+" "+telefono+"] \n";
         for(Rol e: roles){
             res+=e.toString();
@@ -152,14 +153,14 @@ public class Persona {
     /**
      * @return the roles
      */
-    public Set<Rol> getRoles() {
+    public ArrayList<Rol> getRoles() {
         return roles;
     }
 
     /**
      * @param roles the roles to set
      */
-    public void setRoles(Set<Rol> roles) {
+    public void setRoles(ArrayList<Rol> roles) {
         this.roles = roles;
     }
     

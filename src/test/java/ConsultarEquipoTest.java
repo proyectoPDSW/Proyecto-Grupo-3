@@ -63,7 +63,7 @@ public class ConsultarEquipoTest {
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
         //dec.save(model);
         //daof.commitTransaction();
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",734829);
         aConsultar.setPlaca(2);
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
@@ -87,10 +87,8 @@ public class ConsultarEquipoTest {
         Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
         //dec.save(model);
         //daof.commitTransaction();
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
-        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F");
-        aConsultar2.setPlaca(3);
-        aConsultar.setPlaca(2);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",38294);
+        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F",74892);
         aConsultar.setEstado("En prueba");
         aConsultar2.setEstado("En prueba");
         dec.save(aConsultar);
@@ -117,8 +115,7 @@ public class ConsultarEquipoTest {
         //dec.save(model);
         //daof.commitTransaction();
         //System.out.println("Creo modelo");
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
-        aConsultar.setPlaca(189);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",189);
         aConsultar.setEstado("En prueba");
         //System.out.println("Creo equipo");
         dec.save(aConsultar);
@@ -141,8 +138,7 @@ public class ConsultarEquipoTest {
         Modelo model = new Modelo(7, "Modelo de prueba", null, "Clase x", 100000);
         //dec.save(model);
         //daof.commitTransaction();
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X");
-        aConsultar.setPlaca(2);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",2);
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
         daof.commitTransaction();

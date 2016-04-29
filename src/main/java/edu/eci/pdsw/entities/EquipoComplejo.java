@@ -27,13 +27,15 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param ser
      * @throws EquipoException 
      */
-    public EquipoComplejo(Modelo mod,String mar, String ser)throws EquipoException {
+    public EquipoComplejo(Modelo mod,String mar, String ser, int plac)throws EquipoException {
         if(mod==null) throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         if(ser.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         if(mar.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
-        marca=mar;
-        serial=ser;
-        modelo_Eq=mod;
+        if(placa<0) throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
+        this.marca=mar;
+        this.serial=ser;
+        this.modelo_Eq=mod;
+        this.placa=plac;
     }
 
     public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, int placa, String marca, Modelo modelo_Eq) {

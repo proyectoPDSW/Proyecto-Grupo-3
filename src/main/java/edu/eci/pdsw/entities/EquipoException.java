@@ -14,6 +14,7 @@ public class EquipoException extends Exception{
     public static final String EQUIPOC_SIN_MODELO="El equipo no puede ser registrado sin un modelo";
     public static final String EQUIPOC_SIN_SERIAL="Favor colocarle un serial adecuado al equipo";
     public static final String EQUIPOC_SIN_MARCA="Favor colocarle una marca adecuada al equipo";
+    public static final String EUIPOC_SIN_PLACA="Favor colocarle una placa adecuada al equipo";
     //Modelo
     public static final String MODELO_SIN_NOMBRE="Favor colocar un nombre al modelo";
     public static final String MODELO_SIN_CLASE="Favor colocar una clase al modelo";
