@@ -6,6 +6,7 @@
 package edu.eci.pdsw.servicios;
 
 import edu.eci.pdsw.entities.EquipoSencillo;
+import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.DAOEquipoSencillo;
 import edu.eci.pdsw.persistence.DAOFactory;
 import edu.eci.pdsw.persistence.PersistenceException;
@@ -32,7 +33,7 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
             input=ServiciosEquipoSencilloPersistence.class.getClassLoader().getResource("applicationconfig.properties").openStream();
             properties.load(input);
         } catch (IOException ex) {
-            Logger.getLogger(ServiciosEquipoSencilloPersistence.class.getName()).log(Level.SEVERE, null, ex);
+            Registro.anotar(ex);
         }
         dao = DAOFactory.getInstance(properties);
     }
@@ -46,7 +47,7 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
             dao.commitTransaction();
             dao.endSession();
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 
@@ -60,7 +61,7 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
             dao.endSession();
             return ans;
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 
@@ -73,7 +74,7 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
             ans = sencilloPersistencia.loadAll();
             dao.endSession();
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
         return ans;
     }
@@ -88,7 +89,7 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
             dao.endSession();
             return ans;
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 
@@ -101,7 +102,7 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
             dao.commitTransaction();
             dao.endSession();
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 

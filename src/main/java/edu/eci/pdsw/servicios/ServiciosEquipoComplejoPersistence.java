@@ -8,6 +8,7 @@ package edu.eci.pdsw.servicios;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.DAOFactory;
 import edu.eci.pdsw.persistence.PersistenceException;
@@ -35,7 +36,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             input=ServiciosEquipoComplejoPersistence.class.getClassLoader().getResource("applicationconfig.properties").openStream();
             properties.load(input);
         } catch (IOException ex) {
-            Logger.getLogger(ServiciosEquipoComplejoPersistence.class.getName()).log(Level.SEVERE, null, ex);
+            Registro.anotar(ex);
         }
         dao = DAOFactory.getInstance(properties);
     }
@@ -49,7 +50,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             dao.commitTransaction();
             dao.endSession();
         } catch (PersistenceException  ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 
@@ -62,7 +63,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             dao.commitTransaction();
             dao.endSession();
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 
@@ -75,7 +76,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             ans=complejoPersistencia.loadAll();
             dao.endSession();
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
         return ans;
     }
@@ -89,7 +90,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             ans=complejoPersistencia.loadByModelo(modelo);
             dao.endSession();
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
         return ans;
     }
@@ -105,7 +106,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             dao.endSession();
             return ans;
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 
@@ -119,7 +120,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             dao.endSession();
             return ans;
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 
@@ -132,7 +133,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             ans=complejoPersistencia.loadDisponibles();
             dao.endSession();
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
         return ans;
     }
@@ -146,7 +147,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             dao.commitTransaction();
             dao.endSession();
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 
@@ -161,7 +162,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             dao.endSession();
             return ans;
         } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex.getMessage());
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
 

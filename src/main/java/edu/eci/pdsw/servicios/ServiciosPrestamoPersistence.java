@@ -8,6 +8,7 @@ package edu.eci.pdsw.servicios;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.DAOFactory;
 import edu.eci.pdsw.persistence.DAOPrestamo;
 import edu.eci.pdsw.persistence.PersistenceException;
@@ -40,7 +41,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             daoF = DAOFactory.getInstance(properties);
           
         } catch (IOException ex) {
-            Logger.getLogger(ServiciosPrestamoPersistence.class.getName()).log(Level.SEVERE, null, ex);
+            Registro.anotar(ex);
         }
     }
 
@@ -53,7 +54,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             morosos=basePaciente.loadMorosos();
             Collections.sort(morosos);
         }catch(PersistenceException e){
-            throw new ExcepcionServicios(e.getMessage());
+            throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }finally{
             daoF.endSession();
             return morosos;
@@ -70,7 +71,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             prestamos=basePaciente.loadByCarne(p.getCarnet());
             Collections.sort(prestamos);
         }catch(PersistenceException e){
-            throw new ExcepcionServicios(e.getMessage());
+            throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }finally{
             daoF.endSession();
             return prestamos;
@@ -86,7 +87,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             prestamos=basePaciente.loadByEquipoComplejo(ec);
             Collections.sort(prestamos);
         }catch(PersistenceException e){
-            throw new ExcepcionServicios(e.getMessage());
+            throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }finally{
             daoF.endSession();
             return prestamos;
@@ -102,7 +103,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             prestamos=basePaciente.loadAll();
             Collections.sort(prestamos);
         }catch(PersistenceException e){
-            throw new ExcepcionServicios(e.getMessage());
+            throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }finally{
             daoF.endSession();
             return prestamos;

@@ -16,5 +16,10 @@ public class ExcepcionServicios extends Exception{
     ExcepcionServicios(String message) {
         super(message);
     }
+
+    public ExcepcionServicios(Throwable e, String localizedMessage) {
+        super(localizedMessage,e);
+    }
+    
     
 }
