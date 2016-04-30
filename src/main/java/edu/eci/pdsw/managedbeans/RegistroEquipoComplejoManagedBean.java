@@ -12,6 +12,8 @@ import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -42,6 +44,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         private String fotografia;
         private String descripcion;
         private String accesorios;
+        private String nombreAproximado;
     
     private EquipoComplejo equipo;
     
@@ -217,7 +220,23 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         this.accesorios = accesorios;
         
     }
+        public void setNombreAproximado(String nombreAproximado) {
+        this.nombreAproximado = nombreAproximado;
+    }
+
+    public String getNombreAproximado() {
+        return nombreAproximado;
+    }
     
+    public List<Modelo> getModelosAproximados(){
+        try{
+            return SERVICIOS.consultarAproximado(nombreAproximado);
+        }catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+            Registro.anotar(ex);
+            return new ArrayList<>();
+        }
+    }
     public Modelo getModelo() {
         return modelo;
     }

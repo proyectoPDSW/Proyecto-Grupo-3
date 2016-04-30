@@ -13,6 +13,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -61,8 +62,6 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
-        //dec.save(model);
-        //daof.commitTransaction();
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",734829);
         aConsultar.setPlaca(2);
         aConsultar.setEstado("En prueba");
@@ -85,8 +84,6 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
-        //dec.save(model);
-        //daof.commitTransaction();
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",38294);
         EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F",74892);
         aConsultar.setEstado("En prueba");
@@ -112,15 +109,10 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
-        //dec.save(model);
-        //daof.commitTransaction();
-        //System.out.println("Creo modelo");
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",189);
         aConsultar.setEstado("En prueba");
-        //System.out.println("Creo equipo");
         dec.save(aConsultar);
         daof.commitTransaction();
-        //System.out.println("Guardo equipo");
         EquipoComplejo loaded = dec.load(model.getNombre(),189);
         Assert.assertEquals(aConsultar, loaded);
     }
@@ -163,5 +155,31 @@ public class ConsultarEquipoTest {
         EquipoSencillo loaded = des.load("Cable");
         daof.endSession();
         Assert.assertEquals(aConsultar.toString(), loaded.toString());
+    }
+    
+    //Clase equivalencia 6, Deberia consultar modelos por aproximacion
+    @Test
+    public void deberiaConsultarAproximados() throws Exception{
+        InputStream input;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties = new Properties();
+        properties.load(input);
+        DAOFactory daof = DAOFactory.getInstance(properties);
+        daof.beginSession();
+        DAOEquipoComplejo des=daof.getDaoEquipoComplejo();
+        Modelo model1=new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
+        Modelo model2=new Modelo(6, "Modelo de prueba2", null, "Clase y", 100000);
+        Modelo model3=new Modelo(6, "Nada que ver", null, "Clase z", 100000);
+        des.save(model1);
+        des.save(model2);
+        des.save(model3);
+        daof.commitTransaction();
+        ArrayList<Modelo>ans=new ArrayList<>();
+        ans.add(model1);
+        ans.add(model2);
+        List<Modelo>loaded=des.loadModelosAproximados("Modelo");
+        Assert.assertTrue("No son iguales",loaded.size()==2 && (loaded.get(0).equals(ans.get(0)) || 
+                loaded.get(0).equals(ans.get(1))) && (loaded.get(1).equals(ans.get(0)) || 
+                loaded.get(1).equals(ans.get(1))));
     }
 }
