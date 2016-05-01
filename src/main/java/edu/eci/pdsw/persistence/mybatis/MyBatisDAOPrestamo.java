@@ -51,7 +51,7 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
     @Override
     public void save(Prestamo prestamo) throws PersistenceException {
         if(prestamo==null) throw new PersistenceException("El prestamo no puede ser nulo");
-        if((prestamo.getEquiposComplejosPrestados()== null || prestamo.getEquiposComplejosPrestados().size()==0) && (prestamo.getEquiposSencillosPrestados()==null || prestamo.getEquiposSencillosPrestados().size()==0)) throw new PersistenceException("Los equipos no pueden ser nulos");
+        if((prestamo.getEquiposComplejosPrestados()== null || prestamo.getEquiposComplejosPrestados().size()==0) && (prestamo.getEquiposSencillosPrestados2()==null || prestamo.getEquiposSencillosPrestados2().size()==0)) throw new PersistenceException("Los equipos no pueden ser nulos");
         if(prestamo.getElQuePideElPrestamo()==null)throw new PersistenceException("La persona no puede ser nulo");
         List<Prestamo> lisp = load(prestamo.getFechaInicio(),prestamo.getElQuePideElPrestamo().getCarnet());
         for (Prestamo prestamo1 : lisp) if(prestamo1.equals(prestamo)) throw new PersistenceException("El prestamo ya existe");
@@ -68,13 +68,13 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
                 if(ecmp.loadEquipoBySerial(ec.getModelo_Eq().getNombre(),ec.getSerial())==null) 
                     throw new PersistenceException("El equipo complejo no existe para poder realizar el prestamo");
                 EquipoComplejo eqc2 = ecmp.loadEquipoByPlaca(ec.getModelo_Eq().getNombre(),ec.getPlaca());
-               pmap.insertEquipoComplejo_Prestamo(car_prestamo.getIdPrestamo(), eqc2.getId_Eq());
+               //pmap.insertEquipoComplejo_Prestamo(car_prestamo.getIdPrestamo(), eqc2.getId_Eq());
             }
         }
-        if(prestamo.getEquiposSencillosPrestados()!=null){
-            for (EquipoSencillo p : prestamo.getEquiposSencillosPrestados().keySet()) {
+        if(prestamo.getEquiposSencillosPrestados2()!=null){
+            for (EquipoSencillo p : prestamo.getEquiposSencillosPrestados2()) {
                 if(esmp.loadEquipoByNombre(p.getNombre())==null) throw new PersistenceException("El equipo sencillo no existe para poder realizar el prestamo");
-                pmap.insertEquipoSencillo_Prestamo(car_prestamo.getIdPrestamo(), p.getNombre(), p.getCantidadTotal());
+                //pmap.insertEquipoSencillo_Prestamo(car_prestamo.getIdPrestamo(), p.getNombre(), p.getCantidadTotal());
             }
         }
     }

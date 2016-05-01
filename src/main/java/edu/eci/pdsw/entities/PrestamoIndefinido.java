@@ -38,7 +38,7 @@ public class PrestamoIndefinido extends Prestamo{
     public PrestamoIndefinido() {
     }
 
-    public PrestamoIndefinido(Persona elQuePideElPrestamo, List equiposComplejosPrestados, Map equiposSencillosPrestados) {
+    public PrestamoIndefinido(Persona elQuePideElPrestamo, List equiposComplejosPrestados, List equiposSencillosPrestados) {
         this.elQuePideElPrestamo=elQuePideElPrestamo;
         if(equiposComplejosPrestados==null){
             this.equiposComplejosPrestados=new LinkedList<>();
@@ -48,11 +48,11 @@ public class PrestamoIndefinido extends Prestamo{
             this.equiposComplejosFaltantes=equiposComplejosPrestados;
         }
         if(equiposSencillosPrestados==null){
-            this.equiposSencillosPrestados=new HashMap<>();
-            this.equiposSencillosFaltantes=new HashMap<>();
+            this.equiposSencillosPrestados2=new LinkedList<>();
+            this.equiposSencillosFaltantes2=new LinkedList<>();
         }else{
-            this.equiposSencillosPrestados=equiposSencillosPrestados;
-            this.equiposSencillosFaltantes=equiposSencillosPrestados;
+            this.equiposSencillosPrestados2=equiposSencillosPrestados;
+            this.equiposSencillosFaltantes2=equiposSencillosPrestados;
         }
         this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
         tipo_prestamo=2;

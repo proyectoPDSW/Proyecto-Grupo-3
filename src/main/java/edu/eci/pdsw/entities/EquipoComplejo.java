@@ -19,6 +19,8 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     private int placa;
     private String marca;
     private Modelo modelo_Eq;
+    public static String diario="prestamo diario", p24h="prestamo 24 horas",mantenimiento="mantenimiento",almacen="en almacen",indefinido="prestamo indefinido",semestre="prestamo por semestre";
+    public static String baja="dado de baja",reparacion="en reparacion";
     
     /**
      * Constructor de equipo complejo

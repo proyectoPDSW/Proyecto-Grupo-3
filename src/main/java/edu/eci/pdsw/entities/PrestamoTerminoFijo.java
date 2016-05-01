@@ -44,7 +44,7 @@ public class PrestamoTerminoFijo extends Prestamo {
     public PrestamoTerminoFijo() {
     }
 
-    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, List equiposComplejosPrestados, Map equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega) {
+    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, List equiposComplejosPrestados, List equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega) {
         this.elQuePideElPrestamo=elQuePideElPrestamo;
         if(equiposComplejosPrestados==null){
             this.equiposComplejosPrestados=new LinkedList<>();
@@ -54,11 +54,11 @@ public class PrestamoTerminoFijo extends Prestamo {
             this.equiposComplejosFaltantes=equiposComplejosPrestados;
         }
         if(equiposSencillosPrestados==null){
-            this.equiposSencillosPrestados=new HashMap<>();
-            this.equiposSencillosFaltantes=new HashMap<>();
+            this.equiposSencillosPrestados2=new LinkedList<>();
+            this.equiposSencillosFaltantes2=new LinkedList<>();
         }else{
-            this.equiposSencillosPrestados=equiposSencillosPrestados;
-            this.equiposSencillosFaltantes=equiposSencillosPrestados;
+            this.equiposSencillosPrestados2=equiposSencillosPrestados;
+            this.equiposSencillosFaltantes2=equiposSencillosPrestados;
         }
         this.fechaEstimadaDeEntrega=fechaEstimadaDeEntrega;
         this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
