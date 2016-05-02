@@ -17,7 +17,6 @@ CREATE TABLE Departamentos (
 
 -- Table: Equipo_prestamo_complejo
 CREATE TABLE Equipo_prestamo_complejo (
-    devuelto bool NOT NULL,
     Prestamos_fecha_inicio timestamp NOT NULL,
     Prestamos_persona varchar(20) NOT NULL,
     Equipos_Complejos_serial varchar(30) NOT NULL,
@@ -45,8 +44,6 @@ CREATE TABLE Equipos_Complejos (
     modelo varchar(50) NOT NULL,
     asegurado bool NOT NULL,
     marca varchar(30) NOT NULL,
-    UNIQUE INDEX SERIAL_AK (serial),
-    UNIQUE INDEX NUM_PLACA_AK (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (serial,num_placa,modelo)
 )ENGINE=InnoDB;
 
@@ -103,7 +100,7 @@ CREATE TABLE Prestamos (
     persona varchar(20) NOT NULL,
     fecha_fin_estimada timestamp NULL,
     fecha_fin_real timestamp NULL,
-    tipo_prestamo int NOT NULL,
+    tipo_prestamo varchar(50) NOT NULL,
     CONSTRAINT Prestamos_pk PRIMARY KEY (fecha_inicio,persona)
 )ENGINE=InnoDB;
 
