@@ -44,7 +44,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         private String fotografia;
         private String descripcion;
         private String accesorios;
-        private String nombreAproximado;
     
     private EquipoComplejo equipo;
     
@@ -162,6 +161,17 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             Registro.anotar(ex);
         }
     }  
+    
+    
+    public List<Modelo> getModelosAproximados(){
+        try{
+            return SERVICIOS.consultarAproximado(nombreModelo);
+        }catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+            Registro.anotar(ex);
+            return new ArrayList<>();
+        }
+    }
     //////////////////////informacion Modelo
     public int getVidaUtil() {
         return vidaUtil;
@@ -220,23 +230,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         this.accesorios = accesorios;
         
     }
-        public void setNombreAproximado(String nombreAproximado) {
-        this.nombreAproximado = nombreAproximado;
-    }
-
-    public String getNombreAproximado() {
-        return nombreAproximado;
-    }
     
-    public List<Modelo> getModelosAproximados(){
-        try{
-            return SERVICIOS.consultarAproximado(nombreAproximado);
-        }catch (ExcepcionServicios ex) {
-            facesError(ex.getMessage());
-            Registro.anotar(ex);
-            return new ArrayList<>();
-        }
-    }
     public Modelo getModelo() {
         return modelo;
     }
