@@ -6,6 +6,7 @@
 package edu.eci.pdsw.persistence.mybatis;
 
 import edu.eci.pdsw.entities.Persona;
+import edu.eci.pdsw.entities.Rol;
 import edu.eci.pdsw.persistence.DAOPersona;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.persistence.mybatis.mappers.PersonaMapper;
@@ -41,6 +42,14 @@ public class MyBatisDAOPersona implements DAOPersona{
         }
         pmap.insertPersona(persona);
     }
+    
+    @Override
+    public void save(String carne,Rol r) throws PersistenceException{
+        if(pmap.load(carne)==null) throw new PersistenceException("La persona con carne "+carne+" no esta registrada en la base de datos");
+        if(r==null) throw new PersistenceException("El rol no puede ser nulo");
+        if(pmap.loadPersoRoles(carne).contains(r))throw new PersistenceException("La persona con carne "+carne+" ya posee el rol "+r.getRol());
+        pmap.insertRol(carne, r);
+    }
 
     @Override
     public void update(Persona persona) throws PersistenceException {
@@ -52,6 +61,12 @@ public class MyBatisDAOPersona implements DAOPersona{
     @Override
     public List<Persona> loadAll() throws PersistenceException {
         return pmap.loadAll();
+    }
+
+    @Override
+    public List<Rol> loadRoles(String carne) throws PersistenceException {
+       if(pmap.load(carne)==null) throw new PersistenceException("La persona con carne "+carne+" no esta registrada en la base de datos");
+       return pmap.loadPersoRoles(carne);
     }
     
 }

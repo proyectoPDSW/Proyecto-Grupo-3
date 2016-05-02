@@ -177,7 +177,7 @@ public class ConsultarEquipoTest {
         ArrayList<Modelo>ans=new ArrayList<>();
         ans.add(model1);
         ans.add(model2);
-        List<Modelo>loaded=des.loadModelosAproximados("Modelo");
+        List<String>loaded=des.loadModelosAproximados("Modelo");
         Assert.assertTrue("No son iguales",loaded.size()==2 && (loaded.get(0).equals(ans.get(0)) || 
                 loaded.get(0).equals(ans.get(1))) && (loaded.get(1).equals(ans.get(0)) || 
                 loaded.get(1).equals(ans.get(1))));

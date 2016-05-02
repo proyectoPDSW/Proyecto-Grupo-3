@@ -6,6 +6,7 @@
 package edu.eci.pdsw.persistence;
 
 import edu.eci.pdsw.entities.Persona;
+import edu.eci.pdsw.entities.Rol;
 import java.util.List;
 
 /**
@@ -31,6 +32,25 @@ public interface DAOPersona {
      * @throws PersistenceException Si hubo un error al intentar guardar
      */
     public abstract void save(Persona persona) throws PersistenceException;
+    
+    /**
+     * Obj: Registrar los roles de una persona
+     * pre: El carne de la persona y su rol
+     * @param carne
+     * @param rol
+     * @throws PersistenceException 
+     */
+    public abstract void save(String carne,Rol rol) throws PersistenceException;
+    
+    /**
+     * Obj: Obtener todos los roles de una persona
+     * pre: El carne de la persona
+     * pos: Los roles que posee esa persona
+     * @param carne
+     * @return
+     * @throws PersistenceException 
+     */
+    public abstract List<Rol> loadRoles(String carne) throws PersistenceException;
     
     /**
      * Obj: actualiza la persona que es ingresada.

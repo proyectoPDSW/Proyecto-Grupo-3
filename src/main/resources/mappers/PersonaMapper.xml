@@ -9,19 +9,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='apellido' column='apellido'/>
         <result property='email' column='email'/>
         <result property='telefono' column='telefono'/>
-        <result property='rol' column='rol'/>
+        <collection property='roles' ofType='Rol' resultMap='RolResult' columnPrefix='ro_'/>
     </resultMap>
+    
+    <resultMap type='Rol' id='RolResult'>
+        <id property='carnet' column='Personas_carne'/>
+        <id property='rol' column='Rol_rol'/>
+        <result property='contrasenia' column='contrasena'/>
+        <result property='sal' column='sal'/>
+    </resultMap>
+    
+    
     <insert id='insertPersona' parameterType='map'>
-        insert into Personas(carne,nombre,apellido,email,telefono,rol)
-        values(#{Persona.carnet},#{Persona.nombre},#{Persona.apellido},#{Persona.email},#{Persona.telefono},#{Persona.rol})
+        insert into Personas(carne,nombre,apellido,email,telefono)
+        values(#{Persona.carnet},#{Persona.nombre},#{Persona.apellido},#{Persona.email},#{Persona.telefono})
     </insert>
+    
+    <insert id='insertRol' parameterType='map'>
+        insert into Rol_Persona(Persona_carne,Rol_rol,contrasena,sal) values (#{carne},#{rol.rol},#{rol.contrasenia},#{rol.sal})
+    </insert>
+    
     <select id='loadAll' parameterType='map' resultMap='PersonaResult'>
-        select carne,nombre,apellido,email,telefono,rol from Personas
+        select carne,nombre,apellido,email,telefono from Personas
     </select>
     <update id='update' parameterType='map'>
-        update Personas set nombre=#{Per_nuevo.nombre},apellido=#{Per_nuevo.apellido}, email=#{Per_nuevo.email}, telefono=#{Per_nuevo.telefono},rol=#{Per_nuevo.rol} where carne=#{Per_viejo.carnet}
+        update Personas set nombre=#{Per_nuevo.nombre},apellido=#{Per_nuevo.apellido}, email=#{Per_nuevo.email}, telefono=#{Per_nuevo.telefono} where carne=#{Per_viejo.carnet}
     </update>
      <select id='load' parameterType='map' resultMap='PersonaResult'>
-        select carne,nombre,apellido,email,telefono,rol from Personas where carne = #{Carne};
+        select carne,nombre,apellido,email,telefono from Personas where carne = #{Carne};
+    </select>
+    
+    <select id='loadPersRoles' parameterType='map' resultMap='RolResult'>
+        select carne,nombre,apellido,email,telefono, ro_Personas_carne, ro_Rol_rol, ro_contrasena, ro_sal from Personas as pe join Rol_Persona as rp
+        on pe.carne=rp.Personas_carne where rp.Personas_carne=#{carne}
     </select>
 </mapper>

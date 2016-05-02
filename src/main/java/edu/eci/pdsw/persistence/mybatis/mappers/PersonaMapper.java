@@ -6,6 +6,7 @@
 package edu.eci.pdsw.persistence.mybatis.mappers;
 
 import edu.eci.pdsw.entities.Persona;
+import edu.eci.pdsw.entities.Rol;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,9 +18,13 @@ public interface PersonaMapper {
     
     public void insertPersona(@Param("Persona") Persona p);
     
+    public void insertRol(@Param("Persona") String carne,@Param("Rol") Rol rol);
+    
     public List<Persona> loadAll();
     
     public void update(@Param("Per_viejo") Persona pv,@Param("Per_nuevo") Persona pn);
     
-    public Persona load(@Param("Carne") String carne);
+    public Persona load(@Param("carne") String carne);
+    
+    public List<Rol> loadPersoRoles(@Param("carne") String carne);
 }
