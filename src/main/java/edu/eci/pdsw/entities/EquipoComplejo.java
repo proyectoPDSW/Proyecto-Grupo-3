@@ -24,22 +24,33 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     
     /**
      * Constructor de equipo complejo
-     * @param mod
-     * @param mar
-     * @param ser
+     * @param mod modelo del equipo
+     * @param mar marca del equipo
+     * @param ser serial del equipo
+     * @param plac placa del equipo
      * @throws EquipoException 
      */
     public EquipoComplejo(Modelo mod,String mar, String ser, int plac)throws EquipoException {
         if(mod==null) throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         if(ser.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         if(mar.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
-        if(placa<0) throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
+        if(plac<0) throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         this.marca=mar;
         this.serial=ser;
         this.modelo_Eq=mod;
         this.placa=plac;
     }
 
+    /**
+     * 
+     * @param asegurado 
+     * @param disponibilidad
+     * @param estado en que estado inicia el equipo
+     * @param serial del equipo
+     * @param placa del equipo
+     * @param marca del equipo
+     * @param modelo_Eq del equipo
+     */
     public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, int placa, String marca, Modelo modelo_Eq) {
         this.asegurado = asegurado;
         this.disponibilidad = disponibilidad;

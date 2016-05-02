@@ -98,6 +98,6 @@ public interface DAOEquipoComplejo {
      * @param toSearch la cadena a buscar
      * @return una lista que contiene los modelos que contienen una cadena
     */
-    public List<Modelo> loadModelosAproximados(String toSearch);
+    public List<String> loadModelosAproximados(String toSearch);
     
 }

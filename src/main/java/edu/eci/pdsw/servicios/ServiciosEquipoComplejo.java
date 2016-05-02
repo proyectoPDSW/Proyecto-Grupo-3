@@ -96,5 +96,5 @@ public abstract class ServiciosEquipoComplejo {
      * @return todos los equipos que contengan la cadena
      * @throws ExcepcionServicios si la cadena está vacia
      */
-    public abstract List<Modelo> consultarAproximado(String cadena)throws ExcepcionServicios;
+    public abstract List<String> consultarAproximado(String cadena)throws ExcepcionServicios;
 }

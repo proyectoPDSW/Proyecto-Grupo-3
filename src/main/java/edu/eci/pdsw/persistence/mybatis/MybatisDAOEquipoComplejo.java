@@ -124,8 +124,12 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
     }
 
     @Override
-    public ArrayList<Modelo> loadModelosAproximados(String toSearch){
-        ArrayList<Modelo> ans=eMap.loadModelosAproximados(toSearch);
+    public ArrayList<String> loadModelosAproximados(String toSearch){
+        ArrayList<Modelo> tmp=eMap.loadModelosAproximados(toSearch);
+        ArrayList<String> ans=new ArrayList<>();
+        for (Modelo m:tmp){
+            ans.add(m.getNombre());
+        }
         return ans;
     }
 }

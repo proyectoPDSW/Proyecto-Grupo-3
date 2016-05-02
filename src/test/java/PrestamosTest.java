@@ -79,7 +79,7 @@ public class PrestamosTest {
         
         Modelo model = new Modelo(4, "Modelo de prueba 1", null, "Clase x", 100000);
         eqco.save(model);
-        EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X");
+        EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X",1000);
         eqco.save(ec);
         //EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
@@ -125,7 +125,8 @@ public class PrestamosTest {
         EquipoSencillo es = new EquipoSencillo("cable", "cable", 2000, 10);
         eqse.save(es);
         //List<EquipoComplejo> lec = new LinkedList<>(); lec.add(ec);
-        Map<EquipoSencillo, Integer> les = new HashMap<>(); les.put(es,es.getCantidadTotal());
+        Map<EquipoSencillo, Integer> les = new HashMap<>(); 
+        les.put(es,es.getCantidadTotal());
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494","profesor");
         persona.save(per);
         Prestamo p = new PrestamoIndefinido(per,null,les);
