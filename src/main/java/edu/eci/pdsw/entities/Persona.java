@@ -6,6 +6,7 @@
 package edu.eci.pdsw.entities;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -163,6 +164,11 @@ public class Persona {
      */
     public void setRoles(List<Rol> roles) {
         this.roles = roles;
+    }
+    
+    public List<Rol> prioridad(){
+       Collections.sort(roles);
+       return roles;
     }
     
 }

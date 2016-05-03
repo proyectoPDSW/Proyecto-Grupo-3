@@ -9,7 +9,7 @@ package edu.eci.pdsw.entities;
  *
  * @author 2105403
  */
-public class Rol {
+public class Rol implements Comparable<Rol>{
     private String rol;
     private String contrasenia;
     private String sal;
@@ -74,6 +74,16 @@ public class Rol {
     public String toString(){
         return "Persona:["+rol+ " "+contrasenia+" "+sal+"] \n";
     }
+
+    @Override
+    public int compareTo(Rol o) {
+        if(rol.equals("Laboratorista") && o.getRol().equals("Profesor")) return 1;
+        else if(rol.equals("Laboratorista") && o.getRol().equals("Estudiante")) return 1; 
+        else if(rol.equals("Profesor") && o.getRol().equals("Estudiante")) return 1;
+        else if(rol.equals(o.getRol())) return 0;
+        else return -1;
+    }
+    
     
     
 }

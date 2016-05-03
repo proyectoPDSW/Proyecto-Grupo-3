@@ -109,5 +109,19 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             return prestamos;
         }
     }
+
+    @Override
+    public void registrarPrestamo(Prestamo pres) throws ExcepcionServicios {
+       try{
+           daoF.beginSession();
+           basePaciente=daoF.getDaoPrestamo();
+           basePaciente.save(pres);
+           daoF.commitTransaction();
+       }catch(PersistenceException e){
+           throw new ExcepcionServicios(e,e.getLocalizedMessage());
+       }finally{
+           daoF.endSession();
+       }
+    }
     
 }

@@ -21,6 +21,13 @@ public abstract class ServiciosPrestamo {
     public static ServiciosPrestamo getInstance() throws RuntimeException{        
         return instance;
     }
+    
+    /**
+     * Registra un prestamo
+     * @param pres
+     * @throws ExcepcionServicios 
+     */
+    public abstract void registrarPrestamo(Prestamo pres) throws ExcepcionServicios;
     /**
      * Consulta todos los prestamos con algun equipo en mora
      * @return los prestamos que posean algun equipo en mora de ser entregado
