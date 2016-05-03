@@ -8,9 +8,11 @@ package edu.eci.pdsw.entities;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TimeZone;
 
 /**
@@ -19,43 +21,41 @@ import java.util.TimeZone;
  */
 public class PrestamoIndefinido extends Prestamo{
     
-    public PrestamoIndefinido(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, List equiposComplejosPrestados, List equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
+    public PrestamoIndefinido(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, Set equiposComplejosPrestados, Set equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
         this.fechaInicio = fechaInicio;
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
         this.fechaRealEntregada = fechaRealEntregada;
         if(equiposComplejosPrestados==null)
-            this.equiposComplejosPrestados=new LinkedList<EquipoComplejo>();
+            this.equiposComplejosPrestados=new HashSet<EquipoComplejo>();
         else
             this.equiposComplejosPrestados = equiposComplejosPrestados;
         if(equiposSencillosPrestados==null)
-            this.equiposSencillosPrestados2=new LinkedList<>();
+            this.equiposSencillosPrestados2=new HashSet<>();
         else
             this.equiposSencillosPrestados2 = equiposSencillosPrestados;
         this.elQuePideElPrestamo = elQuePideElPrestamo;
-        this.tipo_prestamo = 2;
     }
 
     public PrestamoIndefinido() {
     }
 
-    public PrestamoIndefinido(Persona elQuePideElPrestamo, List equiposComplejosPrestados, List equiposSencillosPrestados) {
+    public PrestamoIndefinido(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados) {
         this.elQuePideElPrestamo=elQuePideElPrestamo;
         if(equiposComplejosPrestados==null){
-            this.equiposComplejosPrestados=new LinkedList<>();
-            this.equiposComplejosFaltantes=new LinkedList<>();
+            this.equiposComplejosPrestados=new HashSet<>();
+            this.equiposComplejosFaltantes=new HashSet<>();
         }else{
             this.equiposComplejosPrestados=equiposComplejosPrestados;
             this.equiposComplejosFaltantes=equiposComplejosPrestados;
         }
         if(equiposSencillosPrestados==null){
-            this.equiposSencillosPrestados2=new LinkedList<>();
-            this.equiposSencillosFaltantes2=new LinkedList<>();
+            this.equiposSencillosPrestados2=new HashSet<>();
+            this.equiposSencillosFaltantes2=new HashSet<>();
         }else{
             this.equiposSencillosPrestados2=equiposSencillosPrestados;
             this.equiposSencillosFaltantes2=equiposSencillosPrestados;
         }
         this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
-        tipo_prestamo=2;
     }
     
 
@@ -65,12 +65,12 @@ public class PrestamoIndefinido extends Prestamo{
         sb.append(fechaInicio.toString() + "\n ");
         sb.append(getElQuePideElPrestamo().toString() + "\n ");
         if(equiposComplejosPrestados!=null)
-            for (int i = 0; i < equiposComplejosPrestados.size(); i++) {
-                sb.append(" "+equiposComplejosPrestados.get(i).toString()+" \n");
+            for (EquipoComplejo ec: equiposComplejosPrestados) {
+                sb.append(" "+ec.toString()+" \n");
             }
         if(equiposSencillosPrestados2!=null)
-            for (int i = 0; i < equiposSencillosPrestados2.size(); i++) {
-                sb.append(" "+equiposSencillosPrestados2.get(i).toString()+" \n");
+            for (EquipoSencillo es: equiposSencillosPrestados2) {
+                sb.append(" "+es.toString()+" \n");
             }
         return sb.toString();
     }

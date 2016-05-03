@@ -57,24 +57,16 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         for (Prestamo prestamo1 : lisp) if(prestamo1.equals(prestamo)) throw new PersistenceException("El prestamo ya existe");
         if(ppmp.load(prestamo.getElQuePideElPrestamo().getCarnet())==null) throw new PersistenceException("La persona no existe para poder realizar el prestamo");
         pmap.insertPrestamo(prestamo);
-        Prestamo car_prestamo= null;
-        int id = -1;
-        List<Prestamo> pt = pmap.loadPrestamo(prestamo.getFechaInicio(), prestamo.getElQuePideElPrestamo().getCarnet());
-        for (Prestamo pres : pt) {
-            if(pres.equals(prestamo)) car_prestamo=pres;
-        }
         if(prestamo.getEquiposComplejosPrestados()!=null){
-            for (EquipoComplejo ec : prestamo.getEquiposComplejosPrestados()) {
-                if(ecmp.loadEquipoBySerial(ec.getModelo_Eq().getNombre(),ec.getSerial())==null) 
-                    throw new PersistenceException("El equipo complejo no existe para poder realizar el prestamo");
-                EquipoComplejo eqc2 = ecmp.loadEquipoByPlaca(ec.getModelo_Eq().getNombre(),ec.getPlaca());
-               //pmap.insertEquipoComplejo_Prestamo(car_prestamo.getIdPrestamo(), eqc2.getId_Eq());
+            for (EquipoComplejo lisp1 : prestamo.getEquiposComplejosPrestados()) {
+                pmap.insertEquipoComplejo_Prestamo(prestamo, lisp1);
             }
+            
         }
         if(prestamo.getEquiposSencillosPrestados2()!=null){
             for (EquipoSencillo p : prestamo.getEquiposSencillosPrestados2()) {
-                if(esmp.loadEquipoByNombre(p.getNombre())==null) throw new PersistenceException("El equipo sencillo no existe para poder realizar el prestamo");
-                //pmap.insertEquipoSencillo_Prestamo(car_prestamo.getIdPrestamo(), p.getNombre(), p.getCantidadTotal());
+                //if(esmp.loadEquipoByNombre(p.getNombre())==null) throw new PersistenceException("El equipo sencillo no existe para poder realizar el prestamo");
+                pmap.insertEquipoSencillo_Prestamo(prestamo, p, p.getCantidadTotal());
             }
         }
     }

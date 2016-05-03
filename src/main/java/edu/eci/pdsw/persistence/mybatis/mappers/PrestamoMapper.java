@@ -6,6 +6,7 @@
 package edu.eci.pdsw.persistence.mybatis.mappers;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
+import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Prestamo;
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,9 +21,9 @@ public interface PrestamoMapper {
     
     public void insertPrestamo(@Param("Prestamo")Prestamo p);
     
-    public void insertEquipoComplejo_Prestamo(@Param("Prestamo_id")int p, @Param("Equipo_id")int e);
+    public void insertEquipoComplejo_Prestamo(@Param("Prestamo_id")Prestamo p, @Param("Equipo_id")EquipoComplejo e);
     
-    public void insertEquipoSencillo_Prestamo(@Param("Prestamo_id")int p, @Param("Equipo_id")String e, @Param("cantidad")int c);
+    public void insertEquipoSencillo_Prestamo(@Param("Prestamo_id")Prestamo p, @Param("Equipo_id")EquipoSencillo e, @Param("cantidad")int c);
     
     public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
     

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -22,47 +23,45 @@ import java.util.TimeZone;
  */
 public class PrestamoTerminoFijo extends Prestamo {
     
-    public PrestamoTerminoFijo(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, List equiposComplejosPrestados, List equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
+    public PrestamoTerminoFijo(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, Set equiposComplejosPrestados, Set equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
         this.fechaInicio = fechaInicio;
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
         this.fechaRealEntregada = fechaRealEntregada;
         if(equiposComplejosPrestados==null){
-            this.equiposComplejosPrestados=new LinkedList<>();
-            this.equiposComplejosFaltantes=new LinkedList<>();
+            this.equiposComplejosPrestados=new HashSet<>();
+            this.equiposComplejosFaltantes=new HashSet<>();
         }else{
             this.equiposComplejosPrestados=equiposComplejosPrestados;
             this.equiposComplejosFaltantes=equiposComplejosPrestados;
         }
         if(equiposSencillosPrestados==null)
-            this.equiposSencillosPrestados2=new LinkedList<>();
+            this.equiposSencillosPrestados2=new HashSet<>();
         else
             this.equiposSencillosPrestados2 = equiposSencillosPrestados;
         this.elQuePideElPrestamo = elQuePideElPrestamo;
-        this.tipo_prestamo = 1;
     }
 
     public PrestamoTerminoFijo() {
     }
 
-    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, List equiposComplejosPrestados, List equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega) {
+    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega) {
         this.elQuePideElPrestamo=elQuePideElPrestamo;
         if(equiposComplejosPrestados==null){
-            this.equiposComplejosPrestados=new LinkedList<>();
-            this.equiposComplejosFaltantes=new LinkedList<>();
+            this.equiposComplejosPrestados=new HashSet<>();
+            this.equiposComplejosFaltantes=new HashSet<>();
         }else{
             this.equiposComplejosPrestados=equiposComplejosPrestados;
             this.equiposComplejosFaltantes=equiposComplejosPrestados;
         }
         if(equiposSencillosPrestados==null){
-            this.equiposSencillosPrestados2=new LinkedList<>();
-            this.equiposSencillosFaltantes2=new LinkedList<>();
+            this.equiposSencillosPrestados2=new HashSet<>();
+            this.equiposSencillosFaltantes2=new HashSet<>();
         }else{
             this.equiposSencillosPrestados2=equiposSencillosPrestados;
             this.equiposSencillosFaltantes2=equiposSencillosPrestados;
         }
         this.fechaEstimadaDeEntrega=fechaEstimadaDeEntrega;
         this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
-        tipo_prestamo=1;
     }
 
     @Override
@@ -72,12 +71,12 @@ public class PrestamoTerminoFijo extends Prestamo {
         sb.append(fechaEstimadaDeEntrega + "\n ");
         sb.append(getElQuePideElPrestamo().toString() + "\n ");
         if(equiposComplejosPrestados!=null)
-            for (int i = 0; i < equiposComplejosPrestados.size(); i++) {
-                sb.append(" "+equiposComplejosPrestados.get(i).toString()+" \n");
+            for (EquipoComplejo ec:equiposComplejosPrestados) {
+                sb.append(" "+ec.toString()+" \n");
             }
         if(equiposSencillosPrestados2!=null)
-            for (int i = 0; i < equiposSencillosPrestados2.size(); i++) {
-                sb.append(" "+equiposSencillosPrestados2.get(i).toString()+" \n");
+            for (EquipoSencillo es:equiposSencillosPrestados2) {
+                sb.append(" "+es.toString()+" \n");
             }
         sb.append(fechaEstimadaDeEntrega+"\n");
         return sb.toString();
