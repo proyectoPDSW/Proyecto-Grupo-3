@@ -48,33 +48,36 @@ public class ShiroLoginBean implements Serializable {
         try {
             subject.login(token);
 
-            if (subject.hasRole("admin")) {
+            if (subject.hasRole("admin")) {               
                 FacesContext.getCurrentInstance().getExternalContext().redirect("restricted/index.xhtml");
             }
-            else if (subject.hasRole("comprador")) {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("shopping/shoppingkart.xhtml");
+            else if (subject.hasRole("laboratorista")) {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("laboratorista/index.xhtml");
             }  
-            else if(subject.hasRole("employee")){
-                FacesContext.getCurrentInstance().getExternalContext().redirect("employees/index.xhtml");
+            else if(subject.hasRole("estudiante")){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("estudiante/consultaequipos.xhtml");
+            }
+            else if(subject.hasRole("profesor")){
+                 FacesContext.getCurrentInstance().getExternalContext().redirect("profesor/profesor.xhtml");
             }
             else {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("open/index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("open/disponibilidad.xhtml");
             }
         }
         catch (UnknownAccountException ex) {
-            facesError("Unknown account");
+            facesError("El usuario no se encuentra registrado. Por favor, verifique los datos");
             Registro.anotar(ex);
         }
         catch (IncorrectCredentialsException ex) {
-            facesError("Wrong password");
+            facesError("Datos erróneos. Por favor, inténtelo otra vez.");
              Registro.anotar(ex);
         }
         catch (LockedAccountException ex) {
-            facesError("Locked account");
+            facesError("Su cuenta ha sido bloqueada. Por favor, inténtelo más tarde");
              Registro.anotar(ex);
         }
         catch (AuthenticationException | IOException ex) {
-            facesError("Unknown error: " + ex.getMessage());
+            facesError("Error inesperado: " + ex.getMessage());
             Registro.anotar(ex);
         }
         finally {
