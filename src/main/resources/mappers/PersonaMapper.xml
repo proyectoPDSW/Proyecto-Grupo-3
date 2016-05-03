@@ -25,8 +25,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         values(#{Persona.carnet},#{Persona.nombre},#{Persona.apellido},#{Persona.email},#{Persona.telefono})
     </insert>
     
-    <insert id='insertRol' parameterType='map'>
+    <insert id='insertSeguridad' parameterType='map'>
         insert into Rol_Persona(Persona_carne,Rol_rol,contrasena,sal) values (#{carne},#{rol.rol},#{rol.contrasenia},#{rol.sal})
+    </insert>
+    
+    <insert id='insertRol' parameterType='map'>
+        insert into Rol(rol) values (#{rol})
     </insert>
     
     <select id='loadAll' parameterType='map' resultMap='PersonaResult'>
@@ -36,11 +40,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update Personas set nombre=#{Per_nuevo.nombre},apellido=#{Per_nuevo.apellido}, email=#{Per_nuevo.email}, telefono=#{Per_nuevo.telefono} where carne=#{Per_viejo.carnet}
     </update>
      <select id='load' parameterType='map' resultMap='PersonaResult'>
-        select carne,nombre,apellido,email,telefono from Personas where carne = #{Carne};
+        select carne,nombre,apellido,email,telefono from Personas where carne = #{carne};
     </select>
     
     <select id='loadPersRoles' parameterType='map' resultMap='RolResult'>
-        select carne,nombre,apellido,email,telefono, ro_Personas_carne, ro_Rol_rol, ro_contrasena, ro_sal from Personas as pe join Rol_Persona as rp
-        on pe.carne=rp.Personas_carne where rp.Personas_carne=#{carne}
+        select carne,nombre,apellido,email,telefono, ro_Personas_carne, ro_Rol_rol, ro_contrasena, ro_sal from Personas as pe join Rol_Persona as rp join Rol as r
+        on pe.carne=rp.Personas_carne and r.rol=rp.Rol_rol where rp.Personas_carne=#{carne}
+    </select>
+    
+    <select id='loadAllRoles' parameterType='map' resultMap='RolResult'>
+        select ro_rol from Rol 
     </select>
 </mapper>

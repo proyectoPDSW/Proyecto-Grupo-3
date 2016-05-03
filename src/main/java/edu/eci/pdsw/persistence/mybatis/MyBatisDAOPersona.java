@@ -10,6 +10,7 @@ import edu.eci.pdsw.entities.Rol;
 import edu.eci.pdsw.persistence.DAOPersona;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.persistence.mybatis.mappers.PersonaMapper;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
@@ -48,7 +49,7 @@ public class MyBatisDAOPersona implements DAOPersona{
         if(pmap.load(carne)==null) throw new PersistenceException("La persona con carne "+carne+" no esta registrada en la base de datos");
         if(r==null) throw new PersistenceException("El rol no puede ser nulo");
         if(pmap.loadPersoRoles(carne).contains(r))throw new PersistenceException("La persona con carne "+carne+" ya posee el rol "+r.getRol());
-        pmap.insertRol(carne, r);
+        pmap.insertSeguridad(carne, r);
     }
 
     @Override
@@ -67,6 +68,27 @@ public class MyBatisDAOPersona implements DAOPersona{
     public List<Rol> loadRoles(String carne) throws PersistenceException {
        if(pmap.load(carne)==null) throw new PersistenceException("La persona con carne "+carne+" no esta registrada en la base de datos");
        return pmap.loadPersoRoles(carne);
+    }
+
+    @Override
+    public void save(String rol) throws PersistenceException {
+        List<Rol> roles=new ArrayList<>();
+        roles=pmap.loadAllRoles();
+        boolean esta=false;
+        int i=0;
+        while(esta!=true || i<roles.size()){
+            if(roles.get(i).getRol().equals(rol)){
+                esta=true;
+            }
+            i++;
+        }
+        if(esta) throw new PersistenceException("El rol "+rol+" ya esta registrado");
+        pmap.insertRol(rol);
+    }
+
+    @Override
+    public List<Rol> loadAllRoles() throws PersistenceException {
+       return pmap.loadAllRoles();
     }
     
 }

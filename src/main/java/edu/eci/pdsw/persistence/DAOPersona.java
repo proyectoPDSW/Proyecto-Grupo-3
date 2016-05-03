@@ -43,6 +43,14 @@ public interface DAOPersona {
     public abstract void save(String carne,Rol rol) throws PersistenceException;
     
     /**
+     * Obj:Ingresar un rol
+     * pre: un nombre de un rol
+     * @param rol
+     * @throws PersistenceException 
+     */
+    public abstract void save(String rol) throws PersistenceException;
+    
+    /**
      * Obj: Obtener todos los roles de una persona
      * pre: El carne de la persona
      * pos: Los roles que posee esa persona
@@ -67,4 +75,13 @@ public interface DAOPersona {
      * @throws PersistenceException Si Hubo un error al cargar todas las personas.
      */
     public abstract List<Persona> loadAll() throws PersistenceException;
+    
+    /**
+     * Obj: Mostrar todos los roles que estan en la base de datos
+     * pos: Una lista con todos los roles registrados
+     * @return
+     * @throws PersistenceException 
+     */
+    public abstract List<Rol> loadAllRoles() throws PersistenceException;
+    
 }

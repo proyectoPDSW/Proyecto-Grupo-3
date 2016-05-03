@@ -28,6 +28,7 @@ import java.util.Properties;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -67,6 +68,7 @@ public class RegistrarPrestamosTest {
     }
     
     //Deberia registrar un prestamo con un equipo complejo
+    @Test
     public void CE1() throws IOException, EquipoException, PersistenceException{
         properties.load(input);
         DAOFactory daof=DAOFactory.getInstance(properties);
@@ -102,6 +104,7 @@ public class RegistrarPrestamosTest {
     }
     
     //Deberia registrar un prestamo con un equipo sencillo
+    @Test
     public void CE2() throws IOException, EquipoException, PersistenceException{
         properties.load(input);
         DAOFactory daof=DAOFactory.getInstance(properties);
@@ -134,6 +137,7 @@ public class RegistrarPrestamosTest {
     }
     
     //Deberia registrar dos prestamos para una misma persona
+    @Test
     public void CE3() throws IOException, EquipoException, PersistenceException{
         properties.load(input);
         DAOFactory daof=DAOFactory.getInstance(properties);
@@ -181,6 +185,7 @@ public class RegistrarPrestamosTest {
     }
     
     //No deberia registrar dos veces el mismo prestamo
+    @Test
     public void CE4() throws IOException{
         properties.load(input);
         DAOFactory daof=DAOFactory.getInstance(properties);

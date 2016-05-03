@@ -16,7 +16,12 @@ public class Rol {
     
     public Rol(){
     }
-    
+    /**
+     * Constructor de la clase rol
+     * @param r
+     * @param cont
+     * @param s 
+     */
     public Rol(String r,String cont,String s){
         this.rol=r;
         this.contrasenia=cont;
@@ -45,7 +50,7 @@ public class Rol {
     }
 
     /**
-     * @param constraseña the contraseña to set
+     * @param con the contraseña to set
      */
     public void setConstraseña(String con) {
         this.contrasenia = con;

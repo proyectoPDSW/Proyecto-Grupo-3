@@ -18,7 +18,9 @@ public interface PersonaMapper {
     
     public void insertPersona(@Param("Persona") Persona p);
     
-    public void insertRol(@Param("Persona") String carne,@Param("Rol") Rol rol);
+    public void insertSeguridad(@Param("Persona") String carne,@Param("Rol") Rol rol);
+    
+    public void insertRol(@Param("rol") String r);
     
     public List<Persona> loadAll();
     
@@ -27,4 +29,6 @@ public interface PersonaMapper {
     public Persona load(@Param("carne") String carne);
     
     public List<Rol> loadPersoRoles(@Param("carne") String carne);
+    
+    public List<Rol> loadAllRoles();
 }

@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type='edu.eci.pdsw.entities.Prestamo' alias='Prestamo'/>
 		<typeAlias type='edu.eci.pdsw.entities.PrestamoIndefinido' alias='PrestamoIndefinido'/>
 		<typeAlias type='edu.eci.pdsw.entities.PrestamoTerminoFijo' alias='PrestamoTerminoFijo'/>
+                <typeAlias type='edu.eci.pdsw.entities.Rol' alias='Rol'/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
