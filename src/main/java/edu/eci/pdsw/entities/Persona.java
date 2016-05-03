@@ -7,6 +7,7 @@ package edu.eci.pdsw.entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,9 +21,9 @@ public class Persona {
     private String email;
     private String telefono;
     private Set<String> departamentos;
-    private ArrayList<Rol> roles;
+    private List<Rol> roles;
 
-    public Persona(String carnet, String nombre, String apellido, String email, String telefono, ArrayList<Rol> rol) {
+    public Persona(String carnet, String nombre, String apellido, String email, String telefono, List<Rol> rol) {
         this.carnet = carnet;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -153,14 +154,14 @@ public class Persona {
     /**
      * @return the roles
      */
-    public ArrayList<Rol> getRoles() {
+    public List<Rol> getRoles() {
         return roles;
     }
 
     /**
      * @param roles the roles to set
      */
-    public void setRoles(ArrayList<Rol> roles) {
+    public void setRoles(List<Rol> roles) {
         this.roles = roles;
     }
     
