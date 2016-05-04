@@ -6,6 +6,7 @@
 package edu.eci.pdsw.servicios;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
+import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import java.util.List;
@@ -22,6 +23,20 @@ public abstract class ServiciosPrestamo {
         return instance;
     }
     
+    /**
+     * Registra una devolucion
+     * @param equipo del cual se hace la devolucion
+     * @throws ExcepcionServicios si no se encontro el equipo a devolver
+     */
+    public abstract void registrarDevolucion(int equipo)throws ExcepcionServicios;
+    
+    /**
+     * Registra la devolucion de un equipo sencillo
+     * @param persona que devuelve el equipo
+     * @param equipo que se devuelve
+     * @param cantidad devuelta
+     */
+    public abstract void registarDevolucion(int persona,String equipo,int cantidad);
     /**
      * Registra un prestamo
      * @param pres

@@ -28,11 +28,10 @@ public interface DAOEquipoComplejo {
     /**
      * Carga un equipo complejo de la base de datos por placa
      * @param placa a buscar
-     * @param modelo del equipo a buscar
      * @return El equipo complejo cargado
      * @throws PersistenceException si no encontro la placa para ese modelo o el modelo no existe
      */
-    public EquipoComplejo load(String modelo, int placa) throws PersistenceException;
+    public EquipoComplejo load(int placa) throws PersistenceException;
 
     /**
      * Guarda un equipo complejo en la base de datos

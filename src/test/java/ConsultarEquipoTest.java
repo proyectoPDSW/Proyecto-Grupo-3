@@ -113,7 +113,7 @@ public class ConsultarEquipoTest {
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
         daof.commitTransaction();
-        EquipoComplejo loaded = dec.load(model.getNombre(),189);
+        EquipoComplejo loaded = dec.load(189);
         Assert.assertEquals(aConsultar, loaded);
     }
 

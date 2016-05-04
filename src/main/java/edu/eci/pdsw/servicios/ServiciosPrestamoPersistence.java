@@ -6,9 +6,11 @@
 package edu.eci.pdsw.servicios;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
+import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.log.Registro;
+import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.DAOFactory;
 import edu.eci.pdsw.persistence.DAOPrestamo;
 import edu.eci.pdsw.persistence.PersistenceException;
@@ -118,10 +120,27 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
            basePaciente.save(pres);
            daoF.commitTransaction();
        }catch(PersistenceException e){
+           daoF.rollbackTransaction();
            throw new ExcepcionServicios(e,e.getLocalizedMessage());
        }finally{
            daoF.endSession();
        }
+    }
+
+    @Override
+    public void registarDevolucion(int persona, String equipo, int cantidad) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registrarDevolucion(int equipo) throws ExcepcionServicios{
+        try{
+            daoF.beginSession();
+            DAOEquipoComplejo dec=daoF.getDaoEquipoComplejo();
+            EquipoComplejo loaded=dec.load(equipo);
+        }catch(PersistenceException e){
+            throw new ExcepcionServicios(e,e.getLocalizedMessage());
+        }
     }
     
 }

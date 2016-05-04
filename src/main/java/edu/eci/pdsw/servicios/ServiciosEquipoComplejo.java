@@ -53,11 +53,10 @@ public abstract class ServiciosEquipoComplejo {
     /**
      * Consulta el equipo de placa numPlaca
      * @param numPlaca que posee el equipo a consultar
-     * @param modelo del equipo a buscar
      * @return El equipo que posee esa placa
      * @throws ExcepcionServicios si la placa no esta registrada
      */
-    public abstract EquipoComplejo consultarPorPlaca(String modelo,int numPlaca)throws ExcepcionServicios;
+    public abstract EquipoComplejo consultarPorPlaca(int numPlaca)throws ExcepcionServicios;
 
     /**
      * Consulta el equipo que tenga cierto serial

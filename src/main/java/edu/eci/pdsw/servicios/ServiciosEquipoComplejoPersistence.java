@@ -50,6 +50,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             dao.commitTransaction();
             dao.endSession();
         } catch (PersistenceException  ex) {
+            dao.rollbackTransaction();
             throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
@@ -63,6 +64,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             dao.commitTransaction();
             dao.endSession();
         } catch (PersistenceException ex) {
+            dao.rollbackTransaction();
             throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }
@@ -96,12 +98,12 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
     }
 
     @Override
-    public EquipoComplejo consultarPorPlaca(String modelo,int numPlaca) throws ExcepcionServicios {
+    public EquipoComplejo consultarPorPlaca(int numPlaca) throws ExcepcionServicios {
         EquipoComplejo ans;
         try {
             dao.beginSession();
             complejoPersistencia=dao.getDaoEquipoComplejo();
-            ans=complejoPersistencia.load(modelo,numPlaca);
+            ans=complejoPersistencia.load(numPlaca);
             dao.commitTransaction();
             dao.endSession();
             return ans;
@@ -147,6 +149,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             dao.commitTransaction();
             dao.endSession();
         } catch (PersistenceException ex) {
+            dao.rollbackTransaction();
             throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
     }

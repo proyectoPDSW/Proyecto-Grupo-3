@@ -184,8 +184,22 @@ public abstract class Prestamo implements Comparable<Prestamo> {
                 this.equiposSencillosFaltantes2.add(es);
         }
     }
+    /**
+     * 
+     * @return return the equiposSencillosPrestados2
+     */
     public Set<EquipoSencillo> getEquiposSencillosPrestados2() {
         return equiposSencillosPrestados2;
     }
-
+    
+    /**
+     * Registra la devolucion de un equipo complejo
+     * @param toReturn equipo a devolver
+     * @throws PrestamoException si no se encontro el objeto a devolver
+     */
+    public void returnEquipoComplejo(EquipoComplejo toReturn)throws PrestamoException{
+        if(!equiposComplejosFaltantes.contains(toReturn))
+            throw new PrestamoException(PrestamoException.OBJETO_COMPLEJO_NO_ENCONTRADO);
+        equiposComplejosFaltantes.remove(toReturn);
+    }
 }

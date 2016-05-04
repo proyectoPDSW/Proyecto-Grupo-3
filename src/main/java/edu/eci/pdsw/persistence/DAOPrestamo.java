@@ -90,6 +90,5 @@ public interface DAOPrestamo {
      * @throws PersistenceException Hubo un error al cargar de la base de datos
      */
     public abstract List<Prestamo> loadByEquipoComplejo(EquipoComplejo equipocomplejo) throws PersistenceException;
-              
     
 }

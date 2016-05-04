@@ -67,7 +67,7 @@ public class RegistrarEquipoTest {
         ec.setEstado("hola");
         reg.save(ec);
         daof.commitTransaction();
-        EquipoComplejo test=reg.load(mod.getNombre(),ec.getPlaca());
+        EquipoComplejo test=reg.load(ec.getPlaca());
         daof.endSession();
         Assert.assertEquals(ec,test);
     }
