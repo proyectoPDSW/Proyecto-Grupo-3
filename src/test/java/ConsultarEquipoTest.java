@@ -174,10 +174,12 @@ public class ConsultarEquipoTest {
         des.save(model2);
         des.save(model3);
         daof.commitTransaction();
-        ArrayList<Modelo>ans=new ArrayList<>();
-        ans.add(model1);
-        ans.add(model2);
+        ArrayList<String>ans=new ArrayList<>();
+        ans.add(model1.getNombre());
+        ans.add(model2.getNombre());
         List<String>loaded=des.loadModelosAproximados("Modelo");
+        //System.out.println(loaded.size());
+        //System.out.println(loaded.get(0)+" "+loaded.get(1)+" "+model1+ " "+model2);
         Assert.assertTrue("No son iguales",loaded.size()==2 && (loaded.get(0).equals(ans.get(0)) || 
                 loaded.get(0).equals(ans.get(1))) && (loaded.get(1).equals(ans.get(0)) || 
                 loaded.get(1).equals(ans.get(1))));

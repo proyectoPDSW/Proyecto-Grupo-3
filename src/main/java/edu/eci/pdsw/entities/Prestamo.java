@@ -118,9 +118,11 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public void setEquiposComplejosFaltantes(Set<EquipoComplejo> equiposComplejosPrestados) {
         equiposComplejosFaltantes=new HashSet<>();
-        for(EquipoComplejo ec : equiposComplejosPrestados){
-            if(ec.getEstado().equalsIgnoreCase(EquipoComplejo.diario) || ec.getEstado().equalsIgnoreCase(EquipoComplejo.indefinido) || ec.getEstado().equalsIgnoreCase(EquipoComplejo.p24h) || ec.getEstado().equalsIgnoreCase(EquipoComplejo.semestre)){
-                equiposComplejosFaltantes.add(ec);
+        if(equiposComplejosPrestados!=null){
+            for(EquipoComplejo ec : equiposComplejosPrestados){
+                if(ec.getEstado().equalsIgnoreCase(EquipoComplejo.diario) || ec.getEstado().equalsIgnoreCase(EquipoComplejo.indefinido) || ec.getEstado().equalsIgnoreCase(EquipoComplejo.p24h) || ec.getEstado().equalsIgnoreCase(EquipoComplejo.semestre)){
+                    equiposComplejosFaltantes.add(ec);
+                }
             }
         }
     }

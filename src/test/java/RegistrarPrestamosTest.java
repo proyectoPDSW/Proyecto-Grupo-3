@@ -106,7 +106,7 @@ public class RegistrarPrestamosTest {
         daof.commitTransaction();
         daof.endSession();
         Prestamo test1=test.get(0);
-        Assert.assertEquals("No se registro bien el prestamo con equipo complejo",test1.toString(), pres.toString());
+        Assert.assertEquals("No se registro bien el prestamo con equipo complejo",test1, pres);
     }
     
     //Deberia registrar un prestamo con un equipo sencillo
@@ -139,7 +139,7 @@ public class RegistrarPrestamosTest {
         daof.commitTransaction();
         daof.endSession();
         Prestamo test1=test.get(0);
-        Assert.assertEquals("No se registro bien el prestamo con equipo sencillo",test1.toString(), pres.toString());
+        Assert.assertEquals("No se registro bien el prestamo con equipo sencillo",test1, pres);
     }
     
     //Deberia registrar dos prestamos para una misma persona
@@ -188,8 +188,8 @@ public class RegistrarPrestamosTest {
         Prestamo test2=test.get(1);
         daof.commitTransaction();
         daof.endSession();
-        Assert.assertEquals("No se registro bien el primer prestamo",test1.toString(), pres.toString());
-        Assert.assertEquals("No se registro bien el segundo prestamo",test2.toString(), pres1.toString());
+        Assert.assertTrue("No se registro bien el primer prestamo",pres.equals(test2) || pres.equals(test1));
+        Assert.assertTrue("No se registro bien el segundo prestamo",pres1.equals(test2) || pres1.equals(test1));
     }
     
     //No deberia registrar dos veces el mismo prestamo
