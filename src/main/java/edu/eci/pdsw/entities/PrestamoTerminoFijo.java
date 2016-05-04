@@ -39,12 +39,13 @@ public class PrestamoTerminoFijo extends Prestamo {
         else
             this.equiposSencillosPrestados2 = equiposSencillosPrestados;
         this.elQuePideElPrestamo = elQuePideElPrestamo;
+        this.tipo_prestamo=tipo_prestamo;
     }
 
     public PrestamoTerminoFijo() {
     }
 
-    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega) {
+    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega, String tipo) {
         this.elQuePideElPrestamo=elQuePideElPrestamo;
         if(equiposComplejosPrestados==null){
             this.equiposComplejosPrestados=new HashSet<>();
@@ -62,7 +63,7 @@ public class PrestamoTerminoFijo extends Prestamo {
         }
         this.fechaEstimadaDeEntrega=fechaEstimadaDeEntrega;
         this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
-        tipo_prestamo=EquipoComplejo.diario;
+        tipo_prestamo=tipo;
     }
 
     @Override

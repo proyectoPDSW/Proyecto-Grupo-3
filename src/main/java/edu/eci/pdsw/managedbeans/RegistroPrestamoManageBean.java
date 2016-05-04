@@ -56,7 +56,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void registrarPrestamo(){
         try{
             if(elQuePideElPrestamo.prioridad().get(0).getRol().equals("Estudiante")){
-                prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega);
+                prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,EquipoComplejo.diario);
                 PRESTAMO.registrarPrestamo(prestamo);
                 //facesInfo("El equipo ha sido registrado satisfactoriamente");
             }

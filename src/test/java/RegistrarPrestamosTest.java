@@ -84,6 +84,7 @@ public class RegistrarPrestamosTest {
         dec.save(mod);
         daof.commitTransaction();
         EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial",123456);
+        ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
         Set<EquipoComplejo> equipos=new HashSet<>();
@@ -154,6 +155,7 @@ public class RegistrarPrestamosTest {
         dec.save(mod);
         daof.commitTransaction();
         EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial",123456);
+        ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
         Set<EquipoComplejo> equipos=new HashSet<>();
@@ -172,7 +174,7 @@ public class RegistrarPrestamosTest {
         dp.save(p);
         daof.commitTransaction();
         Prestamo pres=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),ninguno,equiS,p,EquipoComplejo.diario);
-        Prestamo pres1=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,nulo,p,EquipoComplejo.diario);
+        Prestamo pres1=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:1"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,nulo,p,EquipoComplejo.diario);
         dpres.save(pres);
         daof.commitTransaction();
         dpres.save(pres1);
@@ -202,6 +204,7 @@ public class RegistrarPrestamosTest {
         dec.save(mod);
         daof.commitTransaction();
         EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial",54351);
+        ec.setEstado(EquipoComplejo.indefinido);
         dec.save(ec);
         daof.commitTransaction();
         Set<EquipoComplejo> equipos=new HashSet<>();

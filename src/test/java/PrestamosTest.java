@@ -475,7 +475,7 @@ public class PrestamosTest {
         roles.add(r);
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494",roles);
         persona.save(per);
-        Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000-2-1 0:0:0"));
+        Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000-2-1 0:0:0"),EquipoComplejo.diario);
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadMorosos();
@@ -522,7 +522,7 @@ public class PrestamosTest {
         roles.add(r);
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494",roles);
         persona.save(per);
-        Prestamo p = new PrestamoTerminoFijo(per, null, les, Timestamp.valueOf("2000-2-1 0:0:0"));
+        Prestamo p = new PrestamoTerminoFijo(per, null, les, Timestamp.valueOf("2000-2-1 0:0:0"),EquipoComplejo.diario);
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
@@ -571,7 +571,7 @@ public class PrestamosTest {
         roles.add(r);
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494",roles);
         persona.save(per);
-        Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000-2-1 0:0:0"));
+        Prestamo p = new PrestamoTerminoFijo(per, lec, null, Timestamp.valueOf("2000-2-1 0:0:0"),EquipoComplejo.diario);
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByEquipoComplejo(ec);
@@ -620,7 +620,7 @@ public class PrestamosTest {
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494",roles);
         persona.save(per);
         Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
-        Prestamo p = new PrestamoTerminoFijo(per, null, les, time);
+        Prestamo p = new PrestamoTerminoFijo(per, null, les, time,EquipoComplejo.diario);
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
@@ -672,7 +672,7 @@ public class PrestamosTest {
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494",roles);
         persona.save(per);
         Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
-        Prestamo p = new PrestamoTerminoFijo(per, lec, les, time);
+        Prestamo p = new PrestamoTerminoFijo(per, lec, les, time,EquipoComplejo.diario);
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
@@ -724,7 +724,7 @@ public class PrestamosTest {
         Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494",roles);
         persona.save(per);
         Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
-        Prestamo p = new PrestamoTerminoFijo(per, lec, les, time);
+        Prestamo p = new PrestamoTerminoFijo(per, lec, les, time,EquipoComplejo.diario);
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
@@ -766,7 +766,7 @@ public class PrestamosTest {
             roles.add(r);
             Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494",roles);
             Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
-            Prestamo p = new PrestamoTerminoFijo(per, null, null, time);
+            Prestamo p = new PrestamoTerminoFijo(per, null, null, time,EquipoComplejo.diario);
             prestamo.save(p);
             daof.commitTransaction();
             Assert.fail("Siguio y no debia");
@@ -807,7 +807,7 @@ public class PrestamosTest {
             roles.add(r);
             //Persona per = new Persona("2105533", "Hugo", "Alvarez", "hugo.alvarez@mqil.escuelaing.edu.co", "3014798494");
             Timestamp time = Timestamp.valueOf("2000-2-1 0:0:0");
-            Prestamo p = new PrestamoTerminoFijo(null, lec, les, time);
+            Prestamo p = new PrestamoTerminoFijo(null, lec, les, time,EquipoComplejo.diario);
             prestamo.save(p);
             daof.commitTransaction();
             Assert.fail("Siguio y no debia");

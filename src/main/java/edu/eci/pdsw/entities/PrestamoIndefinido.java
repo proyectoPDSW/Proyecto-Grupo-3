@@ -34,6 +34,7 @@ public class PrestamoIndefinido extends Prestamo{
         else
             this.equiposSencillosPrestados2 = equiposSencillosPrestados;
         this.elQuePideElPrestamo = elQuePideElPrestamo;
+        this.tipo_prestamo=tipo_prestamo;
     }
 
     public PrestamoIndefinido() {
