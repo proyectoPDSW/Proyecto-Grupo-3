@@ -11,6 +11,10 @@ import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
+import edu.eci.pdsw.persistence.DAOPersona;
+import edu.eci.pdsw.persistence.PersistenceException;
+import edu.eci.pdsw.persistence.mybatis.MyBatisDAOPersona;
+import edu.eci.pdsw.persistence.mybatis.mappers.PersonaMapper;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
@@ -23,6 +27,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.apache.ibatis.session.SqlSession;
 
 /**
  *
@@ -36,6 +41,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     private Timestamp fechaInicio;
     private Timestamp fechaEstimadaDeEntrega;
     private Timestamp fechaRealEntregada;
+    
+    private String carne;
 
     
     private Set<EquipoComplejo> equiposComplejosPrestados;
@@ -46,19 +53,32 @@ public class RegistroPrestamoManageBean implements Serializable{
     private Persona elQuePideElPrestamo;
     private int tipo_prestamo;
     
-    private boolean showPanelRegistro=true;
+    private boolean showPanelRegistro=false;
     private boolean showPanelRegistrado=false;
+    private boolean showPanelPersona=true;
     
     private Prestamo prestamo;
     
     public RegistroPrestamoManageBean(){
+        
         PRESTAMO=ServiciosPrestamo.getInstance();
     }
+    
+    public void consultarPersona(){
+        try {
+            elQuePideElPrestamo=PRESTAMO.personaCarne(carne);
+        } catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+            
+        }
+    }
+    
     /**
      * Registra un prestamo dependiendo de la persona que haga el prestamo se 
      * obtiene el tipo del prestamo si es indefinido o termino fijo
      */
     public void registrarPrestamo(){
+        showPanelPersona=false;
         try{
             if(elQuePideElPrestamo.prioridad().get(0).getRol().equals("Estudiante")){
                 prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,EquipoComplejo.diario);
@@ -297,6 +317,28 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public void setPrestamo(Prestamo prestamo) {
         this.prestamo = prestamo;
+    }
+    
+    public void setCarne(String car){
+        this.carne=car;
+    }
+    
+    public String getCarne(){
+        return carne;
+    }
+
+    /**
+     * @return the showPanelPersona
+     */
+    public boolean isShowPanelPersona() {
+        return showPanelPersona;
+    }
+
+    /**
+     * @param showPanelPersona the showPanelPersona to set
+     */
+    public void setShowPanelPersona(boolean showPanelPersona) {
+        this.showPanelPersona = showPanelPersona;
     }
     
 }

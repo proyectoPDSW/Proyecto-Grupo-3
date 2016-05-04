@@ -12,6 +12,7 @@ import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.DAOFactory;
+import edu.eci.pdsw.persistence.DAOPersona;
 import edu.eci.pdsw.persistence.DAOPrestamo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
 
     private DAOPrestamo basePaciente;
     private DAOFactory daoF;
+    private DAOPersona basePersona;
     
     public ServiciosPrestamoPersistence() {
     	try {
@@ -141,6 +143,19 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         }catch(PersistenceException e){
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }
+    }
+
+    @Override
+    public Persona personaCarne(String carne)throws ExcepcionServicios {
+        Persona p;
+        try{
+            daoF.beginSession();
+            DAOPersona dp=daoF.getDaoPersona();
+            p=dp.load(carne);
+        }catch(PersistenceException e){
+            throw new ExcepcionServicios(e,e.getLocalizedMessage());
+        }
+        return p;
     }
     
 }

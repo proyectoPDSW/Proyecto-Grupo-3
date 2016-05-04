@@ -68,4 +68,11 @@ public abstract class ServiciosPrestamo {
      * @return todos los prestamos registrados
      */
     public abstract List<Prestamo> consultarTodos();
+    
+    /**
+     *Consultar una persona por su carne 
+     * @param carne
+     * @return La persona
+     */
+    public abstract Persona personaCarne(String carne) throws ExcepcionServicios;
 }
