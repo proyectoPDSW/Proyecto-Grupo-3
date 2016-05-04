@@ -102,6 +102,7 @@ public class PrestamosTest {
         prestamo.save(p);
         daof.commitTransaction();
         System.out.println(per.getCarnet());
+        System.out.println(eqco.load(ec.getModelo_Eq().getNombre(), ec.getSerial()).getEstado());
         List<Prestamo> lp = prestamo.loadByCarne(per.getCarnet());
         daof.endSession();
         Prestamo check=null;

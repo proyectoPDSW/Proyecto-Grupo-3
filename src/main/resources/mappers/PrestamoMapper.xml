@@ -11,11 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
         <collection property='equiposSencillosPrestados2' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
         <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
-        <discriminator javaType='int' column='tipo_prestamo'>
-            <case value='prestamo diario' resultMap='PrestamoTFResult'/>
-            <case value='prestamo 24 horas' resultMap='PrestamoTFResult'/>
-            <case value='prestamo por semestre' resultMap='PrestamoTFResult'/>
-            <case value='prestamo indefinido' resultMap='PrestamoIResult'/>
+        <discriminator javaType='String' column='tipo_prestamo'>
+            <case value="prestamo diario" resultMap='PrestamoTFResult'/>
+            <case value="prestamo 24 horas" resultMap='PrestamoTFResult'/>
+            <case value="prestamo por semestre" resultMap='PrestamoTFResult'/>
+            <case value="prestamo indefinido" resultMap='PrestamoIResult'/>
         </discriminator>
     </resultMap>
     

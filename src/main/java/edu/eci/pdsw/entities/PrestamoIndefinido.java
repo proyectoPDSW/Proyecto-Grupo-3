@@ -21,7 +21,7 @@ import java.util.TimeZone;
  */
 public class PrestamoIndefinido extends Prestamo{
     
-    public PrestamoIndefinido(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, Set equiposComplejosPrestados, Set equiposSencillosPrestados , Persona elQuePideElPrestamo, int tipo_prestamo) {
+    public PrestamoIndefinido(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, Set equiposComplejosPrestados, Set equiposSencillosPrestados , Persona elQuePideElPrestamo, String tipo_prestamo) {
         this.fechaInicio = fechaInicio;
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
         this.fechaRealEntregada = fechaRealEntregada;
@@ -56,6 +56,7 @@ public class PrestamoIndefinido extends Prestamo{
             this.equiposSencillosFaltantes2=equiposSencillosPrestados;
         }
         this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        tipo_prestamo=EquipoComplejo.indefinido;
     }
     
 
