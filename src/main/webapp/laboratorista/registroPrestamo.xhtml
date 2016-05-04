@@ -5,6 +5,64 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">  
+    <h:head>
+        <br></br><b><title>Registro Prestamo</title></b>
+    </h:head>
+     <h:body>
+        <h:form id="registroPrestamo">
+
+            <p:panel id="registroPrestamo"  header="Registro Nuevo Prestamo" style="margin-bottom:20px">
+
+                <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelRegistro}">
+
+                    <h:outputLabel value="Persona:  " />
+                    <p:inputText id="persona" value="#{RegistroPrestamo.elQuePideElPrestamo}" />
+
+                    <h:outputLabel  value="Nombre: (*) " />
+                    <p:inputText id="nombre" value="#{RegistroPrestamo.equiposComplejosPrestados}" />
+
+                    <h:outputLabel  value="Clase: (*) " />
+                    <p:inputText id="clase" value="#{RegistroEquipoSencillo.clase}" />
+
+                    <h:outputLabel value="Valor Comercial: (*) " />
+                    <p:spinner id="valorcomercial" value="#{RegistroEquipoSencillo.valorComercial}" prefix="$" stepFactor="50" min="50"/>
+
+                    <h:outputLabel value="Cantidad: (*) " />
+                    <p:spinner id="cantidad" value="#{RegistroEquipoSencillo.cantidadTotal}" min="1" max="100000" />
+
+                    <p:commandButton value="Registrar" actionListener="#{RegistroEquipoSencillo.registrarEquipo()}" ajax="false" icon="ui-icon-plusthick"/>
+                    <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
+                </h:panelGrid>
+
+                <p:messages id="messages" autoUpdate="true" closable="true" />
+
+                <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroEquipoSencillo.showPanelRegistrado}">
+                    <f:facet name="header">
+                        <p:graphicImage url="#{RegistroEquipoSencillo.equipoSencillo.fotografia}" height="200px" width="200px" />
+                    </f:facet>
+
+                    <h:outputLabel value="Nombre:" />
+                    <h:outputText id="nombreregistrado" value="#{RegistroEquipoSencillo.equipoSencillo.nombre}" />
+
+                    <h:outputLabel value="Clase:" />
+                    <h:outputText id="claseregistrada" value="#{RegistroEquipoSencillo.equipoSencillo.clase}" />
+
+                    <h:outputLabel value="Valor Comercial:" />
+                    <h:outputText id="valorcomercialregistrado" value="#{RegistroEquipoSencillo.equipoSencillo.valorComercial}"/>
+
+                    <h:outputLabel  value="Cantidad:" />
+                    <h:outputText id="cantidadregistrada" value="#{RegistroEquipoSencillo.equipoSencillo.cantidadTotal}" />
+
+                    <p:commandButton value="Registrar otro equipo" actionListener="#{RegistroEquipoSencillo.registrarOtroEquipo()}" ajax="false" icon="ui-icon-plusthick"/>
+                    <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
+                </h:panelGrid>
+
+            </p:panel>
+
+        </h:form>
+    </h:body>
 </html>
+
+    
 
 

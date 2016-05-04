@@ -24,6 +24,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -84,24 +85,25 @@ public class RegistrarPrestamosTest {
         dec.save(mod);
         daof.commitTransaction();
         EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial",123456);
+        ec.setEstado(EquipoComplejo.indefinido);
         dec.save(ec);
         daof.commitTransaction();
-        Set<EquipoComplejo> equipos=new HashSet<>();
+        Set<EquipoComplejo> equipos=new LinkedHashSet<>();
         equipos.add(ec);
-        Set<EquipoSencillo> equiS=new HashSet<>();
+        Set<EquipoSencillo> equiS=new LinkedHashSet<>();
         Rol r=new Rol("Estudiante","yuiewq","1232143");
         ArrayList<Rol> roles=new ArrayList<>();
         roles.add(r);
         Persona p=new Persona("2105403","German","Lopez","german.lopez-p@mail.escuelaing.edu.co","8945357",roles);
         dp.save(p);
         daof.commitTransaction();
-        Prestamo pres=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,equiS,p,1);
+        Prestamo pres=new PrestamoTerminoFijo(p,equipos,equiS,Timestamp.valueOf("2016-7-10 0:0:0"));
         dpres.save(pres);
         daof.commitTransaction();
-        List<Prestamo> test=dpres.load(pres.getFechaInicio(), pres.getElQuePideElPrestamo().getCarnet());
-        Prestamo test1=test.get(0);
+        List<Prestamo> test=dpres.loadByCarne(p.getCarnet());
         daof.commitTransaction();
         daof.endSession();
+        Prestamo test1=test.get(0);
         Assert.assertEquals("No se registro bien el prestamo con equipo complejo",test1.toString(), pres.toString());
     }
     
@@ -120,7 +122,7 @@ public class RegistrarPrestamosTest {
         EquipoSencillo es=new EquipoSencillo("nombre","clase",3,123456);
         des.save(es);
         daof.commitTransaction();
-        Set<EquipoSencillo> equiS=new HashSet<>();
+        Set<EquipoSencillo> equiS=new LinkedHashSet<>();
         equiS.add(es);
         Rol r=new Rol("Estudiante","yuiewq","1232143");
         ArrayList<Rol> roles=new ArrayList<>();
@@ -128,13 +130,13 @@ public class RegistrarPrestamosTest {
         Persona p=new Persona("2105403","German","Lopez","german.lopez-p@mail.escuelaing.edu.co","8945357",roles);
         dp.save(p);
         daof.commitTransaction();
-        Prestamo pres=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,equiS,p,1);
+        Prestamo pres=new PrestamoTerminoFijo(p,equipos,equiS,Timestamp.valueOf("2016-7-10 0:0:0"));
         dpres.save(pres);
         daof.commitTransaction();
-        List<Prestamo> test=dpres.load(pres.getFechaInicio(), pres.getElQuePideElPrestamo().getCarnet());
-        Prestamo test1=test.get(0);
+        List<Prestamo> test=dpres.loadByCarne(p.getCarnet());
         daof.commitTransaction();
         daof.endSession();
+        Prestamo test1=test.get(0);
         Assert.assertEquals("No se registro bien el prestamo con equipo sencillo",test1.toString(), pres.toString());
     }
     
@@ -154,12 +156,14 @@ public class RegistrarPrestamosTest {
         dec.save(mod);
         daof.commitTransaction();
         EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial",123456);
+        ec.setEstado(EquipoComplejo.indefinido);
         dec.save(ec);
         daof.commitTransaction();
         Set<EquipoComplejo> equipos=new HashSet<>();
         equipos.add(ec);
         Set<EquipoComplejo> ninguno=new HashSet<>();
         EquipoSencillo es=new EquipoSencillo("nombre","clase",3,123456);
+        ec.setEstado(EquipoComplejo.indefinido);
         des.save(es);
         daof.commitTransaction();
         Set<EquipoSencillo> equiS=new HashSet<>();
@@ -202,6 +206,7 @@ public class RegistrarPrestamosTest {
         dec.save(mod);
         daof.commitTransaction();
         EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial",54351);
+        ec.setEstado(EquipoComplejo.indefinido);
         dec.save(ec);
         daof.commitTransaction();
         Set<EquipoComplejo> equipos=new HashSet<>();
