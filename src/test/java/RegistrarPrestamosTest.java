@@ -95,7 +95,7 @@ public class RegistrarPrestamosTest {
         Persona p=new Persona("2105403","German","Lopez","german.lopez-p@mail.escuelaing.edu.co","8945357",roles);
         dp.save(p);
         daof.commitTransaction();
-        Prestamo pres=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,equiS,p,1);
+        Prestamo pres=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,equiS,p,EquipoComplejo.diario);
         dpres.save(pres);
         daof.commitTransaction();
         List<Prestamo> test=dpres.load(pres.getFechaInicio(), pres.getElQuePideElPrestamo().getCarnet());
@@ -128,7 +128,7 @@ public class RegistrarPrestamosTest {
         Persona p=new Persona("2105403","German","Lopez","german.lopez-p@mail.escuelaing.edu.co","8945357",roles);
         dp.save(p);
         daof.commitTransaction();
-        Prestamo pres=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,equiS,p,1);
+        Prestamo pres=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,equiS,p,EquipoComplejo.diario);
         dpres.save(pres);
         daof.commitTransaction();
         List<Prestamo> test=dpres.load(pres.getFechaInicio(), pres.getElQuePideElPrestamo().getCarnet());
@@ -171,8 +171,8 @@ public class RegistrarPrestamosTest {
         Persona p=new Persona("2105403","German","Lopez","german.lopez-p@mail.escuelaing.edu.co","8945357",roles);
         dp.save(p);
         daof.commitTransaction();
-        Prestamo pres=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),ninguno,equiS,p,1);
-        Prestamo pres1=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,nulo,p,1);
+        Prestamo pres=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),ninguno,equiS,p,EquipoComplejo.diario);
+        Prestamo pres1=new PrestamoTerminoFijo(Timestamp.valueOf("2000-2-1 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2000-2-2 0:0:0"),equipos,nulo,p,EquipoComplejo.diario);
         dpres.save(pres);
         daof.commitTransaction();
         dpres.save(pres1);
