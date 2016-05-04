@@ -32,9 +32,9 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
         private int cantidadTotal;
         private String fotografia;
 
-private boolean showPanelRegistro=true;
-private boolean showPanelRegistrado=false;
-    private EquipoSencillo equipoSencillo;
+        private boolean showPanelRegistro=true;
+        private boolean showPanelRegistrado=false;
+        private EquipoSencillo equipoSencillo;
     
        
     public RegistroEquipoSencilloManagedBean(){
