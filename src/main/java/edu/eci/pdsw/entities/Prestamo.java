@@ -108,16 +108,13 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public Set<EquipoComplejo> getEquiposComplejosPrestados() {
         if(equiposComplejosPrestados!=null){
-            Set<EquipoComplejo> tmp =new HashSet<>();tmp.addAll(equiposComplejosPrestados);
-            equiposComplejosPrestados=new HashSet<>();
-            equiposComplejosPrestados.addAll(tmp);
             setEquiposComplejosFaltantes(equiposComplejosPrestados);
         }
         return equiposComplejosPrestados;
     }
 
     /**
-     * @param equiposComplejosFaltantes the equiposComplejosFaltantes to set
+     * @param equiposComplejosPrestados the equiposComplejosFaltantes to set
      */
     public void setEquiposComplejosFaltantes(Set<EquipoComplejo> equiposComplejosPrestados) {
         equiposComplejosFaltantes=new HashSet<>();

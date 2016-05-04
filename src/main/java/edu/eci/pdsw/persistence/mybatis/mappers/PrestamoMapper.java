@@ -23,7 +23,7 @@ public interface PrestamoMapper {
     
     public void insertEquipoComplejo_Prestamo(@Param("Prestamo_id")Prestamo p, @Param("Equipo_id")EquipoComplejo e);
     
-    public void insertEquipoSencillo_Prestamo(@Param("Prestamo_id")Prestamo p, @Param("Equipo_id")EquipoSencillo e, @Param("cantidad")int c);
+    public void insertEquipoSencillo_Prestamo(@Param("Prestamo_id")Prestamo p, @Param("Equipo_id")EquipoSencillo e);
     
     public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
     

@@ -12,8 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <collection property='equiposSencillosPrestados2' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
         <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
         <discriminator javaType='int' column='tipo_prestamo'>
-            <case value='1' resultMap='PrestamoTFResult'/>
-            <case value='2' resultMap='PrestamoIResult'/>
+            <case value='prestamo diario' resultMap='PrestamoTFResult'/>
+            <case value='prestamo 24 horas' resultMap='PrestamoTFResult'/>
+            <case value='prestamo por semestre' resultMap='PrestamoTFResult'/>
+            <case value='prestamo indefinido' resultMap='PrestamoIResult'/>
         </discriminator>
     </resultMap>
     
@@ -57,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='apellido' column='apellido'/>
         <result property='email' column='email'/>
         <result property='telefono' column='telefono'/>
-        <result property='rol' column='rol'/>
+        <collection property='roles' resultMap='RolResult' columnPrefix='Rl_'/>
     </resultMap>
     
     <resultMap type='EquipoSencillo' id='EquipoSencilloResult'>
@@ -360,10 +362,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     <insert id='insertEquipoComplejo_Prestamo' parameterType='map'>
         insert into Equipo_prestamo_complejo(Prestamos_fecha_inicio, Prestamos_persona, Equipos_Complejos_serial, Equipos_Complejos_num_placa, Equipos_Complejos_modelo) 
-        values (#{Prestamo_id.fechaInicio},#{Prestamo_id.elQuePideElPrestamo.carnet},#{Prestamo_id},0)
+        values (#{Prestamo_id.fechaInicio},#{Prestamo_id.elQuePideElPrestamo.carnet},#{Equipo_id.serial},#{Equipo_id.placa},#{Equipo_id.modelo_Eq.nombre})
     </insert>
     <insert id='insertEquipoSencillo_Prestamo' parameterType='map'>
-        insert into Equipo_prestamo_sencillo(prestamo,equipo,cantidad,cantidad_devuelta) 
-        values(#{Prestamo_id},#{Equipo_id},#{cantidad},0);
+        insert into Equipo_prestamo_sencillo(Prestamos_fecha_inicio,Prestamos_persona,equipo,cantidad,cantidad_devuelta) 
+        values(#{Prestamo_id.fechaInicio},#{Prestamo_id.elQuePideElPrestamo.carnet},#{Equipo_id.nombre},#{Equipo_id.cantidadTotal},0);
     </insert>
 </mapper>

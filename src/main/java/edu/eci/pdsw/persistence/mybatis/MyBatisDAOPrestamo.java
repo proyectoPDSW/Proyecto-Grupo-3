@@ -66,7 +66,7 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         if(prestamo.getEquiposSencillosPrestados2()!=null){
             for (EquipoSencillo p : prestamo.getEquiposSencillosPrestados2()) {
                 //if(esmp.loadEquipoByNombre(p.getNombre())==null) throw new PersistenceException("El equipo sencillo no existe para poder realizar el prestamo");
-                pmap.insertEquipoSencillo_Prestamo(prestamo, p, p.getCantidadTotal());
+                pmap.insertEquipoSencillo_Prestamo(prestamo, p);
             }
         }
     }
