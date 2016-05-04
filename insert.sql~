@@ -37,19 +37,19 @@ insert into Modelos(vida_util,fotografia,valor_comercial,clase,descripcion,acces
 
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('abd24b','1',TRUE,'prestamo 24 horas','generador de señales 5MHz',TRUE,'GW Instek');
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('kb132k','2',TRUE,'prestamo 24 horas','generador de señales 5MHz',FALSE,'BK Precision');
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('asd123','3',FALSE,'en reparacion','Multimetro Digital',TRUE,'Fluke');
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('d23j3s','4',TRUE,'prestamo diario','Multimetro Digital',TRUE,'Fluke');
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('klñlkopk2421k','5',TRUE,'prestamo diario','Osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('asd123','1',FALSE,'en reparacion','Multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('d23j3s','2',TRUE,'prestamo diario','Multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('klñlkopk2421k','1',TRUE,'prestamo diario','Osciloscopio digital 50MHz',FALSE,'PCE');
 
 insert into Prestamos(fecha_inicio,persona,fecha_fin_estimada,fecha_fin_real,tipo_prestamo) values('2016-04-29 12:00:00','2105684','2016-04-30 12:00:00',NULL,'prestamo 24 horas');
 insert into Prestamos(fecha_inicio,persona,fecha_fin_estimada,fecha_fin_real,tipo_prestamo) values('2016-04-29 07:00:00','2105533','2016-04-29 19:00:00',NULL,'prestamo diario');
 insert into Prestamos(fecha_inicio,persona,fecha_fin_estimada,fecha_fin_real,tipo_prestamo) values('2016-04-27 12:00:00','2105684','2016-04-28 12:00:00','2016-04-28 11:00:00','prestamo 24 horas');
 
-insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values('2016-04-29 12:00:00','2105684','abd24b','generador de señales 5MHz');
-insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values('2016-04-29 12:00:00','2105684','kb132k','generador de señales 5MHz');
-insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values('2016-04-29 07:00:00','2105533','d23j3s','Multimetro Digital');
-insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values('2016-04-29 07:00:00','2105533','klñlkopk2421k','Osciloscopio digital 50MHz');
-insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values ('2016-04-27 12:00:00','2105684','klñlkopk2421k','Osciloscopio digital 50MHz');
+insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values('2016-04-29 12:00:00','2105684','abd24b','1','generador de señales 5MHz');
+insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values('2016-04-29 12:00:00','2105684','kb132k','2','generador de señales 5MHz');
+insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values('2016-04-29 07:00:00','2105533','d23j3s','2','Multimetro Digital');
+insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values('2016-04-29 07:00:00','2105533','klñlkopk2421k','1','Osciloscopio digital 50MHz');
+insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_num_placa,Equipos_Complejos_modelo) values ('2016-04-27 12:00:00','2105684','klñlkopk2421k','1','Osciloscopio digital 50MHz');
 
 insert into Equipo_prestamo_sencillo (equipo,cantidad,cantidad_devuelta,Prestamos_fecha_inicio,Prestamos_persona) values('Cable UTP','30','0','2016-04-29 12:00:00','2105684');
 insert into Equipo_prestamo_sencillo (equipo,cantidad,cantidad_devuelta,Prestamos_fecha_inicio,Prestamos_persona) values('Destornillador de estrella','30','7','2016-04-29 12:00:00','2105684');
