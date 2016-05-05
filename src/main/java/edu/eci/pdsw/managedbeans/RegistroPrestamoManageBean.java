@@ -88,9 +88,9 @@ public class RegistroPrestamoManageBean implements Serializable{
      * @return La lista con los equipos complejos
      */
     public List<EquipoComplejo> consultarEqModelo(){
-        showPanelPersona=false;
-        showPanelRegistro=true;
-        showPanelRegistrado=false;
+        //showPanelPersona=false;
+        //showPanelRegistro=true;
+        //showPanelRegistrado=false;
         List<EquipoComplejo> equipos=new ArrayList<>();
         try{
             equipos=EQCOMPLEJO.consultarPorModelo(modelo);
