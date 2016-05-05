@@ -91,4 +91,5 @@ public interface DAOPrestamo {
      */
     public abstract List<Prestamo> loadByEquipoComplejo(EquipoComplejo equipocomplejo) throws PersistenceException;
     
+    
 }

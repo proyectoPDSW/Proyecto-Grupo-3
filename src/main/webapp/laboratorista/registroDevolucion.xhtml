@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Registro Devoluciones del Equipo</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form id="devolucion">
+            <p:panel header="Registrar Devoluciones">
+                <p:tabView>
+                    <p:tab title="Devolver Equipo Complejo">
+                       <h:panelGrid columns="2" cellpadding="5">
+                           <center>Equipo Complejo (placa)</center>
+                           <center><p:inputText ></p:inputText></center>
+                           <center><p:commandButton value="Submit"></p:commandButton></center>
+                       </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Devolver Equipo Sencillo">
+                        <h:panelGrid columns="5" cellpadding="5">
+                            <center>Carné del prestamista<p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}">
+                                    <p:ajax listener="#{RegistroPrestamo.onEquipoChange()}" event="change" update="eqse" />
+                                </p:inputText></center>
+                            <center><p:selectOneMenu id="eqse" value="#{RegistroPrestamo.selectEquipoSencillo}">
+                                <f:selectItem itemLabel="Seleccione el equipo sencillo" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{RegistroPrestamo.mostrarListaEquipoSencillo()}" />
+                            </p:selectOneMenu></center>
+                            <center><p:commandButton value="Submit"></p:commandButton></center>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+                <center><p:commandButton value="Volver al inicio" action="index.xhtml" /></center>
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
