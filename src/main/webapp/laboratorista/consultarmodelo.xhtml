@@ -12,6 +12,7 @@
     <h:body>
         <center><br></br><b><h1>Modelo</h1></b></center>
         <h:form id="consultarModelo">
+            <center><p:graphicImage value="resource/ImagenInicio.jpg"/></center>
             <p:panel id="consultaModelo" style="height:250px" >
                 <b><p:outputLabel for="nombreconsul" value="Nombre: "/></b>
                 <br></br><b><p:inputText id="nombreconsul" value="#{RegistroEquiposComplejos.nombreModelo}"  required="true"></p:inputText></b>
@@ -29,14 +30,14 @@
         <p:separator />
         <h:form id="modelos">
             <p:panelGrid id="modeloconsultado" style="height:100px" columns="2" rendered="#{RegistroEquiposComplejos.showPanelConsulta()}">
-    
+
                 <f:facet name="header">
                     <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" />
                 </f:facet>
 
                 <h:outputLabel value="Nombre:" />
                 <h:outputText value="#{RegistroEquiposComplejos.modelo.nombre}" />
-                
+
 
                 <h:outputLabel value="Clase:" />
                 <h:outputText value="#{RegistroEquiposComplejos.modelo.clase}" />
@@ -49,9 +50,9 @@
 
                 <h:outputLabel value="Descripcion:" />
                 <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
-                
+
             </p:panelGrid>
-            
+
         </h:form>
     </h:body>
 </html>
