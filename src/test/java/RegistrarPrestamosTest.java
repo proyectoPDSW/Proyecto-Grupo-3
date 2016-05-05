@@ -41,7 +41,7 @@ import org.junit.Test;
 
 /**
  *
- * @author 2105403
+ * @author German Lopez
  */
 public class RegistrarPrestamosTest {
     public static InputStream input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");

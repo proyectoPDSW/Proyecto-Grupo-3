@@ -43,6 +43,7 @@ public class PrestamoTerminoFijo extends Prestamo {
     }
 
     public PrestamoTerminoFijo() {
+        this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
     public PrestamoTerminoFijo(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega, String tipo) {

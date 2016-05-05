@@ -5,6 +5,8 @@
  */
 package edu.eci.pdsw.entities;
 
+import java.util.Objects;
+
 
 
 /**
@@ -135,6 +137,27 @@ public class EquipoSencillo implements Comparable<EquipoSencillo> {
     public int compareTo(EquipoSencillo o) {
         if(valorComercial<o.valorComercial) return -1;
         else return 1;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EquipoSencillo other = (EquipoSencillo) obj;
+        if (this.valorComercial != other.valorComercial) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        return true;
     }
     
 }

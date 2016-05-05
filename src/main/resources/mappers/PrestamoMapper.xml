@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type='EquipoComplejo' id='EquipoComplejoResult'>
         <id property='serial' column='serial'/>
-        <id property='placa' column='num_placa'/>
+        <result property='placa' column='num_placa'/>
         <result property='disponibilidad' column='disponibilidad'/>
         <result property='estado' column='estado'/>
         <result property='asegurado' column='asegurado'/>
@@ -118,7 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Rol_Persona on Personas.carne = Rol_Persona.Personas_carne
                 left join Rol on Rol.rol = Rol_Persona.Rol_rol
                 left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona 
-                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_num_placa = Equipos_Complejos.num_placa and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
+                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
@@ -162,7 +162,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Rol_Persona on Personas.carne = Rol_Persona.Personas_carne
                 left join Rol on Rol.rol = Rol_Persona.Rol_rol
                 left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona 
-                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_num_placa = Equipos_Complejos.num_placa and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
+                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
@@ -210,7 +210,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Rol_Persona on Personas.carne = Rol_Persona.Personas_carne
                 left join Rol on Rol.rol = Rol_Persona.Rol_rol
                 left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona 
-                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_num_placa = Equipos_Complejos.num_placa and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
+                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
@@ -257,7 +257,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Rol_Persona on Personas.carne = Rol_Persona.Personas_carne
                 left join Rol on Rol.rol = Rol_Persona.Rol_rol
                 left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona 
-                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_num_placa = Equipos_Complejos.num_placa and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
+                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
@@ -302,7 +302,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Rol_Persona on Personas.carne = Rol_Persona.Personas_carne
                 left join Rol on Rol.rol = Rol_Persona.Rol_rol
                 left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona 
-                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_num_placa = Equipos_Complejos.num_placa and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
+                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
@@ -348,7 +348,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Rol_Persona on Personas.carne = Rol_Persona.Personas_carne
                 left join Rol on Rol.rol = Rol_Persona.Rol_rol
                 left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona 
-                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_num_placa = Equipos_Complejos.num_placa and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
+                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
@@ -361,8 +361,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         values(#{Prestamo.fechaInicio}, #{Prestamo.elQuePideElPrestamo.carnet}, #{Prestamo.fechaEstimadaDeEntrega}, #{Prestamo.fechaRealEntregada}, #{Prestamo.tipo_prestamo})
     </insert>
     <insert id='insertEquipoComplejo_Prestamo' parameterType='map'>
-        insert into Equipo_prestamo_complejo(Prestamos_fecha_inicio, Prestamos_persona, Equipos_Complejos_serial, Equipos_Complejos_num_placa, Equipos_Complejos_modelo) 
-        values (#{Prestamo_id.fechaInicio},#{Prestamo_id.elQuePideElPrestamo.carnet},#{Equipo_id.serial},#{Equipo_id.placa},#{Equipo_id.modelo_Eq.nombre})
+        insert into Equipo_prestamo_complejo(Prestamos_fecha_inicio, Prestamos_persona, Equipos_Complejos_serial, Equipos_Complejos_modelo) 
+        values (#{Prestamo_id.fechaInicio},#{Prestamo_id.elQuePideElPrestamo.carnet},#{Equipo_id.serial},#{Equipo_id.modelo_Eq.nombre})
     </insert>
     <insert id='insertEquipoSencillo_Prestamo' parameterType='map'>
         insert into Equipo_prestamo_sencillo(Prestamos_fecha_inicio,Prestamos_persona,equipo,cantidad,cantidad_devuelta) 

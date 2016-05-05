@@ -38,6 +38,7 @@ public class PrestamoIndefinido extends Prestamo{
     }
 
     public PrestamoIndefinido() {
+        this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
     public PrestamoIndefinido(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados) {

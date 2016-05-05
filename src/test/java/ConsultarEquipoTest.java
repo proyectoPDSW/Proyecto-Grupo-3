@@ -30,7 +30,7 @@ import org.junit.Test;
  */
 /**
  *
- * @author Zawsx
+ * @author David Useche
  */
 public class ConsultarEquipoTest {
     

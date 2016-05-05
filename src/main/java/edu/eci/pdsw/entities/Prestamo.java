@@ -8,12 +8,14 @@ package edu.eci.pdsw.entities;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 /**
  *
@@ -117,6 +119,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @param equiposComplejosPrestados the equiposComplejosFaltantes to set
      */
     public void setEquiposComplejosFaltantes(Set<EquipoComplejo> equiposComplejosPrestados) {
+        //OBTENER LOS EQUIPOS DE DB
         equiposComplejosFaltantes=new HashSet<>();
         if(equiposComplejosPrestados!=null){
             for(EquipoComplejo ec : equiposComplejosPrestados){
@@ -125,6 +128,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
                 }
             }
         }
+        if(equiposComplejosFaltantes.isEmpty())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
 
@@ -190,25 +194,5 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public Set<EquipoSencillo> getEquiposSencillosPrestados2() {
         return equiposSencillosPrestados2;
-    }
-    
-    /**
-     * Registra la devolucion de un equipo complejo
-     * @param toReturn equipo a devolver
-     * @throws PrestamoException si no se encontro el objeto a devolver
-     */
-    public void returnEquipoComplejo(EquipoComplejo toReturn)throws PrestamoException{
-        if(!esFaltante(toReturn)) throw new PrestamoException(PrestamoException.OBJETO_COMPLEJO_NO_ENCONTRADO);
-        equiposComplejosFaltantes.remove(toReturn);
-    }
-    
-    /**
-     * Verifica si un equipo complejo hace parte de los objetos faltantes
-     * @param equipo a verificar
-     * @return si el equipo hace parte de los faltantes
-     */
-    public boolean esFaltante(EquipoComplejo equipo){
-        if(equiposComplejosFaltantes.contains(equipo))return true;
-        return false;
     }
 }

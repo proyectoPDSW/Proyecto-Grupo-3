@@ -12,12 +12,15 @@ import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoException;
 import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
+import edu.eci.pdsw.persistence.DAOEquipoSencillo;
 import edu.eci.pdsw.persistence.DAOFactory;
 import edu.eci.pdsw.persistence.DAOPersona;
 import edu.eci.pdsw.persistence.DAOPrestamo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -132,8 +135,19 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public void registarDevolucion(int persona, String equipo, int cantidad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void registarDevolucion(String persona, String equipo, int cantidad) throws ExcepcionServicios{
+        try{
+            daoF.beginSession();
+            DAOEquipoSencillo des=daoF.getDaoEquipoSencillo();
+            basePaciente=daoF.getDaoPrestamo();
+            //Cargo a la persona que pidio el prestamo y sus prestamos
+            List<Prestamo> cargadosDePersona=basePaciente.loadByCarne(persona);
+        }catch(PersistenceException e){
+            daoF.rollbackTransaction();
+            throw new ExcepcionServicios(e,e.getLocalizedMessage());
+        }finally{
+            daoF.endSession();
+        }
     }
 
     @Override
@@ -142,24 +156,26 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             daoF.beginSession();
             DAOEquipoComplejo dec=daoF.getDaoEquipoComplejo();
             basePaciente=daoF.getDaoPrestamo();
-            //Cargo el equipo a partir de su placa y luego cargo todos los prestamos asociados a ese equipo
+            //Cargo el equipo a partir de su placa
             EquipoComplejo loaded=dec.load(equipo);
-            List<Prestamo> tmp=basePaciente.loadByEquipoComplejo(loaded);
-            boolean found=false;
-            Prestamo prestamoEquipo=null;
-            //Busco entre los prestamos asociados uno que tenga el equipo como faltante (Deberia ser el unico)
-            for(int i=0;i<tmp.size() && !found;i++){
-                if(tmp.get(i).esFaltante(loaded)){
-                    prestamoEquipo=tmp.get(i);
-                    found=true;
-                }
+            String[] estadosValidos={EquipoComplejo.diario, EquipoComplejo.p24h,EquipoComplejo.indefinido,EquipoComplejo.semestre};
+            ArrayList<String> tmp=new ArrayList<>();
+            tmp.addAll(Arrays.asList(estadosValidos));
+            //Cambio el estado del equipo a "en almacen"
+            if(!tmp.contains(loaded.getEstado()))throw new ExcepcionServicios("El equipo no esta prestado");
+            loaded.setEstado(EquipoComplejo.almacen);
+            loaded.setDisponibilidad(true);
+            //Actualizo el equipo
+            dec.update(loaded);
+            
+            List<Prestamo> prestamosEquipoCargado=basePaciente.loadByEquipoComplejo(loaded);
+            //A los prestamos les actualizo los equipos complejos faltantes
+            for(int i=0;i<tmp.size();i++){
+                prestamosEquipoCargado.get(i).getEquiposComplejosFaltantes();
+                basePaciente.update(prestamosEquipoCargado.get(i));
             }
-            if(prestamoEquipo==null)throw new ExcepcionServicios("El equipo no esta para devolucion");
-            //De ese prestamo devuelvo el equipo y actualizo en la base de datos
-            prestamoEquipo.returnEquipoComplejo(loaded);
-            basePaciente.update(prestamoEquipo);
             daoF.commitTransaction();
-        }catch(PersistenceException|PrestamoException e){
+        }catch(PersistenceException e){
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }finally{
@@ -167,7 +183,6 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         }
     }
 
-    //¿Esto no deberia estar en servicios persona?
     @Override
     public Persona personaCarne(String carne)throws ExcepcionServicios {
         Persona p;
@@ -177,6 +192,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             p=dp.load(carne);
         }catch(PersistenceException e){
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
+        }finally{
+            daoF.endSession();
         }
         return p;
     }
