@@ -8,125 +8,127 @@
     <h:head>
         <br></br><b><title>Registro Prestamo</title></b>
     </h:head>
-     <h:body>
+    <h:body>
         <h:form id="RegistroPrestamo">
 
             <p:panel id="registroPrestamo"  header="Registro Nuevo Prestamo" style="margin-bottom:20px">
 
-              </p:panel>
+                 <p:focus context="registroPrestamo"/>
 
                 <h:form id="form">
-                    
-                <p:growl id="msgs" showDetail="true" />
 
-                <p:tabView>
-                    <p:tab title="Consultar Persona">
-                       <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelPersona}">
-                        <h:outputLabel value="Carne : (*) " />
-                        <p:inputText id="persona" value="#{RegistroPrestamo.carne}" />
-                        <p:commandButton value="Consultar" actionListener="#{RegistroPrestamo.consultarPersona()}" ajax="false" icon="ui-icon-search"/>
-                        <h:outputLabel value="Nombre :" />
-                        <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.nombre}" />
-                        <h:outputLabel value="Apellido:" />
-                        <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.apellido}" />
-                        <h:outputLabel value="Rol:" />
-                        <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.rolMasValioso}" />
-                        <p:messages id="messages" autoUpdate="true" closable="true" />
-                       </h:panelGrid>
-                    </p:tab>
-                    <p:tab title="Prestamo Termino Fijo">
-                        <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelRegistro}">
-                            <p:layout style="min-width:600px;min-height:400px;">
-                                <p:layoutUnit position="west">
-                                    <h:outputLabel value="Modelo : (*) " />
-                                        <p:inputText id="modelo" value="#{RegistroPrestamo.modelo}" />
+                    <p:growl id="msgs" showDetail="true" />
+
+                    <p:tabView>
+                        <p:tab title="Consultar Persona">
+                            <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelPersona}">
+                                <h:outputLabel value="Carne : (*) " />
+                               
+                                <p:inputText id="persona" value="#{RegistroPrestamo.carne}" required="true"/>
+                                <p:commandButton value="Consultar" actionListener="#{RegistroPrestamo.consultarPersona()}" ajax="false" icon="ui-icon-search"/>
+                                <br/><h:outputLabel value="Nombre :" />
+                                <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.nombre}" />
+                                <h:outputLabel value="Apellido:" />
+                                <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.apellido}" />
+                                <h:outputLabel value="Rol:" />
+                                <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.rolMasValioso()}" />
+                                <p:messages id="messages1" autoUpdate="true" closable="true" />
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Prestamo Termino Fijo">
+                            <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelRegistro}">
+                                <p:layout style="min-width:600px;min-height:400px;">
+                                    <p:layoutUnit position="west">
+                                        <h:outputLabel value="Modelo : (*) " />
+                                        <p:inputText id="modelo1" value="#{RegistroPrestamo.modelo}" required="true"/>
                                         <p:commandButton value="Consultar Equipos" update=":RegistroPrestamo" ajax="false" icon="ui-icon-search"/>
                                         <p:commandButton value="Agregar Equipo" update=":RegistroPrestamo" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
-                                        <p:dataTable id="EquiposModelos" var="equipoC" value="#{RegistroPrestamo.consultarEqModelo()}"  >
+                                        <p:dataTable id="EquiposModelos1" var="equipoC1" value="#{RegistroPrestamo.consultarEqModelo()}"  >
                                             <p:column headerText="Nombre">
-                                                <h:outputText value="#{equipoC.modelo_Eq.nombre}" />
+                                                <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
                                             </p:column>
                                             <p:column headerText="Estado">
-                                                <h:outputText value="#{equipoC.estado}" />
+                                                <h:outputText value="#{equipoC1.estado}" />
                                             </p:column>
                                             <p:column headerText="Disponibilidad">
-                                                <h:outputText value="#{equipoC.disponibilidad}" />
+                                                <h:outputText value="#{equipoC1.disponibilidad}" />
                                             </p:column>
-                                        <f:facet name="footer">
-                                        </f:facet>
+                                            <f:facet name="footer">
+                                            </f:facet>
                                         </p:dataTable>
-                                        <p:dataTable id="EquiposModelos" var="equipoC" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
+                                        <p:dataTable id="EquiposPrestar1" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
                                             <p:column headerText="Nombre">
-                                                <h:outputText value="#{equipoC.modelo_Eq.nombre}" />
+                                                <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
                                             </p:column>
                                             <p:column headerText="Estado">
-                                                <h:outputText value="#{equipoC.estado}" />
+                                                <h:outputText value="#{equipoC1.estado}" />
                                             </p:column>
                                             <p:column headerText="Disponibilidad">
-                                                <h:outputText value="#{equipoC.disponibilidad}" />
+                                                <h:outputText value="#{equipoC1.disponibilidad}" />
                                             </p:column>
-                                        <f:facet name="footer">
-                                        </f:facet>
+                                            <f:facet name="footer">
+                                            </f:facet>
                                         </p:dataTable>             
-                                       <p:messages id="messages" autoUpdate="true" closable="true" /> 
-                                </p:layoutUnit>
+                                        <p:messages id="messages2" autoUpdate="true" closable="true" /> 
+                                    </p:layoutUnit>
 
-                                <p:layoutUnit position="center" resizable="true" size="15" minSize="10" maxSize="20">
-                                    Center
-                                </p:layoutUnit>
-                             </p:layout>
-                        </h:panelGrid>
-                    </p:tab>
-                    <p:tab title="Prestamo Indefinido">
-                        <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelRegistro}">
-                            <p:layout style="min-width:600px;min-height:400px;">
-                                <p:layoutUnit position="west">
-                                    <h:outputLabel value="Modelo : (*) " />
-                                        <p:inputText id="modelo" value="#{RegistroPrestamo.modelo}" />
+                                    <p:layoutUnit position="center" resizable="true" size="15" minSize="10" maxSize="20">
+                                        Center
+                                    </p:layoutUnit>
+                                </p:layout>
+                            </h:panelGrid>
+                        </p:tab>
+                        <p:tab title="Prestamo Indefinido">
+                            <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelRegistro}">
+                                <p:layout style="min-width:600px;min-height:400px;">
+                                    <p:layoutUnit position="west">
+                                        <h:outputLabel value="Modelo : (*) " />
+                                        <p:inputText id="modelo2" value="#{RegistroPrestamo.modelo}" />
                                         <p:commandButton value="Consultar Equipos" update=":RegistroPrestamo" ajax="false" icon="ui-icon-search"/>
                                         <p:commandButton value="Agregar Equipo" update=":RegistroPrestamo" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
-                                        <p:dataTable id="EquiposModelos" var="equipoC" value="#{RegistroPrestamo.consultarEqModelo()}"  >
+                                        <p:dataTable id="EquiposModelos2" var="equipoC2" value="#{RegistroPrestamo.consultarEqModelo()}"  >
                                             <p:column headerText="Nombre">
-                                                <h:outputText value="#{equipoC.modelo_Eq.nombre}" />
+                                                <h:outputText value="#{equipoC2.modelo_Eq.nombre}" />
                                             </p:column>
                                             <p:column headerText="Estado">
-                                                <h:outputText value="#{equipoC.estado}" />
+                                                <h:outputText value="#{equipoC2.estado}" />
                                             </p:column>
                                             <p:column headerText="Disponibilidad">
-                                                <h:outputText value="#{equipoC.disponibilidad}" />
+                                                <h:outputText value="#{equipoC2.disponibilidad}" />
                                             </p:column>
-                                        <f:facet name="footer">
-                                        </f:facet>
+                                            <f:facet name="footer">
+                                            </f:facet>
                                         </p:dataTable>
-                                        <p:dataTable id="EquiposModelos" var="equipoC" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
+                                        <p:dataTable id="EquiposPrestar2" var="equipoC2" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
                                             <p:column headerText="Nombre">
-                                                <h:outputText value="#{equipoC.modelo_Eq.nombre}" />
+                                                <h:outputText value="#{equipoC2.modelo_Eq.nombre}" />
                                             </p:column>
                                             <p:column headerText="Estado">
-                                                <h:outputText value="#{equipoC.estado}" />
+                                                <h:outputText value="#{equipoC2.estado}" />
                                             </p:column>
                                             <p:column headerText="Disponibilidad">
-                                                <h:outputText value="#{equipoC.disponibilidad}" />
+                                                <h:outputText value="#{equipoC2.disponibilidad}" />
                                             </p:column>
-                                        <f:facet name="footer">
-                                        </f:facet>
+                                            <f:facet name="footer">
+                                            </f:facet>
                                         </p:dataTable>             
-                                       <p:messages id="messages" autoUpdate="true" closable="true" /> 
-                                </p:layoutUnit>
+                                        <p:messages id="messages3" autoUpdate="true" closable="true" /> 
+                                    </p:layoutUnit>
 
-                                <p:layoutUnit position="center" resizable="true" size="15" minSize="10" maxSize="20">
-                                    Center
-                                </p:layoutUnit>
-                             </p:layout>
-                        </h:panelGrid>>
-                    </p:tab>
-                </p:tabView>
+                                    <p:layoutUnit position="center" resizable="true" size="15" minSize="10" maxSize="20">
+                                        Center
+                                    </p:layoutUnit>
+                                </p:layout>
+                            </h:panelGrid>>
+                        </p:tab>
+                    </p:tabView>
 
-        </h:form>
-       </h:form>     
+                </h:form>
+            </p:panel>
+        </h:form>     
     </h:body>
 </html>
 
-    
+
 
 

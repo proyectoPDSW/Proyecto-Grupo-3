@@ -96,9 +96,9 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
         if(nombre.length()==0){
             throw new PersistenceException("Favor colocar un modelo adecuado");
         }
-        if (eMap.loadModelo(nombre) == null) {
-            throw new PersistenceException("El modelo " + nombre + " no esta registrado");
-        }
+        //if (eMap.loadModelo(nombre) == null) {
+           // throw new PersistenceException("El modelo " + nombre + " no esta registrado");
+        //}
         
         return eMap.loadModelo(nombre);
     }

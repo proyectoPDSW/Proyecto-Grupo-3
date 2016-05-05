@@ -77,9 +77,9 @@ public class Rol implements Comparable<Rol>{
 
     @Override
     public int compareTo(Rol o) {
-        if(rol.equals("Laboratorista") && o.getRol().equals("Profesor")) return 1;
-        else if(rol.equals("Laboratorista") && o.getRol().equals("Estudiante")) return 1; 
-        else if(rol.equals("Profesor") && o.getRol().equals("Estudiante")) return 1;
+        if(rol.equals("laboratorista") && o.getRol().equals("profesor")) return 1;
+        else if(rol.equals("laboratorista") && o.getRol().equals("estudiante")) return 1; 
+        else if(rol.equals("profesor") && o.getRol().equals("estudiante")) return 1;
         else if(rol.equals(o.getRol())) return 0;
         else return -1;
     }

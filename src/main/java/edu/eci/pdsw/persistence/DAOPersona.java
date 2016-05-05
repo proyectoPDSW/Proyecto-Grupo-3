@@ -84,4 +84,6 @@ public interface DAOPersona {
      */
     public abstract List<Rol> loadAllRoles() throws PersistenceException;
     
+    public Persona loadPersRoles(String carne) throws PersistenceException;
+    
 }

@@ -189,7 +189,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         try{
             daoF.beginSession();
             DAOPersona dp=daoF.getDaoPersona();
-            p=dp.load(carne);
+            p=dp.loadPersRoles(carne);
         }catch(PersistenceException e){
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }

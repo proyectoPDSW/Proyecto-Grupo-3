@@ -48,7 +48,7 @@ public class MyBatisDAOPersona implements DAOPersona{
     public void save(String carne,Rol r) throws PersistenceException{
         if(pmap.load(carne)==null) throw new PersistenceException("La persona con carne "+carne+" no esta registrada en la base de datos");
         if(r==null) throw new PersistenceException("El rol no puede ser nulo");
-        if(pmap.loadPersoRoles(carne).contains(r))throw new PersistenceException("La persona con carne "+carne+" ya posee el rol "+r.getRol());
+        if(pmap.loadRoles(carne).contains(r))throw new PersistenceException("La persona con carne "+carne+" ya posee el rol "+r.getRol());
         pmap.insertSeguridad(carne, r);
     }
 
@@ -67,7 +67,7 @@ public class MyBatisDAOPersona implements DAOPersona{
     @Override
     public List<Rol> loadRoles(String carne) throws PersistenceException {
        if(pmap.load(carne)==null) throw new PersistenceException("La persona con carne "+carne+" no esta registrada en la base de datos");
-       return pmap.loadPersoRoles(carne);
+       return pmap.loadAllRoles();
     }
 
     @Override
@@ -89,6 +89,12 @@ public class MyBatisDAOPersona implements DAOPersona{
     @Override
     public List<Rol> loadAllRoles() throws PersistenceException {
        return pmap.loadAllRoles();
+    }
+
+    @Override
+    public Persona loadPersRoles(String carne) throws PersistenceException {
+        if(pmap.load(carne)==null) throw new PersistenceException("La persona con carne "+carne+" no esta registrada en la base de datos");
+       return pmap.loadPersRoles(carne);
     }
     
 }

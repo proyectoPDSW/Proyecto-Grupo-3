@@ -88,13 +88,12 @@ public class RegistroPrestamoManageBean implements Serializable{
      * @return La lista con los equipos complejos
      */
     public List<EquipoComplejo> consultarEqModelo(){
-        //showPanelPersona=false;
-        //showPanelRegistro=true;
-        //showPanelRegistrado=false;
         List<EquipoComplejo> equipos=new ArrayList<>();
         try{
             equipos=EQCOMPLEJO.consultarPorModelo(modelo);
         }catch(ExcepcionServicios ex){
+            ex.printStackTrace();
+            showPanelRegistro=false;
             facesError(ex.getMessage());
         }
         return equipos;
@@ -121,14 +120,14 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void registrarPrestamo(){
         showPanelPersona=false;
         try{
-            if(elQuePideElPrestamo.prioridad().get(0).getRol().equals("Estudiante")){
+            if(elQuePideElPrestamo.rolMasValioso().equals("Estudiante")){
                 prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,EquipoComplejo.diario);
                 PRESTAMO.registrarPrestamo(prestamo);
                 facesInfo("El prestamo ha sido registrado satisfactoriamente");
                 showPanelRegistro=false;
                 showPanelRegistrado=true;
             }
-            else if(getElQuePideElPrestamo().prioridad().get(-1).getRol().equals("Laboratorista") || getElQuePideElPrestamo().prioridad().get(-1).getRol().equals("Profesor")){
+            else if(getElQuePideElPrestamo().rolMasValioso().equals("Laboratorista") || getElQuePideElPrestamo().rolMasValioso().equals("Profesor")){
                 setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
                 PRESTAMO.registrarPrestamo(prestamo);
                 facesInfo("El prestamo ha sido registrado satisfactoriamente");
