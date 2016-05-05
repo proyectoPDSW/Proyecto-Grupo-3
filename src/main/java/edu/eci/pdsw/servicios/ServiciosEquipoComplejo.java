@@ -8,6 +8,7 @@ package edu.eci.pdsw.servicios;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -96,4 +97,12 @@ public abstract class ServiciosEquipoComplejo {
      * @throws ExcepcionServicios si la cadena está vacia
      */
     public abstract List<String> consultarAproximado(String cadena)throws ExcepcionServicios;
+    
+    /**
+     * Agregar equipos complejos a una lista
+     * @param ec
+     * @return Una lista con equipos complejos
+     * @throws ExcepcionServicios 
+     */
+    public abstract Set<EquipoComplejo> agregarEquipoComplejo(EquipoComplejo ec) throws ExcepcionServicios;
 }

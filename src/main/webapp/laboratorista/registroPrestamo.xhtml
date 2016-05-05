@@ -13,22 +13,57 @@
 
             <p:panel id="registroPrestamo"  header="Registro Nuevo Prestamo" style="margin-bottom:20px">
 
-                <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelPersona}">
+              </p:panel>
 
-                    <h:outputLabel value="Carne : (*) " />
-                    <p:inputText id="persona" value="#{RegistroPrestamo.carne}" />
-                    <p:commandButton value="Consultar" actionListener="#{RegistroPrestamo.consultarPersona()}" ajax="false" icon="ui-icon-plusthick"/>
-                    <h:outputLabel value="Nombre :" />
-                    <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.nombre}" />
-                    <h:outputLabel value="Apellido:" />
-                    <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.apellido}" />
-                    <h:outputLabel value="Rol:" />
-                    <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.rolMasValioso}" />
-                      <p:messages id="messages" autoUpdate="true" closable="true" />
-                </h:panelGrid>
-            </p:panel>
+                <h:form id="form">
+                    
+                <p:growl id="msgs" showDetail="true" />
+
+                <p:tabView>
+                    <p:tab title="Consultar Persona">
+                       <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelPersona}">
+                        <h:outputLabel value="Carne : (*) " />
+                        <p:inputText id="persona" value="#{RegistroPrestamo.carne}" />
+                        <p:commandButton value="Consultar" actionListener="#{RegistroPrestamo.consultarPersona()}" ajax="false" icon="ui-icon-plusthick"/>
+                        <h:outputLabel value="Nombre :" />
+                        <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.nombre}" />
+                        <h:outputLabel value="Apellido:" />
+                        <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.apellido}" />
+                        <h:outputLabel value="Rol:" />
+                        <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.rolMasValioso}" />
+                        <p:messages id="messages" autoUpdate="true" closable="true" />
+                       </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Prestamo Termino Fijo">
+                        <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelRegistro}">
+                        <h:outputLabel value="Modelo : (*) " />
+                        <p:inputText id="modelo" value="#{RegistroPrestamo.modelo}" />
+                        <p:dataTable id="EquiposModelos" var="equipoC" value="#{RegistroPrestamo.consultarEqModelo}"  >
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{equipoC.modelo_Eq.nombre}" />
+                            </p:column>
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{equipoC.estado}" />
+                            </p:column>
+                            <p:column headerText="Disponibilidad">
+                                <h:outputText value="#{equipoC.disponibilidad}" />
+                            </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton value="Agregar Equipo" update=":RegistroPrestamo" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
+                        </f:facet>
+                        </p:dataTable> 
+                       <p:messages id="messages" autoUpdate="true" closable="true" /> 
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Prestamo Indefinido">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
 
         </h:form>
+       </h:form>     
     </h:body>
 </html>
 

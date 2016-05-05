@@ -12,13 +12,13 @@ import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
 import edu.eci.pdsw.persistence.DAOPersona;
-import edu.eci.pdsw.persistence.PersistenceException;
-import edu.eci.pdsw.persistence.mybatis.MyBatisDAOPersona;
-import edu.eci.pdsw.persistence.mybatis.mappers.PersonaMapper;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
+import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
+import edu.eci.pdsw.servicios.ServiciosEquipoComplejoPersistence;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -37,14 +37,19 @@ import org.apache.ibatis.session.SqlSession;
 @SessionScoped
 public class RegistroPrestamoManageBean implements Serializable{
     private final ServiciosPrestamo PRESTAMO;
-    
+    private final ServiciosEquipoComplejo EQCOMPLEJO;
+    //Atributos de prestamo
     private Timestamp fechaInicio;
     private Timestamp fechaEstimadaDeEntrega;
     private Timestamp fechaRealEntregada;
-    
+    //Consultar persona
     private String carne;
+    //Consultar modelo
+    private String modelo;
+    //EquipoComplejo
+    private EquipoComplejo selectEquipoComplejo;
 
-    
+    //Atributos de prestamo
     private Set<EquipoComplejo> equiposComplejosPrestados;
     private List<EquipoComplejo> equiposComplejosFaltantes;
     private Set<EquipoSencillo> equiposSencillosPrestados;
@@ -52,8 +57,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     private List<Integer> equiposSencillosPrestadosCantidad2;
     private Persona elQuePideElPrestamo;
     private int tipo_prestamo;
-    
-    private boolean showPanelRegistro=false;
+    //Pantallas
+    private boolean showPanelRegistro=true;
     private boolean showPanelRegistrado=false;
     private boolean showPanelPersona=true;
     
@@ -62,14 +67,50 @@ public class RegistroPrestamoManageBean implements Serializable{
     public RegistroPrestamoManageBean(){
         
         PRESTAMO=ServiciosPrestamo.getInstance();
+        EQCOMPLEJO=ServiciosEquipoComplejoPersistence.getInstance();
     }
-    
+    /**
+     * Consulta una persona por su carne para 
+     * realizar un prestamo hacia el
+     */
     public void consultarPersona(){
         try {
             elQuePideElPrestamo=PRESTAMO.personaCarne(carne);
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             
+        }
+    }
+    
+    /**
+     *Consulta la lista de equipos complejos que tengan
+     * un modelo especifico
+     * @return La lista con los equipos complejos
+     */
+    public List<EquipoComplejo> consultarEqModelo(){
+        showPanelPersona=false;
+        showPanelRegistro=true;
+        showPanelRegistrado=false;
+        List<EquipoComplejo> equipos=new ArrayList<>();
+        try{
+            equipos=EQCOMPLEJO.consultarPorModelo(modelo);
+        }catch(ExcepcionServicios ex){
+            facesError(ex.getMessage());
+        }
+        return equipos;
+    }
+    
+    /**
+     * Agrega equipos complejos al prestamo 
+    */
+    public void agregarEquipoC(){
+        showPanelPersona=false;
+        showPanelRegistro=true;
+        showPanelRegistrado=false;
+        try{
+            equiposComplejosPrestados=EQCOMPLEJO.agregarEquipoComplejo(selectEquipoComplejo);
+        }catch(ExcepcionServicios ex){
+            facesError(ex.getMessage());
         }
     }
     
@@ -339,6 +380,22 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public void setShowPanelPersona(boolean showPanelPersona) {
         this.showPanelPersona = showPanelPersona;
+    }
+    
+    public EquipoComplejo getEquipoComplejoSelected(){
+        return selectEquipoComplejo;
+    }
+    
+    public void setEquipoComplejoSelected(EquipoComplejo ec){
+        this.selectEquipoComplejo=ec;
+    }
+    
+    public void setModelo(String mo){
+        this.modelo=mo;
+    }
+    
+    public String getModelo(){
+        return modelo;
     }
     
 }
