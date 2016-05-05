@@ -22,7 +22,7 @@
                 <space> </space><p:commandButton value="Registrar Modelo y equipo" actionListener="#{RegistroEquiposComplejos.agregarModelo()}" update=":registro" icon="ui-icon-plusthick"/>
                 <space> </space><p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
-                <p:autoComplete id="nombreModelo" value="#{RegistroEquiposComplejos.nombreModelo}" completeMethod="#{RegistroEquiposComplejos.modelosAproximados}"
+                <!--p:autoComplete id="nombreModelo" value="#{RegistroEquiposComplejos.nombreModelo}" completeMethod="#{RegistroEquiposComplejos.modelosAproximados}"
                                 
                                 var="Modelo" itemLabel="#{Modelo}" itemValue="#{theme}" converter="themeConverter" forceSelection="true">
                     <f:facet name="itemtip">
@@ -38,7 +38,7 @@
                             <h:outputText value="#{theme.name}" />
                         </h:panelGrid>
                     </f:facet>
-                </p:autoComplete>
+                </p:autoComplete-->
             </p:panel>
             <br></br>
         </h:form>
