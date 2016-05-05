@@ -137,6 +137,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
                 }
             }
         }
+        if(equiposComplejosFaltantes.isEmpty())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
 

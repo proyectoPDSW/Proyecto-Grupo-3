@@ -31,7 +31,7 @@ import org.apache.ibatis.session.SqlSession;
 
 /**
  *
- * @author 2105403
+ * @author German Lopez
  */
 @ManagedBean(name="RegistroPrestamo")
 @SessionScoped
@@ -63,6 +63,11 @@ public class RegistroPrestamoManageBean implements Serializable{
     private boolean showPanelPersona=true;
     
     private Prestamo prestamo;
+    private String laPersona;
+    private String selectEquipoSencillo;
+
+    
+    
     
     public RegistroPrestamoManageBean(){
         
@@ -398,4 +403,40 @@ public class RegistroPrestamoManageBean implements Serializable{
         return modelo;
     }
     
+    public String getLaPersona() {
+        return laPersona;
+    }
+
+    public void setLaPersona(String laPersona) {
+        this.laPersona = laPersona;
+    }
+    
+    public List<EquipoSencillo> mostrarListaEquipoSencillo(){
+        List<EquipoSencillo> es = new ArrayList<>();
+        if(laPersona!=null && laPersona.length()>0){
+            List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
+            for (Prestamo p1 : p) {
+                System.out.println("Entro a revisar los prestamos "+p1.getFechaRealEntregada());
+                if(p1.getFechaRealEntregada()==null){
+                    System.out.println("Entro "+p1.getEquiposSencillosFaltantes2().size());
+                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes2()) {
+                        es.add(es1);
+                    }
+                }
+            }
+        }
+        return es;
+    }
+    
+    public String getSelectEquipoSencillo() {
+        return selectEquipoSencillo;
+    }
+
+    public void setSelectEquipoSencillo(String selectEquipoSencillo) {
+        this.selectEquipoSencillo = selectEquipoSencillo;
+    }
+    
+    public void onEquipoChange(){
+        System.out.println("Funciona :)");
+    }
 }

@@ -35,7 +35,7 @@ public class Modelo {
        if(clas.length()<=0) throw new EquipoException(EquipoException.MODELO_SIN_CLASE);
        if(valor<=0) throw new EquipoException(EquipoException.MODELO_VALOR_COMERCIAL_INADECUADO);
        vidaUtil=vidaU;
-       nombre=name;
+       nombre=name.trim().toLowerCase();
        clase=clas;
        valorComercial=valor;
        fotografia=foto;
@@ -43,7 +43,7 @@ public class Modelo {
 
     public Modelo(int vidaUtil, String nombre, String clase, long valorComercial, String fotografia, String descripcion, String accesorios) {
         this.vidaUtil = vidaUtil;
-        this.nombre = nombre;
+        this.nombre = nombre.trim().toLowerCase();
         this.clase = clase;
         this.valorComercial = valorComercial;
         this.fotografia = fotografia;

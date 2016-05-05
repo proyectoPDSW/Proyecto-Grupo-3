@@ -13,6 +13,7 @@ and open the template in the editor.
     </h:head>
     <h:body>
         <h:form id="consultaMorosos">
+            <center><p:graphicImage value="resource/ImagenInicio.jpg"/></center>
             <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
             <p:panel id="conultMorosos" header="Prestamos en mora" style="margin-bottom:20px">
                 <!--p:dataTable -->
@@ -32,35 +33,35 @@ and open the template in the editor.
                             </p:column>
                         </p:dataTable>
                     </p:column>
-                        <p:column headerText="Otros Equipos">
-                            <p:dataTable value="#{prestamo.equiposSencillosFaltantes2}" var="equipo" >
-                                <p:column headerText="Equipo" >
-                                    <p:outputLabel value="#{equipo.nombre}"/>
-                                </p:column>
-                                <p:column headerText="Cantidad">
-                                    <p:outputLabel value="#{equipo.getCantidadTotal()}"/>
-                                </p:column>
-                                <p:column headerText="Valor">
-                                    <p:outputLabel value="#{equipo.valorComercial}" />
-                                </p:column>
-                            </p:dataTable>
-                        </p:column>
+                    <p:column headerText="Otros Equipos">
+                        <p:dataTable value="#{prestamo.equiposSencillosFaltantes2}" var="equipo" >
+                            <p:column headerText="Equipo" >
+                                <p:outputLabel value="#{equipo.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Cantidad">
+                                <p:outputLabel value="#{equipo.getCantidadTotal()}"/>
+                            </p:column>
+                            <p:column headerText="Valor">
+                                <p:outputLabel value="#{equipo.valorComercial}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:column>
                     <p:column headerText="Tiempo de mora"  >
-                    <!--p:column headerText="Tiempo de mora" sortBy="prestamo.tiempoMora" sortOrder="descending" -->
+                        <!--p:column headerText="Tiempo de mora" sortBy="prestamo.tiempoMora" sortOrder="descending" -->
                         <p:outputLabel value="#{consultaMorosos.diffHoras(prestamo.fechaEstimadaDeEntrega)} horas"/>
                     </p:column>
 
                     <p:column headerText="Estudiante" >
                         <p:outputLabel value="#{prestamo.elQuePideElPrestamo.nombre} #{prestamo.elQuePideElPrestamo.apellido}"/>
                     </p:column>
-                    
+
                     <p:column headerText="Correo" >
                         <p:outputLabel value="#{prestamo.elQuePideElPrestamo.email}"/>
                     </p:column>
                 </p:dataTable>
                 <!--p:graphicImage url="http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306"/-->
             </p:panel>
-          
+
         </h:form>
     </h:body>
 </html>

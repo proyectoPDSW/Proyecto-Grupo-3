@@ -36,7 +36,7 @@ public abstract class ServiciosPrestamo {
      * @param equipo que se devuelve
      * @param cantidad devuelta
      */
-    public abstract void registarDevolucion(int persona,String equipo,int cantidad)throws ExcepcionServicios;
+    public abstract void registarDevolucion(String persona,String equipo,int cantidad)throws ExcepcionServicios;
     /**
      * Registra un prestamo
      * @param pres
@@ -54,7 +54,7 @@ public abstract class ServiciosPrestamo {
      * @param p la persona de la que se quieren conocer los prestamos
      * @return Los prestamos de p
      */
-    public abstract List<Prestamo> consultarPrestamosPersona(Persona p);
+    public abstract List<Prestamo> consultarPrestamosPersona(String p);
     
     /**
      * Consulta todos los prestamos de un equipo complejo determinado

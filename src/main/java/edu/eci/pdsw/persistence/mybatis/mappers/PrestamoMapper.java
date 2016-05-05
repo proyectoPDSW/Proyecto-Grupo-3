@@ -40,4 +40,6 @@ public interface PrestamoMapper {
     public List<Prestamo> loadMorosos();
 
     public List<Prestamo> loadByEquipoComplejo(@Param("Eq_Complejo")EquipoComplejo equipocomplejo);
+    
+    public List<Prestamo> loadByEquipoSencillo(@Param("Eq_Sencillo")EquipoSencillo equiposencillo);
 }
