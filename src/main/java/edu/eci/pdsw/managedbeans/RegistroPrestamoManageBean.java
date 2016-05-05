@@ -64,7 +64,9 @@ public class RegistroPrestamoManageBean implements Serializable{
     
     private Prestamo prestamo;
     private String laPersona;
+    private String selectEquipoSencillo;
 
+    
     
     
     public RegistroPrestamoManageBean(){
@@ -410,6 +412,31 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
     
     public List<EquipoSencillo> mostrarListaEquipoSencillo(){
-        if(laPersona.length()>0) return PRESTAMO.
+        List<EquipoSencillo> es = new ArrayList<>();
+        if(laPersona!=null && laPersona.length()>0){
+            List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
+            for (Prestamo p1 : p) {
+                System.out.println("Entro a revisar los prestamos "+p1.getFechaRealEntregada());
+                if(p1.getFechaRealEntregada()==null){
+                    System.out.println("Entro "+p1.getEquiposSencillosFaltantes2().size());
+                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes2()) {
+                        es.add(es1);
+                    }
+                }
+            }
+        }
+        return es;
+    }
+    
+    public String getSelectEquipoSencillo() {
+        return selectEquipoSencillo;
+    }
+
+    public void setSelectEquipoSencillo(String selectEquipoSencillo) {
+        this.selectEquipoSencillo = selectEquipoSencillo;
+    }
+    
+    public void onEquipoChange(){
+        System.out.println("Funciona :)");
     }
 }

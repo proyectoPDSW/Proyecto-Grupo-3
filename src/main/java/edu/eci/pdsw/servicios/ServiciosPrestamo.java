@@ -54,7 +54,7 @@ public abstract class ServiciosPrestamo {
      * @param p la persona de la que se quieren conocer los prestamos
      * @return Los prestamos de p
      */
-    public abstract List<Prestamo> consultarPrestamosPersona(Persona p);
+    public abstract List<Prestamo> consultarPrestamosPersona(String p);
     
     /**
      * Consulta todos los prestamos de un equipo complejo determinado

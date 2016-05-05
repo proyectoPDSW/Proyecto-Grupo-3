@@ -25,12 +25,15 @@ and open the template in the editor.
                        </h:panelGrid>
                     </p:tab>
                     <p:tab title="Devolver Equipo Sencillo">
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <p:selectOneMenu id="country" value="#{dropdownView.country}" style="width:150px">
-                                <p:ajax listener="#{dropdownView.onCountryChange}" update="city" />
-                                <f:selectItem itemLabel="Select Country" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{dropdownView.countries}" />
-                            </p:selectOneMenu>
+                        <h:panelGrid columns="5" cellpadding="5">
+                            <center>Carné del prestamista<p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}">
+                                    <p:ajax listener="#{RegistroPrestamo.onEquipoChange()}" event="change" update="eqse" />
+                                </p:inputText></center>
+                            <center><p:selectOneMenu id="eqse" value="#{RegistroPrestamo.selectEquipoSencillo}">
+                                <f:selectItem itemLabel="Seleccione el equipo sencillo" itemValue="" noSelectionOption="true" />
+                                <f:selectItems value="#{RegistroPrestamo.mostrarListaEquipoSencillo()}" />
+                            </p:selectOneMenu></center>
+                            <center><p:commandButton value="Submit"></p:commandButton></center>
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>
