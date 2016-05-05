@@ -8,6 +8,7 @@ package edu.eci.pdsw.persistence.mybatis.mappers;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -86,5 +87,5 @@ public interface EquipoComplejoMapper {
      * @param toSearch la cadena a buscar
      * @return una lista que contiene los modelos que contienen una cadena
     */
-    public ArrayList<Modelo> loadModelosAproximados(@Param("Aproximado") String toSearch);    
+    public List<String> loadModelosAproximados(@Param("Aproximado") String toSearch);    
 }
