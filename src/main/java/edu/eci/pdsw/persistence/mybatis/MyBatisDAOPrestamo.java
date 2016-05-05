@@ -104,4 +104,5 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         return pmap.loadByEquipoComplejo(equipocomplejo);
     }
     
+    
 }

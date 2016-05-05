@@ -31,7 +31,7 @@ import org.apache.ibatis.session.SqlSession;
 
 /**
  *
- * @author 2105403
+ * @author German Lopez
  */
 @ManagedBean(name="RegistroPrestamo")
 @SessionScoped
@@ -63,6 +63,9 @@ public class RegistroPrestamoManageBean implements Serializable{
     private boolean showPanelPersona=true;
     
     private Prestamo prestamo;
+    private String laPersona;
+
+    
     
     public RegistroPrestamoManageBean(){
         
@@ -398,4 +401,15 @@ public class RegistroPrestamoManageBean implements Serializable{
         return modelo;
     }
     
+    public String getLaPersona() {
+        return laPersona;
+    }
+
+    public void setLaPersona(String laPersona) {
+        this.laPersona = laPersona;
+    }
+    
+    public List<EquipoSencillo> mostrarListaEquipoSencillo(){
+        if(laPersona.length()>0) return PRESTAMO.
+    }
 }
