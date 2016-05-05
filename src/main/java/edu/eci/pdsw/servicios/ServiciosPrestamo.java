@@ -36,7 +36,7 @@ public abstract class ServiciosPrestamo {
      * @param equipo que se devuelve
      * @param cantidad devuelta
      */
-    public abstract void registarDevolucion(int persona,String equipo,int cantidad);
+    public abstract void registarDevolucion(int persona,String equipo,int cantidad)throws ExcepcionServicios;
     /**
      * Registra un prestamo
      * @param pres
