@@ -71,7 +71,7 @@ public abstract class ServiciosPrestamo {
     
     /**
      *Consultar una persona por su carne 
-     * @param carne
+     * @param carne de la persona consultada
      * @return La persona
      */
     public abstract Persona personaCarne(String carne) throws ExcepcionServicios;

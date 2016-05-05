@@ -198,8 +198,17 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @throws PrestamoException si no se encontro el objeto a devolver
      */
     public void returnEquipoComplejo(EquipoComplejo toReturn)throws PrestamoException{
-        if(!equiposComplejosFaltantes.contains(toReturn))
-            throw new PrestamoException(PrestamoException.OBJETO_COMPLEJO_NO_ENCONTRADO);
+        if(!esFaltante(toReturn)) throw new PrestamoException(PrestamoException.OBJETO_COMPLEJO_NO_ENCONTRADO);
         equiposComplejosFaltantes.remove(toReturn);
+    }
+    
+    /**
+     * Verifica si un equipo complejo hace parte de los objetos faltantes
+     * @param equipo a verificar
+     * @return si el equipo hace parte de los faltantes
+     */
+    public boolean esFaltante(EquipoComplejo equipo){
+        if(equiposComplejosFaltantes.contains(equipo))return true;
+        return false;
     }
 }

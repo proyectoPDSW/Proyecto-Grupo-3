@@ -9,6 +9,7 @@ import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.entities.PrestamoException;
 import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.DAOFactory;
@@ -22,6 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -139,12 +141,33 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         try{
             daoF.beginSession();
             DAOEquipoComplejo dec=daoF.getDaoEquipoComplejo();
+            basePaciente=daoF.getDaoPrestamo();
+            //Cargo el equipo a partir de su placa y luego cargo todos los prestamos asociados a ese equipo
             EquipoComplejo loaded=dec.load(equipo);
-        }catch(PersistenceException e){
+            List<Prestamo> tmp=basePaciente.loadByEquipoComplejo(loaded);
+            boolean found=false;
+            Prestamo prestamoEquipo=null;
+            //Busco entre los prestamos asociados uno que tenga el equipo como faltante (Deberia ser el unico)
+            for(int i=0;i<tmp.size() && !found;i++){
+                if(tmp.get(i).esFaltante(loaded)){
+                    prestamoEquipo=tmp.get(i);
+                    found=true;
+                }
+            }
+            if(prestamoEquipo==null)throw new ExcepcionServicios("El equipo no esta para devolucion");
+            //De ese prestamo devuelvo el equipo y actualizo en la base de datos
+            prestamoEquipo.returnEquipoComplejo(loaded);
+            basePaciente.update(prestamoEquipo);
+            daoF.commitTransaction();
+        }catch(PersistenceException|PrestamoException e){
+            daoF.rollbackTransaction();
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
+        }finally{
+            daoF.endSession();
         }
     }
 
+    //¿Esto no deberia estar en servicios persona?
     @Override
     public Persona personaCarne(String carne)throws ExcepcionServicios {
         Persona p;
