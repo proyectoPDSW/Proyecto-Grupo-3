@@ -49,8 +49,8 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
                 equipoSencillo.setFotografia(fotografia);
                 SERVICIOS.registrarEquipoSencillo(equipoSencillo);
                 facesInfo("El equipo ha sido registrado satisfactoriamente");
-                showPanelRegistro=false;
-                showPanelRegistrado=true;
+                setShowPanelRegistro(false);
+                setShowPanelRegistrado(true);
         } catch (ExcepcionServicios | EquipoException ex) {
                 facesError(ex.getMessage());
                 Registro.anotar(ex);
@@ -64,8 +64,8 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
         nombre="";
         clase="";
         fotografia="";
-        showPanelRegistro=true;
-        showPanelRegistrado=false;
+        setShowPanelRegistro(true);
+        setShowPanelRegistrado(false);
         valorComercial=new Long("0");
         cantidadTotal=0;
     }

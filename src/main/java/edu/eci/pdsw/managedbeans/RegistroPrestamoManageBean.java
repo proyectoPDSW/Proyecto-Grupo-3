@@ -58,9 +58,11 @@ public class RegistroPrestamoManageBean implements Serializable{
     private Persona elQuePideElPrestamo;
     private int tipo_prestamo;
     //Pantallas
-    private boolean showPanelRegistro=true;
+    private boolean showPanelRegistro=false;
     private boolean showPanelRegistrado=false;
     private boolean showPanelPersona=true;
+    
+    private List<EquipoComplejo> eq;
     
     private Prestamo prestamo;
     
@@ -81,31 +83,32 @@ public class RegistroPrestamoManageBean implements Serializable{
             
         }
     }
-    
+    public List<EquipoComplejo> sacarEq(){
+        return eq;
+    }
     /**
      *Consulta la lista de equipos complejos que tengan
      * un modelo especifico
      * @return La lista con los equipos complejos
      */
-    public List<EquipoComplejo> consultarEqModelo(){
+    public void consultarEqModelo(){
         List<EquipoComplejo> equipos=new ArrayList<>();
         try{
             equipos=EQCOMPLEJO.consultarPorModelo(modelo);
+            showPanelRegistro=true;
         }catch(ExcepcionServicios ex){
             ex.printStackTrace();
             showPanelRegistro=false;
             facesError(ex.getMessage());
         }
-        return equipos;
+        eq=equipos;
+        //return equipos;
     }
     
     /**
      * Agrega equipos complejos al prestamo 
     */
     public void agregarEquipoC(){
-        showPanelPersona=false;
-        showPanelRegistro=true;
-        showPanelRegistrado=false;
         try{
             equiposComplejosPrestados=EQCOMPLEJO.agregarEquipoComplejo(selectEquipoComplejo);
         }catch(ExcepcionServicios ex){
@@ -154,25 +157,19 @@ public class RegistroPrestamoManageBean implements Serializable{
         setEquiposSencillosPrestadosCantidad2(null);
         setElQuePideElPrestamo(null);
         setTipo_prestamo(0);
-        showPanelRegistro=true;
+        showPanelRegistro=false;
         showPanelRegistrado=false;
     }
     
-    public boolean isShowPanelRegistro() {
+    public boolean ShowPanelRegistro() {
         return showPanelRegistro;
     }
 
-    public void setShowPanelRegistro(boolean showPanelRegistro) {
-        this.showPanelRegistro = showPanelRegistro;
-    }
 
-    public boolean isShowPanelRegistrado() {
+    public boolean ShowPanelRegistrado() {
         return showPanelRegistrado;
     }
 
-    public void setShowPanelRegistrado(boolean showPanelRegistrado) {
-        this.showPanelRegistrado = showPanelRegistrado;
-    }
     
     /**
      * Muestra un mensaje de error en la vista
@@ -395,6 +392,20 @@ public class RegistroPrestamoManageBean implements Serializable{
     
     public String getModelo(){
         return modelo;
+    }
+
+    /**
+     * @return the eq
+     */
+    public List<EquipoComplejo> getEq() {
+        return eq;
+    }
+
+    /**
+     * @param eq the eq to set
+     */
+    public void setEq(List<EquipoComplejo> eq) {
+        this.eq = eq;
     }
     
 }

@@ -42,10 +42,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select carne,nombre,apellido,email,telefono from Personas where carne = #{carne};
     </select>
     
-    <select id='loadPersRoles' parameterType='map' resultMap='RolResult'>
+    <select id='loadPersRoles' parameterType='map' resultMap='PersonaResult'>
         select carne,nombre,apellido,email,telefono, r.rol as ro_Rol_rol, rp.contrasena as
-        ro_contrasena, rp.sal as ro_sal from Personas as pe join Rol_Persona as rp join Rol as r
-        on pe.carne=rp.Personas_carne and r.rol=rp.Rol_rol where rp.Personas_carne=#{carne}
+        ro_contrasena, rp.sal as ro_sal 
+        from Personas as pe 
+        left join Rol_Persona as rp on pe.carne=rp.Personas_carne
+        left join Rol as r on r.rol=rp.Rol_rol 
+        where pe.carne=#{carne}
     </select>
     
     <select id='loadAllRoles' parameterType='map' resultMap='RolResult'>
