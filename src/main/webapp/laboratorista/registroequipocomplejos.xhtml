@@ -9,36 +9,20 @@
         <br></br><b><title>Registro Equipo Complejo</title></b>
     </h:head>
     <h:body>
+        <center><p:graphicImage value="resource/ImagenInicio.jpg"/></center>
         <center><b><h1>Registro Equipo Complejo</h1></b></center>
 
         <h:form id="formularioEquipoComplejo">
-
+           
             <p:panel id="consultaModelo" header="Consultar Modelo" style="margin-bottom:10px" >
 
                 <b><p:outputLabel for="nombreModelo" value="Nombre: (*)"/></b>
-                <br></br><b><p:inputText id="nombreModelo" value="#{RegistroEquiposComplejos.nombreModelo}" ></p:inputText></b>
+                <br></br><b><p:autoComplete id="nombreModelo" dropdown="true" value="#{RegistroEquiposComplejos.nombreModelo}" completeMethod="#{RegistroEquiposComplejos.modelosAproximados}"/></b>
                 <br></br>
                 <br></br><p:commandButton  value="Consultar modelo y registrar equipo" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update=":registro" icon="ui-icon-search" />
                 <space> </space><p:commandButton value="Registrar Modelo y equipo" actionListener="#{RegistroEquiposComplejos.agregarModelo()}" update=":registro" icon="ui-icon-plusthick"/>
                 <space> </space><p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
-                <!--p:autoComplete id="nombreModelo" value="#{RegistroEquiposComplejos.nombreModelo}" completeMethod="#{RegistroEquiposComplejos.modelosAproximados}"
-                                
-                                var="Modelo" itemLabel="#{Modelo}" itemValue="#{theme}" converter="themeConverter" forceSelection="true">
-                    <f:facet name="itemtip">
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <f:facet name="header">
-                                <h:outputText styleClass="ui-theme ui-theme-#{theme.name}" style="margin-left:50px" />
-                            </f:facet>
-
-                            <h:outputText value="Display:" />
-                            <h:outputText value="#{theme.displayName}" />
-
-                            <h:outputText value="Key" />
-                            <h:outputText value="#{theme.name}" />
-                        </h:panelGrid>
-                    </f:facet>
-                </p:autoComplete-->
             </p:panel>
             <br></br>
         </h:form>
@@ -48,7 +32,7 @@
             <p:panel header="Registro Equipo" rendered="#{RegistroEquiposComplejos.showPanelConsulta()}">
 
                 <p:panelGrid columns="2" >
-                    <p:panel header="Informacion Modelo">
+                    <p:panel header="Información Modelo">
                         <p:panelGrid id="modeloconsultado" style="margin-bottom:20px"  columns="2" >
 
                             <f:facet name="header">
@@ -61,19 +45,19 @@
                             <h:outputLabel value="Clase:" />
                             <h:outputText value="#{RegistroEquiposComplejos.modelo.clase}" />
 
-                            <h:outputLabel value="Valor Comercial:" />
+                            <h:outputLabel value="Valor comercial:" />
                             <h:outputText value="#{RegistroEquiposComplejos.modelo.valorComercial}" />
 
-                            <h:outputLabel value="Vida Util:" />
+                            <h:outputLabel value="Vida útil en horas:" />
                             <h:outputText value="#{RegistroEquiposComplejos.modelo.vidaUtil}" />
 
-                            <h:outputLabel value="Descripcion:" />
+                            <h:outputLabel value="Descripción:" />
                             <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
 
                         </p:panelGrid>
                     </p:panel>
 
-                    <p:panel header="Informacion Equipo">
+                    <p:panel header="Información Equipo">
 
                         <p:panelGrid id="registrarEquipoR"  columns="2" style="margin-bottom:20px">
 
@@ -87,7 +71,7 @@
                             <h:inputText value="#{RegistroEquiposComplejos.marca}" />
 
                             <h:outputLabel value="¿Se encuentra asegurado?" />
-                            <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
+                            <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
                         </p:panelGrid> 
 
                     </p:panel>
@@ -105,7 +89,7 @@
 
                 <p:panelGrid columns="2">
 
-                    <p:panel header="Informacion Modelo">
+                    <p:panel header="Información Modelo">
 
                         <p:panelGrid id="registrarModelo"  columns="2" style="margin-bottom:20px">
 
@@ -118,13 +102,13 @@
                             <h:outputLabel value="Clase: (*)" />
                             <h:inputText id="clase" value="#{RegistroEquiposComplejos.clase}"/>
 
-                            <h:outputLabel value="Valor Comercial: (*)" />
+                            <h:outputLabel value="Valor comercial en COP: (*)" />
                             <p:spinner id="valorcomercial" value="#{RegistroEquiposComplejos.valorComercial}" prefix="$" stepFactor="50" min="50"/>
 
-                            <h:outputLabel value="Vida Util: (*)" />
+                            <h:outputLabel value="Vida útil en horas: (*)" />
                             <p:spinner id="vidautil" value="#{RegistroEquiposComplejos.vidaUtil}" min="1" max="1000000000" />
 
-                            <h:outputLabel value="Descripcion:" />
+                            <h:outputLabel value="Descripción:" />
                             <h:inputText value="#{RegistroEquiposComplejos.descripcion}" />
 
                             <h:outputLabel value="Accesorios: " />

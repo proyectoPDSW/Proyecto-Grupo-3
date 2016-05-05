@@ -28,7 +28,7 @@ import org.junit.Before;
 
 /**
  *
- * @author amoto
+ * @author Julian Devia
  */
 public class RegistrarEquipoTest {
     public static InputStream input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");

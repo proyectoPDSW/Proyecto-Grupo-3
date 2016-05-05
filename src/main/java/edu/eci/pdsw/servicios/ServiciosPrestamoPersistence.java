@@ -20,6 +20,7 @@ import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -134,17 +135,19 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public void registarDevolucion(int persona, String equipo, int cantidad) throws ExcepcionServicios{
-        /*try{
+    public void registarDevolucion(String persona, String equipo, int cantidad) throws ExcepcionServicios{
+        try{
             daoF.beginSession();
             DAOEquipoSencillo des=daoF.getDaoEquipoSencillo();
             basePaciente=daoF.getDaoPrestamo();
-            Persona prestadoA=personaCarne(persona+"");
+            //Cargo a la persona que pidio el prestamo y sus prestamos
+            List<Prestamo> cargadosDePersona=basePaciente.loadByCarne(persona);
         }catch(PersistenceException e){
             daoF.rollbackTransaction();
+            throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }finally{
             daoF.endSession();
-        }*/
+        }
     }
 
     @Override
@@ -157,9 +160,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             EquipoComplejo loaded=dec.load(equipo);
             String[] estadosValidos={EquipoComplejo.diario, EquipoComplejo.p24h,EquipoComplejo.indefinido,EquipoComplejo.semestre};
             ArrayList<String> tmp=new ArrayList<>();
-            for(String s:estadosValidos){
-                tmp.add(s);
-            }
+            tmp.addAll(Arrays.asList(estadosValidos));
             //Cambio el estado del equipo a "en almacen"
             if(!tmp.contains(loaded.getEstado()))throw new ExcepcionServicios("El equipo no esta prestado");
             loaded.setEstado(EquipoComplejo.almacen);
@@ -182,7 +183,6 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         }
     }
 
-    //¿Esto no deberia estar en servicios persona?
     @Override
     public Persona personaCarne(String carne)throws ExcepcionServicios {
         Persona p;
@@ -192,6 +192,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             p=dp.loadPersRoles(carne);
         }catch(PersistenceException e){
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
+        }finally{
+            daoF.endSession();
         }
         return p;
     }

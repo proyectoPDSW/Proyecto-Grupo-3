@@ -8,12 +8,14 @@ package edu.eci.pdsw.entities;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 /**
  *
@@ -126,6 +128,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
                 }
             }
         }
+        if(equiposComplejosFaltantes.isEmpty())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
 
