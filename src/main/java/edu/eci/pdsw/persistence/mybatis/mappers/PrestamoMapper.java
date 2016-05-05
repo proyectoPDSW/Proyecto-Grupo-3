@@ -25,7 +25,9 @@ public interface PrestamoMapper {
     
     public void insertEquipoSencillo_Prestamo(@Param("Prestamo_id")Prestamo p, @Param("Equipo_id")EquipoSencillo e);
     
-    public void updatePrestamo(@Param("Pre_viejo")Prestamo pv,@Param("Pre_nuevo")Prestamo pn);
+    public void updatePrestamo(@Param("Prestamo")Prestamo pn);
+    
+    public void updateEquipoSencillo(@Param("Prestamo") Prestamo p,@Param("Eq_Sencillo") EquipoSencillo es);
     
     public List<Prestamo> loadPrestamo(@Param("time")Timestamp fecha,@Param("carnet") String carne);
     
