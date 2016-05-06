@@ -20,6 +20,7 @@ import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -83,6 +84,8 @@ public class RegistroPrestamoManageBean implements Serializable{
         PRESTAMO=ServiciosPrestamo.getInstance();
         EQCOMPLEJO=ServiciosEquipoComplejoPersistence.getInstance();
         EQSENCILLO=ServiciosEquipoSencillo.getInstance();
+        equiposComplejosPrestados=new LinkedHashSet<>();
+        equiposSencillosPrestados=new LinkedHashSet<>();
     }
     /**
      * Consulta una persona por su carne para 
@@ -147,7 +150,9 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
     
     public void agregarEquipoS(){
-        equiposSencillosPrestados.add(selectEquipoSencillo);
+        if(getSelectEquipoSencillo()!=null){
+        equiposSencillosPrestados.add(getSelectEquipoSencillo());
+        }
     }
     
     /**
@@ -420,13 +425,6 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.showPanelPersona = showPanelPersona;
     }
     
-    public EquipoComplejo getSelectEquipoComplejo(){
-        return selectEquipoComplejo;
-    }
-    
-    public void setSelectEquipoComplejo(EquipoComplejo ec){
-        this.selectEquipoComplejo=ec;
-    }
     
     public void setModelo(String mo){
         this.modelo=mo;
@@ -471,5 +469,19 @@ public class RegistroPrestamoManageBean implements Serializable{
     
     public void onEquipoChange(){
         System.out.println("Funciona :)");
+    }
+
+    /**
+     * @return the selectEqC
+     */
+    public EquipoComplejo getSelectEquipoComplejo() {
+        return selectEquipoComplejo;
+    }
+
+    /**
+     * @param selectEqC the selectEqC to set
+     */
+    public void setSelectEquipoComplejo(EquipoComplejo selectEqC) {
+        this.selectEquipoComplejo = selectEqC;
     }
 }

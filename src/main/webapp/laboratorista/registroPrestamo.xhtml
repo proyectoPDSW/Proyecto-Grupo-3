@@ -47,7 +47,7 @@
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
                                         <p:panel id="tablas" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
 
-                                            <p:dataTable id="EquiposModelos1" var="equipoC1" value="#{RegistroPrestamo.sacarEqC()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoComplejo}" rowKey="#{equipoC1.placa}" >
+                                            <p:dataTable id="EquiposModelos1" var="equipoC1" value="#{RegistroPrestamo.sacarEqC()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoComplejo}" rowKey="#{equipoC1.serial}" >
                                                 <p:column headerText="Nombre">      
                                                     <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
                                                 </p:column>
