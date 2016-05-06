@@ -61,8 +61,10 @@ public class Persona {
     public String toString() {
         String res;
         res="Persona:["+carnet+ " "+nombre+" "+apellido+" "+email+" "+telefono+"] \n";
-        for(Rol e: roles){
-            res+=e.toString();
+        if(roles!=null){
+            for(Rol e: roles){
+                res+=e.toString();
+            }
         }
         return res;
     }

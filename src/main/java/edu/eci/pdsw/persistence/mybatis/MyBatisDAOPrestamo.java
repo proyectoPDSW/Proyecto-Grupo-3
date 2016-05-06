@@ -78,7 +78,8 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         //if(!prestamo.terminado()) throw new PersistenceException("el prestamo no puede ser actualizado pues ya ha terminado");
         if(prestamo.terminado())
             pmap.updatePrestamo(prestamo);
-        for (EquipoSencillo es : prestamo.getEquiposSencillosFaltantes2()) {
+        for (EquipoSencillo es : prestamo.getEquiposSencillosPrestados2()) {
+            System.out.println("test dao "+es);
             pmap.updateEquipoSencillo(prestamo, es);
         }
     }
