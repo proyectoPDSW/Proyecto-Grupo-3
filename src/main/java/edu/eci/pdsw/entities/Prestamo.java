@@ -136,8 +136,8 @@ public abstract class Prestamo implements Comparable<Prestamo> {
                     equiposComplejosFaltantes.add(ec);
                 }
             }
-        }
-        if(equiposComplejosFaltantes.isEmpty())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        }       
+        if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
 
@@ -196,6 +196,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
             if(es.getCantidadTotal()>0)
                 this.equiposSencillosFaltantes2.add(es);
         }
+        if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
     /**
      * 
@@ -206,6 +207,8 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     }
     
     public boolean terminado(){
-        return getEquiposComplejosFaltantes().size()==0 && getEquiposSencillosFaltantes2().size()==0;
+        if(equiposSencillosFaltantes2==null)equiposSencillosFaltantes2=new HashSet<>();
+        if(equiposComplejosFaltantes==null)equiposComplejosFaltantes=new HashSet<>();
+        return equiposComplejosFaltantes.isEmpty() && equiposSencillosFaltantes2.isEmpty();
     }
 }

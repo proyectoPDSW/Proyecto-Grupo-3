@@ -34,10 +34,13 @@ public class PrestamoTerminoFijo extends Prestamo {
             this.equiposComplejosPrestados=equiposComplejosPrestados;
             this.equiposComplejosFaltantes=equiposComplejosPrestados;
         }
-        if(equiposSencillosPrestados==null)
+        if(equiposSencillosPrestados==null){
             this.equiposSencillosPrestados2=new HashSet<>();
-        else
-            this.equiposSencillosPrestados2 = equiposSencillosPrestados;
+            this.equiposSencillosFaltantes2=new HashSet<>();
+        }else{
+            this.equiposSencillosPrestados2=equiposSencillosPrestados;
+            this.equiposSencillosFaltantes2=equiposSencillosPrestados;
+        }
         this.elQuePideElPrestamo = elQuePideElPrestamo;
         this.tipo_prestamo=tipo_prestamo;
     }

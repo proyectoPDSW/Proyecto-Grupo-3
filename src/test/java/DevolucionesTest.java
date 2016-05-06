@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author amoto
+ * @author Julian Devia
  */
 public class DevolucionesTest {
     @After
@@ -81,7 +81,7 @@ public class DevolucionesTest {
         HashSet<EquipoComplejo> sec=new HashSet<>();sec.add(ec);
         HashSet<EquipoSencillo> ses=new HashSet<>();ses.add(es);
         Prestamo pr=new PrestamoTerminoFijo(yo, sec, ses, Timestamp.valueOf("2016-03-05 12:00:00"), EquipoComplejo.diario);
-        
+        pr.getEquiposComplejosFaltantes();pr.getEquiposSencillosFaltantes2();
         //daof.endSession();
         Assert.assertTrue("El prestamo no queda terminado si no tiene equipos pendientes",pr.terminado());
     }

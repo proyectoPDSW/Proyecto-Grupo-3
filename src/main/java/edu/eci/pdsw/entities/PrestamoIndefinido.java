@@ -29,10 +29,11 @@ public class PrestamoIndefinido extends Prestamo{
             this.equiposComplejosPrestados=new HashSet<EquipoComplejo>();
         else
             this.equiposComplejosPrestados = equiposComplejosPrestados;
-        if(equiposSencillosPrestados==null)
+        if(equiposSencillosPrestados==null){
             this.equiposSencillosPrestados2=new HashSet<>();
-        else
+        }else{
             this.equiposSencillosPrestados2 = equiposSencillosPrestados;
+        }
         this.elQuePideElPrestamo = elQuePideElPrestamo;
         this.tipo_prestamo=tipo_prestamo;
     }
