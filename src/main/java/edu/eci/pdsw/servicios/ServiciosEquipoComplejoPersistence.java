@@ -182,21 +182,4 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
         return ans;
     }
 
-    @Override
-    public Set<EquipoComplejo> agregarEquipoComplejo(EquipoComplejo ec) throws ExcepcionServicios {
-        if(ec==null) throw new ExcepcionServicios("El equipo no puede ser nulo");
-        Set<EquipoComplejo> equipos=new LinkedHashSet<>();
-        try{
-            dao.beginSession();
-            complejoPersistencia=dao.getDaoEquipoComplejo();
-            EquipoComplejo dahh=complejoPersistencia.load(ec.getModelo_Eq().getNombre(), ec.getSerial());
-            dao.commitTransaction();
-            dao.endSession();
-            equipos.add(dahh);
-        }catch(PersistenceException ex){
-            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
-        }
-        return equipos;
-    }
-
 }

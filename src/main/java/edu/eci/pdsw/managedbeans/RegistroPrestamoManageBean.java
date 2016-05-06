@@ -15,6 +15,7 @@ import edu.eci.pdsw.persistence.DAOPersona;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejoPersistence;
+import edu.eci.pdsw.servicios.ServiciosEquipoSencillo;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -38,6 +39,7 @@ import org.apache.ibatis.session.SqlSession;
 public class RegistroPrestamoManageBean implements Serializable{
     private final ServiciosPrestamo PRESTAMO;
     private final ServiciosEquipoComplejo EQCOMPLEJO;
+    private final ServiciosEquipoSencillo EQSENCILLO;
     //Atributos de prestamo
     private Timestamp fechaInicio;
     private Timestamp fechaEstimadaDeEntrega;
@@ -48,6 +50,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     private String modelo;
     //EquipoComplejo
     private EquipoComplejo selectEquipoComplejo;
+    //Consultar equipo sencillo por nombre
+    private String nombre;
 
     //Atributos de prestamo
     private Set<EquipoComplejo> equiposComplejosPrestados;
@@ -62,11 +66,14 @@ public class RegistroPrestamoManageBean implements Serializable{
     private boolean showPanelRegistrado=false;
     private boolean showPanelPersona=true;
     
-    private List<EquipoComplejo> eq;
+    // Lista de equipo complejo para consultar los equipos
+    private List<EquipoComplejo> eqC;
+    //Lista de equipo sencillo para consultar los equipos
+    private List<EquipoSencillo> eqS;
     
     private Prestamo prestamo;
     private String laPersona;
-    private String selectEquipoSencillo;
+    private EquipoSencillo selectEquipoSencillo;
 
     
     
@@ -75,6 +82,7 @@ public class RegistroPrestamoManageBean implements Serializable{
         
         PRESTAMO=ServiciosPrestamo.getInstance();
         EQCOMPLEJO=ServiciosEquipoComplejoPersistence.getInstance();
+        EQSENCILLO=ServiciosEquipoSencillo.getInstance();
     }
     /**
      * Consulta una persona por su carne para 
@@ -88,8 +96,12 @@ public class RegistroPrestamoManageBean implements Serializable{
             
         }
     }
-    public List<EquipoComplejo> sacarEq(){
-        return eq;
+    public List<EquipoComplejo> sacarEqC(){
+        return eqC;
+    }
+    
+    public List<EquipoSencillo> sacarEqS(){
+        return eqS;
     }
     /**
      *Consulta la lista de equipos complejos que tengan
@@ -106,19 +118,36 @@ public class RegistroPrestamoManageBean implements Serializable{
             showPanelRegistro=false;
             facesError(ex.getMessage());
         }
-        eq=equipos;
+        eqC=equipos;
         //return equipos;
+    }
+    /**
+     * Consulta un equipo sencillo por su nombre
+     */
+    public void consultarEqSNombre(){
+       List<EquipoSencillo> equiposS=new ArrayList<>();
+       try{
+           equiposS.add(EQSENCILLO.consultarPorNombre(nombre));
+           showPanelRegistro=true;
+       }catch(ExcepcionServicios ex){
+           ex.printStackTrace();
+           showPanelRegistro=false;
+           facesError(ex.getMessage());
+       }
+       eqS=equiposS;
     }
     
     /**
      * Agrega equipos complejos al prestamo 
     */
     public void agregarEquipoC(){
-        try{
-            equiposComplejosPrestados=EQCOMPLEJO.agregarEquipoComplejo(selectEquipoComplejo);
-        }catch(ExcepcionServicios ex){
-            facesError(ex.getMessage());
+        if(selectEquipoComplejo!=null){
+        equiposComplejosPrestados.add(selectEquipoComplejo);
         }
+    }
+    
+    public void agregarEquipoS(){
+        equiposSencillosPrestados.add(selectEquipoSencillo);
     }
     
     /**
@@ -368,6 +397,14 @@ public class RegistroPrestamoManageBean implements Serializable{
     public String getCarne(){
         return carne;
     }
+    
+    public void setNombre(String n){
+        this.nombre=n;
+    }
+    
+    public String getNombre(){
+        return nombre;
+    }
 
     /**
      * @return the showPanelPersona
@@ -383,11 +420,11 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.showPanelPersona = showPanelPersona;
     }
     
-    public EquipoComplejo getEquipoComplejoSelected(){
+    public EquipoComplejo getSelectEquipoComplejo(){
         return selectEquipoComplejo;
     }
     
-    public void setEquipoComplejoSelected(EquipoComplejo ec){
+    public void setSelectEquipoComplejo(EquipoComplejo ec){
         this.selectEquipoComplejo=ec;
     }
     
@@ -397,22 +434,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     
     public String getModelo(){
         return modelo;
-    }
-
-    /**
-     * @return the eq
-     */
-    public List<EquipoComplejo> getEq() {
-        return eq;
-    }
-
-    /**
-     * @param eq the eq to set
-     */
-    public void setEq(List<EquipoComplejo> eq) {
-        this.eq = eq;
-    }
-    
+    } 
+   
     public String getLaPersona() {
         return laPersona;
     }
@@ -438,12 +461,12 @@ public class RegistroPrestamoManageBean implements Serializable{
         return es;
     }
     
-    public String getSelectEquipoSencillo() {
+    public EquipoSencillo getSelectEquipoSencillo() {
         return selectEquipoSencillo;
     }
 
-    public void setSelectEquipoSencillo(String selectEquipoSencillo) {
-        this.selectEquipoSencillo = selectEquipoSencillo;
+    public void setSelectEquipoSencillo(EquipoSencillo equiS) {
+        this.selectEquipoSencillo = equiS;
     }
     
     public void onEquipoChange(){

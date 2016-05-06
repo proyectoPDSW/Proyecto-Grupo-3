@@ -37,17 +37,17 @@
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Prestamo Termino Fijo">
-                            <h:panelGrid columns="2" cellpadding="5">
+                            <h:panelGrid columns="3" cellpadding="5">
                                 <p:layout style="min-width:600px;min-height:400px;">
-                                    <p:layoutUnit position="west">
+                                    <p:layoutUnit position="west" size="600">
                                         <h:outputLabel value="Modelo : (*) " />
                                         <p:inputText id="modelo1" value="#{RegistroPrestamo.modelo}" />
                                         <!--p:outputLabel value="#{RegistroPrestamo.ShowPanelRegistro()}"/-->
                                         <p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo()}" icon="ui-icon-search"/>
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
                                         <p:panel id="tablas" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
-                                            
-                                            <p:dataTable id="EquiposModelos1" var="equipoC1" value="#{RegistroPrestamo.sacarEq()}" selectionMode="single" selection="#{RegistroPrestamo.equipoComplejoSelected}" rowKey="#{equipoC1.placa}" >
+
+                                            <p:dataTable id="EquiposModelos1" var="equipoC1" value="#{RegistroPrestamo.sacarEqC()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoComplejo}" rowKey="#{equipoC1.placa}" >
                                                 <p:column headerText="Nombre">      
                                                     <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
                                                 </p:column>
@@ -74,20 +74,59 @@
                                         </p:panel>
 
 
-                                        <p:messages id="messages2" autoUpdate="false" closable="true" /> 
+                                        
                                     </p:layoutUnit>
 
-                                    <p:layoutUnit position="center" resizable="true" size="15" minSize="10" maxSize="20">
-                                        Center
+                                    <p:layoutUnit position="center" resizable="true" size="100" minSize="40" maxSize="200">
+                                        <h:outputLabel value="Nombre Del Equipo : (*) " />
+                                        <p:inputText id="nombreEq" value="#{RegistroPrestamo.nombre}" />
+                                        <p:commandButton value="Consultar Equipos" update=":tablas2" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre()}" icon="ui-icon-search"/>
+                                        <br/><p:commandButton value="Agregar Equipo" update=":tablas2" actionListener="#{RegistroPrestamo.agregarEquipoS()}" ajax="false" icon="ui-icon-plusthick"/>
+                                        <p:panel id="tablas2" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
+
+                                            <p:dataTable id="EquiposNombre1" var="equipoS1" value="#{RegistroPrestamo.sacarEqS()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoSencillo}" rowKey="#{equipoS1.nombre}" >
+                                                <p:column headerText="Nombre">      
+                                                    <h:outputText value="#{equipoS1.nombre}" />
+                                                </p:column>
+                                                <p:column headerText="Cantidad Total">
+                                                    <h:outputText value="#{equipoS1.cantidadTotal}" />
+                                                </p:column>
+                                                <p:column headerText="Clase">
+                                                    <h:outputText value="#{equipoS1.clase}" />
+                                                </p:column>
+                                            </p:dataTable>
+                                            <p:dataTable id="EquiposSPrestar1" var="equipoS1" value="#{RegistroPrestamo.equiposSencillosPrestados}"  >
+                                                <p:column headerText="Nombre">
+                                                    <h:outputText value="#{equipoS1.nombre}" />
+                                                </p:column>
+                                                <p:column headerText="Cantidad Total">
+                                                    <h:outputText value="#{equipoS1.cantidadTotal}" />
+                                                </p:column>
+                                                <p:column headerText="Clase">
+                                                    <h:outputText value="#{equipoS1.clase}" />
+                                                </p:column>
+                                                <f:facet name="footer">
+                                                </f:facet>
+                                            </p:dataTable>       
+                                        </p:panel>
                                     </p:layoutUnit>
-                                        </p:layout>
-                                    </h:panelGrid>
-                                </p:tab>
-                                <p:tab title="Prestamo Indefinido">
-                                    <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
-                                 </h:panelGrid>
-                                </p:tab>
-                   </p:tabView>
+                                </p:layout>
+                            </h:panelGrid>
+                        </p:tab>
+
+
+
+
+
+
+
+
+
+                        <p:tab title="Prestamo Indefinido">
+                            <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
+                            </h:panelGrid>
+                        </p:tab>
+                    </p:tabView>
 
                 </h:form>
             </p:panel>

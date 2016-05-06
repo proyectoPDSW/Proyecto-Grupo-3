@@ -98,11 +98,4 @@ public abstract class ServiciosEquipoComplejo {
      */
     public abstract List<String> consultarAproximado(String cadena)throws ExcepcionServicios;
     
-    /**
-     * Agregar equipos complejos a una lista
-     * @param ec
-     * @return Una lista con equipos complejos
-     * @throws ExcepcionServicios 
-     */
-    public abstract Set<EquipoComplejo> agregarEquipoComplejo(EquipoComplejo ec) throws ExcepcionServicios;
 }
