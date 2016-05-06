@@ -42,9 +42,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     private final ServiciosEquipoComplejo EQCOMPLEJO;
     private final ServiciosEquipoSencillo EQSENCILLO;
     //Atributos de prestamo
-    private Timestamp fechaInicio;
     private Timestamp fechaEstimadaDeEntrega;
-    private Timestamp fechaRealEntregada;
     //Consultar persona
     private String carne;
     //Consultar modelo prestamo termino fijo
@@ -63,7 +61,12 @@ public class RegistroPrestamoManageBean implements Serializable{
     private String nombre;
     //Consultar equipo sencillo por nombre prestamo indefinido
     private String nombre2;
-
+    //Cantidad de equipo sencillo de prestamo termino fijo
+    private int cantidad;
+    //Cantidad de equipo sencillo de prestamo indefinido
+    private int cantidad2;
+    
+    
     //Atributos de prestamo
     //Prestamo termino fijo
     private Set<EquipoComplejo> equiposComplejosPrestados;
@@ -257,9 +260,7 @@ public class RegistroPrestamoManageBean implements Serializable{
      * Reinicia todas las variables para realizar otro prestamo
      */
     public void registrarOtroPrestamo(){
-        setFechaInicio(null);
         setFechaEstimadaDeEntrega(null);
-        setFechaRealEntregada(null);
 
         setEquiposComplejosPrestados(null);
         setEquiposSencillosPrestados(null);
@@ -312,20 +313,6 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
 
     /**
-     * @return the fechaInicio
-     */
-    public Timestamp getFechaInicio() {
-        return fechaInicio;
-    }
-
-    /**
-     * @param fechaInicio the fechaInicio to set
-     */
-    public void setFechaInicio(Timestamp fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    /**
      * @return the fechaEstimadaDeEntrega
      */
     public Timestamp getFechaEstimadaDeEntrega() {
@@ -337,20 +324,6 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public void setFechaEstimadaDeEntrega(Timestamp fechaEstimadaDeEntrega) {
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
-    }
-
-    /**
-     * @return the fechaRealEntregada
-     */
-    public Timestamp getFechaRealEntregada() {
-        return fechaRealEntregada;
-    }
-
-    /**
-     * @param fechaRealEntregada the fechaRealEntregada to set
-     */
-    public void setFechaRealEntregada(Timestamp fechaRealEntregada) {
-        this.fechaRealEntregada = fechaRealEntregada;
     }
 
     /**
@@ -616,5 +589,33 @@ public class RegistroPrestamoManageBean implements Serializable{
     
     public EquipoSencillo getSelectEquipoSencillo2(){
         return selectEquipoSencillo2;
+    }
+
+    /**
+     * @return the cantidad
+     */
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    /**
+     * @param cantidad the cantidad to set
+     */
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    /**
+     * @return the cantidad2
+     */
+    public int getCantidad2() {
+        return cantidad2;
+    }
+
+    /**
+     * @param cantidad2 the cantidad2 to set
+     */
+    public void setCantidad2(int cantidad2) {
+        this.cantidad2 = cantidad2;
     }
 }

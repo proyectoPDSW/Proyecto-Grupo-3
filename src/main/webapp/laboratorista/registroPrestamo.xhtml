@@ -43,7 +43,7 @@
                                         <h:outputLabel value="Modelo : (*) " />
                                         <p:inputText id="modelo1" value="#{RegistroPrestamo.modelo}" />
                                         <!--p:outputLabel value="#{RegistroPrestamo.ShowPanelRegistro()}"/-->
-                                        <p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo()}" icon="ui-icon-search"/>
+                                        <br/><p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo()}" icon="ui-icon-search"/>
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
                                         <p:panel id="tablas" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
 
@@ -76,7 +76,9 @@
                                     <p:layoutUnit position="center" resizable="true" size="100" minSize="40" maxSize="200">
                                         <h:outputLabel value="Nombre Del Equipo : (*) " />
                                         <p:inputText id="nombreEq" value="#{RegistroPrestamo.nombre}" />
-                                        <p:commandButton value="Consultar Equipos" update=":tablas2" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre()}" icon="ui-icon-search"/>
+                                        <br/><p:commandButton value="Consultar Equipos" update=":tablas2" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre()}" icon="ui-icon-search"/>
+                                        <br/><h:outputLabel value="Cantidad : (*) "  />
+                                        <p:inputText id="cantidadEq" value="#{RegistroPrestamo.cantidad}" />
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas2" actionListener="#{RegistroPrestamo.agregarEquipoS()}" ajax="false" icon="ui-icon-plusthick"/>
                                         <p:panel id="tablas2" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
 
@@ -116,7 +118,7 @@
                                         <h:outputLabel value="Modelo : (*) " />
                                         <p:inputText id="modelo2" value="#{RegistroPrestamo.modelo2}" />
                                         <!--p:outputLabel value="#{RegistroPrestamo.ShowPanelRegistro()}"/-->
-                                        <p:commandButton value="Consultar Equipos" update=":tablas3" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo2()}" icon="ui-icon-search"/>
+                                        <br/><p:commandButton value="Consultar Equipos" update=":tablas3" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo2()}" icon="ui-icon-search"/>
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas3" actionListener="#{RegistroPrestamo.agregarEquipoC2()}" ajax="false" icon="ui-icon-plusthick"/>
                                         <p:panel id="tablas3" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
 
@@ -149,7 +151,9 @@
                                     <p:layoutUnit position="center" resizable="true" size="100" minSize="40" maxSize="200">
                                         <h:outputLabel value="Nombre Del Equipo : (*) " />
                                         <p:inputText id="nombreEq2" value="#{RegistroPrestamo.nombre2}" />
-                                        <p:commandButton value="Consultar Equipos" update=":tablas4" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre2()}" icon="ui-icon-search"/>
+                                        <br/><p:commandButton value="Consultar Equipos" update=":tablas4" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre2()}" icon="ui-icon-search"/>
+                                        <br/><h:outputLabel value="Cantidad : (*) "  />
+                                        <p:inputText id="cantidadEq2" value="#{RegistroPrestamo.cantidad2}" />
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas4" actionListener="#{RegistroPrestamo.agregarEquipoS2()}" ajax="false" icon="ui-icon-plusthick"/>
                                         <p:panel id="tablas4" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
 
