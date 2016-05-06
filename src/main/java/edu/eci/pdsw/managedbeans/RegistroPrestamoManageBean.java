@@ -47,19 +47,32 @@ public class RegistroPrestamoManageBean implements Serializable{
     private Timestamp fechaRealEntregada;
     //Consultar persona
     private String carne;
-    //Consultar modelo
+    //Consultar modelo prestamo termino fijo
     private String modelo;
-    //EquipoComplejo
+    //Consultar modelo prestamo indefinido
+    private String modelo2;
+    //Equipo Complejo prestamo termino fijo
     private EquipoComplejo selectEquipoComplejo;
-    //Consultar equipo sencillo por nombre
+    //Equipo Sencillo prestamo termino fijo
+    private EquipoSencillo selectEquipoSencillo;
+    //Equipo Complejo prestamo indefinido
+    private EquipoComplejo selectEquipoComplejo2;
+    //Equipo Sencillo prestamo indefinido
+    private EquipoSencillo selectEquipoSencillo2;
+    //Consultar equipo sencillo por nombre prestamo termino fijo
     private String nombre;
+    //Consultar equipo sencillo por nombre prestamo indefinido
+    private String nombre2;
 
     //Atributos de prestamo
+    //Prestamo termino fijo
     private Set<EquipoComplejo> equiposComplejosPrestados;
-    private List<EquipoComplejo> equiposComplejosFaltantes;
     private Set<EquipoSencillo> equiposSencillosPrestados;
-    private List<EquipoSencillo> equiposSencillosFaltantes2;
-    private List<Integer> equiposSencillosPrestadosCantidad2;
+    //Prestamo indefinido
+    private Set<EquipoComplejo> equiposComplejosPrestados2;
+    private Set<EquipoSencillo> equiposSencillosPrestados2;
+    
+    private List<Integer> equiposSencillosPrestadosCantidad;
     private Persona elQuePideElPrestamo;
     private int tipo_prestamo;
     //Pantallas
@@ -67,14 +80,18 @@ public class RegistroPrestamoManageBean implements Serializable{
     private boolean showPanelRegistrado=false;
     private boolean showPanelPersona=true;
     
-    // Lista de equipo complejo para consultar los equipos
+    // Lista de equipo complejo para consultar los equipos prestamo termino fijo
     private List<EquipoComplejo> eqC;
-    //Lista de equipo sencillo para consultar los equipos
+    //Lista de equipo sencillo para consultar los equipos prestamo termino fijo
     private List<EquipoSencillo> eqS;
+    //Lista de equipo complejo para consultar los equipos prestamo indefinido
+    private List<EquipoComplejo> eqC2;
+    //Lista de equipo sencillo para consultar los equipos prestamo indefinido
+    private List<EquipoSencillo> equS2;
     
     private Prestamo prestamo;
     private String laPersona;
-    private EquipoSencillo selectEquipoSencillo;
+    
 
     
     
@@ -86,6 +103,8 @@ public class RegistroPrestamoManageBean implements Serializable{
         EQSENCILLO=ServiciosEquipoSencillo.getInstance();
         equiposComplejosPrestados=new LinkedHashSet<>();
         equiposSencillosPrestados=new LinkedHashSet<>();
+        equiposComplejosPrestados2=new LinkedHashSet<>();
+        equiposSencillosPrestados2=new LinkedHashSet<>();
     }
     /**
      * Consulta una persona por su carne para 
@@ -106,6 +125,14 @@ public class RegistroPrestamoManageBean implements Serializable{
     public List<EquipoSencillo> sacarEqS(){
         return eqS;
     }
+    
+    public List<EquipoComplejo> sacarEqC2(){
+        return eqC2;
+    }
+    
+    public List<EquipoSencillo> sacarEqS2(){
+        return equS2;
+    }
     /**
      *Consulta la lista de equipos complejos que tengan
      * un modelo especifico
@@ -122,8 +149,21 @@ public class RegistroPrestamoManageBean implements Serializable{
             facesError(ex.getMessage());
         }
         eqC=equipos;
-        //return equipos;
     }
+    
+    public void consultarEqModelo2(){
+        List<EquipoComplejo> equipos=new ArrayList<>();
+        try{
+            equipos=EQCOMPLEJO.consultarPorModelo(modelo2);
+            showPanelRegistro=true;
+        }catch(ExcepcionServicios ex){
+            ex.printStackTrace();
+            showPanelRegistro=false;
+            facesError(ex.getMessage());
+        }
+        eqC2=equipos;
+    }
+    
     /**
      * Consulta un equipo sencillo por su nombre
      */
@@ -140,18 +180,51 @@ public class RegistroPrestamoManageBean implements Serializable{
        eqS=equiposS;
     }
     
+    public void consultarEqSNombre2(){
+       List<EquipoSencillo> equiposS=new ArrayList<>();
+       try{
+           equiposS.add(EQSENCILLO.consultarPorNombre(nombre2));
+           showPanelRegistro=true;
+       }catch(ExcepcionServicios ex){
+           ex.printStackTrace();
+           showPanelRegistro=false;
+           facesError(ex.getMessage());
+       }
+       equS2=equiposS;
+    }
+    
     /**
-     * Agrega equipos complejos al prestamo 
+     * Agrega equipos complejos al prestamo termino fijo
     */
     public void agregarEquipoC(){
         if(selectEquipoComplejo!=null){
         equiposComplejosPrestados.add(selectEquipoComplejo);
         }
     }
-    
+    /**
+     * Agrega equipos sencillos al prestamo termino fijo
+     */
     public void agregarEquipoS(){
         if(getSelectEquipoSencillo()!=null){
         equiposSencillosPrestados.add(getSelectEquipoSencillo());
+        }
+    }
+    
+    /**
+     * Agrega equipos complejos al prestamo indefinido
+     */
+    public void agregarEquipoC2(){
+        if(selectEquipoComplejo!=null){
+            equiposComplejosPrestados2.add(selectEquipoComplejo);
+        }
+    }
+    
+    /**
+     * Agrega equipos sencillos al prestamo indefinido
+     */
+    public void agregarEquipoS2(){
+        if(selectEquipoSencillo!=null){
+            equiposSencillosPrestados2.add(selectEquipoSencillo);
         }
     }
     
@@ -188,11 +261,8 @@ public class RegistroPrestamoManageBean implements Serializable{
         setFechaEstimadaDeEntrega(null);
         setFechaRealEntregada(null);
 
-    
         setEquiposComplejosPrestados(null);
-        setEquiposComplejosFaltantes(null);
         setEquiposSencillosPrestados(null);
-        setEquiposSencillosFaltantes2(null);
         setEquiposSencillosPrestadosCantidad2(null);
         setElQuePideElPrestamo(null);
         setTipo_prestamo(0);
@@ -297,19 +367,6 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.equiposComplejosPrestados = equiposComplejosPrestados;
     }
 
-    /**
-     * @return the equiposComplejosFaltantes
-     */
-    public List<EquipoComplejo> getEquiposComplejosFaltantes() {
-        return equiposComplejosFaltantes;
-    }
-
-    /**
-     * @param equiposComplejosFaltantes the equiposComplejosFaltantes to set
-     */
-    public void setEquiposComplejosFaltantes(List<EquipoComplejo> equiposComplejosFaltantes) {
-        this.equiposComplejosFaltantes = equiposComplejosFaltantes;
-    }
 
     /**
      * @return the equiposSencillosPrestados
@@ -325,32 +382,20 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.equiposSencillosPrestados = equiposSencillosPrestados;
     }
 
-    /**
-     * @return the equiposSencillosFaltantes2
-     */
-    public List<EquipoSencillo> getEquiposSencillosFaltantes2() {
-        return equiposSencillosFaltantes2;
-    }
 
-    /**
-     * @param equiposSencillosFaltantes2 the equiposSencillosFaltantes2 to set
-     */
-    public void setEquiposSencillosFaltantes2(List<EquipoSencillo> equiposSencillosFaltantes2) {
-        this.equiposSencillosFaltantes2 = equiposSencillosFaltantes2;
-    }
 
     /**
      * @return the equiposSencillosPrestadosCantidad2
      */
     public List<Integer> getEquiposSencillosPrestadosCantidad2() {
-        return equiposSencillosPrestadosCantidad2;
+        return equiposSencillosPrestadosCantidad;
     }
 
     /**
      * @param equiposSencillosPrestadosCantidad2 the equiposSencillosPrestadosCantidad2 to set
      */
     public void setEquiposSencillosPrestadosCantidad2(List<Integer> equiposSencillosPrestadosCantidad2) {
-        this.equiposSencillosPrestadosCantidad2 = equiposSencillosPrestadosCantidad2;
+        this.equiposSencillosPrestadosCantidad = equiposSencillosPrestadosCantidad2;
     }
 
     /**
@@ -483,5 +528,93 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public void setSelectEquipoComplejo(EquipoComplejo selectEqC) {
         this.selectEquipoComplejo = selectEqC;
+    }
+    
+    public void setEquiposComplejosPrestados2(Set<EquipoComplejo> equiC){
+        this.equiposComplejosPrestados2=equiC;
+    }
+    
+    public Set<EquipoComplejo> getEquipoComplejosPrestados2(){
+        return equiposComplejosPrestados2;
+    }
+    
+    public void setEquiposSencillosPrestados2(Set<EquipoSencillo> equiS){
+        this.equiposSencillosPrestados2=equiS;
+    }
+    
+    public Set<EquipoSencillo> getEquipoSencillosPrestados2(){
+        return equiposSencillosPrestados2;
+    }
+
+    /**
+     * @return the modelo2
+     */
+    public String getModelo2() {
+        return modelo2;
+    }
+
+    /**
+     * @param modelo2 the modelo2 to set
+     */
+    public void setModelo2(String modelo2) {
+        this.modelo2 = modelo2;
+    }
+
+    /**
+     * @return the nombre2
+     */
+    public String getNombre2() {
+        return nombre2;
+    }
+
+    /**
+     * @param nombre2 the nombre2 to set
+     */
+    public void setNombre2(String nombre2) {
+        this.nombre2 = nombre2;
+    }
+
+    /**
+     * @return the eqC2
+     */
+    public List<EquipoComplejo> getEqC2() {
+        return eqC2;
+    }
+
+    /**
+     * @param eqC2 the eqC2 to set
+     */
+    public void setEqC2(List<EquipoComplejo> eqC2) {
+        this.eqC2 = eqC2;
+    }
+
+    /**
+     * @return the equS2
+     */
+    public List<EquipoSencillo> getEquS2() {
+        return equS2;
+    }
+
+    /**
+     * @param equS2 the equS2 to set
+     */
+    public void setEquS2(List<EquipoSencillo> equS2) {
+        this.equS2 = equS2;
+    }
+    
+    public void setSelectEquipoComplejo2(EquipoComplejo ec2){
+        this.selectEquipoComplejo2=ec2;
+    }
+    
+    public EquipoComplejo getSelectEquipoComplejo2(){
+        return selectEquipoComplejo2;
+    }
+    
+    public void setSelectEquipoSencillo2(EquipoSencillo es2){
+        this.selectEquipoSencillo2=es2;
+    }
+    
+    public EquipoSencillo getSelectEquipoSencillo2(){
+        return selectEquipoSencillo2;
     }
 }
