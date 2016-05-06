@@ -60,7 +60,7 @@ public class RegistrarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo reg=daof.getDaoEquipoComplejo();
         
-        Modelo mod = new Modelo(100000,"Destornillador de estrella","udfyzsiudfyziduvz","Destornillador",5000);
+        Modelo mod = new Modelo(100000,"Destornillador de astrella","udfyzsiudfyziduvz","Destornillador",5000);
         reg.save(mod);
         daof.commitTransaction();
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa",123456);
@@ -75,7 +75,7 @@ public class RegistrarEquipoTest {
     //No deberia registrar dos veces el mismo equipo
     @Test
     public void CE2() throws PersistenceException, EquipoException{
-        Modelo mod = new Modelo(100000,"Destornillador de estrella",null,"Destornillador",5000);
+        Modelo mod = new Modelo(100000,"Destornillador de strella",null,"Destornillador",5000);
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa",123456);
         DAOFactory daof = null;
         try{

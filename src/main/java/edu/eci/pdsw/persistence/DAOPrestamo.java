@@ -6,6 +6,7 @@
 package edu.eci.pdsw.persistence;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
+import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Prestamo;
 import java.sql.Timestamp;
 import java.util.List;
@@ -26,7 +27,7 @@ public interface DAOPrestamo {
      * @return la lista de prestamos del estudiante
      * @throws PersistenceException Hubo un error al cargar los prestamos
      */
-    public abstract List<Prestamo> load(Timestamp fecha, String carne) throws PersistenceException;
+    public abstract Prestamo load(Timestamp fecha, String carne) throws PersistenceException;
     
     
     /**

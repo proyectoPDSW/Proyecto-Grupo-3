@@ -38,7 +38,6 @@ public class PrestamoIndefinido extends Prestamo{
     }
 
     public PrestamoIndefinido() {
-        this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
     public PrestamoIndefinido(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados) {
@@ -57,7 +56,7 @@ public class PrestamoIndefinido extends Prestamo{
             this.equiposSencillosPrestados2=equiposSencillosPrestados;
             this.equiposSencillosFaltantes2=equiposSencillosPrestados;
         }
-        this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        this.fechaInicio=Prestamo.currDate();
         tipo_prestamo=EquipoComplejo.indefinido;
     }
     

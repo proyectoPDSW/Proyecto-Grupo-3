@@ -43,7 +43,6 @@ public class PrestamoTerminoFijo extends Prestamo {
     }
 
     public PrestamoTerminoFijo() {
-        this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
     public PrestamoTerminoFijo(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega, String tipo) {
@@ -63,7 +62,7 @@ public class PrestamoTerminoFijo extends Prestamo {
             this.equiposSencillosFaltantes2=equiposSencillosPrestados;
         }
         this.fechaEstimadaDeEntrega=fechaEstimadaDeEntrega;
-        this.fechaInicio=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        this.fechaInicio=Prestamo.currDate();
         tipo_prestamo=tipo;
     }
 

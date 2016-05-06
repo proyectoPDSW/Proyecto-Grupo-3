@@ -122,6 +122,7 @@ public class RegistrarPrestamosTest {
         
         Set<EquipoComplejo> equipos=new HashSet<>();
         EquipoSencillo es=new EquipoSencillo("nombre","clase",3,123456);
+        
         des.save(es);
         daof.commitTransaction();
         Set<EquipoSencillo> equiS=new LinkedHashSet<>();
@@ -164,8 +165,8 @@ public class RegistrarPrestamosTest {
         Set<EquipoComplejo> equipos=new HashSet<>();
         equipos.add(ec);
         Set<EquipoComplejo> ninguno=new HashSet<>();
-        EquipoSencillo es=new EquipoSencillo("nombre","clase",3,123456);
-        ec.setEstado(EquipoComplejo.indefinido);
+        EquipoSencillo es=new EquipoSencillo("otro nombre","otra clase",3,123456);
+        //ec.setEstado(EquipoComplejo.indefinido);
         des.save(es);
         daof.commitTransaction();
         Set<EquipoSencillo> equiS=new HashSet<>();
@@ -183,7 +184,7 @@ public class RegistrarPrestamosTest {
         daof.commitTransaction();
         dpres.save(pres1);
         daof.commitTransaction();
-        List<Prestamo> test=dpres.load(pres.getFechaInicio(), pres.getElQuePideElPrestamo().getCarnet());
+        List<Prestamo> test=dpres.loadByCarne( pres.getElQuePideElPrestamo().getCarnet());
         Prestamo test1=test.get(0);
         Prestamo test2=test.get(1);
         daof.commitTransaction();

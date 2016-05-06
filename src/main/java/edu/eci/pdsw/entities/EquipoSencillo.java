@@ -31,7 +31,7 @@ public class EquipoSencillo implements Comparable<EquipoSencillo> {
         if(name.length()<=0) throw new EquipoException(EquipoException.EQUIPO_S_SIN_NOMBRE);
         if(clas.length()<=0) throw new EquipoException(EquipoException.EQUIPO_S_SIN_CLASE);
         if(valorC<=0) throw new EquipoException(EquipoException.EQUIPO_S_COMERCIAL_INADECUADO);
-        if(cantidad<=0) throw new EquipoException(EquipoException.EQUIPO_S_CANTIDAD_INADECUADA);
+        if(cantidad<0) throw new EquipoException(EquipoException.EQUIPO_S_CANTIDAD_INADECUADA);
         nombre=name;
         clase=clas;
         valorComercial=valorC;

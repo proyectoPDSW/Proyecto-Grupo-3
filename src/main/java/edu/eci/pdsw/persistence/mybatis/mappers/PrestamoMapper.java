@@ -29,7 +29,7 @@ public interface PrestamoMapper {
     
     public void updateEquipoSencillo(@Param("Prestamo") Prestamo p,@Param("Eq_Sencillo") EquipoSencillo es);
     
-    public List<Prestamo> loadPrestamo(@Param("time")Timestamp fecha,@Param("carnet") String carne);
+    public Prestamo loadPrestamo(@Param("time")Timestamp fecha,@Param("carnet") String carne);
     
     public List<Prestamo> loadAll();
     

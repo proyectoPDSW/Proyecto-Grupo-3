@@ -40,10 +40,10 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         esmp = this.ses.getMapper(EquipoSencilloMapper.class);
     }
     @Override
-    public List<Prestamo> load(Timestamp fecha, String carne) throws PersistenceException {
+    public Prestamo load(Timestamp fecha, String carne) throws PersistenceException {
         if(carne==null) throw new PersistenceException("El carnet no puede ser nulo");
         if(fecha==null) throw new PersistenceException("La fecha no puede ser nulo");
-        /*if(pmap.loadPrestamo(fecha,carne).isEmpty()) 
+        /*if(pmap.loadPrestamo(fecha,carne).isEmpty())
             throw new PersistenceException("no existe ningun Prestamo en la base de datos con la fecha "+fecha.toString()+" y el carnet "+carne);*/
         return pmap.loadPrestamo(fecha,carne);
     }
@@ -53,15 +53,15 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         if(prestamo==null) throw new PersistenceException("El prestamo no puede ser nulo");
         if((prestamo.getEquiposComplejosPrestados()== null || prestamo.getEquiposComplejosPrestados().size()==0) && (prestamo.getEquiposSencillosPrestados2()==null || prestamo.getEquiposSencillosPrestados2().size()==0)) throw new PersistenceException("Los equipos no pueden ser nulos");
         if(prestamo.getElQuePideElPrestamo()==null)throw new PersistenceException("La persona no puede ser nulo");
-        List<Prestamo> lisp = load(prestamo.getFechaInicio(),prestamo.getElQuePideElPrestamo().getCarnet());
-        for (Prestamo prestamo1 : lisp) if(prestamo1.equals(prestamo)) throw new PersistenceException("El prestamo ya existe");
+        Prestamo lisp = load(prestamo.getFechaInicio(),prestamo.getElQuePideElPrestamo().getCarnet());
+        if(lisp!=null && lisp.equals(prestamo)) throw new PersistenceException("El prestamo ya existe");
         if(ppmp.load(prestamo.getElQuePideElPrestamo().getCarnet())==null) throw new PersistenceException("La persona no existe para poder realizar el prestamo");
         pmap.insertPrestamo(prestamo);
         if(prestamo.getEquiposComplejosPrestados()!=null){
             for (EquipoComplejo lisp1 : prestamo.getEquiposComplejosPrestados()) {
                 pmap.insertEquipoComplejo_Prestamo(prestamo, lisp1);
             }
-            
+
         }
         if(prestamo.getEquiposSencillosPrestados2()!=null){
             for (EquipoSencillo p : prestamo.getEquiposSencillosPrestados2()) {
@@ -73,7 +73,14 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
 
     @Override
     public void update(Prestamo prestamo) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(load(prestamo.getFechaInicio(), prestamo.getElQuePideElPrestamo().getCarnet())==null) throw new PersistenceException("El prestamo no existe así que no se puede actualizar");
+        //Prestamo pres=load(prestamo.getFechaInicio(), prestamo.getElQuePideElPrestamo().getCarnet());
+        //if(!prestamo.terminado()) throw new PersistenceException("el prestamo no puede ser actualizado pues ya ha terminado");
+        if(prestamo.terminado())
+            pmap.updatePrestamo(prestamo);
+        for (EquipoSencillo es : prestamo.getEquiposSencillosFaltantes2()) {
+            pmap.updateEquipoSencillo(prestamo, es);
+        }
     }
 
     @Override
@@ -103,6 +110,6 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         if(equipocomplejo==null) throw new PersistenceException("El equipo complejo no puede ser nulo");
         return pmap.loadByEquipoComplejo(equipocomplejo);
     }
-    
-    
+
+
 }
