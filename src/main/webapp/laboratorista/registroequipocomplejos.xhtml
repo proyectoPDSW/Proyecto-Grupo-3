@@ -9,11 +9,11 @@
         <br></br><b><title>Registro Equipo Complejo</title></b>
     </h:head>
     <h:body>
-        <center><p:graphicImage value="resource/ImagenInicio.jpg"/></center>
-        <center><b><h1>Registro Equipo Complejo</h1></b></center>
-
+        <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
+        <center><b><h1>Registro Equipos</h1></b></center>
+        
         <h:form id="formularioEquipoComplejo">
-           
+
             <p:panel id="consultaModelo" header="Consultar Modelo" style="margin-bottom:10px" >
 
                 <b><p:outputLabel for="nombreModelo" value="Nombre: (*)"/></b>
@@ -130,7 +130,7 @@
                             <h:inputText  value="#{RegistroEquiposComplejos.marca}" />
 
                             <h:outputLabel value="¿Se encuentra asegurado?" />
-                            <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Yes" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
+                            <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
                         </p:panelGrid> 
 
                     </p:panel>

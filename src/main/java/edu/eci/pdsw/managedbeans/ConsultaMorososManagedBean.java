@@ -38,7 +38,7 @@ import javax.faces.bean.SessionScoped;
  */
 @ManagedBean(name="consultaMorosos")
 @SessionScoped
-public class ColsultaMorososManagedBean implements Serializable{
+public class ConsultaMorososManagedBean implements Serializable{
     private final ServiciosPrestamo sp=ServiciosPrestamo.getInstance();
     
     private List<Prestamo> morosos;

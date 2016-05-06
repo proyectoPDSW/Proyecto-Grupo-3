@@ -94,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.nombre as nombre from Modelos as mo where mo.nombre=#{Modelo}
     </select>
 
-    <select id='loadModelosAproximados' parameterType='map' resultType="list">
+    <select id='loadModelosAproximados' parameterType='map' resultType="string">
         select mo.nombre from Modelos as mo where mo.nombre like '%'||#{Aproximado}||'%'
     </select>
 </mapper>
