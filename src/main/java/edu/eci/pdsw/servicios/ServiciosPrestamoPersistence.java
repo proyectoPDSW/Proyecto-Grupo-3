@@ -72,12 +72,12 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public List<Prestamo> consultarPrestamosPersona(Persona p) {
+    public List<Prestamo> consultarPrestamosPersona(String p) {
         List<Prestamo> prestamos=new LinkedList<>();
         try{
             daoF.beginSession();
             basePaciente=daoF.getDaoPrestamo();
-            prestamos=basePaciente.loadByCarne(p.getCarnet());
+            prestamos=basePaciente.loadByCarne(p);
             Collections.sort(prestamos);
         }catch(PersistenceException e){
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
@@ -189,7 +189,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         try{
             daoF.beginSession();
             DAOPersona dp=daoF.getDaoPersona();
-            p=dp.load(carne);
+            p=dp.loadPersRoles(carne);
         }catch(PersistenceException e){
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }finally{

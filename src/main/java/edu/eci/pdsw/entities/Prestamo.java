@@ -7,6 +7,7 @@ package edu.eci.pdsw.entities;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -63,7 +64,15 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         return check;
         //return fechaInicio.equals(p.getFechaInicio()) && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
     }
-    
+    public static Timestamp currDate(){
+        Timestamp timestamp=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss.SS");                                                                                
+   
+        fmt.setTimeZone(TimeZone.getTimeZone("GMT-5"));                                                                                              
+
+        System.out.println(fmt.format(timestamp));
+        return timestamp;
+    }
     @Override
     public abstract String toString();
     /**
@@ -194,5 +203,9 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public Set<EquipoSencillo> getEquiposSencillosPrestados2() {
         return equiposSencillosPrestados2;
+    }
+    
+    public boolean terminado(){
+        return getEquiposComplejosFaltantes().size()==0 && getEquiposSencillosFaltantes2().size()==0;
     }
 }

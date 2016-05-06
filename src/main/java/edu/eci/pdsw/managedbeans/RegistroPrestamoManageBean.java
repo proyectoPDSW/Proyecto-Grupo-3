@@ -31,7 +31,7 @@ import org.apache.ibatis.session.SqlSession;
 
 /**
  *
- * @author 2105403
+ * @author German Lopez
  */
 @ManagedBean(name="RegistroPrestamo")
 @SessionScoped
@@ -58,11 +58,18 @@ public class RegistroPrestamoManageBean implements Serializable{
     private Persona elQuePideElPrestamo;
     private int tipo_prestamo;
     //Pantallas
-    private boolean showPanelRegistro=true;
+    private boolean showPanelRegistro=false;
     private boolean showPanelRegistrado=false;
     private boolean showPanelPersona=true;
     
+    private List<EquipoComplejo> eq;
+    
     private Prestamo prestamo;
+    private String laPersona;
+    private String selectEquipoSencillo;
+
+    
+    
     
     public RegistroPrestamoManageBean(){
         
@@ -81,32 +88,32 @@ public class RegistroPrestamoManageBean implements Serializable{
             
         }
     }
-    
+    public List<EquipoComplejo> sacarEq(){
+        return eq;
+    }
     /**
      *Consulta la lista de equipos complejos que tengan
      * un modelo especifico
      * @return La lista con los equipos complejos
      */
-    public List<EquipoComplejo> consultarEqModelo(){
-        //showPanelPersona=false;
-        //showPanelRegistro=true;
-        //showPanelRegistrado=false;
+    public void consultarEqModelo(){
         List<EquipoComplejo> equipos=new ArrayList<>();
         try{
             equipos=EQCOMPLEJO.consultarPorModelo(modelo);
+            showPanelRegistro=true;
         }catch(ExcepcionServicios ex){
+            ex.printStackTrace();
+            showPanelRegistro=false;
             facesError(ex.getMessage());
         }
-        return equipos;
+        eq=equipos;
+        //return equipos;
     }
     
     /**
      * Agrega equipos complejos al prestamo 
     */
     public void agregarEquipoC(){
-        showPanelPersona=false;
-        showPanelRegistro=true;
-        showPanelRegistrado=false;
         try{
             equiposComplejosPrestados=EQCOMPLEJO.agregarEquipoComplejo(selectEquipoComplejo);
         }catch(ExcepcionServicios ex){
@@ -121,14 +128,14 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void registrarPrestamo(){
         showPanelPersona=false;
         try{
-            if(elQuePideElPrestamo.prioridad().get(0).getRol().equals("Estudiante")){
+            if(elQuePideElPrestamo.rolMasValioso().equals("Estudiante")){
                 prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,EquipoComplejo.diario);
                 PRESTAMO.registrarPrestamo(prestamo);
                 facesInfo("El prestamo ha sido registrado satisfactoriamente");
                 showPanelRegistro=false;
                 showPanelRegistrado=true;
             }
-            else if(getElQuePideElPrestamo().prioridad().get(-1).getRol().equals("Laboratorista") || getElQuePideElPrestamo().prioridad().get(-1).getRol().equals("Profesor")){
+            else if(getElQuePideElPrestamo().rolMasValioso().equals("Laboratorista") || getElQuePideElPrestamo().rolMasValioso().equals("Profesor")){
                 setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
                 PRESTAMO.registrarPrestamo(prestamo);
                 facesInfo("El prestamo ha sido registrado satisfactoriamente");
@@ -155,25 +162,19 @@ public class RegistroPrestamoManageBean implements Serializable{
         setEquiposSencillosPrestadosCantidad2(null);
         setElQuePideElPrestamo(null);
         setTipo_prestamo(0);
-        showPanelRegistro=true;
+        showPanelRegistro=false;
         showPanelRegistrado=false;
     }
     
-    public boolean isShowPanelRegistro() {
+    public boolean ShowPanelRegistro() {
         return showPanelRegistro;
     }
 
-    public void setShowPanelRegistro(boolean showPanelRegistro) {
-        this.showPanelRegistro = showPanelRegistro;
-    }
 
-    public boolean isShowPanelRegistrado() {
+    public boolean ShowPanelRegistrado() {
         return showPanelRegistrado;
     }
 
-    public void setShowPanelRegistrado(boolean showPanelRegistrado) {
-        this.showPanelRegistrado = showPanelRegistrado;
-    }
     
     /**
      * Muestra un mensaje de error en la vista
@@ -397,5 +398,55 @@ public class RegistroPrestamoManageBean implements Serializable{
     public String getModelo(){
         return modelo;
     }
+
+    /**
+     * @return the eq
+     */
+    public List<EquipoComplejo> getEq() {
+        return eq;
+    }
+
+    /**
+     * @param eq the eq to set
+     */
+    public void setEq(List<EquipoComplejo> eq) {
+        this.eq = eq;
+    }
     
+    public String getLaPersona() {
+        return laPersona;
+    }
+
+    public void setLaPersona(String laPersona) {
+        this.laPersona = laPersona;
+    }
+    
+    public List<EquipoSencillo> mostrarListaEquipoSencillo(){
+        List<EquipoSencillo> es = new ArrayList<>();
+        if(laPersona!=null && laPersona.length()>0){
+            List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
+            for (Prestamo p1 : p) {
+                System.out.println("Entro a revisar los prestamos "+p1.getFechaRealEntregada());
+                if(p1.getFechaRealEntregada()==null){
+                    System.out.println("Entro "+p1.getEquiposSencillosFaltantes2().size());
+                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes2()) {
+                        es.add(es1);
+                    }
+                }
+            }
+        }
+        return es;
+    }
+    
+    public String getSelectEquipoSencillo() {
+        return selectEquipoSencillo;
+    }
+
+    public void setSelectEquipoSencillo(String selectEquipoSencillo) {
+        this.selectEquipoSencillo = selectEquipoSencillo;
+    }
+    
+    public void onEquipoChange(){
+        System.out.println("Funciona :)");
+    }
 }

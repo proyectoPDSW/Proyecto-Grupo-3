@@ -172,8 +172,12 @@ public class Persona {
     }
     
     public String rolMasValioso(){
-        Collections.sort(roles);
-        return roles.get(-1).getRol();
+        String r="";
+        if(!roles.isEmpty()){
+            Collections.sort(roles);
+            r=roles.get(roles.size()-1).getRol();
+        }
+        return r;
     }
     
 }
