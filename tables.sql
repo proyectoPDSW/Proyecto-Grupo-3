@@ -113,7 +113,7 @@ CREATE TABLE Rol (
 CREATE TABLE Rol_Persona (
     Personas_carne varchar(20) NOT NULL,
     Rol_rol varchar(50) NOT NULL,
-    contrasena varchar(100) NOT NULL,
+    contrasena varchar(200) NOT NULL,
     sal varchar(10) NOT NULL,
     CONSTRAINT Rol_Persona_pk PRIMARY KEY (Personas_carne,Rol_rol)
 )ENGINE=InnoDB;
@@ -164,4 +164,3 @@ ALTER TABLE Rol_Persona ADD CONSTRAINT Rol_Persona_Rol FOREIGN KEY (Rol_rol)
     REFERENCES Rol (rol);
 
 -- End of file.
-

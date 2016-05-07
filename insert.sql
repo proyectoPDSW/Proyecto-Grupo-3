@@ -17,13 +17,13 @@ insert into Departamento_persona(departamento,persona) values ('Electrónica','3
 insert into Departamento_persona(departamento,persona) values ('Electrónica','1020816982');
 
 -- jd
-insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2105684','Estudiante','100968680','abc');
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2105684','Estudiante','$shiro1$SHA-256$500000$au4DbmdVFwERxtVlrBiklw==$YcbdtRn7ngj/BbjICVctUY9GarFdDA9/VOpN+RNSRDk=','bXlwcml2YXRlc2FsdA==');
 -- pp
-insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('30285974','Profesor','106819634','123');
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('30285974','Profesor','$shiro1$SHA-256$500000$LuJhV230oma/66/GNsTHXA==$6oCsexdCvI+qzeVkQLITU2+PoBEBFE1IXUAtAPhLShg=','bXlwcml2YXRlc2FsdA==');
 -- ha
-insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2105533','Estudiante','98983608','012');
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2105533','Estudiante','$shiro1$SHA-256$500000$BIjJiJBXUIQ1wF15Ezez+Q==$2nfl7K/AR7DCaWuhtCUmqO88XMo+gHdTodeuP5gon1c=','bXlwcml2YXRlc2FsdA==');
 -- cr
-insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('1020816982','Laboratorista','94935969','ppp');
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('1020816982','Laboratorista','$shiro1$SHA-256$500000$B46i8ACGEOUiRua3tOutUw==$JnDa/hCdq3ES4IMKYgGYKZxe4nVoc7oRPotm+FgtHZY=','bXlwcml2YXRlc2FsdA==');
 
 insert into Equipos_Sencillos(nombre,cantidad_total,clase,fotografia,valor_comercial) values('cable UTP','50','Cable','https://www.victronenergy.com.es/upload/cache/1423219110_upload_products_555_1000-301_2.png','2000');
 insert into Equipos_Sencillos(nombre,cantidad_total,clase,fotografia,valor_comercial) values('cautin de pistola 100w','10','Cautin','http://medios.plazavip.com/fotos/productos_sears1/original/427626.jpg','68000');

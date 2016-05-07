@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2016-04-28 21:09:01.244
+-- Last modification date: 2016-05-07 14:58:36.154
 
 -- foreign keys
 ALTER TABLE Departamento_persona
@@ -61,3 +61,4 @@ DROP TABLE Rol;
 DROP TABLE Rol_Persona;
 
 -- End of file.
+
