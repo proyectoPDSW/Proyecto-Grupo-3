@@ -6,27 +6,29 @@
     </h:head>
     <h:body >
         <h:form prependId="false">
-            <center><p:graphicImage value="resource/ImagenInicio.jpg"/>
-            <p:fieldset legend="Inicio sesión: " style="margin-bottom:20px">
+            <center><p:graphicImage value="resource/ImagenInicio.jpg"/></center>
+            <p:fieldset legend="Inicio sesión: " style="margin-bottom:20px;
+                        margin-right:250px; margin-left: 250px; margin-top: 20px">
                 <p:growl id="msgs" showDetail="true" />
-               
-                <h:panelGrid columns="2">
-                    <h:outputText value="Usuario:"/>
-                    <p:inputText id="username" required="true" value="#{loginBean.username}"/>
+                <center>
+                    <h:panelGrid columns="2">
+                        <h:outputText value="Usuario:"/>
+                        <p:inputText id="username" value="#{loginBean.username}"/>
 
-                    <h:outputText value="Contraseña:"/>
-                    <p:password id="password" required="true" value="#{loginBean.password}"/>
+                        <h:outputText value="Contraseña:"/>
+                        <p:password id="password" value="#{loginBean.password}"/>
 
-                    <h:outputText value="Recuerdame:"/>
-                    <p:selectBooleanCheckbox id="rememberMe" value="#{loginBean.rememberMe}"/>
+                        <h:outputText value="Recuerdame:"/>
+                        <p:selectBooleanCheckbox id="rememberMe" value="#{loginBean.rememberMe}"/>
 
-                    <h:outputText/>
-                    <p:commandButton value="Entrar" action="#{loginBean.doLogin}" />
-                </h:panelGrid>
+                        <h:outputText/>
+                        <p:commandButton value="Entrar" action="#{loginBean.doLogin}" />
+                    </h:panelGrid>
+                </center>
 
                 <p:messages id="messages" autoUpdate="true" closable="true" />
             </p:fieldset>
-            </center>
+
         </h:form>
     </h:body>
 </html>

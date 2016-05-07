@@ -22,6 +22,12 @@
             <artifactId>pax-swissbox-optional-jcl</artifactId>
             <version>1.6.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.jolbox</groupId>
+            <artifactId>bonecp</artifactId>
+            <version>0.8.0.RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>  
             <groupId>org.primefaces.themes</groupId>  
             <artifactId>all-themes</artifactId>  

@@ -18,6 +18,10 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
+import org.apache.shiro.authc.credential.DefaultPasswordService;
+import org.apache.shiro.crypto.hash.DefaultHashService;
+import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.util.SimpleByteSource;
 
 
 @ManagedBean(name = "loginBean")
@@ -37,6 +41,23 @@ public class ShiroLoginBean implements Serializable {
         return SecurityUtils.getSubject();
     }
     
+     public static String generateHash(String password){
+        DefaultHashService hashService = new DefaultHashService();
+        hashService.setHashIterations(500000); // 500000
+        hashService.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
+        
+        // Same salt as in shiro.ini, but NOT base64-encoded!!
+        hashService.setPrivateSalt(new SimpleByteSource("myprivatesalt")); 
+        hashService.setGeneratePublicSalt(true);
+
+        DefaultPasswordService passwordService = new DefaultPasswordService();
+        passwordService.setHashService(hashService);
+        String encryptedPassword = passwordService.encryptPassword(password);
+        
+        return encryptedPassword;
+        
+    }
+    
     /**
      * Try and authenticate the user
      */
@@ -44,7 +65,7 @@ public class ShiroLoginBean implements Serializable {
         Subject subject = SecurityUtils.getSubject();
 
         UsernamePasswordToken token = new UsernamePasswordToken(getUsername(), getPassword(), getRememberMe());
-
+        
         try {
             subject.login(token);
 
