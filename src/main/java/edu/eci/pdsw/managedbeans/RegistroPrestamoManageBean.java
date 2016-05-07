@@ -465,10 +465,11 @@ public class RegistroPrestamoManageBean implements Serializable{
         if(laPersona!=null && laPersona.length()>0){
             List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
             for (Prestamo p1 : p) {
+                System.out.println(p1.toString());
                 System.out.println("Entro a revisar los prestamos "+p1.getFechaRealEntregada());
                 if(p1.getFechaRealEntregada()==null){
-                    System.out.println("Entro "+p1.getEquiposSencillosFaltantes2().size());
-                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes2()) {
+                    System.out.println("Entro "+p1.getEquiposSencillosFaltantes().size());
+                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) {
                         es.add(es1);
                     }
                 }

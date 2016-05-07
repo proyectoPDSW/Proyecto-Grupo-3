@@ -81,7 +81,7 @@ public class DevolucionesTest {
         HashSet<EquipoComplejo> sec=new HashSet<>();sec.add(ec);
         HashSet<EquipoSencillo> ses=new HashSet<>();ses.add(es);
         Prestamo pr=new PrestamoTerminoFijo(yo, sec, ses, Timestamp.valueOf("2016-03-05 12:00:00"), EquipoComplejo.diario);
-        pr.getEquiposComplejosFaltantes();pr.getEquiposSencillosFaltantes2();
+        pr.getEquiposComplejosFaltantes();pr.getEquiposSencillosFaltantes();
         //daof.endSession();
         Assert.assertTrue("El prestamo no queda terminado si no tiene equipos pendientes",pr.terminado());
     }
@@ -168,7 +168,7 @@ public class DevolucionesTest {
             es.setCantidadTotal(0);
             //Prestamo loaded=dapr.load(pr.getFechaInicio(), pr.getElQuePideElPrestamo().getCarnet());
             ses=new HashSet<>();ses.add(es);
-            pr.setEquiposSencillosPrestados2(ses);
+            pr.setEquiposSencillosPrestados(ses);
             dapr.update(pr);
             daof.commitTransaction();
             Prestamo loaded=dapr.load(pr.getFechaInicio(), pr.getElQuePideElPrestamo().getCarnet());
@@ -177,7 +177,7 @@ public class DevolucionesTest {
             daof.endSession();
             
             EquipoSencillo b=null;
-            for(EquipoSencillo e:loaded.getEquiposSencillosPrestados2()){
+            for(EquipoSencillo e:loaded.getEquiposSencillosPrestados()){
                 System.out.println("test "+e);
                 if(e.getNombre().equals(es.getNombre())) b=e;
             }

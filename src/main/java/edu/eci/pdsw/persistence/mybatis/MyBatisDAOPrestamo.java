@@ -51,7 +51,7 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
     @Override
     public void save(Prestamo prestamo) throws PersistenceException {
         if(prestamo==null) throw new PersistenceException("El prestamo no puede ser nulo");
-        if((prestamo.getEquiposComplejosPrestados()== null || prestamo.getEquiposComplejosPrestados().size()==0) && (prestamo.getEquiposSencillosPrestados2()==null || prestamo.getEquiposSencillosPrestados2().size()==0)) throw new PersistenceException("Los equipos no pueden ser nulos");
+        if((prestamo.getEquiposComplejosPrestados()== null || prestamo.getEquiposComplejosPrestados().size()==0) && (prestamo.getEquiposSencillosPrestados()==null || prestamo.getEquiposSencillosPrestados().size()==0)) throw new PersistenceException("Los equipos no pueden ser nulos");
         if(prestamo.getElQuePideElPrestamo()==null)throw new PersistenceException("La persona no puede ser nulo");
         Prestamo lisp = load(prestamo.getFechaInicio(),prestamo.getElQuePideElPrestamo().getCarnet());
         if(lisp!=null && lisp.equals(prestamo)) throw new PersistenceException("El prestamo ya existe");
@@ -63,8 +63,8 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
             }
 
         }
-        if(prestamo.getEquiposSencillosPrestados2()!=null){
-            for (EquipoSencillo p : prestamo.getEquiposSencillosPrestados2()) {
+        if(prestamo.getEquiposSencillosPrestados()!=null){
+            for (EquipoSencillo p : prestamo.getEquiposSencillosPrestados()) {
                 //if(esmp.loadEquipoByNombre(p.getNombre())==null) throw new PersistenceException("El equipo sencillo no existe para poder realizar el prestamo");
                 pmap.insertEquipoSencillo_Prestamo(prestamo, p);
             }
@@ -78,7 +78,7 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         //if(!prestamo.terminado()) throw new PersistenceException("el prestamo no puede ser actualizado pues ya ha terminado");
         if(prestamo.terminado())
             pmap.updatePrestamo(prestamo);
-        for (EquipoSencillo es : prestamo.getEquiposSencillosPrestados2()) {
+        for (EquipoSencillo es : prestamo.getEquiposSencillosPrestados()) {
             System.out.println("test dao "+es);
             pmap.updateEquipoSencillo(prestamo, es);
         }

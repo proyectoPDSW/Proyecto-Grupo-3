@@ -30,9 +30,9 @@ public class PrestamoIndefinido extends Prestamo{
         else
             this.equiposComplejosPrestados = equiposComplejosPrestados;
         if(equiposSencillosPrestados==null){
-            this.equiposSencillosPrestados2=new HashSet<>();
+            this.equiposSencillosPrestados=new HashSet<>();
         }else{
-            this.equiposSencillosPrestados2 = equiposSencillosPrestados;
+            this.equiposSencillosPrestados = equiposSencillosPrestados;
         }
         this.elQuePideElPrestamo = elQuePideElPrestamo;
         this.tipo_prestamo=tipo_prestamo;
@@ -51,11 +51,11 @@ public class PrestamoIndefinido extends Prestamo{
             this.equiposComplejosFaltantes=equiposComplejosPrestados;
         }
         if(equiposSencillosPrestados==null){
-            this.equiposSencillosPrestados2=new HashSet<>();
-            this.equiposSencillosFaltantes2=new HashSet<>();
+            this.equiposSencillosPrestados=new HashSet<>();
+            this.equiposSencillosFaltantes=new HashSet<>();
         }else{
-            this.equiposSencillosPrestados2=equiposSencillosPrestados;
-            this.equiposSencillosFaltantes2=equiposSencillosPrestados;
+            this.equiposSencillosPrestados=equiposSencillosPrestados;
+            this.equiposSencillosFaltantes=equiposSencillosPrestados;
         }
         this.fechaInicio=Prestamo.currDate();
         tipo_prestamo=EquipoComplejo.indefinido;
@@ -71,8 +71,8 @@ public class PrestamoIndefinido extends Prestamo{
             for (EquipoComplejo ec: equiposComplejosPrestados) {
                 sb.append(" "+ec.toString()+" \n");
             }
-        if(equiposSencillosPrestados2!=null)
-            for (EquipoSencillo es: equiposSencillosPrestados2) {
+        if(equiposSencillosPrestados!=null)
+            for (EquipoSencillo es: equiposSencillosPrestados) {
                 sb.append(" "+es.toString()+" \n");
             }
         return sb.toString();

@@ -5,16 +5,10 @@
  */
 package edu.eci.pdsw.entities;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -28,10 +22,11 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     protected Timestamp fechaRealEntregada;
 
     
+    
     protected Set<EquipoComplejo> equiposComplejosPrestados;
     protected Set<EquipoComplejo> equiposComplejosFaltantes;
-    protected Set<EquipoSencillo> equiposSencillosPrestados2;
-    protected Set<EquipoSencillo> equiposSencillosFaltantes2;
+    protected Set<EquipoSencillo> equiposSencillosPrestados;
+    protected Set<EquipoSencillo> equiposSencillosFaltantes;
     protected Persona elQuePideElPrestamo;
     protected String tipo_prestamo;
 
@@ -137,7 +132,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
                 }
             }
         }       
-        if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        //if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
 
@@ -160,9 +155,9 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     public void setElQuePideElPrestamo(Persona elQuePideElPrestamo) {
         this.elQuePideElPrestamo = elQuePideElPrestamo;
     }
-    public void setEquiposSencillosPrestados2(Set<EquipoSencillo> sencillosPrestados) {
-        this.equiposSencillosPrestados2 = sencillosPrestados;
-        setEquiposSencillosFaltantes2(equiposSencillosPrestados2);
+    public void setEquiposSencillosPrestados(Set<EquipoSencillo> equiposSencillosPrestados) {
+        this.equiposSencillosPrestados = equiposSencillosPrestados;
+        setEquiposSencillosFaltantes(this.equiposSencillosPrestados);
         //Collections.sort(equiposSencillosFaltantes2);
     }
 
@@ -178,37 +173,56 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     public abstract int compareTo(Prestamo o);
 
     /**
-     * @return the equiposSencillosFaltantes2
+     * @return the equiposSencillosFaltantes
      */
-    public Set<EquipoSencillo> getEquiposSencillosFaltantes2() {
-        setEquiposSencillosFaltantes2(equiposSencillosFaltantes2);
-        if(equiposSencillosFaltantes2==null) equiposSencillosFaltantes2=new HashSet<>();
+    public Set<EquipoSencillo> getEquiposSencillosFaltantes() {
+        setEquiposSencillosFaltantes(equiposSencillosFaltantes);
+        if(equiposSencillosFaltantes==null) equiposSencillosFaltantes=new HashSet<>();
         //Collections.sort(equiposSencillosFaltantes2);
-        return equiposSencillosFaltantes2;
+        return equiposSencillosFaltantes;
     }
 
     /**
-     * @param equiposSencillosFaltantes2 the equiposSencillosFaltantes2 to set
+     * @param equiposSencillosFaltantes the equiposSencillosFaltantes2 to set
      */
-    public void setEquiposSencillosFaltantes2(Set<EquipoSencillo> equiposSencillosFaltantes2) {
-        this.equiposSencillosFaltantes2=new HashSet<>();
-        for(EquipoSencillo es : equiposSencillosFaltantes2){
-            if(es.getCantidadTotal()>0)
-                this.equiposSencillosFaltantes2.add(es);
+    public void setEquiposSencillosFaltantes(Set<EquipoSencillo> equiposSencillosFaltantes) {
+        this.equiposSencillosFaltantes=new HashSet<>();
+        if(equiposSencillosFaltantes!=null){
+            System.out.println("Entro con "+equiposSencillosFaltantes.size());
+            for(EquipoSencillo es : equiposSencillosFaltantes){
+                if(es.getCantidadTotal()>0)
+                    this.equiposSencillosFaltantes.add(es);
+            }
         }
-        if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        System.out.println("AQUI puede ser el error ->>>>>> "+terminado());
+        //if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
     /**
      * 
      * @return return the equiposSencillosPrestados2
      */
-    public Set<EquipoSencillo> getEquiposSencillosPrestados2() {
-        return equiposSencillosPrestados2;
+    public Set<EquipoSencillo> getEquiposSencillosPrestados() {
+        if(equiposSencillosPrestados!=null){
+            setEquiposSencillosFaltantes(equiposSencillosPrestados);
+        }
+        return equiposSencillosPrestados;
     }
     
     public boolean terminado(){
-        if(equiposSencillosFaltantes2==null)equiposSencillosFaltantes2=new HashSet<>();
+        if(equiposSencillosFaltantes==null)equiposSencillosFaltantes=new HashSet<>();
         if(equiposComplejosFaltantes==null)equiposComplejosFaltantes=new HashSet<>();
-        return equiposComplejosFaltantes.isEmpty() && equiposSencillosFaltantes2.isEmpty();
+        return equiposComplejosFaltantes.isEmpty() && equiposSencillosFaltantes.isEmpty();
     }
+    public void setFechaInicio(Timestamp fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setFechaEstimadaDeEntrega(Timestamp fechaEstimadaDeEntrega) {
+        this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
+    }
+
+    public void setFechaRealEntregada(Timestamp fechaRealEntregada) {
+        this.fechaRealEntregada = fechaRealEntregada;
+    }
+
 }
