@@ -29,7 +29,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import org.apache.ibatis.session.SqlSession;
 
 /**
  *
@@ -91,6 +90,15 @@ public class RegistroPrestamoManageBean implements Serializable{
     private List<EquipoComplejo> eqC2;
     //Lista de equipo sencillo para consultar los equipos prestamo indefinido
     private List<EquipoSencillo> equS2;
+    //Lista de los tiempos que posee un prestamo, equipo complejo prestamo termino fijo
+    private List<String> tipoPrestamo;
+    //Lista de los tiempos que posee un prestamo, equipo sencillo prestamo termino fijo
+    private List<String> tipoPrestamo2;
+    //Tiempo de vida del prestamo, equipo complejo prestamo termino fijo
+    private String fechaTipoPrestamo;
+    //Tiempo de vida del prestamo, equipo sencillo prestamo termino fijo
+    private String fechaTipoPrestamo2;
+
     
     private Prestamo prestamo;
     private String laPersona;
@@ -108,6 +116,14 @@ public class RegistroPrestamoManageBean implements Serializable{
         equiposSencillosPrestados=new LinkedHashSet<>();
         equiposComplejosPrestados2=new LinkedHashSet<>();
         equiposSencillosPrestados2=new LinkedHashSet<>();
+        tipoPrestamo=new ArrayList<>();
+        tipoPrestamo2=new ArrayList<>();
+        tipoPrestamo.add("Diario");
+        tipoPrestamo.add("Semanal");
+        tipoPrestamo.add("Mensual");
+        tipoPrestamo.add("Semestral");
+        tipoPrestamo.add("Anual");
+        tipoPrestamo2=tipoPrestamo;
     }
     /**
      * Consulta una persona por su carne para 
@@ -618,5 +634,61 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public void setCantidad2(int cantidad2) {
         this.cantidad2 = cantidad2;
+    }
+
+    /**
+     * @return the tipoPrestamo
+     */
+    public List<String> getTipoPrestamo() {
+        return tipoPrestamo;
+    }
+
+    /**
+     * @param tipoPrestamo the tipoPrestamo to set
+     */
+    public void setTipoPrestamo(List<String> tipoPrestamo) {
+        this.tipoPrestamo = tipoPrestamo;
+    }
+
+    /**
+     * @return the fechaTipoPrestamo
+     */
+    public String getFechaTipoPrestamo() {
+        return fechaTipoPrestamo;
+    }
+
+    /**
+     * @param fechaTipoPrestamo the fechaTipoPrestamo to set
+     */
+    public void setFechaTipoPrestamo(String fechaTipoPrestamo) {
+        this.fechaTipoPrestamo = fechaTipoPrestamo;
+    }
+
+    /**
+     * @return the fechaTipoPrestamo2
+     */
+    public String getFechaTipoPrestamo2() {
+        return fechaTipoPrestamo2;
+    }
+
+    /**
+     * @param fechaTipoPrestamo2 the fechaTipoPrestamo2 to set
+     */
+    public void setFechaTipoPrestamo2(String fechaTipoPrestamo2) {
+        this.fechaTipoPrestamo2 = fechaTipoPrestamo2;
+    }
+
+    /**
+     * @return the tipoPrestamo2
+     */
+    public List<String> getTipoPrestamo2() {
+        return tipoPrestamo2;
+    }
+
+    /**
+     * @param tipoPrestamo2 the tipoPrestamo2 to set
+     */
+    public void setTipoPrestamo2(List<String> tipoPrestamo2) {
+        this.tipoPrestamo2 = tipoPrestamo2;
     }
 }

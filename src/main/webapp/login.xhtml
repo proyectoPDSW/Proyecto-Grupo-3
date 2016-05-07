@@ -13,10 +13,10 @@
                 <center>
                     <h:panelGrid columns="2">
                         <h:outputText value="Usuario:"/>
-                        <p:inputText id="username" required="true" value="#{loginBean.username}"/>
+                        <p:inputText id="username" value="#{loginBean.username}"/>
 
                         <h:outputText value="Contraseña:"/>
-                        <p:password id="password" required="true" value="#{loginBean.password}"/>
+                        <p:password id="password" value="#{loginBean.password}"/>
 
                         <h:outputText value="Recuerdame:"/>
                         <p:selectBooleanCheckbox id="rememberMe" value="#{loginBean.rememberMe}"/>

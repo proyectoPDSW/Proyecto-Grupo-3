@@ -45,6 +45,10 @@
                                         <!--p:outputLabel value="#{RegistroPrestamo.ShowPanelRegistro()}"/-->
                                         <br/><p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo()}" icon="ui-icon-search"/>
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
+                                            <br/><p:outputLabel id="fechaTipoPrestamo" value="Fecha:" />
+                                            <br/><p:selectOneRadio id="tPrestamo" value="#{RegistroPrestamo.fechaTipoPrestamo}" >
+                                                <f:selectItems value="#{RegistroPrestamo.tipoPrestamo}" var="tp" itemLabel="#{tp}" itemValue="#{tp}"/>
+                                            </p:selectOneRadio>
                                         <p:panel id="tablas" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
 
                                             <p:dataTable id="EquiposModelos1" var="equipoC1" value="#{RegistroPrestamo.sacarEqC()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoComplejo}" rowKey="#{equipoC1.serial}" >
@@ -80,8 +84,11 @@
                                         <br/><h:outputLabel value="Cantidad : (*) "  />
                                         <p:inputText id="cantidadEq" value="#{RegistroPrestamo.cantidad}" />
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas2" actionListener="#{RegistroPrestamo.agregarEquipoS()}" ajax="false" icon="ui-icon-plusthick"/>
+                                          <br/><p:outputLabel id="fechaTipoPrestamo2" value="Fecha:" />
+                                          <br/><p:selectOneRadio id="tPrestamo2" value="#{RegistroPrestamo.fechaTipoPrestamo2}" >
+                                                <f:selectItems value="#{RegistroPrestamo.tipoPrestamo2}" var="tp2" itemLabel="#{tp2}" itemValue="#{tp2}"/>
+                                            </p:selectOneRadio>
                                         <p:panel id="tablas2" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
-
                                             <p:dataTable id="EquiposNombre1" var="equipoS1" value="#{RegistroPrestamo.sacarEqS()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoSencillo}" rowKey="#{equipoS1.nombre}" >
                                                 <p:column headerText="Nombre">      
                                                     <h:outputText value="#{equipoS1.nombre}" />
