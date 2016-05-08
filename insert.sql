@@ -4,17 +4,29 @@ insert into Departamentos(departamento) values('Electrónica');
 insert into Rol(rol) values ('Laboratorista');
 insert into Rol(rol) values ('Estudiante');
 insert into Rol(rol) values ('Profesor');
+insert into Rol(rol) values ('admin');
 
 insert into Personas (carne,nombre,apellido,email,telefono) values ('2105684','Julian','Devia','julian.devia@mail.escuelaing.edu.co','3115086950');
 insert into Personas (carne,nombre,apellido,email,telefono) values ('30285974','Pepito','Perez','pepito.perez@mail.escuelaing.edu.co','3105650732');
 insert into Personas (carne,nombre,apellido,email,telefono) values ('2105533','Hugo','Alvarez','hugo.alvarez@mail.escuelaing.edu.co','0316706243');
 insert into Personas (carne,nombre,apellido,email,telefono) values ('1020816982','Carmenzo','Rodriguez','carmenzo.rodriguez@mail.escuelaing.edu.co','3129876543');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('2107646','Daniela','Sepulveda','daniela.sepulveda@mail.escuelaing.edu.co','3204615289');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('2105403','German','Lopez','german.lopez-p@mail.escuelaing.edu.co','123456789');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('admin','admin','','admin.admin@mail.escuelaing.edu.co','00000000000');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('laboratorista','laboratorista','','laboratorista.laboratorista@mail.escuelaing.edu.co','00000000000');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('estudiante','estudiante','','estudiante.estudiante@mail.escuelaing.edu.co','00000000000');
 
 insert into Departamento_persona(departamento,persona) values ('Sistemas','2105684');
 insert into Departamento_persona(departamento,persona) values ('Sistemas','2105533');
 insert into Departamento_persona(departamento,persona) values ('Sistemas','30285974');
 insert into Departamento_persona(departamento,persona) values ('Electrónica','30285974');
 insert into Departamento_persona(departamento,persona) values ('Electrónica','1020816982');
+insert into Departamento_persona(departamento,persona) values ('Electrónica','admin');
+insert into Departamento_persona(departamento,persona) values ('Sistemas','2107646');
+insert into Departamento_persona(departamento,persona) values ('Electrónica','2107646');
+insert into Departamento_persona(departamento,persona) values ('Sistemas','2105403');
+insert into Departamento_persona(departamento,persona) values ('Electrónica','laboratorista');
+insert into Departamento_persona(departamento,persona) values ('Sistemas','estudiante');
 
 -- jd
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2105684','Estudiante','$shiro1$SHA-256$500000$au4DbmdVFwERxtVlrBiklw==$YcbdtRn7ngj/BbjICVctUY9GarFdDA9/VOpN+RNSRDk=','bXlwcml2YXRlc2FsdA==');
@@ -24,6 +36,16 @@ insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('30285974
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2105533','Estudiante','$shiro1$SHA-256$500000$BIjJiJBXUIQ1wF15Ezez+Q==$2nfl7K/AR7DCaWuhtCUmqO88XMo+gHdTodeuP5gon1c=','bXlwcml2YXRlc2FsdA==');
 -- cr
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('1020816982','Laboratorista','$shiro1$SHA-256$500000$B46i8ACGEOUiRua3tOutUw==$JnDa/hCdq3ES4IMKYgGYKZxe4nVoc7oRPotm+FgtHZY=','bXlwcml2YXRlc2FsdA==');
+-- admin
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('admin','admin','$shiro1$SHA-256$500000$/E/R5ARZcEBM9tITGFZaEQ==$ElPz7Xh0360LnKxaEtIK28ilE3y4rxAsTe+IBFm8QRk=','bXlwcml2YXRlc2FsdA==');
+-- gl
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2105403','Estudiante','$shiro1$SHA-256$500000$d/FEHjBt/uhXMcYyXq+sGw==$LDOAtCKgelKODj3lh+jH/GNzpG50+la9tEdyCwhoI2A=','bXlwcml2YXRlc2FsdA==');
+-- ds
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2107646','Estudiante','$shiro1$SHA-256$500000$B5cXJ+eXggsRuzTxZIswqA==$531aCUx6ErfA64zyU3WqZ9sv/Y1JyXmvfi43e8uVXM4=','bXlwcml2YXRlc2FsdA==');
+-- laboratorista
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('laboratorista','Laboratorista','$shiro1$SHA-256$500000$3w3mjQnwRu/k8jEAKZtQIQ==$wXU2o3uplaCbyWtRg1RYP4tPBRuso7kqLIVV63di020=','bXlwcml2YXRlc2FsdA==');
+-- estudiante
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('estudiante','estudiante','$shiro1$SHA-256$500000$UYQIxz6nvGvo/9Kt/6VyVg==$vg/RwUwILPCFG49UMzLJX5WLAvwVZ85ZkInygMFwrpo=','bXlwcml2YXRlc2FsdA==');
 
 insert into Equipos_Sencillos(nombre,cantidad_total,clase,fotografia,valor_comercial) values('cable UTP','50','Cable','https://www.victronenergy.com.es/upload/cache/1423219110_upload_products_555_1000-301_2.png','2000');
 insert into Equipos_Sencillos(nombre,cantidad_total,clase,fotografia,valor_comercial) values('cautin de pistola 100w','10','Cautin','http://medios.plazavip.com/fotos/productos_sears1/original/427626.jpg','68000');
