@@ -65,7 +65,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
    
         fmt.setTimeZone(TimeZone.getTimeZone("GMT-5"));                                                                                              
 
-        System.out.println(fmt.format(timestamp));
+        //System.out.println(fmt.format(timestamp));
         return timestamp;
     }
     @Override
@@ -132,7 +132,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
                 }
             }
         }       
-        //if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
 
@@ -188,14 +188,14 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     public void setEquiposSencillosFaltantes(Set<EquipoSencillo> equiposSencillosFaltantes) {
         this.equiposSencillosFaltantes=new HashSet<>();
         if(equiposSencillosFaltantes!=null){
-            System.out.println("Entro con "+equiposSencillosFaltantes.size());
+            //System.out.println("Entro con "+equiposSencillosFaltantes.size());
             for(EquipoSencillo es : equiposSencillosFaltantes){
                 if(es.getCantidadTotal()>0)
                     this.equiposSencillosFaltantes.add(es);
             }
         }
-        System.out.println("AQUI puede ser el error ->>>>>> "+terminado());
-        //if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        //System.out.println("AQUI puede ser el error ->>>>>> "+terminado());
+        if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
     /**
      * 
@@ -207,12 +207,17 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         }
         return equiposSencillosPrestados;
     }
-    
+
+    /**
+     * Me dice si un prestamo ha terminado
+     * @return si el prestamo ya termino
+     */
     public boolean terminado(){
         if(equiposSencillosFaltantes==null)equiposSencillosFaltantes=new HashSet<>();
         if(equiposComplejosFaltantes==null)equiposComplejosFaltantes=new HashSet<>();
         return equiposComplejosFaltantes.isEmpty() && equiposSencillosFaltantes.isEmpty();
     }
+    
     public void setFechaInicio(Timestamp fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
@@ -224,5 +229,29 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     public void setFechaRealEntregada(Timestamp fechaRealEntregada) {
         this.fechaRealEntregada = fechaRealEntregada;
     }
-
+    
+    /**
+     * Me dice si un equipo sencillo falta por entregar en este prestamo
+     * @param equipo a buscar
+     * @return si un equipo sencillo falta por entregar en este prestamo
+     */
+    public boolean isFaltante(EquipoSencillo equipo){
+        return equiposSencillosFaltantes.contains(equipo);
+    }
+    
+    /**
+     * Obtiene un equipo sencillo
+     * @param equipo a obtener
+     * @return el equipo que esta en el prestamo
+     * @throws PrestamoException si el equipo no esta en los faltantes del prestamo
+     */
+    public EquipoSencillo getSencillo(EquipoSencillo equipo)throws PrestamoException{
+        EquipoSencillo ans=null;
+        if(!equiposSencillosFaltantes.contains(equipo))
+            throw new PrestamoException("El equipo no es faltante");
+        for(EquipoSencillo es:equiposSencillosFaltantes){
+            if(es.equals(equipo))ans=es;
+        }
+        return ans;
+    }
 }

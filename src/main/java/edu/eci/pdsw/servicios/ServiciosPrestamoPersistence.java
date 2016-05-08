@@ -140,9 +140,32 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             daoF.beginSession();
             DAOEquipoSencillo des=daoF.getDaoEquipoSencillo();
             basePaciente=daoF.getDaoPrestamo();
+            EquipoSencillo loaded=des.load(equipo);
             //Cargo a la persona que pidio el prestamo y sus prestamos
             List<Prestamo> cargadosDePersona=basePaciente.loadByCarne(persona);
-        }catch(PersistenceException e){
+            for(int i=0;i<cargadosDePersona.size() && cantidad>0;i++){
+                //Para cada prestamo donde me falte entregar algo del equipo lo entrego
+                //Asi hasta que la cantidad que estoy entregando es 0
+                if(cargadosDePersona.get(i).isFaltante(loaded)){
+                    EquipoSencillo tmp=cargadosDePersona.get(i).getSencillo(loaded);
+                    if(cantidad<=tmp.getCantidadTotal()){
+                        tmp.setCantidadTotal(tmp.getCantidadTotal()-cantidad);
+                        cantidad=0;
+                    }else{
+                        cantidad-=tmp.getCantidadTotal();
+                        tmp.setCantidadTotal(0);
+                    }
+                    //Despues de cambiar el equipo que cargue del prestamo, actualizo los
+                    //Faltantes a ver si ya deja de serlo, luego actualizo en la DB
+                    cargadosDePersona.get(i).getEquiposSencillosFaltantes();
+                    basePaciente.update(cargadosDePersona.get(i));
+                }
+            }
+            //Deben haberse devuelto todos los equipos sencillos
+            if(cantidad>0){
+                throw new ExcepcionServicios("Se devolvieron demasiados equipos");
+            }
+        }catch(ExcepcionServicios|PersistenceException|PrestamoException e){
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
         }finally{
