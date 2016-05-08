@@ -11,7 +11,6 @@ import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
-import edu.eci.pdsw.persistence.DAOPersona;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejoPersistence;
@@ -20,11 +19,12 @@ import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -37,7 +37,7 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name="RegistroPrestamo")
 @SessionScoped
 public class RegistroPrestamoManageBean implements Serializable{
-    private final ServiciosPrestamo PRESTAMO;
+    private final  ServiciosPrestamo PRESTAMO;
     private final ServiciosEquipoComplejo EQCOMPLEJO;
     private final ServiciosEquipoSencillo EQSENCILLO;
     //Atributos de prestamo
@@ -46,33 +46,20 @@ public class RegistroPrestamoManageBean implements Serializable{
     private String carne;
     //Consultar modelo prestamo termino fijo
     private String modelo;
-    //Consultar modelo prestamo indefinido
-    private String modelo2;
     //Equipo Complejo prestamo termino fijo
     private EquipoComplejo selectEquipoComplejo;
     //Equipo Sencillo prestamo termino fijo
     private EquipoSencillo selectEquipoSencillo;
-    //Equipo Complejo prestamo indefinido
-    private EquipoComplejo selectEquipoComplejo2;
-    //Equipo Sencillo prestamo indefinido
-    private EquipoSencillo selectEquipoSencillo2;
+
     //Consultar equipo sencillo por nombre prestamo termino fijo
     private String nombre;
-    //Consultar equipo sencillo por nombre prestamo indefinido
-    private String nombre2;
     //Cantidad de equipo sencillo de prestamo termino fijo
     private int cantidad;
-    //Cantidad de equipo sencillo de prestamo indefinido
-    private int cantidad2;
-    
     
     //Atributos de prestamo
     //Prestamo termino fijo
     private Set<EquipoComplejo> equiposComplejosPrestados;
     private Set<EquipoSencillo> equiposSencillosPrestados;
-    //Prestamo indefinido
-    private Set<EquipoComplejo> equiposComplejosPrestados2;
-    private Set<EquipoSencillo> equiposSencillosPrestados2;
     
     private List<Integer> equiposSencillosPrestadosCantidad;
     private Persona elQuePideElPrestamo;
@@ -86,18 +73,10 @@ public class RegistroPrestamoManageBean implements Serializable{
     private List<EquipoComplejo> eqC;
     //Lista de equipo sencillo para consultar los equipos prestamo termino fijo
     private List<EquipoSencillo> eqS;
-    //Lista de equipo complejo para consultar los equipos prestamo indefinido
-    private List<EquipoComplejo> eqC2;
-    //Lista de equipo sencillo para consultar los equipos prestamo indefinido
-    private List<EquipoSencillo> equS2;
-    //Lista de los tiempos que posee un prestamo, equipo complejo prestamo termino fijo
-    private List<String> tipoPrestamo;
-    //Lista de los tiempos que posee un prestamo, equipo sencillo prestamo termino fijo
-    private List<String> tipoPrestamo2;
+    //Mapa de los tiempos que posee un prestamo, equipo complejo prestamo termino fijo
+    private Map<String,String> tipoPrestamo;
     //Tiempo de vida del prestamo, equipo complejo prestamo termino fijo
     private String fechaTipoPrestamo;
-    //Tiempo de vida del prestamo, equipo sencillo prestamo termino fijo
-    private String fechaTipoPrestamo2;
 
     
     private Prestamo prestamo;
@@ -107,23 +86,19 @@ public class RegistroPrestamoManageBean implements Serializable{
     
     
     
-    public RegistroPrestamoManageBean(){
+    public  RegistroPrestamoManageBean(){
         
         PRESTAMO=ServiciosPrestamo.getInstance();
         EQCOMPLEJO=ServiciosEquipoComplejoPersistence.getInstance();
         EQSENCILLO=ServiciosEquipoSencillo.getInstance();
         equiposComplejosPrestados=new LinkedHashSet<>();
         equiposSencillosPrestados=new LinkedHashSet<>();
-        equiposComplejosPrestados2=new LinkedHashSet<>();
-        equiposSencillosPrestados2=new LinkedHashSet<>();
-        tipoPrestamo=new ArrayList<>();
-        tipoPrestamo2=new ArrayList<>();
-        tipoPrestamo.add("Diario");
-        tipoPrestamo.add("Semanal");
-        tipoPrestamo.add("Mensual");
-        tipoPrestamo.add("Semestral");
-        tipoPrestamo.add("Anual");
-        tipoPrestamo2=tipoPrestamo;
+        //tipoPrestamo=elQuePideElPrestamo.rolMasValioso2();
+        tipoPrestamo=new HashMap<>();
+        tipoPrestamo.put("24 horas","24 horas");
+        tipoPrestamo.put("Diario","Diario");
+        tipoPrestamo.put("Semestral","Semestral");
+        tipoPrestamo.put("Indefinido","Indefinido");
     }
     /**
      * Consulta una persona por su carne para 
@@ -145,17 +120,11 @@ public class RegistroPrestamoManageBean implements Serializable{
         return eqS;
     }
     
-    public List<EquipoComplejo> sacarEqC2(){
-        return eqC2;
-    }
-    
-    public List<EquipoSencillo> sacarEqS2(){
-        return equS2;
-    }
+
     /**
      *Consulta la lista de equipos complejos que tengan
      * un modelo especifico
-     * @return La lista con los equipos complejos
+     * 
      */
     public void consultarEqModelo(){
         List<EquipoComplejo> equipos=new ArrayList<>();
@@ -163,24 +132,10 @@ public class RegistroPrestamoManageBean implements Serializable{
             equipos=EQCOMPLEJO.consultarPorModelo(modelo);
             showPanelRegistro=true;
         }catch(ExcepcionServicios ex){
-            ex.printStackTrace();
             showPanelRegistro=false;
             facesError(ex.getMessage());
         }
         eqC=equipos;
-    }
-    
-    public void consultarEqModelo2(){
-        List<EquipoComplejo> equipos=new ArrayList<>();
-        try{
-            equipos=EQCOMPLEJO.consultarPorModelo(modelo2);
-            showPanelRegistro=true;
-        }catch(ExcepcionServicios ex){
-            ex.printStackTrace();
-            showPanelRegistro=false;
-            facesError(ex.getMessage());
-        }
-        eqC2=equipos;
     }
     
     /**
@@ -192,31 +147,19 @@ public class RegistroPrestamoManageBean implements Serializable{
            equiposS.add(EQSENCILLO.consultarPorNombre(nombre));
            showPanelRegistro=true;
        }catch(ExcepcionServicios ex){
-           ex.printStackTrace();
            showPanelRegistro=false;
            facesError(ex.getMessage());
        }
        eqS=equiposS;
     }
     
-    public void consultarEqSNombre2(){
-       List<EquipoSencillo> equiposS=new ArrayList<>();
-       try{
-           equiposS.add(EQSENCILLO.consultarPorNombre(nombre2));
-           showPanelRegistro=true;
-       }catch(ExcepcionServicios ex){
-           ex.printStackTrace();
-           showPanelRegistro=false;
-           facesError(ex.getMessage());
-       }
-       equS2=equiposS;
-    }
     
     /**
      * Agrega equipos complejos al prestamo termino fijo
     */
     public void agregarEquipoC(){
         if(selectEquipoComplejo!=null){
+        selectEquipoComplejo.setEstado(fechaTipoPrestamo);
         equiposComplejosPrestados.add(selectEquipoComplejo);
         }
     }
@@ -226,24 +169,6 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void agregarEquipoS(){
         if(getSelectEquipoSencillo()!=null){
         equiposSencillosPrestados.add(getSelectEquipoSencillo());
-        }
-    }
-    
-    /**
-     * Agrega equipos complejos al prestamo indefinido
-     */
-    public void agregarEquipoC2(){
-        if(selectEquipoComplejo!=null){
-            equiposComplejosPrestados2.add(selectEquipoComplejo);
-        }
-    }
-    
-    /**
-     * Agrega equipos sencillos al prestamo indefinido
-     */
-    public void agregarEquipoS2(){
-        if(selectEquipoSencillo!=null){
-            equiposSencillosPrestados2.add(selectEquipoSencillo);
         }
     }
     
@@ -272,6 +197,27 @@ public class RegistroPrestamoManageBean implements Serializable{
             facesError(ex.getMessage());
         }
     }
+    
+       /**
+     * A la fecha actual se le suma la fecha dependiendo si el 
+     * prestamo es para el dia siguiente, si es semanal, si es mensual
+     * o si es semestral
+     */
+    public void obtenerFechaEstimada(){
+        Calendar calen= Calendar.getInstance();
+        calen.setTime(fechaEstimadaDeEntrega);
+        if(fechaTipoPrestamo.equals("24 horas")){
+            calen.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        else if(fechaTipoPrestamo.equals("Diario")){
+            calen.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        else if(fechaTipoPrestamo.equals("Semestral")){
+            calen.set(Calendar.HOUR,19);
+        }
+        fechaEstimadaDeEntrega=(Timestamp) calen.getTime();
+    }
+    
     /**
      * Reinicia todas las variables para realizar otro prestamo
      */
@@ -297,7 +243,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
 
     
-    /**
+    /**        restriccion();
      * Muestra un mensaje de error en la vista
      * @param message Mensaje de error
      */
@@ -519,95 +465,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void setSelectEquipoComplejo(EquipoComplejo selectEqC) {
         this.selectEquipoComplejo = selectEqC;
     }
-    
-    public void setEquiposComplejosPrestados2(Set<EquipoComplejo> equiC){
-        this.equiposComplejosPrestados2=equiC;
-    }
-    
-    public Set<EquipoComplejo> getEquipoComplejosPrestados2(){
-        return equiposComplejosPrestados2;
-    }
-    
-    public void setEquiposSencillosPrestados2(Set<EquipoSencillo> equiS){
-        this.equiposSencillosPrestados2=equiS;
-    }
-    
-    public Set<EquipoSencillo> getEquipoSencillosPrestados2(){
-        return equiposSencillosPrestados2;
-    }
-
-    /**
-     * @return the modelo2
-     */
-    public String getModelo2() {
-        return modelo2;
-    }
-
-    /**
-     * @param modelo2 the modelo2 to set
-     */
-    public void setModelo2(String modelo2) {
-        this.modelo2 = modelo2;
-    }
-
-    /**
-     * @return the nombre2
-     */
-    public String getNombre2() {
-        return nombre2;
-    }
-
-    /**
-     * @param nombre2 the nombre2 to set
-     */
-    public void setNombre2(String nombre2) {
-        this.nombre2 = nombre2;
-    }
-
-    /**
-     * @return the eqC2
-     */
-    public List<EquipoComplejo> getEqC2() {
-        return eqC2;
-    }
-
-    /**
-     * @param eqC2 the eqC2 to set
-     */
-    public void setEqC2(List<EquipoComplejo> eqC2) {
-        this.eqC2 = eqC2;
-    }
-
-    /**
-     * @return the equS2
-     */
-    public List<EquipoSencillo> getEquS2() {
-        return equS2;
-    }
-
-    /**
-     * @param equS2 the equS2 to set
-     */
-    public void setEquS2(List<EquipoSencillo> equS2) {
-        this.equS2 = equS2;
-    }
-    
-    public void setSelectEquipoComplejo2(EquipoComplejo ec2){
-        this.selectEquipoComplejo2=ec2;
-    }
-    
-    public EquipoComplejo getSelectEquipoComplejo2(){
-        return selectEquipoComplejo2;
-    }
-    
-    public void setSelectEquipoSencillo2(EquipoSencillo es2){
-        this.selectEquipoSencillo2=es2;
-    }
-    
-    public EquipoSencillo getSelectEquipoSencillo2(){
-        return selectEquipoSencillo2;
-    }
-
+        
     /**
      * @return the cantidad
      */
@@ -623,30 +481,16 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
 
     /**
-     * @return the cantidad2
-     */
-    public int getCantidad2() {
-        return cantidad2;
-    }
-
-    /**
-     * @param cantidad2 the cantidad2 to set
-     */
-    public void setCantidad2(int cantidad2) {
-        this.cantidad2 = cantidad2;
-    }
-
-    /**
      * @return the tipoPrestamo
      */
-    public List<String> getTipoPrestamo() {
+    public Map<String,String> getTipoPrestamo() {
         return tipoPrestamo;
     }
 
     /**
      * @param tipoPrestamo the tipoPrestamo to set
      */
-    public void setTipoPrestamo(List<String> tipoPrestamo) {
+    public void setTipoPrestamo(Map<String,String> tipoPrestamo) {
         this.tipoPrestamo = tipoPrestamo;
     }
 
@@ -664,31 +508,5 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.fechaTipoPrestamo = fechaTipoPrestamo;
     }
 
-    /**
-     * @return the fechaTipoPrestamo2
-     */
-    public String getFechaTipoPrestamo2() {
-        return fechaTipoPrestamo2;
-    }
 
-    /**
-     * @param fechaTipoPrestamo2 the fechaTipoPrestamo2 to set
-     */
-    public void setFechaTipoPrestamo2(String fechaTipoPrestamo2) {
-        this.fechaTipoPrestamo2 = fechaTipoPrestamo2;
-    }
-
-    /**
-     * @return the tipoPrestamo2
-     */
-    public List<String> getTipoPrestamo2() {
-        return tipoPrestamo2;
-    }
-
-    /**
-     * @param tipoPrestamo2 the tipoPrestamo2 to set
-     */
-    public void setTipoPrestamo2(List<String> tipoPrestamo2) {
-        this.tipoPrestamo2 = tipoPrestamo2;
-    }
 }

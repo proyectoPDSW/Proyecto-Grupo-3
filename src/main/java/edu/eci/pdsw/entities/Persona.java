@@ -5,10 +5,10 @@
  */
 package edu.eci.pdsw.entities;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -178,6 +178,15 @@ public class Persona {
         if(!roles.isEmpty()){
             Collections.sort(roles);
             r=roles.get(roles.size()-1).getRol();
+        }
+        return r;
+    }
+    
+    public Map<String,String> rolMasValioso2(){
+        Map<String,String> r=null;
+        if(!roles.isEmpty()){
+            Collections.sort(roles);
+            r=roles.get(roles.size()-1).getTiposPrestamo();
         }
         return r;
     }
