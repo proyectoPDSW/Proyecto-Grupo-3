@@ -78,6 +78,14 @@ public interface DAOEquipoComplejo {
     public ArrayList<EquipoComplejo> loadByModelo(String modelo) throws PersistenceException;
     
     /**
+     * Obtiene todos los equipos de un modelo que se encuentren en el almacen
+     * @param modelo usado para buscar
+     * @return Una lista con los equipos que son del modelo y se encuentren en el almacen
+     * @throws PersistenceException 
+     */
+    public ArrayList<EquipoComplejo> loadEnAlmacenByModelo(String modelo) throws PersistenceException;
+    
+    /**
      * Guarda un modelo en la base de datos
      * @param model a guardar
      * @throws PersistenceException si el modelo ya existe

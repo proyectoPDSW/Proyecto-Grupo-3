@@ -19,7 +19,7 @@
                 <h:form id="form">
 
                     <p:growl id="msgs" showDetail="true" />
-
+                    <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                     <p:tabView>
                         <p:tab title="Consultar Persona">
                             <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelPersona}">
@@ -40,7 +40,8 @@
                                 <p:layout style="min-width:600px;min-height:400px;">
                                     <p:layoutUnit position="west" size="600">
                                         <h:outputLabel value="Modelo : (*) " />
-                                        <p:inputText id="modelo1" value="#{RegistroPrestamo.modelo}" />
+                                        <!--p:inputText id="modelo1" value="#{RegistroPrestamo.modelo}" /-->
+                                        <p:autoComplete id="modelo1" dropdown="true" value="#{RegistroPrestamo.modelo}" completeMethod="#{RegistroPrestamo.modelosAproximados}"/>
                                         <!--p:outputLabel value="#{RegistroPrestamo.ShowPanelRegistro()}"/-->
                                         <br/><p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo()}" icon="ui-icon-search"/>
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>

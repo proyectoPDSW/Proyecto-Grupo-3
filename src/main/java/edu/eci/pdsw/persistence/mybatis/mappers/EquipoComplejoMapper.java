@@ -35,6 +35,12 @@ public interface EquipoComplejoMapper {
     public ArrayList<EquipoComplejo> loadDisponibles();
     
     /**
+     * Consulta todos los equipos complejos del modelo que se encuentren en el almacen
+     * @return un arreglo de equipos complejos del modelo m que se encuentren en el almacen
+     */
+    public ArrayList<EquipoComplejo> loadEnAlmacenByModelo(@Param("Modelo")String m);
+    
+    /**
      * Consulta un equipo complejo por un serial especifico
      * @param modelo del equipo a buscar
      * @param serial

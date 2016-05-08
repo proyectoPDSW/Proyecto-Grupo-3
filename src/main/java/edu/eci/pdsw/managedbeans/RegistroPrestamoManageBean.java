@@ -11,6 +11,7 @@ import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
+import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejoPersistence;
@@ -83,7 +84,16 @@ public class RegistroPrestamoManageBean implements Serializable{
     private String laPersona;
     
 
-    
+    public List<String> modelosAproximados(String query){
+        List<String> aproximados=new ArrayList<>();
+        try{
+            aproximados=EQCOMPLEJO.consultarAproximado(query);
+        }catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+            Registro.anotar(ex);
+        }
+        return aproximados;
+    }
     
     
     public  RegistroPrestamoManageBean(){

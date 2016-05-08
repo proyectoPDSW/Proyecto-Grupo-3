@@ -56,6 +56,19 @@ public class Rol implements Comparable<Rol>{
      */
     public void setRol(String rol) {
         this.rol = rol;
+        if(rol!=null){
+            tiposPrestamo=new HashMap<>();
+            if(rol.equals("Estudiante")){
+               tiposPrestamo.put("24 horas","24 horas");
+               tiposPrestamo.put("Diario", "Diario");
+            }
+            else if(rol.equals("Laboratorista") || rol.equals("Profesor")){
+                tiposPrestamo.put("24 horas","24 horas");
+                tiposPrestamo.put("Diario", "Diario");
+                tiposPrestamo.put("Semestral","Semestral");
+                tiposPrestamo.put("Indefinido", "Indefinido");
+           }
+        }
     }
 
     /**

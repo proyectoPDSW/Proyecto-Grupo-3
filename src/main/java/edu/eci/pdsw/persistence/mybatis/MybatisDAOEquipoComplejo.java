@@ -137,4 +137,14 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
         }*/
         return eMap.loadModelosAproximados(toSearch);
     }
+
+    @Override
+    public ArrayList<EquipoComplejo> loadEnAlmacenByModelo(String modelo) throws PersistenceException {
+        if (eMap.loadEnAlmacenByModelo(modelo) == null) {
+            throw new PersistenceException("El modelo " + modelo + " no esta registrado");
+        }
+        return eMap.loadEnAlmacenByModelo(modelo);
+    }
+    
+    
 }
