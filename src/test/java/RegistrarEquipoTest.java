@@ -69,7 +69,7 @@ public class RegistrarEquipoTest {
         daof.commitTransaction();
         EquipoComplejo test=reg.load(ec.getPlaca());
         daof.endSession();
-        Assert.assertEquals(ec,test);
+        Assert.assertEquals("no registra un equipo complejo",ec,test);
     }
     
     //No deberia registrar dos veces el mismo equipo
@@ -160,7 +160,7 @@ public class RegistrarEquipoTest {
         ArrayList<EquipoComplejo> prueba=reg.loadByModelo(mod.getNombre());
         daof.commitTransaction();
         daof.endSession();
-        Assert.assertEquals(ec, prueba.get(0));
+        Assert.assertEquals("no registra el modelo del equipo",ec, prueba.get(0));
      }
 }
     

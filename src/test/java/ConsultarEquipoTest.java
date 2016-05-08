@@ -70,7 +70,7 @@ public class ConsultarEquipoTest {
         ArrayList<EquipoComplejo> loaded = dec.loadByModelo(aConsultar.getModelo_Eq().getNombre());
         daof.commitTransaction();
         daof.endSession();
-        Assert.assertTrue(loaded.size() == 1 && aConsultar.equals(loaded.get(0)));
+        Assert.assertTrue("no consulta adecuadamente uno por equipo",loaded.size() == 1 && aConsultar.equals(loaded.get(0)));
     }
 
     //Clase equivalencia 2, Deberia consultar varios equipos por modelo
@@ -95,7 +95,7 @@ public class ConsultarEquipoTest {
         ArrayList<EquipoComplejo> loaded = dec.loadByModelo(aConsultar.getModelo_Eq().getNombre());
         daof.commitTransaction();
         daof.endSession();
-        Assert.assertTrue(loaded.size() == 2 && aConsultar.equals(loaded.get(0)) && aConsultar2.equals(loaded.get(1)));
+        Assert.assertTrue("no consulta adecuadamente varios por equipo",loaded.size() == 2 && aConsultar.equals(loaded.get(0)) && aConsultar2.equals(loaded.get(1)));
     }
 
     //Clase equivalencia 3, Deberia consultar equipo por placa
@@ -114,7 +114,7 @@ public class ConsultarEquipoTest {
         dec.save(aConsultar);
         daof.commitTransaction();
         EquipoComplejo loaded = dec.load(189);
-        Assert.assertEquals(aConsultar, loaded);
+        Assert.assertEquals("no conulta adecuadamente por placa",aConsultar, loaded);
     }
 
     //Clase equivalencia 4, Deberia consultar equipo por serial
@@ -136,7 +136,7 @@ public class ConsultarEquipoTest {
         daof.commitTransaction();
         EquipoComplejo loaded = dec.load(model.getNombre(),"AC3X");
         daof.endSession();
-        Assert.assertEquals(aConsultar, loaded);
+        Assert.assertEquals("no consulta adecuadamente por serial",aConsultar, loaded);
     }
 
     //Clase equivalencia 5, Deberia consultar Equipo sencillo por nombre
@@ -154,7 +154,7 @@ public class ConsultarEquipoTest {
         daof.commitTransaction();
         EquipoSencillo loaded = des.load("Cable");
         daof.endSession();
-        Assert.assertEquals(aConsultar.toString(), loaded.toString());
+        Assert.assertEquals("no consulta adecuadamente por nombre",aConsultar.toString(), loaded.toString());
     }
     
     //Clase equivalencia 6, Deberia consultar modelos por aproximacion
@@ -184,4 +184,35 @@ public class ConsultarEquipoTest {
                 loaded.get(0).equals(ans.get(1))) && (loaded.get(1).equals(ans.get(0)) || 
                 loaded.get(1).equals(ans.get(1))));
     }
+    
+    //Clase equivalencia 7, Deberia consultar los equipos en almacen de un modelo
+    @Test
+    public void deberiaConsultarEnAlmacenPorModelo() throws Exception {
+        InputStream input;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties = new Properties();
+        properties.load(input);
+        DAOFactory daof = DAOFactory.getInstance(properties);
+        daof.beginSession();
+        DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
+        Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",734829);
+        EquipoComplejo aConsultar1 = new EquipoComplejo(model, "Toshiba", "ACasd",734829);
+        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Toshiba", "AC23d",734829);
+        aConsultar.setPlaca(2);
+        aConsultar2.setPlaca(3);
+        aConsultar1.setPlaca(4);
+        aConsultar.setEstado(EquipoComplejo.almacen);
+        aConsultar2.setEstado(EquipoComplejo.almacen);
+        aConsultar1.setEstado(EquipoComplejo.diario);
+        dec.save(aConsultar);
+        dec.save(aConsultar1);
+        dec.save(aConsultar2);
+        daof.commitTransaction();
+        ArrayList<EquipoComplejo> loaded = dec.loadEnAlmacenByModelo(aConsultar.getModelo_Eq().getNombre());
+        daof.commitTransaction();
+        daof.endSession();
+        Assert.assertTrue("No carga los equipos en almacen", loaded.contains(aConsultar) && loaded.contains(aConsultar2) && loaded.size()==2);
+    }
+
 }
