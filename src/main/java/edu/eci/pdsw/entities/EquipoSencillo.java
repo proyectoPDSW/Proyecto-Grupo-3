@@ -159,5 +159,13 @@ public class EquipoSencillo implements Comparable<EquipoSencillo> {
         }
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.nombre);
+        hash = 29 * hash + (int) (this.valorComercial ^ (this.valorComercial >>> 32));
+        return hash;
+    }
     
 }
