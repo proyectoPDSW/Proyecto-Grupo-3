@@ -67,17 +67,17 @@ public class ShiroLoginBean implements Serializable {
         UsernamePasswordToken token = new UsernamePasswordToken(getUsername(), getPassword(), getRememberMe());
         try {
             subject.login(token);
-
+            System.out.println(subject.hasRole("Laboratorista"));
             if (subject.hasRole("admin")) {               
                 FacesContext.getCurrentInstance().getExternalContext().redirect("restricted/index.xhtml");
             }
-            else if (subject.hasRole("laboratorista")) {
+            else if (subject.hasRole("Laboratorista")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("laboratorista/index.xhtml");
             }  
-            else if(subject.hasRole("estudiante")){
+            else if(subject.hasRole("Estudiante")){
                 FacesContext.getCurrentInstance().getExternalContext().redirect("estudiante/consultaequipos.xhtml");
             }
-            else if(subject.hasRole("profesor")){
+            else if(subject.hasRole("Profesor")){
                  FacesContext.getCurrentInstance().getExternalContext().redirect("profesor/profesor.xhtml");
             }
             else {
