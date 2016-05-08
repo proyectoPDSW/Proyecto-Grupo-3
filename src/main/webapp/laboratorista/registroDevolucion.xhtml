@@ -25,15 +25,25 @@ and open the template in the editor.
                        </h:panelGrid>
                     </p:tab>
                     <p:tab title="Devolver Equipo Sencillo">
-                        <h:panelGrid columns="5" cellpadding="5">
-                            <center>Carné del prestamista<p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}">
-                                    <p:ajax listener="#{RegistroPrestamo.onEquipoChange()}" event="change" update="eqse" />
-                                </p:inputText></center>
-                            <center><p:selectOneMenu id="eqse" value="#{RegistroPrestamo.selectEquipoSencillo}">
-                                <f:selectItem itemLabel="Seleccione el equipo sencillo" itemValue="" noSelectionOption="true" />
-                                <f:selectItems value="#{RegistroPrestamo.mostrarListaEquipoSencillo()}" />
-                            </p:selectOneMenu></center>
-                            <center><p:commandButton value="Submit"></p:commandButton></center>
+                        <h:panelGrid columns="8" cellpadding="5">
+                            <center>Carné del prestamista
+                                <p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}">
+                                    <p:ajax event="change" update="eqse" />
+                                </p:inputText>
+                            </center>
+                            <center>
+                                <p:selectOneMenu id="eqse" value="#{RegistroPrestamo.selectEqSe}">
+                                    <f:selectItem itemLabel="Seleccione el equipo sencillo" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems value="#{RegistroPrestamo.mostrarListaEquipoSencillo()}" />
+                                    <p:ajax event="change" update="basic" />
+                                </p:selectOneMenu>
+                            </center>
+                            <center>
+                                <p:spinner id="basic" value="#{RegistroPrestamo.cantidad}" min="1" max="#{RegistroPrestamo.maxValue()}"/>
+                            </center>
+                            <center>
+                                <p:commandButton value="Submit"></p:commandButton>
+                            </center>
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>

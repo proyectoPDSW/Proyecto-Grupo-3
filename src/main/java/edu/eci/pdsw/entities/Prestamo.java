@@ -132,7 +132,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
                 }
             }
         }       
-        if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        //if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
 
@@ -195,7 +195,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
             }
         }
         //System.out.println("AQUI puede ser el error ->>>>>> "+terminado());
-        if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
+        //if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
     /**
      * 

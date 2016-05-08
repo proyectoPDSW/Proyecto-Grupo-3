@@ -20,6 +20,7 @@ import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -69,6 +70,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     private boolean showPanelRegistro=false;
     private boolean showPanelRegistrado=false;
     private boolean showPanelPersona=true;
+    private String selectEqSe;
     
     // Lista de equipo complejo para consultar los equipos prestamo termino fijo
     private List<EquipoComplejo> eqC;
@@ -78,8 +80,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     private Map<String,String> tipoPrestamo;
     //Tiempo de vida del prestamo, equipo complejo prestamo termino fijo
     private String fechaTipoPrestamo;
-
-    
+    //lista para saber la cantidad de los equipos
+    private List<EquipoSencillo> es;
     private Prestamo prestamo;
     private String laPersona;
     
@@ -109,6 +111,7 @@ public class RegistroPrestamoManageBean implements Serializable{
         tipoPrestamo.put("Diario","Diario");
         tipoPrestamo.put("Semestral","Semestral");
         tipoPrestamo.put("Indefinido","Indefinido");
+        es=new ArrayList<>();
     }
     /**
      * Consulta una persona por su carne para 
@@ -233,7 +236,6 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public void registrarOtroPrestamo(){
         setFechaEstimadaDeEntrega(null);
-
         setEquiposComplejosPrestados(null);
         setEquiposSencillosPrestados(null);
         setEquiposSencillosPrestadosCantidad2(null);
@@ -432,22 +434,20 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.laPersona = laPersona;
     }
     
-    public List<EquipoSencillo> mostrarListaEquipoSencillo(){
-        List<EquipoSencillo> es = new ArrayList<>();
+    public List<String> mostrarListaEquipoSencillo(){
+        es = new ArrayList<>();
+        List<String> es2 = new ArrayList<>();
         if(laPersona!=null && laPersona.length()>0){
             List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
-            for (Prestamo p1 : p) {
-                System.out.println(p1.toString());
-                System.out.println("Entro a revisar los prestamos "+p1.getFechaRealEntregada());
-                if(p1.getFechaRealEntregada()==null){
-                    System.out.println("Entro "+p1.getEquiposSencillosFaltantes().size());
-                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) {
+            for (Prestamo p1 : p) 
+                if(p1.getFechaRealEntregada()==null)
+                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) 
                         es.add(es1);
-                    }
-                }
-            }
         }
-        return es;
+        for (EquipoSencillo e : es) {
+            es2.add(e.getNombre());
+        }
+        return es2;
     }
     
     public EquipoSencillo getSelectEquipoSencillo() {
@@ -459,7 +459,15 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
     
     public void onEquipoChange(){
-        System.out.println("Funciona :)");
+    }
+    
+    public int maxValue(){
+        System.out.println("Entro con "+Arrays.toString(es.toArray())+" y "+selectEqSe);
+        for (EquipoSencillo esqs : es) {
+            System.out.println("Entro con "+esqs+" y "+selectEqSe);
+            if(esqs.getNombre().equals(selectEqSe)) return esqs.getCantidadTotal();
+        }
+        return 1;
     }
 
     /**
@@ -518,5 +526,13 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.fechaTipoPrestamo = fechaTipoPrestamo;
     }
 
+    public String getSelectEqSe() {
+        return selectEqSe;
+    }
 
+    public void setSelectEqSe(String selectEqSe) {
+        this.selectEqSe = selectEqSe;
+    }
+
+    
 }
