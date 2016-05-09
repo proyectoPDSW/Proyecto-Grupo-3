@@ -72,12 +72,14 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
                     " no esta registrado");
         }
         EquipoComplejo test = null;
-        if (toUpdate.getSerial() == null) {
+        if (toUpdate.getSerial() == null || !toUpdate.getPlaca().equals("0")) {
+            System.out.println("if 1");
             test = eMap.loadEquipoByPlaca(toUpdate.getPlaca());
         } else if (toUpdate.getPlaca().equals("0")) {
+            System.out.println("if 2");
             test = eMap.loadEquipoBySerial(toUpdate.getModelo_Eq().getNombre(),toUpdate.getSerial());
         }
-
+        System.out.println("ec: "+test);
         if (test.equals(toUpdate)) {
             eMap.update(test, toUpdate);
         }
