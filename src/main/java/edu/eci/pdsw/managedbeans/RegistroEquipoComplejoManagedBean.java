@@ -51,7 +51,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         private boolean disponibilidad;
         private String estado;
         private String serial;
-        private int placa;
+        private String placa;
         private String marca;
     
     private String aseguradoEquipo="";
@@ -74,7 +74,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
        descripcion="";
        accesorios="";
        serial="";
-       placa=0;
+       placa="0";
        marca="";      
     }
     
@@ -279,11 +279,11 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         this.serial = serial;
     }
 
-    public int getPlaca() {
+    public String getPlaca() {
         return placa;
     }
 
-    public void setPlaca(int placa) {
+    public void setPlaca(String placa) {
         this.placa = placa;
     }
 

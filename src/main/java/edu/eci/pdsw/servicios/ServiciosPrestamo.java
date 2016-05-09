@@ -28,7 +28,7 @@ public abstract class ServiciosPrestamo {
      * @param equipo del cual se hace la devolucion
      * @throws ExcepcionServicios si no se encontro el equipo a devolver
      */
-    public abstract void registrarDevolucion(int equipo)throws ExcepcionServicios;
+    public abstract void registrarDevolucion(String equipo)throws ExcepcionServicios;
     
     /**
      * Registra la devolucion de un equipo sencillo

@@ -31,7 +31,7 @@ public interface DAOEquipoComplejo {
      * @return El equipo complejo cargado
      * @throws PersistenceException si no encontro la placa para ese modelo o el modelo no existe
      */
-    public EquipoComplejo load(int placa) throws PersistenceException;
+    public EquipoComplejo load(String placa) throws PersistenceException;
 
     /**
      * Guarda un equipo complejo en la base de datos

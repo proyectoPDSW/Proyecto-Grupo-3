@@ -63,7 +63,7 @@ public class RegistrarEquipoTest {
         Modelo mod = new Modelo(100000,"Destornillador de astrella","udfyzsiudfyziduvz","Destornillador",5000);
         reg.save(mod);
         daof.commitTransaction();
-        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa",123456);
+        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456");
         ec.setEstado("hola");
         reg.save(ec);
         daof.commitTransaction();
@@ -76,7 +76,7 @@ public class RegistrarEquipoTest {
     @Test
     public void CE2() throws PersistenceException, EquipoException{
         Modelo mod = new Modelo(100000,"Destornillador de strella",null,"Destornillador",5000);
-        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa",123456);
+        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456");
         DAOFactory daof = null;
         try{
         properties.load(input);
@@ -154,7 +154,7 @@ public class RegistrarEquipoTest {
         reg.save(mod);
         daof.commitTransaction();
         Modelo test=reg.loadModelo(mod.getNombre());
-        EquipoComplejo ec=new EquipoComplejo(test,"marca","serial",123456);
+        EquipoComplejo ec=new EquipoComplejo(test,"marca","serial","123456");
         reg.save(ec);
         daof.commitTransaction();
         ArrayList<EquipoComplejo> prueba=reg.loadByModelo(mod.getNombre());

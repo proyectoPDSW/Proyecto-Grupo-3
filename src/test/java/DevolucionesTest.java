@@ -76,7 +76,7 @@ public class DevolucionesTest {
         
         Persona yo= new Persona("2105684", "Julian", "Devia", "julian.devia@mail.escuelaing.edu.co", "6030405", null);
         Modelo mod=new Modelo(12, "hola", null, "asd", 123);
-        EquipoComplejo ec=new EquipoComplejo(true, true, EquipoComplejo.almacen, "qwe2", 123, "asd", mod);
+        EquipoComplejo ec=new EquipoComplejo(true, true, EquipoComplejo.almacen, "qwe2", "123", "asd", mod);
         EquipoSencillo es=new EquipoSencillo("nombre", "clase", 3, 0);
         HashSet<EquipoComplejo> sec=new HashSet<>();sec.add(ec);
         HashSet<EquipoSencillo> ses=new HashSet<>();ses.add(es);
@@ -106,7 +106,7 @@ public class DevolucionesTest {
 
             Persona yo= new Persona("2105684", "Julian", "Devia", "julian.devia@mail.escuelaing.edu.co", "6030405", null);
             Modelo mod=new Modelo(12, "hola", null, "asd", 123);
-            EquipoComplejo ec=new EquipoComplejo(true, true, EquipoComplejo.almacen, "qwe2", 123, "asd", mod);
+            EquipoComplejo ec=new EquipoComplejo(true, true, EquipoComplejo.almacen, "qwe2", "123", "asd", mod);
             EquipoSencillo es=new EquipoSencillo("xnombre", "clase", 3, 0);
             dape.save(yo);
             daof.commitTransaction();
@@ -152,7 +152,7 @@ public class DevolucionesTest {
 
             Persona yo= new Persona("2105684", "Julian", "Devia", "julian.devia@mail.escuelaing.edu.co", "6030405", null);
             Modelo mod=new Modelo(12, "hola", null, "asd", 123);
-            EquipoComplejo ec=new EquipoComplejo(true, true, EquipoComplejo.almacen, "qwe2", 123, "asd", mod);
+            EquipoComplejo ec=new EquipoComplejo(true, true, EquipoComplejo.almacen, "qwe2", "123", "asd", mod);
             EquipoSencillo es=new EquipoSencillo("xnombre", "clase", 3, 4);
             dape.save(yo);
             daof.commitTransaction();
