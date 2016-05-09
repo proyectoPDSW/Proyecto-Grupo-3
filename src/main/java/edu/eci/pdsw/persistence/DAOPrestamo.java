@@ -8,6 +8,7 @@ package edu.eci.pdsw.persistence;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.entities.PrestamoException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -100,5 +101,11 @@ public interface DAOPrestamo {
      */
     public abstract void saveEquipoSencilloPrestamo(Prestamo p, EquipoSencillo es) throws PersistenceException;
     
-    
+    /**
+     * Registra los equipos complejos en el prestamo
+     * @param p
+     * @param ec
+     * @throws PrestamoException 
+     */
+    public abstract void saveEquipoComplejoPrestamo(Prestamo p,EquipoComplejo ec) throws PersistenceException;
 }

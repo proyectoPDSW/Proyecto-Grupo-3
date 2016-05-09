@@ -83,4 +83,12 @@ public abstract class ServiciosPrestamo {
      * @throws ExcepcionServicios 
      */
     public abstract void registrarEquipoSencilloPrestamo(Prestamo p, EquipoSencillo es) throws ExcepcionServicios;
+    
+    /**
+     * Registra los equipos complejos en el prestamo
+     * @param p
+     * @param ec
+     * @throws ExcepcionServicios 
+     */
+    public abstract void registrarEquipoComplejoPrestamo(Prestamo p,EquipoComplejo ec) throws ExcepcionServicios;
 }

@@ -8,6 +8,7 @@ package edu.eci.pdsw.persistence.mybatis;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.entities.PrestamoException;
 import edu.eci.pdsw.persistence.DAOPrestamo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper;
@@ -121,6 +122,13 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
        if(p==null) throw new PersistenceException("El prestamo no puede ser nulo");
        if(es==null) throw new PersistenceException("El equipo sencillo no puede ser nulo");
        pmap.insertEquipoSencillo_Prestamo(p, es);
+    }
+
+    @Override
+    public void saveEquipoComplejoPrestamo(Prestamo p, EquipoComplejo ec) throws PersistenceException {
+        if(p==null) throw new PersistenceException("El prestamo no puede ser nulo");
+        if(ec==null) throw new PersistenceException("El equipo complejo no puede ser nulo");
+        pmap.insertEquipoComplejo_Prestamo(p, ec);
     }
 
 

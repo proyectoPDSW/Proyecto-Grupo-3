@@ -325,5 +325,18 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
        }
     }
+
+    @Override
+    public void registrarEquipoComplejoPrestamo(Prestamo p, EquipoComplejo ec) throws ExcepcionServicios {
+        try{
+            daoF.beginSession();
+            DAOPrestamo dp=daoF.getDaoPrestamo();
+            dp.saveEquipoComplejoPrestamo(p, ec);
+            daoF.commitTransaction();
+            daoF.endSession();
+        }catch(PersistenceException ex){
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
+        }
+    }
     
 }
