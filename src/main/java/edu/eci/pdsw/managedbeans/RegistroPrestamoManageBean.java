@@ -91,6 +91,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     private Prestamo prestamo;
     private String laPersona;
     private String placa;
+    private String eqcompl;
 
     public List<String> modelosAproximados(String query){
         List<String> aproximados=new ArrayList<>();
@@ -580,6 +581,19 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
     public void registroDevolucionEquipoComplejo(){
         try {
+            EquipoComplejo eqcomp = EQCOMPLEJO.consultarPorPlaca(placa);
+            List<Prestamo> prestamos = PRESTAMO.consultarPrestamosEquipoComplejo(eqcomp);
+            for (Prestamo p1 : prestamos) {
+                if(!p1.terminado()){
+                    Set<EquipoComplejo> ecp = p1.getEquiposComplejosFaltantes();
+                    for (EquipoComplejo ecp1 : ecp) {
+                        if(ecp1.equals(eqcomp)){
+                            laPersona=p1.getElQuePideElPrestamo().getNombre();
+                        }
+                    }
+                }
+            }
+            eqcompl = eqcomp.getModelo_Eq().getNombre();
             PRESTAMO.registrarDevolucion(placa);
             facesInfo("Se realizo con exito la devolución");
         } catch (ExcepcionServicios ex) {
@@ -607,6 +621,14 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public void setCantidadDisponible(int cantidadDisponible) {
         this.cantidadDisponible = cantidadDisponible;
+    }
+
+    public String getEqcompl() {
+        return eqcompl;
+    }
+
+    public void setEqcompl(String eqcompl) {
+        this.eqcompl = eqcompl;
     }
 
     
