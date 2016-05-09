@@ -256,6 +256,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             if(cantidad>0){
                 throw new ExcepcionServicios("Se devolvieron demasiados equipos");
             }
+            daoF.commitTransaction();
         }catch(ExcepcionServicios|PersistenceException|PrestamoException e){
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
