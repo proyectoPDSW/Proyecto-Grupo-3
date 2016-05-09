@@ -182,7 +182,7 @@ public class Persona {
         return r;
     }
     
-    public Map<String,String> rolMasValioso2(){
+    public Map<String,String> getRolMasValioso2(){
         Map<String,String> r=null;
         if(!roles.isEmpty()){
             Collections.sort(roles);
