@@ -27,7 +27,7 @@ and open the template in the editor.
                     <p:tab title="Devolver Equipo Sencillo">
                         <h:panelGrid id="devEquSen" columns="8" cellpadding="5">
                             <center>Carné del prestamista
-                                <p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}">
+                                <p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}" >
                                     <p:ajax event="change" update="eqse" />
                                 </p:inputText>
                             </center>
