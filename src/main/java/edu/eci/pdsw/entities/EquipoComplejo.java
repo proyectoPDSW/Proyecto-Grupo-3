@@ -5,6 +5,7 @@
  */
 package edu.eci.pdsw.entities;
 
+import java.math.BigInteger;
 import java.util.Objects;
 
 /**
@@ -16,7 +17,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     private boolean disponibilidad;
     private String estado;
     private String serial;
-    private int placa;
+    private String placa;
     private String marca;
     private Modelo modelo_Eq;
     public static String diario="prestamo diario", p24h="prestamo 24 horas",mantenimiento="mantenimiento",almacen="en almacen",indefinido="prestamo indefinido",semestre="prestamo por semestre";
@@ -30,11 +31,11 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param plac placa del equipo
      * @throws EquipoException 
      */
-    public EquipoComplejo(Modelo mod,String mar, String ser, int plac)throws EquipoException {
+    public EquipoComplejo(Modelo mod,String mar, String ser, String plac)throws EquipoException {
         if(mod==null) throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         if(ser.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         if(mar.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
-        if(plac<0) throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
+        if(new BigInteger(plac).compareTo(BigInteger.ZERO)<0) throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         this.marca=mar;
         this.serial=ser;
         this.modelo_Eq=mod;
@@ -51,7 +52,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param marca del equipo
      * @param modelo_Eq del equipo
      */
-    public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, int placa, String marca, Modelo modelo_Eq) {
+    public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, String placa, String marca, Modelo modelo_Eq) {
         this.asegurado = asegurado;
         this.disponibilidad = disponibilidad;
         this.estado = estado;
@@ -133,7 +134,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * 
      * @param pla 
      */
-    public void setPlaca(int pla){
+    public void setPlaca(String pla){
         this.placa=pla;
     }
     
@@ -141,7 +142,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * 
      * @return la placa del equipo complejo
      */
-    public int getPlaca(){
+    public String getPlaca(){
         return placa;
     }
 
@@ -217,7 +218,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
             return false;
         }
         final EquipoComplejo other = (EquipoComplejo) obj;
-        if (this.placa != other.placa) {
+        if (!Objects.equals(this.placa, other.placa)) {
             return false;
         }
         if (!Objects.equals(this.serial, other.serial)) {

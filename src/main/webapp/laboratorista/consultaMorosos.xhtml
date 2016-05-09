@@ -18,7 +18,7 @@ and open the template in the editor.
             <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
             <p:panel id="conultMorosos" header="Prestamos en mora a la fecha #{consultaMorosos.currDate()}" style="margin-bottom:20px">
                 <p:dataTable var="prestamo" value="#{consultaMorosos.morosos}" tableStyle="width:auto" >
-                    <p:column headerText="Fecha esperada entrega" sortBy="#{prestamo.fechaEstimadaDeEntrega}" >
+                    <p:column headerText="Fecha esperada entrega" >
                         <p:outputLabel value="#{prestamo.fechaEstimadaDeEntrega}"/>
                     </p:column>
                     <p:column headerText="Equipo"  >
@@ -50,7 +50,7 @@ and open the template in the editor.
                             </p:column>
                         </p:dataTable>
                     </p:column>
-                    <p:column headerText="Tiempo de mora"  >
+                    <p:column headerText="Tiempo de mora" sortBy="#{prestamo.fechaEstimadaDeEntrega}"   >
                         <p:outputLabel value="#{consultaMorosos.diffHoras(prestamo.fechaEstimadaDeEntrega)} horas"/>
                     </p:column>
 

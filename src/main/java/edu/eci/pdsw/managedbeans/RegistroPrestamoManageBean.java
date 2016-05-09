@@ -27,6 +27,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -86,7 +88,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     private int total;
     private Prestamo prestamo;
     private String laPersona;
-    
+    private String placa;
 
     public List<String> modelosAproximados(String query){
         List<String> aproximados=new ArrayList<>();
@@ -244,7 +246,7 @@ public class RegistroPrestamoManageBean implements Serializable{
      * o si es semestral
      */
     public void obtenerFechaEstimada(){
-        Calendar calen= Calendar.getInstance();
+        /*Calendar calen= Calendar.getInstance();
         calen.setTime(fechaEstimadaDeEntrega);
         if(fechaTipoPrestamo.equals("24 horas")){
             calen.add(Calendar.DAY_OF_MONTH, 1);
@@ -255,7 +257,8 @@ public class RegistroPrestamoManageBean implements Serializable{
         else if(fechaTipoPrestamo.equals("Semestral")){
             calen.set(Calendar.MONTH,6);
         }
-        fechaEstimadaDeEntrega=(Timestamp) calen.getTime();
+        fechaEstimadaDeEntrega=(Timestamp) calen.getTime();*/
+        fechaEstimadaDeEntrega=Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
     }
     
     /**
@@ -561,18 +564,28 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.selectEqSe = selectEqSe;
     }
 
-    /**
-     * @return the total
-     */
-    public int getTotal() {
-        return total;
+
+    public void registroDevolucionEquipoSencillo(){
+        try {
+            PRESTAMO.registarDevolucion(laPersona, selectEqSe, cantidad);
+        } catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+        }
+    }
+    public void registroDevolucionEquipoComplejo(){
+        try {
+            PRESTAMO.registrarDevolucion(placa);
+        } catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+        }
     }
 
-    /**
-     * @param total the total to set
-     */
-    public void setTotal(int total) {
-        this.total = total;
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
     
