@@ -153,7 +153,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                     }
                 }
                 Prestamo guardar = null;
-                if (ec.getEstado().equals(EquipoComplejo.indefinido)) {
+                if (ec.getEstado().equalsIgnoreCase(EquipoComplejo.indefinido)) {
                     guardar = new PrestamoIndefinido(pres.getElQuePideElPrestamo(), aAgregar, null);
                 } else {
                     guardar = new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(), aAgregar, null, Prestamo.calcularFechaEstimada(ec.getEstado()), ec.getEstado());
@@ -162,7 +162,9 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                     guardar.setEquiposSencillosPrestados(equiposS);
                     fp = false;
                 }
+                System.out.println("Vamos bien");
                 basePaciente.save(guardar);
+                System.out.println("Guardo");
                 daoF.commitTransaction();
             }
             /*for (EquipoComplejo c:equiposC){
