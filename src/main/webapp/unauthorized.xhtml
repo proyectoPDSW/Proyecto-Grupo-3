@@ -1,8 +1,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
 </h:head>
 <h:body>
-    <h:outputText value="¡Acceso denegado!"/>
+    <h:form>
+        <center><p:graphicImage value="../resource/acceso-denegado.jpg"/>
+        <p:commandButton value="Volver a inicio" action="login" />
+        </center>
+    </h:form>
+
 </h:body>
 </html>
