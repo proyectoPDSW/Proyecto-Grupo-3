@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author 2107803
+ * @author David Useche
  */
 public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo {
 

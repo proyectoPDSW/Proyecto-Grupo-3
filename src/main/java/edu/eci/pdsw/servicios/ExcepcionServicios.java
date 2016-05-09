@@ -7,7 +7,7 @@ package edu.eci.pdsw.servicios;
 
 /**
  *
- * @author 2107803
+ * @author David Useche
  */
 public class ExcepcionServicios extends Exception{
     

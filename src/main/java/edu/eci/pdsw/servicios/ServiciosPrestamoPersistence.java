@@ -32,7 +32,7 @@ import java.util.Set;
 
 /**
  *
- * @author 2105684
+ * @author Julian Devia
  */
 public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
 

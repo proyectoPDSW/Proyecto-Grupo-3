@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  *
- * @author 2107803
+ * @author David Useche
  */
 public abstract class ServiciosEquipoComplejo {
 

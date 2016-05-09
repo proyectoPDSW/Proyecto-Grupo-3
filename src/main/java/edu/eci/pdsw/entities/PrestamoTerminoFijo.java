@@ -19,7 +19,7 @@ import java.util.TimeZone;
 
 /**
  *
- * @author Hugo
+ * @author Hugo Alvarez
  */
 public class PrestamoTerminoFijo extends Prestamo {
     

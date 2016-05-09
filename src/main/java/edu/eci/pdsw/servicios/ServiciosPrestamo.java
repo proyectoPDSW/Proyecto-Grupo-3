@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author 2105684
+ * @author Julian Devia
  */
 public abstract class ServiciosPrestamo {
     

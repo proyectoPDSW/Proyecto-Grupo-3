@@ -13,7 +13,7 @@ import java.lang.*;
 
 /**
  *
- * @author Daniela
+ * @author Daniela Sepulveda
  */
 public class Registro {
     public static String nombre="labelectronica";

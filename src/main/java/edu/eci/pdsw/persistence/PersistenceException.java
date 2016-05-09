@@ -7,7 +7,7 @@ package edu.eci.pdsw.persistence;
 
 /**
  *
- * @author 2107803
+ * @author David Useche
  */
 public class PersistenceException extends Exception{
     public PersistenceException(String message) {

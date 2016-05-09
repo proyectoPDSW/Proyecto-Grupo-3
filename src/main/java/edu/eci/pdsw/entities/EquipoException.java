@@ -7,7 +7,7 @@ package edu.eci.pdsw.entities;
 
 /**
  *
- * @author german
+ * @author German Lopez
  */
 public class EquipoException extends Exception {
 

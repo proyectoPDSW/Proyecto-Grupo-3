@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author 2107803
+ * @author David Useche
  */
 public abstract class ServiciosEquipoSencillo {
 

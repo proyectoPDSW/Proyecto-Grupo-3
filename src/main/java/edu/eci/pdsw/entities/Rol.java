@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  *
- * @author 2105403
+ * @author German Lopez
  */
 public class Rol implements Comparable<Rol>{
     private String rol;
