@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Consulta Morosos</title>
     </h:head>
@@ -15,26 +16,26 @@ and open the template in the editor.
         <h:form id="consultaMorosos">
             <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
             <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
-            <p:panel id="conultMorosos" header="Prestamos en mora" style="margin-bottom:20px">
-                <!--p:dataTable -->
-                <p:dataTable var="prestamo" value="#{consultaMorosos.morosos}" >
-                    <p:column headerText="fecha" >
+            <p:panel id="conultMorosos" header="Prestamos en mora a la fecha #{consultaMorosos.currDate()}" style="margin-bottom:20px">
+                <p:dataTable var="prestamo" value="#{consultaMorosos.morosos}" tableStyle="width:auto" >
+                    <p:column headerText="Fecha esperada entrega" sortBy="#{prestamo.fechaEstimadaDeEntrega}" >
                         <p:outputLabel value="#{prestamo.fechaEstimadaDeEntrega}"/>
                     </p:column>
-
-                    <!--p:column headerText="Equipo"-->
                     <p:column headerText="Equipo"  >
-                        <p:dataTable  value="#{prestamo.equiposComplejosFaltantes}" var="equipo" >
+                        <p:dataTable  value="#{prestamo.equiposComplejosFaltantes}" var="equipo" tableStyle="width:auto" >
                             <p:column headerText="Equipo">
                                 <p:outputLabel value="#{equipo.modelo_Eq.nombre} #{equipo.marca}"/>
                             </p:column>
                             <p:column headerText="Valor"   >
-                                <p:outputLabel value="#{equipo.modelo_Eq.valorComercial}"/>
+                                <p:outputLabel value="$"/>
+                                <p:outputLabel value="#{equipo.modelo_Eq.valorComercial}">
+                                    <f:convertNumber locale="es_CO" />
+                                </p:outputLabel><p:outputLabel value=" COP"/>
                             </p:column>
                         </p:dataTable>
                     </p:column>
                     <p:column headerText="Otros Equipos">
-                        <p:dataTable value="#{prestamo.equiposSencillosFaltantes2}" var="equipo" >
+                        <p:dataTable value="#{prestamo.equiposSencillosFaltantes}" var="equipo" tableStyle="width:auto" >
                             <p:column headerText="Equipo" >
                                 <p:outputLabel value="#{equipo.nombre}"/>
                             </p:column>
@@ -42,12 +43,14 @@ and open the template in the editor.
                                 <p:outputLabel value="#{equipo.getCantidadTotal()}"/>
                             </p:column>
                             <p:column headerText="Valor">
-                                <p:outputLabel value="#{equipo.valorComercial}" />
+                                <p:outputLabel value="$"/>
+                                <p:outputLabel value="#{equipo.valorComercial}" >
+                                    <f:convertNumber locale="es_CO" />
+                                </p:outputLabel><p:outputLabel value=" COP"/>
                             </p:column>
                         </p:dataTable>
                     </p:column>
                     <p:column headerText="Tiempo de mora"  >
-                        <!--p:column headerText="Tiempo de mora" sortBy="prestamo.tiempoMora" sortOrder="descending" -->
                         <p:outputLabel value="#{consultaMorosos.diffHoras(prestamo.fechaEstimadaDeEntrega)} horas"/>
                     </p:column>
 
@@ -58,8 +61,13 @@ and open the template in the editor.
                     <p:column headerText="Correo" >
                         <p:outputLabel value="#{prestamo.elQuePideElPrestamo.email}"/>
                     </p:column>
+                    <p:column headerText="Valor total" sortBy="#{prestamo.valorTotal}" >
+                        <p:outputLabel value="$"/>
+                        <p:outputLabel value="#{prestamo.valorTotal}">
+                            <f:convertNumber locale="es_CO" />
+                        </p:outputLabel><p:outputLabel value=" COP"/>
+                    </p:column>
                 </p:dataTable>
-                <!--p:graphicImage url="http://jsequeiros.com/sites/default/files/imagen-cachorro-comprimir.jpg?1399003306"/-->
             </p:panel>
 
         </h:form>

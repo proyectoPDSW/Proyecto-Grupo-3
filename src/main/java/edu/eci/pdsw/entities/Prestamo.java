@@ -21,7 +21,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     protected Timestamp fechaEstimadaDeEntrega;
     protected Timestamp fechaRealEntregada;
 
-    
+    protected long valorTotal;
     
     protected Set<EquipoComplejo> equiposComplejosPrestados;
     protected Set<EquipoComplejo> equiposComplejosFaltantes;
@@ -253,5 +253,26 @@ public abstract class Prestamo implements Comparable<Prestamo> {
             if(es.equals(equipo))ans=es;
         }
         return ans;
+    }
+
+    /**
+     * @return the valorTotal
+     */
+    public long getValorTotal() {
+        setValorTotal(0);
+        return valorTotal;
+    }
+
+    /**
+     * @param valorTotal the valorTotal to set
+     */
+    public void setValorTotal(long valorTotal) {
+        this.valorTotal=0;
+        for (EquipoComplejo ec : equiposComplejosPrestados) {
+            this.valorTotal+=ec.getModelo_Eq().getValorComercial();
+        }
+        for (EquipoSencillo es : equiposSencillosPrestados) {
+            this.valorTotal+=es.getValorComercial()*es.getCantidadTotal();
+        }
     }
 }

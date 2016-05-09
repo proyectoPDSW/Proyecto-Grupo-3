@@ -62,6 +62,17 @@ insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,aseg
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('asd123','3',FALSE,'en reparacion','multimetro Digital',TRUE,'Fluke');
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('d23j3s','4',TRUE,'prestamo diario','multimetro Digital',TRUE,'Fluke');
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('klñlkopk2421k','5',TRUE,'prestamo diario','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('sdfsadfsafew','6',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('vasldvnf','7',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('zcbkkihg','8',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('asdwszsx','9',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('mdjisj','10',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('mdasd','11',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('mdfjop','12',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('oiuhy','13',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('cndus','14',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('mdsai','15',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('cdsdwasi','16',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
 
 insert into Prestamos(fecha_inicio,persona,fecha_fin_estimada,fecha_fin_real,tipo_prestamo) values('2016-04-29 12:00:00','2105684','2016-04-30 12:00:00',NULL,'prestamo 24 horas');
 insert into Prestamos(fecha_inicio,persona,fecha_fin_estimada,fecha_fin_real,tipo_prestamo) values('2016-04-29 07:00:00','2105533','2016-04-29 19:00:00',NULL,'prestamo diario');

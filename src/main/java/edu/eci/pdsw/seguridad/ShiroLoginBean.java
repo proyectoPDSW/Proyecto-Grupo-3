@@ -18,6 +18,7 @@ import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -25,7 +26,7 @@ import org.apache.shiro.util.SimpleByteSource;
 
 
 @ManagedBean(name = "loginBean")
-@ViewScoped
+@SessionScoped
 public class ShiroLoginBean implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(ShiroLoginBean.class);
 
@@ -67,7 +68,7 @@ public class ShiroLoginBean implements Serializable {
         UsernamePasswordToken token = new UsernamePasswordToken(getUsername(), getPassword(), getRememberMe());
         try {
             subject.login(token);
-            System.out.println(subject.hasRole("Laboratorista"));
+            //System.out.println(subject.hasRole("Laboratorista"));
             if (subject.hasRole("admin")) {               
                 FacesContext.getCurrentInstance().getExternalContext().redirect("restricted/index.xhtml");
             }
