@@ -12,13 +12,18 @@
         <h:form id="index">
             <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
             <p:panel id="registrarEquipo" >
-                <br></br><p:commandButton value="Consulta morosos" action="consultaMorosos"  />
-                <br></br><p:commandButton value="Registro equipo sencillo" action="registroequiposencillo" />
-                <br></br><p:commandButton value="Registro equipo complejo" action="registroequipocomplejos" />
-                <br></br><p:commandButton value="Registro equipos " action="registroequipos" />
-                <br></br><p:commandButton value="Consultar modelo" action="consultarmodelo" />
-                <br></br><p:commandButton value="Registrar prestamo" action="registroPrestamo" />
-                <br></br><p:commandButton value="Registrar una devolucion" action="registroDevolucion" />
+                <br/><p:commandButton value="Consulta morosos" action="consultaMorosos"  />
+                <br/><p:commandButton value="Registro equipo sencillo" action="registroequiposencillo" />
+                <br/><p:commandButton value="Registro equipo complejo" action="registroequipocomplejos" />
+                <!--br/><p:commandButton value="Registro equipos " action="registroequipos" /-->
+                <!--br/><p:commandButton value="Consultar modelo" action="consultarmodelo" /-->
+                <br/><p:commandButton value="Registrar prestamo" action="registroPrestamo" />
+                <br/><p:commandButton value="Registrar una devolucion" action="registroDevolucion" />
+                <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                    <f:facet name="start">
+                        <p:graphicImage url="/resource/loading.gif" height="20" width="20" />
+                    </f:facet>
+                </p:ajaxStatus>
             </p:panel>
         </h:form>
     </h:body>

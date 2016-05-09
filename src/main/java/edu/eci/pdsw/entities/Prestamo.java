@@ -217,8 +217,10 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public void setEquiposSencillosFaltantes(Set<EquipoSencillo> equiposSencillosFaltantes) {
         this.equiposSencillosFaltantes = new HashSet<>();
+        //System.out.println(">>>>>>>>>>>>>>>>>>>><si entro al set");
         if (equiposSencillosFaltantes != null) {
-            for (EquipoSencillo es : equiposSencillosFaltantes) {
+            for (EquipoSencillo es : equiposSencillosPrestados) {
+                //System.out.println("si esta en el for "+es);
                 if (es.getCantidadTotal() > 0) {
                     this.equiposSencillosFaltantes.add(es);
                 }

@@ -40,7 +40,16 @@ public class EquipoSencillo implements Comparable<EquipoSencillo> {
 
     public EquipoSencillo() {
     }
-
+    
+    /**
+     * Constructor de equipo sencillo
+     * @param nombre, nombre del equipo
+     * @param clase, clase del equipo
+     * @param valorComercial, valor comercial del equipo
+     * @param cantidadTotal, cantidad del equipo
+     * @param fotografia, la fotografia del equipo
+     * @throws EquipoException 
+     */
     public EquipoSencillo(String nombre, String clase, long valorComercial, int cantidadTotal, String fotografia) {
         this.nombre = nombre;
         this.clase = clase;

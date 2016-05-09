@@ -21,6 +21,11 @@
                     <p:growl id="msgs" showDetail="true" />
                     <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                     <p:commandButton value="Realizar Prestamo" update=":Informacion Prestamo" ajax="false" actionListener="#{RegistroPrestamo.registrarPrestamo()}" icon="ui-icon-plusthick"/>
+                    <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                        <f:facet name="start">
+                            <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
+                        </f:facet>
+                    </p:ajaxStatus>
                     <p:tabView>
                         <p:tab title="Consultar Persona">
                             <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelPersona}">
