@@ -49,5 +49,14 @@ public interface DAOEquipoSencillo {
      * @return el numero de elemenetos que se pueden prestar
      * @throws PersistenceException si el Equipo sencillo no existe
      */
-    public int loadByNombreDisponibles(String nombre) throws PersistenceException;
+    public EquipoSencillo loadByNombreDisponibles(String nombre) throws PersistenceException;
+    
+    /**
+     * Consulta la cantidad disponible de un equipo sencillo
+     * para realizar prestamos
+     * @param nomre
+     * @return
+     * @throws PersistenceException 
+     */
+    public int loadCantidadDisponibleEquipoSencillo(String nomre) throws PersistenceException;
 }

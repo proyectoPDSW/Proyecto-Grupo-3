@@ -80,8 +80,8 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
     }
 
     @Override
-    public int ConsultarDisponibilidadPorNombre(String nombre) throws ExcepcionServicios {
-        int ans;
+    public EquipoSencillo ConsultarDisponibilidadPorNombre(String nombre) throws ExcepcionServicios {
+        EquipoSencillo ans=null;
         try {
             dao.beginSession();
             sencilloPersistencia = dao.getDaoEquipoSencillo();
@@ -104,6 +104,21 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
         } catch (PersistenceException ex) {
             throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
+    }
+
+    @Override
+    public int consultarCantidadDisponibleEqSencillo(String nombre) throws ExcepcionServicios {
+        int ans=0;
+        try{
+            dao.beginSession();
+            sencilloPersistencia= dao.getDaoEquipoSencillo();
+            ans=sencilloPersistencia.loadCantidadDisponibleEquipoSencillo(nombre);
+            dao.commitTransaction();
+            dao.endSession();
+        }catch(PersistenceException ex){
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
+        }
+        return ans;
     }
 
 }

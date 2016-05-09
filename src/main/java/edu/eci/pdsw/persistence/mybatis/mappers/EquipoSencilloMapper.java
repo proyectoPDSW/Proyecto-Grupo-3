@@ -41,9 +41,20 @@ public interface EquipoSencilloMapper {
    public ArrayList<EquipoSencillo> loadAll();
    
    /**
-    * Consulta la cantidad disponible de un equipo sencillo 
+    * Consulta los equipos sencillos con cantidad total
+    * mator a 0
     * @param nombre
     * @return un numero que es la cantidad disponible
     */
-   public int loadEquipoByNombreDisponibilidad(@Param("Eq_Nombre") String nombre);
+   public EquipoSencillo loadEquipoByNombreDisponibilidad(@Param("Eq_Nombre") String nombre);
+   
+   /**
+    * Consulta la cantidad disponible que tiene un equipo sencillo
+    * para hacer prestamos
+    * @param nombre
+    * @return 
+    */
+   public int consultarEquipoSencilloCantidadDisponible(@Param("Eq_Nombre") String nombre);
 }
+
+

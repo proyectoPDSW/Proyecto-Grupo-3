@@ -84,6 +84,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     private String fechaTipoPrestamo;
     //lista para saber la cantidad de los equipos
     private List<EquipoSencillo> es;
+    //cantidad disponible del equipo sencillo
+    private int cantidadDisponible;
     private Prestamo prestamo;
     private String laPersona;
     private String placa;
@@ -108,6 +110,7 @@ public class RegistroPrestamoManageBean implements Serializable{
         equiposComplejosPrestados=new LinkedHashSet<>();
         equiposSencillosPrestados=new LinkedHashSet<>();
         fechaTipoPrestamo=null;
+        cantidadDisponible=0;
         //tipoPrestamo=elQuePideElPrestamo.rolMasValioso2();
         tipoPrestamo=new HashMap<>();
         tipoPrestamo.put("24 horas","24 horas");
@@ -160,13 +163,14 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void consultarEqSNombre(){
        List<EquipoSencillo> equiposS=new ArrayList<>();
        try{
-           equiposS.add(EQSENCILLO.consultarPorNombre(nombre));
+           equiposS.add(EQSENCILLO.ConsultarDisponibilidadPorNombre(nombre));
            showPanelRegistro=true;
        }catch(ExcepcionServicios ex){
            showPanelRegistro=false;
            facesError(ex.getMessage());
        }
        eqS=equiposS;
+        cantidadDisponibleEqs(eqS.get(0).getNombre());
     }
     
     
@@ -176,7 +180,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void agregarEquipoC(){
         if(selectEquipoComplejo!=null){
         selectEquipoComplejo.setEstado(fechaTipoPrestamo);
-        actualizarEquipos(selectEquipoComplejo);
+        //actualizarEquipoComplejo(selectEquipoComplejo);
         consultarEqModelo();
         equiposComplejosPrestados.add(selectEquipoComplejo);
         }
@@ -187,7 +191,7 @@ public class RegistroPrestamoManageBean implements Serializable{
      * cambio en su estado
      * @param nuevo 
      */
-    public void actualizarEquipos(EquipoComplejo nuevo){
+    public void actualizarEquipoComplejo(EquipoComplejo nuevo){
         try{
             EQCOMPLEJO.actualizarEquipo(nuevo);
         }catch(ExcepcionServicios ex){
@@ -200,8 +204,29 @@ public class RegistroPrestamoManageBean implements Serializable{
      * Agrega equipos sencillos al prestamo termino fijo
      */
     public void agregarEquipoS(){
+        try{
         if(getSelectEquipoSencillo()!=null){
-        equiposSencillosPrestados.add(getSelectEquipoSencillo());
+            Calendar calen=Calendar.getInstance();
+            calen.setTime(fechaEstimadaDeEntrega);
+            calen.add(Calendar.DAY_OF_MONTH,1);
+            fechaEstimadaDeEntrega=(Timestamp) calen.getTime();
+            Prestamo pres=new PrestamoTerminoFijo(elQuePideElPrestamo,null,null,fechaEstimadaDeEntrega,"24 horas");
+            EquipoSencillo dahh=new EquipoSencillo(selectEquipoSencillo.getNombre(),selectEquipoSencillo.getClase(),selectEquipoSencillo.getValorComercial(),cantidad,selectEquipoSencillo.getFotografia());
+            PRESTAMO.registrarEquipoSencilloPrestamo(pres, dahh);
+            cantidadDisponibleEqs(selectEquipoSencillo.getNombre());
+            consultarEqSNombre();
+            equiposSencillosPrestados.add(getSelectEquipoSencillo());
+        }
+        }catch(ExcepcionServicios ex){
+            facesError(ex.getMessage());
+        }
+    }
+    
+    public void cantidadDisponibleEqs(String nom){
+        try{
+            cantidadDisponible=EQSENCILLO.consultarCantidadDisponibleEqSencillo(nom);
+        }catch(ExcepcionServicios ex){
+            facesError(ex.getMessage());
         }
     }
     
@@ -553,6 +578,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
 
     //////////////////////////Devolucion
+
     public void registroDevolucionEquipoSencillo(){
         try {
             PRESTAMO.registarDevolucion(laPersona, selectEqSe, cantidad);
@@ -577,5 +603,20 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void setPlaca(String placa) {
         this.placa = placa;
     }
+
+    /**
+     * @return the cantidadDisponible
+     */
+    public int getCantidadDisponible() {
+        return cantidadDisponible;
+    }
+
+    /**
+     * @param cantidadDisponible the cantidadDisponible to set
+     */
+    public void setCantidadDisponible(int cantidadDisponible) {
+        this.cantidadDisponible = cantidadDisponible;
+    }
+
     
 }

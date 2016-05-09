@@ -48,7 +48,7 @@ public abstract class ServiciosEquipoSencillo {
      * @return La cantidad de elementos que se pueden prestar
      * @throws ExcepcionServicios Si el equipo con ese nombre no esta registrado
      */
-    public abstract int ConsultarDisponibilidadPorNombre(String nombre) throws ExcepcionServicios;
+    public abstract EquipoSencillo ConsultarDisponibilidadPorNombre(String nombre) throws ExcepcionServicios;
 
     /**
      * Actualiza un equipo sencillo
@@ -56,4 +56,13 @@ public abstract class ServiciosEquipoSencillo {
      * @throws ExcepcionServicios si el equipo no esta registrado
      */
     public abstract void actualizar(EquipoSencillo equipo) throws ExcepcionServicios;
+    
+    /**
+     * Consulta la cantidad disponible de un equipo sencillo 
+     * para hacer prestamos
+     * @param nombre
+     * @return
+     * @throws ExcepcionServicios 
+     */
+    public abstract int consultarCantidadDisponibleEqSencillo(String nombre) throws ExcepcionServicios;
 }
