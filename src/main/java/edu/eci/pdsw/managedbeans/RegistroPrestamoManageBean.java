@@ -27,6 +27,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -84,7 +86,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     private List<EquipoSencillo> es;
     private Prestamo prestamo;
     private String laPersona;
-    
+    private String placa;
 
     public List<String> modelosAproximados(String query){
         List<String> aproximados=new ArrayList<>();
@@ -549,5 +551,27 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.selectEqSe = selectEqSe;
     }
 
+    public void registroDevolucionEquipoSencillo(){
+        try {
+            PRESTAMO.registarDevolucion(laPersona, selectEqSe, cantidad);
+        } catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+        }
+    }
+    public void registroDevolucionEquipoComplejo(){
+        try {
+            PRESTAMO.registrarDevolucion(placa);
+        } catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+        }
+    }
+
+    public String getPlaca() {
+        return placa;
+    }
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
     
 }

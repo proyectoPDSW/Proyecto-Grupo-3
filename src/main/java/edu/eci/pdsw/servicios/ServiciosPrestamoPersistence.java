@@ -214,6 +214,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                     //Despues de cambiar el equipo que cargue del prestamo, actualizo los
                     //Faltantes a ver si ya deja de serlo, luego actualizo en la DB
                     cargadosDePersona.get(i).getEquiposSencillosFaltantes();
+                    System.out.println(cargadosDePersona.get(i).getElQuePideElPrestamo());
+                    System.out.println(Arrays.toString(cargadosDePersona.get(i).getEquiposSencillosFaltantes().toArray()));
                     basePaciente.update(cargadosDePersona.get(i));
                 }
             }

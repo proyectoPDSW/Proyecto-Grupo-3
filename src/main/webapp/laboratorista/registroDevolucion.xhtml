@@ -20,8 +20,8 @@ and open the template in the editor.
                     <p:tab title="Devolver Equipo Complejo">
                        <h:panelGrid columns="2" cellpadding="5">
                            <center>Equipo Complejo (placa)</center>
-                           <center><p:inputText ></p:inputText></center>
-                           <center><p:commandButton value="Submit"></p:commandButton></center>
+                           <center><p:inputText value="#{RegistroPrestamo.placa}"></p:inputText></center>
+                           <center><p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoComplejo()}"></p:commandButton></center>
                        </h:panelGrid>
                     </p:tab>
                     <p:tab title="Devolver Equipo Sencillo">
@@ -42,7 +42,7 @@ and open the template in the editor.
                                 <p:spinner id="basic" value="#{RegistroPrestamo.cantidad}" min="1" max="#{RegistroPrestamo.maxValue()}"/>
                             </center>
                             <center>
-                                <p:commandButton value="Submit"></p:commandButton>
+                                <p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoSencillo()}"></p:commandButton>
                             </center>
                         </h:panelGrid>
                     </p:tab>
