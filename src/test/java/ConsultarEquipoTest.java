@@ -62,8 +62,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",734829);
-        aConsultar.setPlaca(2);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","734829");
+        aConsultar.setPlaca("2");
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
         daof.commitTransaction();
@@ -84,8 +84,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",38294);
-        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F",74892);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","38294");
+        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F","74892");
         aConsultar.setEstado("En prueba");
         aConsultar2.setEstado("En prueba");
         dec.save(aConsultar);
@@ -109,11 +109,11 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",189);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","189");
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
         daof.commitTransaction();
-        EquipoComplejo loaded = dec.load(189);
+        EquipoComplejo loaded = dec.load("189");
         Assert.assertEquals("no conulta adecuadamente por placa",aConsultar, loaded);
     }
 
@@ -130,7 +130,7 @@ public class ConsultarEquipoTest {
         Modelo model = new Modelo(7, "Modelo de prueba", null, "Clase x", 100000);
         //dec.save(model);
         //daof.commitTransaction();
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",2);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","2");
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
         daof.commitTransaction();
@@ -196,12 +196,12 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X",734829);
-        EquipoComplejo aConsultar1 = new EquipoComplejo(model, "Toshiba", "ACasd",734829);
-        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Toshiba", "AC23d",734829);
-        aConsultar.setPlaca(2);
-        aConsultar2.setPlaca(3);
-        aConsultar1.setPlaca(4);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","734829");
+        EquipoComplejo aConsultar1 = new EquipoComplejo(model, "Toshiba", "ACasd","734829");
+        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Toshiba", "AC23d","734829");
+        aConsultar.setPlaca("2");
+        aConsultar2.setPlaca("3");
+        aConsultar1.setPlaca("4");
         aConsultar.setEstado(EquipoComplejo.almacen);
         aConsultar2.setEstado(EquipoComplejo.almacen);
         aConsultar1.setEstado(EquipoComplejo.diario);

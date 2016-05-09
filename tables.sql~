@@ -37,7 +37,7 @@ CREATE TABLE Equipo_prestamo_sencillo (
 -- Table: Equipos_Complejos
 CREATE TABLE Equipos_Complejos (
     serial varchar(30) NOT NULL,
-    num_placa varchar(50) NOT NULL,
+    num_placa int NOT NULL,
     disponibilidad bool NOT NULL,
     estado varchar(50) NOT NULL,
     modelo varchar(50) NOT NULL,

@@ -36,6 +36,7 @@ public interface EquipoComplejoMapper {
     
     /**
      * Consulta todos los equipos complejos del modelo que se encuentren en el almacen
+     * @param m 
      * @return un arreglo de equipos complejos del modelo m que se encuentren en el almacen
      */
     public ArrayList<EquipoComplejo> loadEnAlmacenByModelo(@Param("Modelo")String m);
@@ -53,7 +54,7 @@ public interface EquipoComplejoMapper {
      * @param placa
      * @return el equipo complejo que posea esa placa
      */
-    public EquipoComplejo loadEquipoByPlaca(@Param("Eq_Placa") int placa);
+    public EquipoComplejo loadEquipoByPlaca(@Param("Eq_Placa") String placa);
     
     /**
      * Reemplaza un equipo complejo por uno que tenga nueva informacion

@@ -84,7 +84,7 @@ public class RegistrarPrestamosTest {
         Modelo mod=new Modelo(400,"nombre","foto","clase",50000);
         dec.save(mod);
         daof.commitTransaction();
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial",123456);
+        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456");
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
@@ -158,7 +158,7 @@ public class RegistrarPrestamosTest {
         Modelo mod=new Modelo(400,"nombre","foto","clase",50000);
         dec.save(mod);
         daof.commitTransaction();
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial",123456);
+        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456");
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
@@ -208,7 +208,7 @@ public class RegistrarPrestamosTest {
         Modelo mod=new Modelo(400,"nombre","foto","clase",5000);
         dec.save(mod);
         daof.commitTransaction();
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial",54351);
+        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","54351");
         ec.setEstado(EquipoComplejo.indefinido);
         dec.save(ec);
         daof.commitTransaction();

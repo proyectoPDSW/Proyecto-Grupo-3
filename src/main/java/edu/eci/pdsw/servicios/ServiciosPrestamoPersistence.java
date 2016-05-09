@@ -230,7 +230,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public void registrarDevolucion(int equipo) throws ExcepcionServicios{
+    public void registrarDevolucion(String equipo) throws ExcepcionServicios{
         try{
             daoF.beginSession();
             DAOEquipoComplejo dec=daoF.getDaoEquipoComplejo();

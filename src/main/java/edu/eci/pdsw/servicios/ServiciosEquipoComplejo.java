@@ -57,7 +57,7 @@ public abstract class ServiciosEquipoComplejo {
      * @return El equipo que posee esa placa
      * @throws ExcepcionServicios si la placa no esta registrada
      */
-    public abstract EquipoComplejo consultarPorPlaca(int numPlaca)throws ExcepcionServicios;
+    public abstract EquipoComplejo consultarPorPlaca(String numPlaca)throws ExcepcionServicios;
 
     /**
      * Consulta el equipo que tenga cierto serial

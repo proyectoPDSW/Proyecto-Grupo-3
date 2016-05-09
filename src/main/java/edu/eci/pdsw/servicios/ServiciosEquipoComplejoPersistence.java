@@ -100,7 +100,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
     }
 
     @Override
-    public EquipoComplejo consultarPorPlaca(int numPlaca) throws ExcepcionServicios {
+    public EquipoComplejo consultarPorPlaca(String numPlaca) throws ExcepcionServicios {
         EquipoComplejo ans;
         try {
             dao.beginSession();
