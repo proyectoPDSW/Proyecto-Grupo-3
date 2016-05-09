@@ -552,19 +552,23 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.selectEqSe = selectEqSe;
     }
 
-    public void registroDevolucionEquipoSencillo(){
+    public void registroDevolucionEquipoSencillo() throws ExcepcionServicios{
         try {
             PRESTAMO.registarDevolucion(laPersona, selectEqSe, cantidad);
-        } catch (ExcepcionServicios ex) {
-            facesError(ex.getMessage());
-        }
-    }
-    public void registroDevolucionEquipoComplejo(){
-        try {
-            PRESTAMO.registrarDevolucion(placa);
+            System.out.println("SADSADASDADASDASDASDSADASDADSA");
             facesInfo("Se realizo con exito la devolución");
         } catch (ExcepcionServicios ex) {
-            facesError(ex.getMessage());
+            throw ex;
+            //facesError(ex.getMessage());
+        }
+    }
+    public void registroDevolucionEquipoComplejo() throws ExcepcionServicios{
+        try {
+            PRESTAMO.registrarDevolucion(placa);
+            System.out.println("SADSADASDADASDASDASDSADASDADSA");
+            facesInfo("Se realizo con exito la devolución");
+        } catch (ExcepcionServicios ex) {
+            throw ex;
         }
     }
 

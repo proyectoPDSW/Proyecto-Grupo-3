@@ -80,6 +80,10 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
             pmap.updatePrestamo(prestamo);
         for (EquipoSencillo es : prestamo.getEquiposSencillosPrestados()) {
             //System.out.println("test dao "+es);
+            System.out.println("AQUI DEBE ENTRAR 1 -------------------_>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> :) "+es.getNombre());
+            System.out.println("AQUI DEBE ENTRAR 2 -------------------_>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> :) "+es.getCantidadTotal());
+            System.out.println("AQUI DEBE ENTRAR 3 -------------------_>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> :) "+prestamo.getElQuePideElPrestamo().getCarnet());
+            System.out.println("AQUI DEBE ENTRAR 4 -------------------_>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> :) "+prestamo.getFechaInicio());
             pmap.updateEquipoSencillo(prestamo, es);
         }
     }
