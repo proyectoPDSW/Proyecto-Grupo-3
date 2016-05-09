@@ -105,6 +105,7 @@ public class RegistroPrestamoManageBean implements Serializable{
         EQSENCILLO=ServiciosEquipoSencillo.getInstance();
         equiposComplejosPrestados=new LinkedHashSet<>();
         equiposSencillosPrestados=new LinkedHashSet<>();
+        fechaTipoPrestamo=null;
         //tipoPrestamo=elQuePideElPrestamo.rolMasValioso2();
         tipoPrestamo=new HashMap<>();
         tipoPrestamo.put("24 horas","24 horas");
@@ -142,7 +143,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void consultarEqModelo(){
         List<EquipoComplejo> equipos=new ArrayList<>();
         try{
-            equipos=EQCOMPLEJO.consultarPorModelo(modelo);
+            equipos=EQCOMPLEJO.consultarEnAlmacenModelo(modelo);
             showPanelRegistro=true;
         }catch(ExcepcionServicios ex){
             showPanelRegistro=false;
@@ -173,6 +174,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void agregarEquipoC(){
         if(selectEquipoComplejo!=null){
         selectEquipoComplejo.setEstado(fechaTipoPrestamo);
+        consultarEqModelo();
         equiposComplejosPrestados.add(selectEquipoComplejo);
         }
     }
@@ -190,21 +192,18 @@ public class RegistroPrestamoManageBean implements Serializable{
      * obtiene el tipo del prestamo si es indefinido o termino fijo
      */
     public void registrarPrestamo(){
-        showPanelPersona=false;
         try{
             if(elQuePideElPrestamo.rolMasValioso().equals("Estudiante")){
                 prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,EquipoComplejo.diario);
-                PRESTAMO.registrarPrestamo(prestamo);
-                facesInfo("El prestamo ha sido registrado satisfactoriamente");
-                showPanelRegistro=false;
-                showPanelRegistrado=true;
             }
             else if(getElQuePideElPrestamo().rolMasValioso().equals("Laboratorista") || getElQuePideElPrestamo().rolMasValioso().equals("Profesor")){
+                if(fechaTipoPrestamo==null){
                 setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
-                PRESTAMO.registrarPrestamo(prestamo);
-                facesInfo("El prestamo ha sido registrado satisfactoriamente");
-                showPanelRegistro=false;
-                showPanelRegistrado=true;
+                }else{
+                    prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,EquipoComplejo.diario);
+                }
+            PRESTAMO.registrarPrestamo(prestamo);
+            facesInfo("El prestamo ha sido registrado satisfactoriamente");
             }
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
@@ -223,10 +222,10 @@ public class RegistroPrestamoManageBean implements Serializable{
             calen.add(Calendar.DAY_OF_MONTH, 1);
         }
         else if(fechaTipoPrestamo.equals("Diario")){
-            calen.add(Calendar.DAY_OF_MONTH, 1);
+            calen.set(Calendar.HOUR, 19);
         }
         else if(fechaTipoPrestamo.equals("Semestral")){
-            calen.set(Calendar.HOUR,19);
+            calen.set(Calendar.MONTH,6);
         }
         fechaEstimadaDeEntrega=(Timestamp) calen.getTime();
     }

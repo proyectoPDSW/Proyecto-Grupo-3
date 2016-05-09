@@ -98,4 +98,13 @@ public abstract class ServiciosEquipoComplejo {
      */
     public abstract List<String> consultarAproximado(String cadena)throws ExcepcionServicios;
     
+    /**
+     * Consulta los equipos complejos que tengan un modelo en comun
+     * y ademas esten disponibles para prestar
+     * @param modelo
+     * @return lista de equipos complejos para prestar
+     * @throws ExcepcionServicios 
+     */
+    public abstract List<EquipoComplejo> consultarEnAlmacenModelo(String modelo) throws ExcepcionServicios;
+    
 }

@@ -20,6 +20,7 @@
 
                     <p:growl id="msgs" showDetail="true" />
                     <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
+                    <p:commandButton value="Realizar Prestamo" update=":Informacion Prestamo" ajax="false" actionListener="#{RegistroPrestamo.registrarPrestamo()}" icon="ui-icon-plusthick"/>
                     <p:tabView>
                         <p:tab title="Consultar Persona">
                             <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelPersona}">
@@ -35,7 +36,7 @@
                                 <p:messages id="messages1" autoUpdate="true" closable="true" />
                             </h:panelGrid>
                         </p:tab>
-                        <p:tab title="Realizar Prestamo">
+                        <p:tab title="Informacion Prestamo">
                             <h:panelGrid columns="3" cellpadding="5">
                                 <p:layout style="min-width:600px;min-height:400px;">
                                     <p:layoutUnit position="west" size="600">

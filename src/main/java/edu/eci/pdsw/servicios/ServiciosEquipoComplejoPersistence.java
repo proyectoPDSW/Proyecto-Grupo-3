@@ -182,4 +182,20 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
         return ans;
     }
 
+    @Override
+    public List<EquipoComplejo> consultarEnAlmacenModelo(String modelo) throws ExcepcionServicios {
+        if(modelo.length()==0) throw new ExcepcionServicios("Modelo invalido");
+        List<EquipoComplejo> ans=new ArrayList<>();
+        try{
+        dao.beginSession();
+        complejoPersistencia=dao.getDaoEquipoComplejo();
+        ans=complejoPersistencia.loadEnAlmacenByModelo(modelo);
+        dao.commitTransaction();
+        dao.endSession();
+        }catch(PersistenceException ex){
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
+        }
+        return ans;
+    }
+
 }
