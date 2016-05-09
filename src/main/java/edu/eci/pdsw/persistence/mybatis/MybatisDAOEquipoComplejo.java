@@ -33,6 +33,7 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
         if (eMap.loadEquipoBySerial(modelo, serial) == null) {
             throw new PersistenceException("El equipo con serial " + serial + " no esta registrado");
         }
+        //System.out.println(eMap.loadEquipoBySerial(modelo, serial));
         return eMap.loadEquipoBySerial(modelo, serial);
     }
 
@@ -41,6 +42,7 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
         if (eMap.loadEquipoByPlaca(placa) == null) {
             throw new PersistenceException("El equipo con serial " + placa + " no esta registrado");
         }
+        //System.out.println(eMap.loadEquipoByPlaca(placa));
         return eMap.loadEquipoByPlaca(placa);
     }
 

@@ -53,6 +53,7 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         }
         /*if(pmap.loadPrestamo(fecha,carne).isEmpty())
             throw new PersistenceException("no existe ningun Prestamo en la base de datos con la fecha "+fecha.toString()+" y el carnet "+carne);*/
+        //System.out.println(pmap.loadPrestamo(fecha, carne));
         return pmap.loadPrestamo(fecha, carne);
     }
 
@@ -127,6 +128,7 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
 
     @Override
     public List<Prestamo> loadMorosos() throws PersistenceException {
+        System.out.println(Arrays.toString(pmap.loadMorosos().toArray()));
         return pmap.loadMorosos();
     }
 
