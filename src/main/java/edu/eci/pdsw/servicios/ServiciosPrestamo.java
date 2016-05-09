@@ -75,4 +75,12 @@ public abstract class ServiciosPrestamo {
      * @return La persona
      */
     public abstract Persona personaCarne(String carne) throws ExcepcionServicios;
+    
+    /**
+     * Registra los equipos sencillos en el prestamo
+     * @param p
+     * @param es
+     * @throws ExcepcionServicios 
+     */
+    public abstract void registrarEquipoSencilloPrestamo(Prestamo p, EquipoSencillo es) throws ExcepcionServicios;
 }

@@ -49,11 +49,12 @@ public interface EquipoSencilloMapper {
    public EquipoSencillo loadEquipoByNombreDisponibilidad(@Param("Eq_Nombre") String nombre);
    
    /**
-    * Actualiza la cantidad total de un equipo sencillo
-    * despues de haber hecho el prestamo
-    * @param nombre 
+    * Consulta la cantidad disponible que tiene un equipo sencillo
+    * para hacer prestamos
+    * @param nombre
+    * @return 
     */
-   public void actualizarEquipoSencilloCantidadTotal(@Param("Eq_Nombre") String nombre);
+   public int consultarEquipoSencilloCantidadDisponible(@Param("Eq_Nombre") String nombre);
 }
 
 

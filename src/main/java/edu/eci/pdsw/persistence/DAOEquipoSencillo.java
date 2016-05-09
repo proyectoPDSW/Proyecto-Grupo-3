@@ -51,11 +51,12 @@ public interface DAOEquipoSencillo {
      */
     public EquipoSencillo loadByNombreDisponibles(String nombre) throws PersistenceException;
     
-   /**
-    * Actualiza la cantidad total de un equipo sencillo 
-    * despues de realizar un prestamo
-    * @param nomre
-    * @throws PersistenceException 
-    */
-    public void updateCantidadEquipoSencillo(String nomre) throws PersistenceException;
+    /**
+     * Consulta la cantidad disponible de un equipo sencillo
+     * para realizar prestamos
+     * @param nomre
+     * @return
+     * @throws PersistenceException 
+     */
+    public int loadCantidadDisponibleEquipoSencillo(String nomre) throws PersistenceException;
 }

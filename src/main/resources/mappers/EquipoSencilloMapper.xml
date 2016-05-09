@@ -26,7 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          select es.nombre as nombre, es.cantidad_total as cantidad_total, 
          es.clase as clase, es.fotografia as fotografia,
          es.valor_comercial as valor_comercial from Equipos_Sencillos as es 
-         where es.nombre=#{Eq_Nombre} and es.cantidad_total &gt; 0
+         left join Equipo_prestamo_sencillo as eps on es.nombre=eps.equipo
+         where es.nombre=#{Eq_Nombre} and (select (es.cantidad_total-sum(eps.cantidad)+sum(eps.cantidad_devuelta)) 
+        as cantidad_disponible from Equipos_Sencillos as es left join Equipo_prestamo_sencillo as eps on 
+        es.nombre=eps.equipo where es.nombre=#{Eq_Nombre}) &gt; 0
     </select>
     
     <select id='loadAll'  resultMap='EquipoSencilloResult'>
@@ -42,11 +45,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where es.nombre=#{Eq_Viejo.nombre}
     </update>
     
-    <update id='actualizarEquipoSencilloCantidadTotal' parameterType='map'>
-        update Equipos_Sencillos as es left join Equipo_prestamo_sencillo as eps 
-        on  es.nombre=eps.equipo
-        SET  EqSencillo.cantidad=EqSencillo.cantidad-eps.cantidad+eps.cantidad_devuelta
-        where es.nombre=#{Eq_Nombre}
-    </update>
+    
+    <select id='consultarEquipoSencilloCantidadDisponible' parameterType='String' resultType='int'>
+        select (es.cantidad_total-sum(eps.cantidad)+sum(eps.cantidad_devuelta)) as cantidad_disponible
+        from Equipos_Sencillos as es left join Equipo_prestamo_sencillo as eps on 
+        es.nombre=eps.equipo where es.nombre=#{Eq_Nombre}
+    </select>
     
 </mapper>

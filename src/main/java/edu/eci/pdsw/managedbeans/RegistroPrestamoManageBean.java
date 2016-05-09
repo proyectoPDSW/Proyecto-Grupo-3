@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -83,8 +84,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     private String fechaTipoPrestamo;
     //lista para saber la cantidad de los equipos
     private List<EquipoSencillo> es;
-    //Total del equipo sencillo
-    private int total;
+    //cantidad disponible del equipo sencillo
+    private int cantidadDisponible;
     private Prestamo prestamo;
     private String laPersona;
     private String placa;
@@ -108,8 +109,8 @@ public class RegistroPrestamoManageBean implements Serializable{
         EQSENCILLO=ServiciosEquipoSencillo.getInstance();
         equiposComplejosPrestados=new LinkedHashSet<>();
         equiposSencillosPrestados=new LinkedHashSet<>();
-        total=0;
         fechaTipoPrestamo=null;
+        cantidadDisponible=0;
         //tipoPrestamo=elQuePideElPrestamo.rolMasValioso2();
         tipoPrestamo=new HashMap<>();
         tipoPrestamo.put("24 horas","24 horas");
@@ -169,15 +170,7 @@ public class RegistroPrestamoManageBean implements Serializable{
            facesError(ex.getMessage());
        }
        eqS=equiposS;
-       cantidadEquipoSencillo();
-    }
-    
-    /**
-     * Obtiene la cantidad total de un 
-     * equipo sencillo
-     */
-    public void cantidadEquipoSencillo(){
-        setTotal(eqS.get(0).getCantidadTotal());
+        cantidadDisponibleEqs(eqS.get(0).getNombre());
     }
     
     
@@ -187,7 +180,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void agregarEquipoC(){
         if(selectEquipoComplejo!=null){
         selectEquipoComplejo.setEstado(fechaTipoPrestamo);
-        //actualizarEquipos(selectEquipoComplejo);
+        //actualizarEquipoComplejo(selectEquipoComplejo);
         consultarEqModelo();
         equiposComplejosPrestados.add(selectEquipoComplejo);
         }
@@ -198,7 +191,7 @@ public class RegistroPrestamoManageBean implements Serializable{
      * cambio en su estado
      * @param nuevo 
      */
-    public void actualizarEquipos(EquipoComplejo nuevo){
+    public void actualizarEquipoComplejo(EquipoComplejo nuevo){
         try{
             EQCOMPLEJO.actualizarEquipo(nuevo);
         }catch(ExcepcionServicios ex){
@@ -211,8 +204,29 @@ public class RegistroPrestamoManageBean implements Serializable{
      * Agrega equipos sencillos al prestamo termino fijo
      */
     public void agregarEquipoS(){
+        try{
         if(getSelectEquipoSencillo()!=null){
-        equiposSencillosPrestados.add(getSelectEquipoSencillo());
+            Calendar calen=Calendar.getInstance();
+            calen.setTime(fechaEstimadaDeEntrega);
+            calen.add(Calendar.DAY_OF_MONTH,1);
+            fechaEstimadaDeEntrega=(Timestamp) calen.getTime();
+            Prestamo pres=new PrestamoTerminoFijo(elQuePideElPrestamo,null,null,fechaEstimadaDeEntrega,"24 horas");
+            EquipoSencillo dahh=new EquipoSencillo(selectEquipoSencillo.getNombre(),selectEquipoSencillo.getClase(),selectEquipoSencillo.getValorComercial(),cantidad,selectEquipoSencillo.getFotografia());
+            PRESTAMO.registrarEquipoSencilloPrestamo(pres, dahh);
+            cantidadDisponibleEqs(selectEquipoSencillo.getNombre());
+            consultarEqSNombre();
+            equiposSencillosPrestados.add(getSelectEquipoSencillo());
+        }
+        }catch(ExcepcionServicios ex){
+            facesError(ex.getMessage());
+        }
+    }
+    
+    public void cantidadDisponibleEqs(String nom){
+        try{
+            cantidadDisponible=EQSENCILLO.consultarCantidadDisponibleEqSencillo(nom);
+        }catch(ExcepcionServicios ex){
+            facesError(ex.getMessage());
         }
     }
     
@@ -588,17 +602,17 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
 
     /**
-     * @return the total
+     * @return the cantidadDisponible
      */
-    public int getTotal() {
-        return total;
+    public int getCantidadDisponible() {
+        return cantidadDisponible;
     }
 
     /**
-     * @param total the total to set
+     * @param cantidadDisponible the cantidadDisponible to set
      */
-    public void setTotal(int total) {
-        this.total = total;
+    public void setCantidadDisponible(int cantidadDisponible) {
+        this.cantidadDisponible = cantidadDisponible;
     }
 
     

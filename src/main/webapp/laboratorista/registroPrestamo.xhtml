@@ -92,11 +92,14 @@
                                                 <p:column headerText="Cantidad Total">
                                                     <h:outputText value="#{equipoS1.cantidadTotal}" />
                                                 </p:column>
-                                                    <p:column headerText="Clase">
+                                                <p:column headerText="Cantidad Disponible">
+                                                    <h:outputText value="#{RegistroPrestamo.cantidadDisponible}" />
+                                                </p:column>
+                                                <p:column headerText="Clase">
                                                     <h:outputText value="#{equipoS1.clase}" />
                                                 </p:column>
                                                 <p:column headerText="Cantidad A Prestar">
-                                                    <p:spinner id="minMax" value="#{RegistroPrestamo.cantidad}" size="5" min="1" max="#{RegistroPrestamo.total}" />
+                                                    <p:spinner id="minMax" value="#{RegistroPrestamo.cantidad}" size="5" min="1" max="#{RegistroPrestamo.cantidadDisponible}" />
                                                 </p:column>
                                             </p:dataTable>
                                             <p:dataTable id="EquiposSPrestar1" var="equipoS1" value="#{RegistroPrestamo.equiposSencillosPrestados}"  >

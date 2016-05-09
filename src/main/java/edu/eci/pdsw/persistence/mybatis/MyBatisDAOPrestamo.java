@@ -112,5 +112,12 @@ public class MyBatisDAOPrestamo  implements DAOPrestamo{
         return pmap.loadByEquipoComplejo(equipocomplejo);
     }
 
+    @Override
+    public void saveEquipoSencilloPrestamo(Prestamo p, EquipoSencillo es) throws PersistenceException {
+       if(p==null) throw new PersistenceException("El prestamo no puede ser nulo");
+       if(es==null) throw new PersistenceException("El equipo sencillo no puede ser nulo");
+       pmap.insertEquipoSencillo_Prestamo(p, es);
+    }
+
 
 }

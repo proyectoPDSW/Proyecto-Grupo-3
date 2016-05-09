@@ -58,10 +58,11 @@ public abstract class ServiciosEquipoSencillo {
     public abstract void actualizar(EquipoSencillo equipo) throws ExcepcionServicios;
     
     /**
-     * Actualiza la cantidad total de un equipo sencillo despues
-     * de realizar un prestamo
+     * Consulta la cantidad disponible de un equipo sencillo 
+     * para hacer prestamos
      * @param nombre
+     * @return
      * @throws ExcepcionServicios 
      */
-    public abstract void actualizarCantidadEqSencillo(String nombre) throws ExcepcionServicios;
+    public abstract int consultarCantidadDisponibleEqSencillo(String nombre) throws ExcepcionServicios;
 }
