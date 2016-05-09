@@ -10,6 +10,8 @@ import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoException;
+import edu.eci.pdsw.entities.PrestamoIndefinido;
+import edu.eci.pdsw.entities.PrestamoTerminoFijo;
 import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.DAOEquipoSencillo;
@@ -22,6 +24,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -122,11 +125,63 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
 
     @Override
     public void registrarPrestamo(Prestamo pres) throws ExcepcionServicios {
+       Set<EquipoComplejo> presHoras=new LinkedHashSet<>();
+       Set<EquipoComplejo> presDiario=new LinkedHashSet<>();
+       Set<EquipoComplejo> presSemestre=new LinkedHashSet<>();
+       Set<EquipoComplejo> presIndefinido=new LinkedHashSet<>();
+       Set<EquipoComplejo> equiposC=new LinkedHashSet<>();
+       Set<EquipoSencillo> equiposS=new LinkedHashSet<>();
+       Prestamo horas=null;
+       Prestamo diario=null;
+       Prestamo semestral=null;
+       Prestamo indefinido=null;
        try{
            daoF.beginSession();
            basePaciente=daoF.getDaoPrestamo();
-           basePaciente.save(pres);
-           daoF.commitTransaction();
+           equiposC=pres.getEquiposComplejosPrestados();
+           equiposS=pres.getEquiposSencillosPrestados();
+           for (EquipoComplejo c:equiposC){
+               if(c.getEstado().equals("24 horas")){
+                   presHoras.add(c);
+               }
+               else if(c.getEstado().equals("Diario")){
+                   presDiario.add(c);
+               }
+               else if(c.getEstado().equals("Semestral")){
+                   presSemestre.add(c);
+               }
+               else if(c.getEstado().equals("Indefinido")){
+                   presIndefinido.add(c);
+               }
+           }
+           if( !presHoras.isEmpty()){
+               horas=new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(),presHoras,equiposS,pres.getFechaEstimadaDeEntrega(),pres.getTipo_prestamo());
+           }
+           else if(!presDiario.isEmpty()){
+               diario=new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(),presDiario,equiposS,pres.getFechaEstimadaDeEntrega(),pres.getTipo_prestamo());
+           }
+           else if(!presSemestre.isEmpty()){
+               semestral=new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(),presSemestre,equiposS,pres.getFechaEstimadaDeEntrega(),pres.getTipo_prestamo());
+           }
+           else if(!presIndefinido.isEmpty()){
+               indefinido=new PrestamoIndefinido(pres.getElQuePideElPrestamo(),presIndefinido,equiposS);
+           }
+           if(horas!=null){
+              basePaciente.save(horas);
+              daoF.commitTransaction();
+           }
+           else if(diario!=null){
+              basePaciente.save(diario);
+              daoF.commitTransaction();
+           }
+           else if(semestral!=null){
+               basePaciente.save(semestral);
+               daoF.commitTransaction();
+           }
+           else if(indefinido!=null){
+               basePaciente.save(indefinido);
+               daoF.commitTransaction();
+           }
        }catch(PersistenceException e){
            daoF.rollbackTransaction();
            throw new ExcepcionServicios(e,e.getLocalizedMessage());

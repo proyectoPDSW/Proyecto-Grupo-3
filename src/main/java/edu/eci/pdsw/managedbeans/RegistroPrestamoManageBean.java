@@ -174,10 +174,26 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void agregarEquipoC(){
         if(selectEquipoComplejo!=null){
         selectEquipoComplejo.setEstado(fechaTipoPrestamo);
+        actualizarEquipos(selectEquipoComplejo);
         consultarEqModelo();
         equiposComplejosPrestados.add(selectEquipoComplejo);
         }
     }
+    
+    /**
+     * Actualiza los equipos despues de haber sufrido un
+     * cambio en su estado
+     * @param nuevo 
+     */
+    public void actualizarEquipos(EquipoComplejo nuevo){
+        try{
+            EQCOMPLEJO.actualizarEquipo(nuevo);
+        }catch(ExcepcionServicios ex){
+            facesError(ex.getMessage());
+        }
+        
+    }
+    
     /**
      * Agrega equipos sencillos al prestamo termino fijo
      */
@@ -194,13 +210,13 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void registrarPrestamo(){
         try{
             if(elQuePideElPrestamo.rolMasValioso().equals("Estudiante")){
-                prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,EquipoComplejo.diario);
+                prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,fechaTipoPrestamo);
             }
             else if(getElQuePideElPrestamo().rolMasValioso().equals("Laboratorista") || getElQuePideElPrestamo().rolMasValioso().equals("Profesor")){
                 if(fechaTipoPrestamo==null){
                 setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
                 }else{
-                    prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,EquipoComplejo.diario);
+                    prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,fechaTipoPrestamo);
                 }
             PRESTAMO.registrarPrestamo(prestamo);
             facesInfo("El prestamo ha sido registrado satisfactoriamente");
