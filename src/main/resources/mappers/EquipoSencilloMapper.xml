@@ -36,8 +36,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <update id='update' parameterType='map'>
-        update Equipos_Sencillos as es SET values(#{Eq_Nuevo.nombre},#{Eq_Nuevo.cantidadTotal},#{Eq_Nuevo.clase},#{Eq_Nuevo.fotografia},#{Eq_Nuevo.valorComercial}) 
+        update Equipos_Sencillos SET nombre=#{Eq_Nuevo.nombre}, cantidad_total=#{Eq_Nuevo.cantidadTotal},
+        clase=#{Eq_Nuevo.clase}, fotgrafia=#{Eq_Nuevo.fotografia},
+        valor_comercial=#{Eq_Nuevo.valorComercial}
         where es.nombre=#{Eq_Viejo.nombre}
+    </update>
+    
+    <update id='actualizarEquipoSencilloCantidadTotal' parameterType='map'>
+        update Equipos_Sencillos as es left join Equipo_prestamo_sencillo as eps 
+        on  es.nombre=eps.equipo
+        SET  EqSencillo.cantidad=EqSencillo.cantidad-eps.cantidad+eps.cantidad_devuelta
+        where es.nombre=#{Eq_Nombre}
     </update>
     
 </mapper>

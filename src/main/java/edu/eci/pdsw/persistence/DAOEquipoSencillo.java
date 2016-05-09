@@ -50,4 +50,12 @@ public interface DAOEquipoSencillo {
      * @throws PersistenceException si el Equipo sencillo no existe
      */
     public EquipoSencillo loadByNombreDisponibles(String nombre) throws PersistenceException;
+    
+   /**
+    * Actualiza la cantidad total de un equipo sencillo 
+    * despues de realizar un prestamo
+    * @param nomre
+    * @throws PersistenceException 
+    */
+    public void updateCantidadEquipoSencillo(String nomre) throws PersistenceException;
 }

@@ -21,7 +21,6 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -178,7 +177,7 @@ public class RegistroPrestamoManageBean implements Serializable{
      * equipo sencillo
      */
     public void cantidadEquipoSencillo(){
-        total=eqS.get(0).getCantidadTotal();
+        setTotal(eqS.get(0).getCantidadTotal());
     }
     
     
@@ -586,6 +585,20 @@ public class RegistroPrestamoManageBean implements Serializable{
 
     public void setPlaca(String placa) {
         this.placa = placa;
+    }
+
+    /**
+     * @return the total
+     */
+    public int getTotal() {
+        return total;
+    }
+
+    /**
+     * @param total the total to set
+     */
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     

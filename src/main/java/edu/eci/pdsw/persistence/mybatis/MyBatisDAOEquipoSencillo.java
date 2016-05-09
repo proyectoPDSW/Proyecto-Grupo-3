@@ -66,4 +66,10 @@ public class MyBatisDAOEquipoSencillo implements DAOEquipoSencillo {
         return eMap.loadEquipoByNombreDisponibilidad(nombre);
     }
 
+    @Override
+    public void updateCantidadEquipoSencillo(String nombre) throws PersistenceException {
+        if(nombre.length()==0) throw new PersistenceException("Favor colocar un nombre valido");
+        eMap.actualizarEquipoSencilloCantidadTotal(nombre);
+    }
+
 }

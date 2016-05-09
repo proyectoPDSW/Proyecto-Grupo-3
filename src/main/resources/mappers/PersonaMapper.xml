@@ -36,7 +36,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select carne,nombre,apellido,email,telefono from Personas
     </select>
     <update id='update' parameterType='map'>
-        update Personas set nombre=#{Per_nuevo.nombre},apellido=#{Per_nuevo.apellido}, email=#{Per_nuevo.email}, telefono=#{Per_nuevo.telefono} where carne=#{Per_viejo.carnet}
+        update Personas set nombre=#{Per_nuevo.nombre},
+        apellido=#{Per_nuevo.apellido}, email=#{Per_nuevo.email}, telefono=#{Per_nuevo.telefono} 
+        where carne=#{Per_viejo.carnet}
     </update>
      <select id='load' parameterType='map' resultMap='PersonaResult'>
         select carne,nombre,apellido,email,telefono from Personas where carne = #{carne};

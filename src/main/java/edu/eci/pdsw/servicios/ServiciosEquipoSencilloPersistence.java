@@ -106,4 +106,17 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
         }
     }
 
+    @Override
+    public void actualizarCantidadEqSencillo(String nombre) throws ExcepcionServicios {
+        try{
+            dao.beginSession();
+            sencilloPersistencia= dao.getDaoEquipoSencillo();
+            sencilloPersistencia.updateCantidadEquipoSencillo(nombre);
+            dao.commitTransaction();
+            dao.endSession();
+        }catch(PersistenceException ex){
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
+        }
+    }
+
 }

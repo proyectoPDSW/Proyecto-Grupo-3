@@ -56,4 +56,12 @@ public abstract class ServiciosEquipoSencillo {
      * @throws ExcepcionServicios si el equipo no esta registrado
      */
     public abstract void actualizar(EquipoSencillo equipo) throws ExcepcionServicios;
+    
+    /**
+     * Actualiza la cantidad total de un equipo sencillo despues
+     * de realizar un prestamo
+     * @param nombre
+     * @throws ExcepcionServicios 
+     */
+    public abstract void actualizarCantidadEqSencillo(String nombre) throws ExcepcionServicios;
 }
