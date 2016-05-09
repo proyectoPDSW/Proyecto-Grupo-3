@@ -6,12 +6,14 @@
 package edu.eci.pdsw.managedbeans;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
+import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
 import edu.eci.pdsw.log.Registro;
+import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejoPersistence;
@@ -180,7 +182,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void agregarEquipoC(){
         if(selectEquipoComplejo!=null){
         selectEquipoComplejo.setEstado(fechaTipoPrestamo);
-        //actualizarEquipoComplejo(selectEquipoComplejo);
+        actualizarEquipoComplejo(selectEquipoComplejo);
         consultarEqModelo();
         equiposComplejosPrestados.add(selectEquipoComplejo);
         }
@@ -204,21 +206,10 @@ public class RegistroPrestamoManageBean implements Serializable{
      * Agrega equipos sencillos al prestamo termino fijo
      */
     public void agregarEquipoS(){
-        try{
         if(getSelectEquipoSencillo()!=null){
-            Calendar calen=Calendar.getInstance();
-            calen.setTime(fechaEstimadaDeEntrega);
-            calen.add(Calendar.DAY_OF_MONTH,1);
-            fechaEstimadaDeEntrega=(Timestamp) calen.getTime();
-            Prestamo pres=new PrestamoTerminoFijo(elQuePideElPrestamo,null,null,fechaEstimadaDeEntrega,"24 horas");
-            EquipoSencillo dahh=new EquipoSencillo(selectEquipoSencillo.getNombre(),selectEquipoSencillo.getClase(),selectEquipoSencillo.getValorComercial(),cantidad,selectEquipoSencillo.getFotografia());
-            PRESTAMO.registrarEquipoSencilloPrestamo(pres, dahh);
             cantidadDisponibleEqs(selectEquipoSencillo.getNombre());
             consultarEqSNombre();
             equiposSencillosPrestados.add(getSelectEquipoSencillo());
-        }
-        }catch(ExcepcionServicios ex){
-            facesError(ex.getMessage());
         }
     }
     

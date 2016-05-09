@@ -72,10 +72,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <update id='update' parameterType='map'>
-        update Equipos_Complejos SET serial=#{Eq_Nuevo.serial},placa=#{Eq_Nuevo.placa},
+        update Equipos_Complejos SET serial=#{Eq_Nuevo.serial}, num_placa=#{Eq_Nuevo.placa},
         disponibilidad=#{Eq_Nuevo.disponibilidad},estado=#{Eq_Nuevo.estado},modelo=#{Eq_Nuevo.modelo_Eq.nombre},
         asegurado=#{Eq_Nuevo.asegurado},marca=#{Eq_Nuevo.marca}
-        where ec.serial=#{Eq_Viejo.serial} 
+        where serial=#{Eq_Viejo.serial} 
     </update>
 
     <delete id='delete' parameterType='map'>
