@@ -25,7 +25,7 @@ and open the template in the editor.
                        </h:panelGrid>
                     </p:tab>
                     <p:tab title="Devolver Equipo Sencillo">
-                        <h:panelGrid columns="8" cellpadding="5">
+                        <h:panelGrid id="devEquSen" columns="8" cellpadding="5">
                             <center>Carné del prestamista
                                 <p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}">
                                     <p:ajax event="change" update="eqse" />
@@ -42,7 +42,7 @@ and open the template in the editor.
                                 <p:spinner id="basic" value="#{RegistroPrestamo.cantidad}" min="1" max="#{RegistroPrestamo.maxValue()}"/>
                             </center>
                             <center>
-                                <p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoSencillo()}"></p:commandButton>
+                                <p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoSencillo()}" update="devEquSen"></p:commandButton>
                             </center>
                         </h:panelGrid>
                     </p:tab>

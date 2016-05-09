@@ -562,6 +562,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void registroDevolucionEquipoComplejo(){
         try {
             PRESTAMO.registrarDevolucion(placa);
+            facesInfo("Se realizo con exito la devolución");
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
