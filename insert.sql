@@ -6,12 +6,12 @@ insert into Rol(rol) values ('Estudiante');
 insert into Rol(rol) values ('Profesor');
 insert into Rol(rol) values ('admin');
 
-insert into Personas (carne,nombre,apellido,email,telefono) values ('2105684','Julian','Devia','julian.devia@mail.escuelaing.edu.co','3115086950');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('2105684','Julián','Devia','julian.devia@mail.escuelaing.edu.co','3115086950');
 insert into Personas (carne,nombre,apellido,email,telefono) values ('30285974','Pepito','Perez','pepito.perez@mail.escuelaing.edu.co','3105650732');
-insert into Personas (carne,nombre,apellido,email,telefono) values ('2105533','Hugo','Alvarez','hugo.alvarez@mail.escuelaing.edu.co','0316706243');
-insert into Personas (carne,nombre,apellido,email,telefono) values ('1020816982','Carmenzo','Rodriguez','carmenzo.rodriguez@mail.escuelaing.edu.co','3129876543');
-insert into Personas (carne,nombre,apellido,email,telefono) values ('2107646','Daniela','Sepulveda','daniela.sepulveda@mail.escuelaing.edu.co','3204615289');
-insert into Personas (carne,nombre,apellido,email,telefono) values ('2105403','German','Lopez','german.lopez-p@mail.escuelaing.edu.co','123456789');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('2105533','Hugo','Álvarez','hugo.alvarez@mail.escuelaing.edu.co','0316706243');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('1020816982','Carmenzo','Rodríguez','carmenzo.rodriguez@mail.escuelaing.edu.co','3129876543');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('2107646','Daniela','Sepúlveda','daniela.sepulveda@mail.escuelaing.edu.co','3204615289');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('2105403','Germán','Lopez','german.lopez-p@mail.escuelaing.edu.co','123456789');
 insert into Personas (carne,nombre,apellido,email,telefono) values ('admin','admin','','admin.admin@mail.escuelaing.edu.co','00000000000');
 insert into Personas (carne,nombre,apellido,email,telefono) values ('laboratorista','laboratorista','','laboratorista.laboratorista@mail.escuelaing.edu.co','00000000000');
 insert into Personas (carne,nombre,apellido,email,telefono) values ('estudiante','estudiante','','estudiante.estudiante@mail.escuelaing.edu.co','00000000000');
