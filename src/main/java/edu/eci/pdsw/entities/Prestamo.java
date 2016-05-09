@@ -275,4 +275,23 @@ public abstract class Prestamo implements Comparable<Prestamo> {
             this.valorTotal+=es.getValorComercial()*es.getCantidadTotal();
         }
     }
+    
+    public static Timestamp calcularFechaEstimada(String tipo){
+        Timestamp fecha=null;
+        Calendar calen= Calendar.getInstance();
+        calen.setTime(currDate());
+        if(tipo.equals("24 horas")){
+            calen.add(Calendar.DAY_OF_MONTH, 1);
+            fecha=(Timestamp) calen.getTime();
+        }
+        else if(tipo.equals("Diario")){
+            calen.set(Calendar.HOUR, 19);
+            fecha=(Timestamp) calen.getTime();
+        }
+        else if(tipo.equals("Semestral")){
+            calen.set(Calendar.MONTH,6);
+            fecha=(Timestamp) calen.getTime();
+        }
+        return fecha;
+    }
 }

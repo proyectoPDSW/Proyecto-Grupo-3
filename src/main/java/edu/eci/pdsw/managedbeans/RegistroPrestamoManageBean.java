@@ -234,7 +234,7 @@ public class RegistroPrestamoManageBean implements Serializable{
      * o si es semestral
      */
     public void obtenerFechaEstimada(){
-        Calendar calen= Calendar.getInstance();
+        /*Calendar calen= Calendar.getInstance();
         calen.setTime(fechaEstimadaDeEntrega);
         if(fechaTipoPrestamo.equals("24 horas")){
             calen.add(Calendar.DAY_OF_MONTH, 1);
@@ -245,7 +245,8 @@ public class RegistroPrestamoManageBean implements Serializable{
         else if(fechaTipoPrestamo.equals("Semestral")){
             calen.set(Calendar.MONTH,6);
         }
-        fechaEstimadaDeEntrega=(Timestamp) calen.getTime();
+        fechaEstimadaDeEntrega=(Timestamp) calen.getTime();*/
+        fechaEstimadaDeEntrega=Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
     }
     
     /**
