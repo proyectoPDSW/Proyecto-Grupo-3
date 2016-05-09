@@ -5,6 +5,11 @@ import edu.eci.pdsw.persistence.DAOEquipoSencillo;
 import edu.eci.pdsw.entities.Modelo;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoSencillo;
+import edu.eci.pdsw.entities.Persona;
+import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.entities.PrestamoTerminoFijo;
+import edu.eci.pdsw.persistence.DAOPersona;
+import edu.eci.pdsw.persistence.DAOPrestamo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,8 +18,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -215,4 +222,6 @@ public class ConsultarEquipoTest {
         Assert.assertTrue("No carga los equipos en almacen", loaded.contains(aConsultar) && loaded.contains(aConsultar2) && loaded.size()==2);
     }
 
+    
+    
 }
