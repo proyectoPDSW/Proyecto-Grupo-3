@@ -18,7 +18,6 @@ import java.util.List;
  *
  * @author German Lopez
  */
-//NECESARIO REVISAR ASTAH E IMPLEMENTAR METODOS DE EMAP
 public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
 
     private SqlSession ses;
@@ -30,11 +29,11 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
     }
 
     @Override
-    public EquipoComplejo load(String modelo,String serial) throws PersistenceException {
-        if (eMap.loadEquipoBySerial(modelo,serial) == null) {
+    public EquipoComplejo load(String modelo, String serial) throws PersistenceException {
+        if (eMap.loadEquipoBySerial(modelo, serial) == null) {
             throw new PersistenceException("El equipo con serial " + serial + " no esta registrado");
         }
-        return eMap.loadEquipoBySerial(modelo,serial);
+        return eMap.loadEquipoBySerial(modelo, serial);
     }
 
     @Override
@@ -47,15 +46,12 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
 
     @Override
     public void save(EquipoComplejo toSave) throws PersistenceException {
-        if (eMap.loadEquipoByPlaca(toSave.getPlaca())!=null){
-            throw new PersistenceException("El equipo con placa "+toSave.getPlaca()+" ya esta registrado");
+        if (eMap.loadEquipoByPlaca(toSave.getPlaca()) != null) {
+            throw new PersistenceException("El equipo con placa " + toSave.getPlaca() + " ya esta registrado");
         }
-        if(eMap.loadEquipoBySerial(toSave.getModelo_Eq().getNombre(),toSave.getSerial()) != null){
-            throw new PersistenceException("El equipo con serial "+toSave.getSerial()+" ya esta registrado");
+        if (eMap.loadEquipoBySerial(toSave.getModelo_Eq().getNombre(), toSave.getSerial()) != null) {
+            throw new PersistenceException("El equipo con serial " + toSave.getSerial() + " ya esta registrado");
         }
-        /*if(eMap.loadModelo(toSave.getModelo_Eq().getNombre())==null){
-            throw new PersistenceException("El modelo con nombre "+toSave.getModelo_Eq().getNombre()+" no esta registrado, por lo tanto no se puede registrar el equipo "+toSave.getModelo_Eq().getNombre());
-        }*/
         //Como si el modelo no esta registrado se registra automaticamente, tengo que ver si existe
         if (eMap.loadModelo(toSave.getModelo_Eq().getNombre()) == null) {
             //Si el modelo no existe lo registro
@@ -66,20 +62,17 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
 
     @Override
     public void update(EquipoComplejo toUpdate) throws PersistenceException {
-        if (eMap.loadEquipoByPlaca(toUpdate.getPlaca()) == null && 
-                eMap.loadEquipoBySerial(toUpdate.getModelo_Eq().getNombre(),toUpdate.getSerial()) == null) {
-            throw new PersistenceException("El equipo con nombre " + toUpdate.getModelo_Eq().getNombre() + 
-                    " no esta registrado");
+        if (eMap.loadEquipoByPlaca(toUpdate.getPlaca()) == null
+                && eMap.loadEquipoBySerial(toUpdate.getModelo_Eq().getNombre(), toUpdate.getSerial()) == null) {
+            throw new PersistenceException("El equipo con nombre " + toUpdate.getModelo_Eq().getNombre()
+                    + " no esta registrado");
         }
         EquipoComplejo test = null;
         if (toUpdate.getSerial() == null || !toUpdate.getPlaca().equals("0")) {
-            System.out.println("if 1");
             test = eMap.loadEquipoByPlaca(toUpdate.getPlaca());
         } else if (toUpdate.getPlaca().equals("0")) {
-            System.out.println("if 2");
-            test = eMap.loadEquipoBySerial(toUpdate.getModelo_Eq().getNombre(),toUpdate.getSerial());
+            test = eMap.loadEquipoBySerial(toUpdate.getModelo_Eq().getNombre(), toUpdate.getSerial());
         }
-        System.out.println("ec: "+test);
         if (test.equals(toUpdate)) {
             eMap.update(test, toUpdate);
         }
@@ -95,13 +88,13 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
 
     @Override
     public Modelo loadModelo(String nombre) throws PersistenceException {
-        if(nombre.length()==0){
+        if (nombre.length() == 0) {
             throw new PersistenceException("Favor colocar un modelo adecuado");
         }
         //if (eMap.loadModelo(nombre) == null) {
-           // throw new PersistenceException("El modelo " + nombre + " no esta registrado");
+        // throw new PersistenceException("El modelo " + nombre + " no esta registrado");
         //}
-        
+
         return eMap.loadModelo(nombre);
     }
 
@@ -130,8 +123,8 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
     }
 
     @Override
-    public List<String> loadModelosAproximados(String toSearch){
-        toSearch=toSearch.trim().toLowerCase();
+    public List<String> loadModelosAproximados(String toSearch) {
+        toSearch = toSearch.trim().toLowerCase();
         /*ArrayList<Modelo> tmp=eMap.loadModelosAproximados(toSearch);
         ArrayList<String> ans=new ArrayList<>();
         for (Modelo m:tmp){
@@ -147,6 +140,5 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
         }
         return eMap.loadEnAlmacenByModelo(modelo);
     }
-    
-    
+
 }

@@ -297,9 +297,7 @@ public class PrestamosTest {
         Prestamo p = new PrestamoIndefinido(per, lec, les);
         prestamo.save(p);
         daof.commitTransaction();
-        System.out.println("Paso hasta aqui");
         List<Prestamo> lp = prestamo.loadByCarne("2105533");
-        System.out.println("Paso de cargar");
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
@@ -674,9 +672,7 @@ public class PrestamosTest {
         Prestamo p = new PrestamoTerminoFijo(per, lec, les, time,EquipoComplejo.diario);
         prestamo.save(p);
         daof.commitTransaction();
-        System.out.println("Paso hasta aqui");
         List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
-        System.out.println("Paso de cargar");
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {

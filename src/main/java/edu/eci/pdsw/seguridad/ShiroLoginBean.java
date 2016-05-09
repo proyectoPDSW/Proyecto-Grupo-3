@@ -68,7 +68,6 @@ public class ShiroLoginBean implements Serializable {
         UsernamePasswordToken token = new UsernamePasswordToken(getUsername(), getPassword(), getRememberMe());
         try {
             subject.login(token);
-            //System.out.println(subject.hasRole("Laboratorista"));
             if (subject.hasRole("admin")) {               
                 FacesContext.getCurrentInstance().getExternalContext().redirect("restricted/index.xhtml");
             }

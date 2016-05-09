@@ -13,6 +13,7 @@ import java.util.Objects;
  * @author David Useche
  */
 public class EquipoComplejo implements Comparable<EquipoComplejo> {
+
     private boolean asegurado;
     private boolean disponibilidad;
     private String estado;
@@ -20,31 +21,40 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     private String placa;
     private String marca;
     private Modelo modelo_Eq;
-    public static String diario="prestamo diario", p24h="prestamo 24 horas",mantenimiento="mantenimiento",almacen="en almacen",indefinido="prestamo indefinido",semestre="prestamo por semestre";
-    public static String baja="dado de baja",reparacion="en reparacion";
-    
+    public static String diario = "prestamo diario", p24h = "prestamo 24 horas", mantenimiento = "mantenimiento", almacen = "en almacen", indefinido = "prestamo indefinido", semestre = "prestamo por semestre";
+    public static String baja = "dado de baja", reparacion = "en reparacion";
+
     /**
      * Constructor de equipo complejo
+     *
      * @param mod modelo del equipo
      * @param mar marca del equipo
      * @param ser serial del equipo
      * @param plac placa del equipo
-     * @throws EquipoException 
+     * @throws EquipoException
      */
-    public EquipoComplejo(Modelo mod,String mar, String ser, String plac)throws EquipoException {
-        if(mod==null) throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
-        if(ser.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
-        if(mar.length()<=0) throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
-        if(new BigInteger(plac).compareTo(BigInteger.ZERO)<0) throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
-        this.marca=mar;
-        this.serial=ser;
-        this.modelo_Eq=mod;
-        this.placa=plac;
+    public EquipoComplejo(Modelo mod, String mar, String ser, String plac) throws EquipoException {
+        if (mod == null) {
+            throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
+        }
+        if (ser.length() <= 0) {
+            throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
+        }
+        if (mar.length() <= 0) {
+            throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
+        }
+        if (new BigInteger(plac).compareTo(BigInteger.ZERO) < 0) {
+            throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
+        }
+        this.marca = mar;
+        this.serial = ser;
+        this.modelo_Eq = mod;
+        this.placa = plac;
     }
 
     /**
-     * 
-     * @param asegurado 
+     *
+     * @param asegurado
      * @param disponibilidad
      * @param estado en que estado inicia el equipo
      * @param serial del equipo
@@ -64,140 +74,147 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
 
     public EquipoComplejo() {
     }
-    
-    
+
     /**
-     * 
-     * @param ase 
+     *
+     * @param ase
      */
-    public void setAsegurado(boolean ase){
-        this.asegurado=ase;
+    public void setAsegurado(boolean ase) {
+        this.asegurado = ase;
     }
-    
+
     /**
-     * 
+     *
      * @return si el equipo esta asegurado o no
      */
-    public boolean getAsegurado(){
+    public boolean getAsegurado() {
         return asegurado;
     }
-    
+
     /**
-     * 
-     * @param dis 
+     *
+     * @param dis
      */
-    public void setDisponibilidad(boolean dis){
-        this.disponibilidad=dis;
+    public void setDisponibilidad(boolean dis) {
+        this.disponibilidad = dis;
     }
-    
+
     /**
-     * 
+     *
      * @return si el equipo complejo esta disponible o no
      */
-    public boolean getDisponibilidad(){
+    public boolean getDisponibilidad() {
         return disponibilidad;
     }
-    
+
     /**
-     * 
-     * @param est 
+     *
+     * @param est
      */
-    public void setEstado(String est){
-        this.estado=est;
+    public void setEstado(String est) {
+        this.estado = est;
     }
-    
+
     /**
-     * 
+     *
      * @return el estado del equipo complejo
      */
-    public String getEstado(){
+    public String getEstado() {
         return estado;
     }
-    
+
     /**
-     * 
-     * @param ser 
+     *
+     * @param ser
      */
-    public void setSerial(String ser){
-        this.serial=ser;
+    public void setSerial(String ser) {
+        this.serial = ser;
     }
-    
+
     /**
-     * 
+     *
      * @return el serial del equipo complejo
      */
-    public String getSerial(){
+    public String getSerial() {
         return serial;
     }
-    
+
     /**
-     * 
-     * @param pla 
+     *
+     * @param pla
      */
-    public void setPlaca(String pla){
-        this.placa=pla;
+    public void setPlaca(String pla) {
+        this.placa = pla;
     }
-    
+
     /**
-     * 
+     *
      * @return la placa del equipo complejo
      */
-    public String getPlaca(){
+    public String getPlaca() {
         return placa;
     }
 
     /**
-     * 
+     *
      * @return la marca del equipo complejo
      */
     public String getMarca() {
         return marca;
     }
-    
+
     /**
-     * 
-     * @param marca 
+     *
+     * @param marca
      */
     public void setMarca(String marca) {
         this.marca = marca;
     }
-    
+
     /**
-     * 
+     *
      * @return el modelo del equipo complejo
      */
     public Modelo getModelo_Eq() {
         return modelo_Eq;
     }
-    
+
     /**
-     * 
-     * @param modelo_Eq 
+     *
+     * @param modelo_Eq
      */
     public void setModelo_Eq(Modelo modelo_Eq) {
         this.modelo_Eq = modelo_Eq;
     }
-    
+
     /**
-     * Metodo que retorna una cadena con toda la informacion de un equipo complejo
-     * @return res, es la cadena que posee toda la informacion del equipo complejo
+     * Metodo que retorna una cadena con toda la informacion de un equipo
+     * complejo
+     *
+     * @return res, es la cadena que posee toda la informacion del equipo
+     * complejo
      */
     @Override
-    public String toString(){
-        String res="EquipoComplejo:["+asegurado+","+disponibilidad+","+estado+","+serial+","+placa+","+marca+"]\n";
-        res+=modelo_Eq.toString();
+    public String toString() {
+        String res = "EquipoComplejo:[" + asegurado + "," + disponibilidad + "," + estado + "," + serial + "," + placa + "," + marca + "]\n";
+        res += modelo_Eq.toString();
         return res;
     }
-    
+
     /**
      * Metodo que compara el valor comercial de un equipo complejo con otro
+     *
      * @param o
-     * @return -1 si el valor comercial de un equipo es menor que otro, de lo contrario retorna 1
+     * @return -1 si el valor comercial de un equipo es menor que otro, de lo
+     * contrario retorna 1
      */
     @Override
     public int compareTo(EquipoComplejo o) {
-        if(modelo_Eq.getValorComercial()<o.modelo_Eq.getValorComercial()) return -1;
-        else return 1;
+        if (modelo_Eq.getValorComercial() < o.modelo_Eq.getValorComercial()) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 
     @Override
@@ -229,5 +246,5 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         }
         return true;
     }
-    
+
 }
