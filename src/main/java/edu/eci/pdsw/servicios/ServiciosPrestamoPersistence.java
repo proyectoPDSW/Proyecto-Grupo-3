@@ -285,7 +285,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             
             List<Prestamo> prestamosEquipoCargado=basePaciente.loadByEquipoComplejo(loaded);
             //A los prestamos les actualizo los equipos complejos faltantes
-            for(int i=0;i<tmp.size();i++){
+            for(int i=0;i<prestamosEquipoCargado.size();i++){
                 prestamosEquipoCargado.get(i).getEquiposComplejosFaltantes();
                 basePaciente.update(prestamosEquipoCargado.get(i));
             }
