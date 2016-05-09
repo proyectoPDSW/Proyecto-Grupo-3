@@ -48,7 +48,7 @@ public abstract class ServiciosEquipoSencillo {
      * @return La cantidad de elementos que se pueden prestar
      * @throws ExcepcionServicios Si el equipo con ese nombre no esta registrado
      */
-    public abstract int ConsultarDisponibilidadPorNombre(String nombre) throws ExcepcionServicios;
+    public abstract EquipoSencillo ConsultarDisponibilidadPorNombre(String nombre) throws ExcepcionServicios;
 
     /**
      * Actualiza un equipo sencillo

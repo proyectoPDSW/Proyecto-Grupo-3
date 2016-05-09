@@ -80,8 +80,8 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
     }
 
     @Override
-    public int ConsultarDisponibilidadPorNombre(String nombre) throws ExcepcionServicios {
-        int ans;
+    public EquipoSencillo ConsultarDisponibilidadPorNombre(String nombre) throws ExcepcionServicios {
+        EquipoSencillo ans=null;
         try {
             dao.beginSession();
             sencilloPersistencia = dao.getDaoEquipoSencillo();

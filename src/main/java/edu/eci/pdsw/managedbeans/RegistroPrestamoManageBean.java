@@ -82,6 +82,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     private String fechaTipoPrestamo;
     //lista para saber la cantidad de los equipos
     private List<EquipoSencillo> es;
+    //Total del equipo sencillo
+    private int total;
     private Prestamo prestamo;
     private String laPersona;
     
@@ -105,6 +107,7 @@ public class RegistroPrestamoManageBean implements Serializable{
         EQSENCILLO=ServiciosEquipoSencillo.getInstance();
         equiposComplejosPrestados=new LinkedHashSet<>();
         equiposSencillosPrestados=new LinkedHashSet<>();
+        total=0;
         fechaTipoPrestamo=null;
         //tipoPrestamo=elQuePideElPrestamo.rolMasValioso2();
         tipoPrestamo=new HashMap<>();
@@ -158,13 +161,22 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void consultarEqSNombre(){
        List<EquipoSencillo> equiposS=new ArrayList<>();
        try{
-           equiposS.add(EQSENCILLO.consultarPorNombre(nombre));
+           equiposS.add(EQSENCILLO.ConsultarDisponibilidadPorNombre(nombre));
            showPanelRegistro=true;
        }catch(ExcepcionServicios ex){
            showPanelRegistro=false;
            facesError(ex.getMessage());
        }
        eqS=equiposS;
+       cantidadEquipoSencillo();
+    }
+    
+    /**
+     * Obtiene la cantidad total de un 
+     * equipo sencillo
+     */
+    public void cantidadEquipoSencillo(){
+        total=eqS.get(0).getCantidadTotal();
     }
     
     
@@ -174,7 +186,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void agregarEquipoC(){
         if(selectEquipoComplejo!=null){
         selectEquipoComplejo.setEstado(fechaTipoPrestamo);
-        actualizarEquipos(selectEquipoComplejo);
+        //actualizarEquipos(selectEquipoComplejo);
         consultarEqModelo();
         equiposComplejosPrestados.add(selectEquipoComplejo);
         }
@@ -547,6 +559,20 @@ public class RegistroPrestamoManageBean implements Serializable{
 
     public void setSelectEqSe(String selectEqSe) {
         this.selectEqSe = selectEqSe;
+    }
+
+    /**
+     * @return the total
+     */
+    public int getTotal() {
+        return total;
+    }
+
+    /**
+     * @param total the total to set
+     */
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     
