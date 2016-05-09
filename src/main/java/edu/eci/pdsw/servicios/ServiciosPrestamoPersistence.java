@@ -24,6 +24,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -125,7 +127,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
 
     @Override
     public void registrarPrestamo(Prestamo pres) throws ExcepcionServicios {
-       Set<EquipoComplejo> presHoras=new LinkedHashSet<>();
+       /*Set<EquipoComplejo> presHoras=new LinkedHashSet<>();
        Set<EquipoComplejo> presDiario=new LinkedHashSet<>();
        Set<EquipoComplejo> presSemestre=new LinkedHashSet<>();
        Set<EquipoComplejo> presIndefinido=new LinkedHashSet<>();
@@ -133,14 +135,45 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
        Set<EquipoSencillo> equiposS=new LinkedHashSet<>();
        Prestamo horas=null;
        Prestamo diario=null;
-       Prestamo semestral=null;
-       Prestamo indefinido=null;
+       Prestamo semestral=null;EquipoComp   lejo ec
+       Prestamo indefinido=null;*/
        try{
            daoF.beginSession();
            basePaciente=daoF.getDaoPrestamo();
-           equiposC=pres.getEquiposComplejosPrestados();
-           equiposS=pres.getEquiposSencillosPrestados();
-           for (EquipoComplejo c:equiposC){
+           
+           Set<EquipoComplejo> equiposC=pres.getEquiposComplejosPrestados();
+           Set<EquipoSencillo> equiposS=pres.getEquiposSencillosPrestados();
+           boolean fp=true;
+           while(!equiposC.isEmpty()){
+               EquipoComplejo ec=null;
+               Set<EquipoComplejo> aAgregar=new HashSet<>();boolean first=true;
+               for (EquipoComplejo e : equiposC) {
+                   if(first){
+                       ec=e;
+                       aAgregar.add(e);
+                       equiposC.remove(e);
+                       first=false;
+                   }else{
+                       if(e.getEstado().equals(ec.getEstado())){
+                           aAgregar.add(e);
+                           equiposC.remove(e);
+                       }
+                   }
+               }
+               Prestamo guardar=null;
+               if(ec.getEstado().equals(EquipoComplejo.indefinido)){
+                   guardar=new PrestamoIndefinido(pres.getElQuePideElPrestamo(), aAgregar, null);
+               }else{
+                   guardar=new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(), aAgregar, null, Prestamo.calcularFechaEstimada(ec.getEstado()), ec.getEstado());
+               }
+               if(fp){
+                   guardar.setEquiposSencillosPrestados(equiposS);
+                   fp=false;
+               }
+               basePaciente.save(guardar);
+               daoF.commitTransaction();
+           }
+           /*for (EquipoComplejo c:equiposC){
                if(c.getEstado().equals("24 horas")){
                    presHoras.add(c);
                }
@@ -181,7 +214,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
            else if(indefinido!=null){
                basePaciente.save(indefinido);
                daoF.commitTransaction();
-           }
+           }*/
        }catch(PersistenceException e){
            daoF.rollbackTransaction();
            throw new ExcepcionServicios(e,e.getLocalizedMessage());
