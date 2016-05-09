@@ -47,6 +47,10 @@
                                         <br/><p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo()}" icon="ui-icon-search"/>
                                         <br/><p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
                                         <p:panel id="tablas" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
+                                            <p:selectOneMenu id="TPrestamo" value="#{RegistroPrestamo.fechaTipoPrestamo}">
+                                                <f:selectItem itemLabel="Select One" itemValue="" />
+                                                <f:selectItems value="#{RegistroPrestamo.elQuePideElPrestamo.rolMasValioso2}" />
+                                            </p:selectOneMenu>
                                             <p:dataTable id="EquiposModelos1" var="equipoC1" value="#{RegistroPrestamo.sacarEqC()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoComplejo}" rowKey="#{equipoC1.serial}" >
                                                 <p:column headerText="Nombre">      
                                                     <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
@@ -57,19 +61,13 @@
                                                 <p:column headerText="Disponibilidad">
                                                     <h:outputText value="#{equipoC1.disponibilidad}" />
                                                 </p:column>
-                                                <p:column headerText="Tipo Prestamo">
-                                                    <p:selectOneMenu id="TPrestamo" value="#{RegistroPrestamo.fechaTipoPrestamo}">
-                                                        <f:selectItem itemLabel="Select One" itemValue="" />
-                                                        <f:selectItems value="#{RegistroPrestamo.elQuePideElPrestamo.rolMasValioso2}" />
-                                                    </p:selectOneMenu>
-                                                </p:column>
                                             </p:dataTable>
                                             <p:dataTable id="EquiposPrestar1" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
                                                 <p:column headerText="Nombre">
                                                     <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
                                                 </p:column>
                                                 <p:column headerText="Estado">
-                                                    <h:outputText value="#{RegistroPrestamo.fechaTipoPrestamo}" />
+                                                    <h:outputText value="#{equipoC1.estado}" />
                                                 </p:column>
                                                 <p:column headerText="Disponibilidad">
                                                     <h:outputText value="#{equipoC1.disponibilidad}" />

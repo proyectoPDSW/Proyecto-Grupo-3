@@ -505,9 +505,9 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
     
     public int maxValue(){
-        System.out.println("Entro con "+Arrays.toString(es.toArray())+" y "+selectEqSe);
+        //System.out.println("Entro con "+Arrays.toString(es.toArray())+" y "+selectEqSe);
         for (EquipoSencillo esqs : es) {
-            System.out.println("Entro con "+esqs+" y "+selectEqSe);
+            //System.out.println("Entro con "+esqs+" y "+selectEqSe);
             if(esqs.getNombre().equals(selectEqSe)) return esqs.getCantidadTotal();
         }
         return 1;
