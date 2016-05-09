@@ -322,10 +322,10 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public void setValorTotal(long valorTotal) {
         this.valorTotal = 0;
-        for (EquipoComplejo ec : equiposComplejosPrestados) {
+        for (EquipoComplejo ec : getEquiposComplejosFaltantes()) {
             this.valorTotal += ec.getModelo_Eq().getValorComercial();
         }
-        for (EquipoSencillo es : equiposSencillosPrestados) {
+        for (EquipoSencillo es : getEquiposSencillosFaltantes()) {
             this.valorTotal += es.getValorComercial() * es.getCantidadTotal();
         }
     }
