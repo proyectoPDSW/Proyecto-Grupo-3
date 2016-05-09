@@ -19,6 +19,7 @@ import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
@@ -41,18 +42,21 @@ import javax.faces.bean.SessionScoped;
 public class ConsultaMorososManagedBean implements Serializable{
     private final ServiciosPrestamo sp=ServiciosPrestamo.getInstance();
     
-    private List<Prestamo> morosos;
+    public List<Prestamo> morosos;
 
     /**
      * Consulta los prestamos en mora
      * @return the morosos
      */
     public List<Prestamo> getMorosos()  {
-        List <Prestamo> morosos=null;
-        try {
-            morosos=sp.consultarPrestamosMorosos();
-        } catch (ExcepcionServicios ex) {
-            Registro.anotar(ex);
+        if(morosos==null || morosos.size()==0){
+            morosos=null;
+            try {
+                morosos=sp.consultarPrestamosMorosos();
+                //System.out.println(Arrays.toString(morosos.toArray()));
+            } catch (ExcepcionServicios ex) {
+                Registro.anotar(ex);
+            }
         }
         return morosos;
     }
@@ -62,12 +66,16 @@ public class ConsultaMorososManagedBean implements Serializable{
      * @return la diferencia en horas entre d y la hora actual
      */
     public int diffHoras(Timestamp d){
-        Timestamp curr=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("America/Bogota")).getTimeInMillis());
+        Timestamp curr=Prestamo.currDate();
         //Timestamp curr=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("Europe/Budapest")).getTime().getTime());
         int hoursCurr=curr.getHours()+curr.getDay()*24+curr.getMonth()*30*24+curr.getYear()*12*30*24;
         int hoursD=d.getHours()+d.getDay()*24+d.getMonth()*30*24+d.getYear()*12*30*24;
         //System.out.println(curr+" "+d+" "+hoursCurr+" "+hoursD);
         return hoursCurr-hoursD;
+    }
+    
+    public Timestamp currDate(){
+        return Prestamo.currDate();
     }
 
     
