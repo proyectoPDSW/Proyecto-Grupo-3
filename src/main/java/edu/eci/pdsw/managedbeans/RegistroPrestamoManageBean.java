@@ -581,6 +581,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void registroDevolucionEquipoSencillo(){
         try {
             PRESTAMO.registarDevolucion(laPersona, selectEqSe, cantidad);
+            System.out.println("SADSADASDADASDASDASDSADASDADSA");
+            facesInfo("Se realizo con exito la devolución");
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
@@ -588,6 +590,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void registroDevolucionEquipoComplejo(){
         try {
             PRESTAMO.registrarDevolucion(placa);
+            System.out.println("SADSADASDADASDASDASDSADASDADSA");
+            facesInfo("Se realizo con exito la devolución");
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }

@@ -18,16 +18,17 @@ and open the template in the editor.
             <p:panel header="Registrar Devoluciones">
                 <p:tabView>
                     <p:tab title="Devolver Equipo Complejo">
-                       <h:panelGrid columns="2" cellpadding="5">
-                           <center>Equipo Complejo (placa)</center>
-                           <center><p:inputText value="#{RegistroPrestamo.placa}"></p:inputText></center>
-                           <center><p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoComplejo()}"></p:commandButton></center>
-                       </h:panelGrid>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <center>Equipo Complejo (placa)</center>
+                            <center><p:inputText value="#{RegistroPrestamo.placa}"></p:inputText></center>
+                            <center><p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoComplejo()}"></p:commandButton></center>
+                        </h:panelGrid>
+                        <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
                     </p:tab>
                     <p:tab title="Devolver Equipo Sencillo">
-                        <h:panelGrid columns="8" cellpadding="5">
+                        <h:panelGrid id="devEquSen" columns="8" cellpadding="5">
                             <center>Carné del prestamista
-                                <p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}">
+                                <p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}" >
                                     <p:ajax event="change" update="eqse" />
                                 </p:inputText>
                             </center>
@@ -42,9 +43,10 @@ and open the template in the editor.
                                 <p:spinner id="basic" value="#{RegistroPrestamo.cantidad}" min="1" max="#{RegistroPrestamo.maxValue()}"/>
                             </center>
                             <center>
-                                <p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoSencillo()}"></p:commandButton>
+                                <p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoSencillo()}" update="devEquSen"></p:commandButton>
                             </center>
                         </h:panelGrid>
+                        <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
                     </p:tab>
                 </p:tabView>
                 <center><p:commandButton value="Volver al inicio" action="index.xhtml" /></center>
