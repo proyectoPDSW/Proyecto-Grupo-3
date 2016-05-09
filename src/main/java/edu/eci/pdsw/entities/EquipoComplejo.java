@@ -218,7 +218,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
             return false;
         }
         final EquipoComplejo other = (EquipoComplejo) obj;
-        if (!this.placa.equals(other.placa)) {
+        if (!Objects.equals(this.placa, other.placa)) {
             return false;
         }
         if (!Objects.equals(this.serial, other.serial)) {
