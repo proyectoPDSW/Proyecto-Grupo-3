@@ -38,15 +38,15 @@
                                 <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.apellido}" />
                                 <h:outputLabel value="Rol:" />
                                 <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.rolMasValioso()}" />
-                                <p:messages id="messages1" autoUpdate="true" closable="true" />
+                                <p:messages id="messages1" autoUpdate="false" closable="true" />
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Informacion Prestamo">
-                            <h:panelGrid columns="3" cellpadding="5">
+                            <h:panelGrid columns="3" cellpadding="5" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
                                 <p:layout style="min-width:600px;min-height:400px;">
+                                    <p:messages id="messages2" autoUpdate="false" closable="true" />
                                     <p:layoutUnit position="west" size="600">
                                         <h:outputLabel value="Modelo : (*) " />
-                                        <!--p:inputText id="modelo1" value="#{RegistroPrestamo.modelo}" /-->
                                         <p:autoComplete id="modelo1" dropdown="true" value="#{RegistroPrestamo.modelo}" completeMethod="#{RegistroPrestamo.modelosAproximados}"/>
                                         <!--p:outputLabel value="#{RegistroPrestamo.ShowPanelRegistro()}"/-->
                                         <br/><p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo()}" icon="ui-icon-search"/>
@@ -63,9 +63,6 @@
                                                 <p:column headerText="Estado">
                                                     <h:outputText value="#{equipoC1.estado}" />
                                                 </p:column>
-                                                <p:column headerText="Disponibilidad">
-                                                    <h:outputText value="#{equipoC1.disponibilidad}" />
-                                                </p:column>
                                             </p:dataTable>
                                             <p:dataTable id="EquiposPrestar1" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
                                                 <p:column headerText="Nombre">
@@ -73,9 +70,6 @@
                                                 </p:column>
                                                 <p:column headerText="Estado">
                                                     <h:outputText value="#{equipoC1.estado}" />
-                                                </p:column>
-                                                <p:column headerText="Disponibilidad">
-                                                    <h:outputText value="#{equipoC1.disponibilidad}" />
                                                 </p:column>
                                                 <f:facet name="footer">
                                                 </f:facet>
