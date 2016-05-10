@@ -167,9 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
         where
-                Month(Prestamos.fecha_inicio) = Month(#{time}) 
-                and Year(Prestamos.fecha_inicio) = Year(#{time})
-                and Day(Prestamos.fecha_inicio) = Day(#{time}) 
+                Prestamos.fecha_inicio=#{time}
                 and Prestamos.persona = #{carnet}
     </select>
     <select id='loadByFecha' parameterType='map' resultMap='PrestamoResult'>
