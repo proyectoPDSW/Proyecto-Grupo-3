@@ -18,10 +18,12 @@ and open the template in the editor.
             <p:panel header="Registrar Devoluciones">
                 <p:tabView>
                     <p:tab title="Devolver Equipo Complejo">
-                        <h:panelGrid columns="2" cellpadding="5">
+                        <h:panelGrid id="devEquCom" columns="2" cellpadding="5">
                             <center>Equipo Complejo (placa)</center>
                             <center><p:inputText value="#{RegistroPrestamo.placa}"></p:inputText></center>
-                            <center><p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoComplejo()}"></p:commandButton></center>
+                            <center><p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoComplejo()}" update="devEquCom"></p:commandButton></center>
+                            <h:outputText value="#{RegistroPrestamo.laPersona}" />
+                            <h:outputText value="#{RegistroPrestamo.eqcompl}" />
                         </h:panelGrid>
                         <p:messages id="messages1" autoUpdate="true" closable="true" />
                     </p:tab>
