@@ -31,7 +31,7 @@ public class MyBatisDAOPersona implements DAOPersona{
 
     @Override
     public Persona load(String carne) throws PersistenceException {
-        if(carne==null) throw new PersistenceException("El carnet no puede ser nula");
+        if(carne==null || carne.length()<=0) throw new PersistenceException("El carnet no puede ser nula");
         return pmap.load(carne);
     }
 

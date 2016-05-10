@@ -125,7 +125,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         try {
             daoF.beginSession();
             basePaciente = daoF.getDaoPrestamo();
-
+            if(pres==null) throw new ExcepcionServicios("El prestamo no puede ser nulo");
             Set<EquipoComplejo> equiposC = new HashSet<>(pres.getEquiposComplejosPrestados());
             Set<EquipoSencillo> equiposS = new HashSet<>(pres.getEquiposSencillosPrestados());
             boolean fp = true;

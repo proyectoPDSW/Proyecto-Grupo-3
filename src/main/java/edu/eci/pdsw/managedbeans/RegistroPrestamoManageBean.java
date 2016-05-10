@@ -177,10 +177,14 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void agregarEquipoC() {
         if (selectEquipoComplejo != null) {
-            selectEquipoComplejo.setEstado(fechaTipoPrestamo);
-            actualizarEquipoComplejo(selectEquipoComplejo);
-            consultarEqModelo();
-            equiposComplejosPrestados.add(selectEquipoComplejo);
+            if(fechaTipoPrestamo==null || fechaTipoPrestamo.length()<=0){
+                facesError("Debe seleccionar un tipo de prestamo para poder continuar");
+            }else{
+                selectEquipoComplejo.setEstado(fechaTipoPrestamo);
+                actualizarEquipoComplejo(selectEquipoComplejo);
+                consultarEqModelo();
+                equiposComplejosPrestados.add(selectEquipoComplejo);
+            }
         }
     }
 
@@ -202,17 +206,22 @@ public class RegistroPrestamoManageBean implements Serializable {
      * Agrega equipos sencillos al prestamo termino fijo
      */
     public void agregarEquipoS() {
-        if (getSelectEquipoSencillo() != null) {
+        if (selectEquipoSencillo != null) {
             cantidadDisponibleEqs(selectEquipoSencillo.getNombre());
             selectEquipoSencillo.setCantidadTotal(cantidad);
+            equiposSencillosPrestados.add(selectEquipoSencillo);
             consultarEqSNombre();
-            equiposSencillosPrestados.add(getSelectEquipoSencillo());
         }
     }
 
     public void cantidadDisponibleEqs(String nom) {
         try {
-            cantidadDisponible = EQSENCILLO.consultarCantidadDisponibleEqSencillo(nom) - cantidad;
+            cantidadDisponible = EQSENCILLO.consultarCantidadDisponibleEqSencillo(nom);
+            for (EquipoSencillo eqse : equiposSencillosPrestados) {
+                if(eqse.getNombre().equals(nom)){
+                    cantidadDisponible -= eqse.getCantidadTotal();
+                }
+            }
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
@@ -224,26 +233,24 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void registrarPrestamo() {
         try {
-            if (elQuePideElPrestamo != null && fechaTipoPrestamo.length() != 0) {
-                fechaEstimadaDeEntrega = Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
-                System.out.println("Entro cuando la persona es nula");
-                if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)) {
+            elQuePideElPrestamo=PRESTAMO.personaCarne(carne);
+            fechaEstimadaDeEntrega = Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
+            if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)) {
+                prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
+            } else if (getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor)) {
+                if (fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)) {
+                    setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
+                } else {
                     prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
-                } else if (getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor)) {
-                    if (fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)) {
-                        setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
-                    } else {
-                        prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
-                    }
                 }
             }
-            if (prestamo != null) {
-                System.out.println("Entro cuando prestamo es nulo");
-                PRESTAMO.registrarPrestamo(prestamo);
-                facesInfo("El prestamo ha sido registrado satisfactoriamente");
-                showPanelRegistro = false;
-                showPanelRegistrado = true;
+            if(fechaTipoPrestamo==null || fechaTipoPrestamo.length()<=0){
+                facesError("Debe seleccionar un tipo de prestamo para poder continuar");
             }
+            PRESTAMO.registrarPrestamo(prestamo);
+            facesInfo("El prestamo ha sido registrado satisfactoriamente");
+            showPanelRegistro = false;
+            showPanelRegistrado = true;
 
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
