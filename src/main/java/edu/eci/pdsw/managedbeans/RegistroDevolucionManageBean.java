@@ -67,14 +67,10 @@ public class RegistroDevolucionManageBean implements Serializable{
         if (laPersona != null && laPersona.length() > 0) {
             try {
                 List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
-                for (Prestamo p1 : p) {
-                    if (p1.getFechaRealEntregada() == null) {
-                        
-                        for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) {
-                            es.add(es1);
-                        }
-                    }
-                }
+                for (Prestamo p1 : p)
+                    if (!p1.terminado())
+                        for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) 
+                            if(!es.contains(es1)) es.add(es1);
             } catch (ExcepcionServicios ex) {
                 facesError(ex.getMessage());
             }
@@ -83,16 +79,6 @@ public class RegistroDevolucionManageBean implements Serializable{
             es2.add(e.getNombre());
         }
         return es2;
-    }
-    public int maxValue() {
-        //System.out.println("Entro con "+Arrays.toString(es.toArray())+" y "+selectEqSe);
-        for (EquipoSencillo esqs : es) {
-            //System.out.println("Entro con "+esqs+" y "+selectEqSe);
-            if (esqs.getNombre().equals(selectEqSe)) {
-                return esqs.getCantidadTotal();
-            }
-        }
-        return 1;
     }
     
     public void registroDevolucionEquipoSencillo() {
