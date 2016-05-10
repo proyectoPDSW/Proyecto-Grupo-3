@@ -322,10 +322,10 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public void setValorTotal(long valorTotal) {
         this.valorTotal = 0;
-        for (EquipoComplejo ec : equiposComplejosPrestados) {
+        for (EquipoComplejo ec : getEquiposComplejosFaltantes()) {
             this.valorTotal += ec.getModelo_Eq().getValorComercial();
         }
-        for (EquipoSencillo es : equiposSencillosPrestados) {
+        for (EquipoSencillo es : getEquiposSencillosFaltantes()) {
             this.valorTotal += es.getValorComercial() * es.getCantidadTotal();
         }
     }
@@ -339,15 +339,15 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         Timestamp fecha = null;
         Calendar calen = Calendar.getInstance();
         calen.setTime(currDate());
-        if (tipo.equals("24 horas")) {
+        if (tipo.equalsIgnoreCase(EquipoComplejo.p24h)) {
             calen.add(Calendar.DAY_OF_MONTH, 1);
-            fecha = (Timestamp) calen.getTime();
-        } else if (tipo.equals("Diario")) {
+            fecha=new Timestamp(calen.getTimeInMillis());
+        } else if (tipo.equalsIgnoreCase(EquipoComplejo.diario)) {
             calen.set(Calendar.HOUR, 19);
-            fecha = (Timestamp) calen.getTime();
-        } else if (tipo.equals("Semestral")) {
+            fecha=new Timestamp(calen.getTimeInMillis());
+        } else if (tipo.equalsIgnoreCase(EquipoComplejo.semestre)) {
             calen.set(Calendar.MONTH, 6);
-            fecha = (Timestamp) calen.getTime();
+            fecha=new Timestamp(calen.getTimeInMillis());
         }
         return fecha;
     }

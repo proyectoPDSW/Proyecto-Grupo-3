@@ -6,14 +6,13 @@
 package edu.eci.pdsw.managedbeans;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
-import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
+import edu.eci.pdsw.entities.Rol;
 import edu.eci.pdsw.log.Registro;
-import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejoPersistence;
@@ -23,7 +22,6 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -91,6 +89,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     private Prestamo prestamo;
     private String laPersona;
     private String placa;
+    private String eqcompl;
 
     public List<String> modelosAproximados(String query){
         List<String> aproximados=new ArrayList<>();
@@ -113,12 +112,12 @@ public class RegistroPrestamoManageBean implements Serializable{
         equiposSencillosPrestados=new LinkedHashSet<>();
         fechaTipoPrestamo=null;
         cantidadDisponible=0;
-        //tipoPrestamo=elQuePideElPrestamo.rolMasValioso2();
+        fechaEstimadaDeEntrega=Prestamo.currDate();
         tipoPrestamo=new HashMap<>();
-        tipoPrestamo.put("24 horas","24 horas");
-        tipoPrestamo.put("Diario","Diario");
-        tipoPrestamo.put("Semestral","Semestral");
-        tipoPrestamo.put("Indefinido","Indefinido");
+        tipoPrestamo.put(EquipoComplejo.p24h,EquipoComplejo.p24h);
+        tipoPrestamo.put(EquipoComplejo.diario, EquipoComplejo.diario);
+        tipoPrestamo.put(EquipoComplejo.semestre,EquipoComplejo.semestre);
+        tipoPrestamo.put(EquipoComplejo.indefinido, EquipoComplejo.indefinido);
         es=new ArrayList<>();
     }
     /**
@@ -128,6 +127,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void consultarPersona(){
         try {
             elQuePideElPrestamo=PRESTAMO.personaCarne(carne);
+            showPanelRegistro=true;
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             
@@ -151,9 +151,7 @@ public class RegistroPrestamoManageBean implements Serializable{
         List<EquipoComplejo> equipos=new ArrayList<>();
         try{
             equipos=EQCOMPLEJO.consultarEnAlmacenModelo(modelo);
-            showPanelRegistro=true;
         }catch(ExcepcionServicios ex){
-            showPanelRegistro=false;
             facesError(ex.getMessage());
         }
         eqC=equipos;
@@ -166,13 +164,13 @@ public class RegistroPrestamoManageBean implements Serializable{
        List<EquipoSencillo> equiposS=new ArrayList<>();
        try{
            equiposS.add(EQSENCILLO.ConsultarDisponibilidadPorNombre(nombre));
-           showPanelRegistro=true;
        }catch(ExcepcionServicios ex){
-           showPanelRegistro=false;
            facesError(ex.getMessage());
        }
        eqS=equiposS;
+       if(!eqS.isEmpty()){
         cantidadDisponibleEqs(eqS.get(0).getNombre());
+       }
     }
     
     
@@ -208,6 +206,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void agregarEquipoS(){
         if(getSelectEquipoSencillo()!=null){
             cantidadDisponibleEqs(selectEquipoSencillo.getNombre());
+            selectEquipoSencillo.setCantidadTotal(cantidad);
             consultarEqSNombre();
             equiposSencillosPrestados.add(getSelectEquipoSencillo());
         }
@@ -215,7 +214,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     
     public void cantidadDisponibleEqs(String nom){
         try{
-            cantidadDisponible=EQSENCILLO.consultarCantidadDisponibleEqSencillo(nom);
+            cantidadDisponible=EQSENCILLO.consultarCantidadDisponibleEqSencillo(nom)-cantidad;
         }catch(ExcepcionServicios ex){
             facesError(ex.getMessage());
         }
@@ -227,54 +226,38 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public void registrarPrestamo(){
         try{
-            if(elQuePideElPrestamo.rolMasValioso().equals("Estudiante")){
+            fechaEstimadaDeEntrega=Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
+            if(elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)){
                 prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,fechaTipoPrestamo);
             }
-            else if(getElQuePideElPrestamo().rolMasValioso().equals("Laboratorista") || getElQuePideElPrestamo().rolMasValioso().equals("Profesor")){
-                if(fechaTipoPrestamo==null){
+            else if(getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor)){
+                if(fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)){
                 setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
                 }else{
                     prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,fechaTipoPrestamo);
                 }
+            }
             PRESTAMO.registrarPrestamo(prestamo);
             facesInfo("El prestamo ha sido registrado satisfactoriamente");
-            }
-        } catch (ExcepcionServicios ex) {
+            showPanelRegistro=false;
+            }catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
     }
     
-       /**
-     * A la fecha actual se le suma la fecha dependiendo si el 
-     * prestamo es para el dia siguiente, si es semanal, si es mensual
-     * o si es semestral
-     */
-    public void obtenerFechaEstimada(){
-        /*Calendar calen= Calendar.getInstance();
-        calen.setTime(fechaEstimadaDeEntrega);
-        if(fechaTipoPrestamo.equals("24 horas")){
-            calen.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        else if(fechaTipoPrestamo.equals("Diario")){
-            calen.set(Calendar.HOUR, 19);
-        }
-        else if(fechaTipoPrestamo.equals("Semestral")){
-            calen.set(Calendar.MONTH,6);
-        }
-        fechaEstimadaDeEntrega=(Timestamp) calen.getTime();*/
-        fechaEstimadaDeEntrega=Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
-    }
+    
+
     
     /**
      * Reinicia todas las variables para realizar otro prestamo
      */
     public void registrarOtroPrestamo(){
-        setFechaEstimadaDeEntrega(null);
-        setEquiposComplejosPrestados(null);
-        setEquiposSencillosPrestados(null);
-        setEquiposSencillosPrestadosCantidad2(null);
+        setFechaEstimadaDeEntrega(Prestamo.currDate());
+        equiposComplejosPrestados=new LinkedHashSet<>();
+        equiposSencillosPrestados=new LinkedHashSet<>();
         setElQuePideElPrestamo(null);
-        setTipo_prestamo(0);
+        fechaTipoPrestamo=null;
+        cantidadDisponible=0;
         showPanelRegistro=false;
         showPanelRegistrado=false;
     }
@@ -580,6 +563,19 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
     public void registroDevolucionEquipoComplejo(){
         try {
+            EquipoComplejo eqcomp = EQCOMPLEJO.consultarPorPlaca(placa);
+            List<Prestamo> prestamos = PRESTAMO.consultarPrestamosEquipoComplejo(eqcomp);
+            for (Prestamo p1 : prestamos) {
+                if(!p1.terminado()){
+                    Set<EquipoComplejo> ecp = p1.getEquiposComplejosFaltantes();
+                    for (EquipoComplejo ecp1 : ecp) {
+                        if(ecp1.equals(eqcomp)){
+                            laPersona=p1.getElQuePideElPrestamo().getNombre();
+                        }
+                    }
+                }
+            }
+            eqcompl = eqcomp.getModelo_Eq().getNombre();
             PRESTAMO.registrarDevolucion(placa);
             facesInfo("Se realizo con exito la devolución");
         } catch (ExcepcionServicios ex) {
@@ -607,6 +603,14 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public void setCantidadDisponible(int cantidadDisponible) {
         this.cantidadDisponible = cantidadDisponible;
+    }
+
+    public String getEqcompl() {
+        return eqcompl;
+    }
+
+    public void setEqcompl(String eqcompl) {
+        this.eqcompl = eqcompl;
     }
 
     

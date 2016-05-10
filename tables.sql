@@ -163,4 +163,5 @@ ALTER TABLE Rol_Persona ADD CONSTRAINT Rol_Persona_Personas FOREIGN KEY (Persona
 ALTER TABLE Rol_Persona ADD CONSTRAINT Rol_Persona_Rol FOREIGN KEY (Rol_rol)
     REFERENCES Rol (rol);
 alter table Equipo_prestamo_sencillo change Prestamos_fecha_inicio Prestamos_fecha_inicio timestamp not null default 0;
+alter table Equipo_prestamo_complejo change Prestamos_fecha_inicio Prestamos_fecha_inicio timestamp not null default 0;
 -- End of file.

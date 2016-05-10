@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type='EquipoComplejo' id='EquipoComplejoResult'>
         <id property='serial' column='serial'/>
-        <result property='placa' column='num_placa'/>
+        <result property='placa' column='placa'/>
         <result property='disponibilidad' column='disponibilidad'/>
         <result property='estado' column='estado'/>
         <result property='asegurado' column='asegurado'/>
