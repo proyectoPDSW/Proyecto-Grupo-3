@@ -73,6 +73,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         fmt.setTimeZone(TimeZone.getTimeZone("GMT-5"));
 
         //System.out.println(fmt.format(timestamp));
+        //timestamp=timestamp.valueOf(fmt.format(timestamp));
         return timestamp;
     }
 

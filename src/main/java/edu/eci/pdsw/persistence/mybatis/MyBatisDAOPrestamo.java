@@ -157,4 +157,9 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         pmap.insertEquipoComplejo_Prestamo(p, ec);
     }
 
+    @Override
+    public Timestamp currDate() {
+        return new Timestamp(pmap.loadCurrDate().getTime());
+    }
+
 }

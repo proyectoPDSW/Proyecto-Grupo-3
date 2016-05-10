@@ -242,7 +242,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (!Objects.equals(this.serial, other.serial)) {
             return false;
         }
-        if (!Objects.equals(this.marca, other.marca)) {
+        if (!Objects.equals(this.modelo_Eq, other.modelo_Eq)) {
             return false;
         }
         return true;

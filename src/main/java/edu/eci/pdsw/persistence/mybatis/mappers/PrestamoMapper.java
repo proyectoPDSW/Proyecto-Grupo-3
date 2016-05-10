@@ -9,6 +9,7 @@ import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Prestamo;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -42,4 +43,10 @@ public interface PrestamoMapper {
     public List<Prestamo> loadByEquipoComplejo(@Param("Eq_Complejo")EquipoComplejo equipocomplejo);
     
     public List<Prestamo> loadByEquipoSencillo(@Param("Eq_Sencillo")EquipoSencillo equiposencillo);
+    
+    /**
+     * Solicita la fecha actual de la base de datos
+     * @return la fecha actual de la base de datos
+     */
+    public Date loadCurrDate();
 }
