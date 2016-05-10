@@ -15,6 +15,10 @@ insert into Personas (carne,nombre,apellido,email,telefono) values ('2105403','G
 insert into Personas (carne,nombre,apellido,email,telefono) values ('admin','admin','','admin.admin@mail.escuelaing.edu.co','00000000000');
 insert into Personas (carne,nombre,apellido,email,telefono) values ('laboratorista','laboratorista','','laboratorista.laboratorista@mail.escuelaing.edu.co','00000000000');
 insert into Personas (carne,nombre,apellido,email,telefono) values ('estudiante','estudiante','','estudiante.estudiante@mail.escuelaing.edu.co','00000000000');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('108763526','Camilo','Lopez','camilo.lopez@mail.escuelaing.edu.co','983746232');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('109328347','Juan','Castaño','juan.castano@mail.escuelaing.edu.co','97532352');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('2107653','Laura','Gonzalez','laura.gonzalez@mail.escuelaing.edu.co','579283624');
+insert into Personas (carne,nombre,apellido,email,telefono) values ('2101234','Cielo','Rodríguez','cielo.rodriguez@mail.escuelaing.edu.co','5367883632');
 
 insert into Departamento_persona(departamento,persona) values ('Sistemas','2105684');
 insert into Departamento_persona(departamento,persona) values ('Sistemas','2105533');
@@ -27,6 +31,10 @@ insert into Departamento_persona(departamento,persona) values ('Electrónica','2
 insert into Departamento_persona(departamento,persona) values ('Sistemas','2105403');
 insert into Departamento_persona(departamento,persona) values ('Electrónica','laboratorista');
 insert into Departamento_persona(departamento,persona) values ('Sistemas','estudiante');
+insert into Departamento_persona(departamento,persona) values ('Sistemas','108763526');
+insert into Departamento_persona(departamento,persona) values ('Sistemas','109328347');
+insert into Departamento_persona(departamento,persona) values ('Sistemas','2107653');
+insert into Departamento_persona(departamento,persona) values ('Sistemas','2101234');
 
 -- jd
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2105684','Estudiante','$shiro1$SHA-256$500000$au4DbmdVFwERxtVlrBiklw==$YcbdtRn7ngj/BbjICVctUY9GarFdDA9/VOpN+RNSRDk=','bXlwcml2YXRlc2FsdA==');
@@ -46,6 +54,14 @@ insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2107646'
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('laboratorista','Laboratorista','$shiro1$SHA-256$500000$3w3mjQnwRu/k8jEAKZtQIQ==$wXU2o3uplaCbyWtRg1RYP4tPBRuso7kqLIVV63di020=','bXlwcml2YXRlc2FsdA==');
 -- estudiante
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('estudiante','estudiante','$shiro1$SHA-256$500000$UYQIxz6nvGvo/9Kt/6VyVg==$vg/RwUwILPCFG49UMzLJX5WLAvwVZ85ZkInygMFwrpo=','bXlwcml2YXRlc2FsdA==');
+-- profe
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('108763526','Profesor','','bXlwcml2YXRlc2FsdA==');
+-- pr
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('109328347','Profesor','','bXlwcml2YXRlc2FsdA==');
+-- es
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2107653','Estudiante','','bXlwcml2YXRlc2FsdA==');
+-- es1
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2101234','Estudiante','','bXlwcml2YXRlc2FsdA==');
 
 insert into Equipos_Sencillos(nombre,cantidad_total,clase,fotografia,valor_comercial) values('cable UTP','50','Cable','https://www.victronenergy.com.es/upload/cache/1423219110_upload_products_555_1000-301_2.png','2000');
 insert into Equipos_Sencillos(nombre,cantidad_total,clase,fotografia,valor_comercial) values('cautin de pistola 100w','10','Cautin','http://medios.plazavip.com/fotos/productos_sears1/original/427626.jpg','68000');
@@ -74,6 +90,22 @@ insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,aseg
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('cndus','14',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('mdsai','15',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('cdsdwasi','16',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('casdfesi','17',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('asgdasb','18',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('hcgvdjfeha','19',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('niusdhfno','20',TRUE,'en almacen','generador de señales 5MHz',TRUE,'GW Instek');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('ausonassa','21',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('msaiudag','22',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('afghjkpok','23',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('qazwsxrf','24',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('asdjkasdas','25',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('nciasds','26',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('asdhbsay','27',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('aasdweads','28',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('nsaihhadg','29',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('buhsncafdby','30',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('msiaudy','31',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values('basdwscmo','32',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE');
 
 insert into Prestamos(fecha_inicio,persona,fecha_fin_estimada,fecha_fin_real,tipo_prestamo) values('2016-04-29 12:00:00','2105684','2016-04-30 12:00:00',NULL,'prestamo 24 horas');
 insert into Prestamos(fecha_inicio,persona,fecha_fin_estimada,fecha_fin_real,tipo_prestamo) values('2016-04-29 07:00:00','2105533','2016-04-29 19:00:00',NULL,'prestamo diario');

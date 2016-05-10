@@ -158,15 +158,14 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                 }
                 basePaciente.save(guardar);
                 Thread.sleep(1000);
-                daoF.commitTransaction();
                 cant = equiposC.size();
             }
             if (fp) {
                 Prestamo guardar = new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(), null, equiposS, Prestamo.calcularFechaEstimada(EquipoComplejo.p24h), EquipoComplejo.p24h);
                 basePaciente.save(guardar);
                 Thread.sleep(1000);
-                daoF.commitTransaction();
             }
+            daoF.commitTransaction();
         } catch (PersistenceException | InterruptedException e) {
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
