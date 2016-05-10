@@ -128,29 +128,25 @@
                                 <h:outputLabel value="Fecha Estimada De Entrega :" />
                                 <p:outputLabel value="#{RegistroPrestamo.fechaEstimadaDeEntrega}" />
                                 <h:outputLabel value="Equipos Complejos:" />
-                                <p:dataTable id="EquiposCPrestados" var="equipoC2" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
+                                <p:dataTable id="EquiposCPrestados1" var="equipoC1" value="#{RegistroPrestamo.getEquiposComplejosPrestados()}"  >
                                     <p:column headerText="Nombre">
-                                        <h:outputText value="#{equipoC2.modelo_Eq.nombre}" />
+                                        <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
                                     </p:column>
                                     <p:column headerText="Estado">
-                                        <h:outputText value="#{equipoC2.estado}" />
-                                    </p:column>
-                                    <f:facet name="footer">
-                                    </f:facet>
+                                        <h:outputText value="#{equipoC1.estado}" />
+                                </p:column>
                                 </p:dataTable> 
                                 <h:outputLabel value="Equipos Sencillos:" />
-                                <p:dataTable id="EquiposSPrestados" var="equipoS2" value="#{RegistroPrestamo.equiposSencillosPrestados}"  >
+                                <p:dataTable id="EquiposSPrestados" var="equipoS1" value="#{RegistroPrestamo.getEquiposSencillosPrestados()}"  >
                                     <p:column headerText="Nombre">
-                                        <h:outputText value="#{equipoS2.nombre}" />
+                                        <h:outputText value="#{equipoS1.nombre}" />
                                     </p:column>
                                     <p:column headerText="Cantidad Total">
                                         <h:outputText value="#{RegistroPrestamo.cantidad}" />
                                     </p:column>
                                     <p:column headerText="Clase">
-                                        <h:outputText value="#{equipoS2.clase}" />
+                                        <h:outputText value="#{equipoS1.clase}" />
                                     </p:column>
-                                    <f:facet name="footer">
-                                    </f:facet>
                             </p:dataTable>  
                             </h:panelGrid>
                         </p:tab>

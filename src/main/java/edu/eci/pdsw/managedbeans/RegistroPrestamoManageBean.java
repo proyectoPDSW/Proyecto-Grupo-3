@@ -240,7 +240,7 @@ public class RegistroPrestamoManageBean implements Serializable{
             PRESTAMO.registrarPrestamo(prestamo);
             facesInfo("El prestamo ha sido registrado satisfactoriamente");
             showPanelRegistro=false;
-            showPanelRegistro=true;
+            showPanelRegistrado=true;
             }catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
