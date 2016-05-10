@@ -16,83 +16,98 @@ import org.apache.ibatis.annotations.Param;
  * @author German Lopez
  */
 public interface EquipoComplejoMapper {
+
     /**
      * Registra un equipo complejo en la base de datos
-     * @param ec 
+     *
+     * @param ec
      */
     public void insertEquipo(@Param("EqComplejo") EquipoComplejo ec);
-    
+
     /**
      * Registra un modelo en la base de datos
-     * @param m 
+     *
+     * @param m
      */
-    public void insertModelo(@Param("Modelo")Modelo m);
-    
+    public void insertModelo(@Param("Modelo") Modelo m);
+
     /**
      * Consulta todos los equipos complejos que esten disponibles
+     *
      * @return un arreglo de equipos complejos que esten disponibles
      */
     public ArrayList<EquipoComplejo> loadDisponibles();
-    
+
     /**
-     * Consulta todos los equipos complejos del modelo que se encuentren en el almacen
-     * @param m 
-     * @return un arreglo de equipos complejos del modelo m que se encuentren en el almacen
+     * Consulta todos los equipos complejos del modelo que se encuentren en el
+     * almacen
+     *
+     * @param m
+     * @return un arreglo de equipos complejos del modelo m que se encuentren en
+     * el almacen
      */
-    public ArrayList<EquipoComplejo> loadEnAlmacenByModelo(@Param("Modelo")String m);
-    
+    public ArrayList<EquipoComplejo> loadEnAlmacenByModelo(@Param("Modelo") String m);
+
     /**
      * Consulta un equipo complejo por un serial especifico
+     *
      * @param modelo del equipo a buscar
      * @param serial
      * @return el euipo complejo que tenga ese serial
      */
-    public EquipoComplejo loadEquipoBySerial(@Param("Modelo_Equipo") String modelo,@Param("Eq_Serial") String serial);
-    
+    public EquipoComplejo loadEquipoBySerial(@Param("Modelo_Equipo") String modelo, @Param("Eq_Serial") String serial);
+
     /**
      * Consulta un equipo complejo que posea una placa especifica
+     *
      * @param placa
      * @return el equipo complejo que posea esa placa
      */
     public EquipoComplejo loadEquipoByPlaca(@Param("Eq_Placa") String placa);
-    
+
     /**
      * Reemplaza un equipo complejo por uno que tenga nueva informacion
+     *
      * @param eqv
-     * @param eqn 
+     * @param eqn
      */
-    public void update(@Param("Eq_Viejo") EquipoComplejo eqv,@Param("Eq_Nuevo") EquipoComplejo eqn);
-    
+    public void update(@Param("Eq_Viejo") EquipoComplejo eqv, @Param("Eq_Nuevo") EquipoComplejo eqn);
+
     /**
      * Elimina un equipo complejo de la base de datos
-     * @param ec 
+     *
+     * @param ec
      */
     public void delete(@Param("Eq_Complejo") EquipoComplejo ec);
-    
+
     /**
      * Consulta todos los equipos complejos que posee la base de datos
+     *
      * @return un arreglo con todos los equipos complejos
      */
     public ArrayList<EquipoComplejo> loadAll();
-    
+
     /**
      * Consultar los equipos complejos que tengan un modelo especifico
+     *
      * @param modelo
      * @return un arreglo de equipos complejos que posean ese modelo
      */
     public ArrayList<EquipoComplejo> loadEquipoByModelo(@Param("Eq_Modelo") String modelo);
-    
+
     /**
      * Consultar un modelo con un nombre especifico
+     *
      * @param nombre
      * @return un modelo que posea ese nombre
      */
-    public Modelo loadModelo(@Param("Modelo")String nombre);
-    
+    public Modelo loadModelo(@Param("Modelo") String nombre);
+
     /**
      * Consulta todos los modelos que contengan una cadena
+     *
      * @param toSearch la cadena a buscar
      * @return una lista que contiene los modelos que contienen una cadena
-    */
-    public List<String> loadModelosAproximados(@Param("Aproximado") String toSearch);    
+     */
+    public List<String> loadModelosAproximados(@Param("Aproximado") String toSearch);
 }

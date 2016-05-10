@@ -13,39 +13,40 @@ import org.h2.command.dml.SetTypes;
  *
  * @author German Lopez
  */
-public class Rol implements Comparable<Rol>{
+public class Rol implements Comparable<Rol> {
+
     private String rol;
     private String contrasenia;
     private String sal;
     private Map tiposPrestamo;
-    public static String laboratorista="laboratorista", profesor="profesor",estudiante="estudiante";
-    
-    public Rol(){
+    public static String laboratorista = "laboratorista", profesor = "profesor", estudiante = "estudiante";
+
+    public Rol() {
     }
+
     /**
      * Constructor de la clase rol
+     *
      * @param r
      * @param cont
-     * @param s 
+     * @param s
      */
-    public Rol(String r,String cont,String s){
-        this.rol=r;
-        this.contrasenia=cont;
-        this.sal=s;
-        tiposPrestamo=new HashMap<>();
-        if(r.equalsIgnoreCase(Rol.estudiante)){
-           tiposPrestamo.put(EquipoComplejo.p24h,EquipoComplejo.p24h);
-           tiposPrestamo.put(EquipoComplejo.diario, EquipoComplejo.diario);
-        }
-        else if(r.equalsIgnoreCase(Rol.laboratorista) || r.equalsIgnoreCase(Rol.profesor)){
-            tiposPrestamo.put(EquipoComplejo.p24h,EquipoComplejo.p24h);
+    public Rol(String r, String cont, String s) {
+        this.rol = r;
+        this.contrasenia = cont;
+        this.sal = s;
+        tiposPrestamo = new HashMap<>();
+        if (r.equalsIgnoreCase(Rol.estudiante)) {
+            tiposPrestamo.put(EquipoComplejo.p24h, EquipoComplejo.p24h);
             tiposPrestamo.put(EquipoComplejo.diario, EquipoComplejo.diario);
-            tiposPrestamo.put(EquipoComplejo.semestre,EquipoComplejo.semestre);
+        } else if (r.equalsIgnoreCase(Rol.laboratorista) || r.equalsIgnoreCase(Rol.profesor)) {
+            tiposPrestamo.put(EquipoComplejo.p24h, EquipoComplejo.p24h);
+            tiposPrestamo.put(EquipoComplejo.diario, EquipoComplejo.diario);
+            tiposPrestamo.put(EquipoComplejo.semestre, EquipoComplejo.semestre);
             tiposPrestamo.put(EquipoComplejo.indefinido, EquipoComplejo.indefinido);
-       }
+        }
     }
-    
-    
+
     /**
      * @return the rol
      */
@@ -58,18 +59,17 @@ public class Rol implements Comparable<Rol>{
      */
     public void setRol(String rol) {
         this.rol = rol;
-        if(rol!=null){
-            tiposPrestamo=new HashMap<>();
-            if(rol.equalsIgnoreCase(Rol.estudiante)){
-               tiposPrestamo.put(EquipoComplejo.p24h,EquipoComplejo.p24h);
-               tiposPrestamo.put(EquipoComplejo.diario, EquipoComplejo.diario);
-            }
-            else if(rol.equalsIgnoreCase(Rol.laboratorista) || rol.equalsIgnoreCase(Rol.profesor)){
-                tiposPrestamo.put(EquipoComplejo.p24h,EquipoComplejo.p24h);
+        if (rol != null) {
+            tiposPrestamo = new HashMap<>();
+            if (rol.equalsIgnoreCase(Rol.estudiante)) {
+                tiposPrestamo.put(EquipoComplejo.p24h, EquipoComplejo.p24h);
                 tiposPrestamo.put(EquipoComplejo.diario, EquipoComplejo.diario);
-                tiposPrestamo.put(EquipoComplejo.semestre,EquipoComplejo.semestre);
+            } else if (rol.equalsIgnoreCase(Rol.laboratorista) || rol.equalsIgnoreCase(Rol.profesor)) {
+                tiposPrestamo.put(EquipoComplejo.p24h, EquipoComplejo.p24h);
+                tiposPrestamo.put(EquipoComplejo.diario, EquipoComplejo.diario);
+                tiposPrestamo.put(EquipoComplejo.semestre, EquipoComplejo.semestre);
                 tiposPrestamo.put(EquipoComplejo.indefinido, EquipoComplejo.indefinido);
-           }
+            }
         }
     }
 
@@ -100,19 +100,25 @@ public class Rol implements Comparable<Rol>{
     public void setSal(String sal) {
         this.sal = sal;
     }
-    
+
     @Override
-    public String toString(){
-        return "Persona:["+rol+ " "+contrasenia+" "+sal+"] \n";
+    public String toString() {
+        return "Persona:[" + rol + " " + contrasenia + " " + sal + "] \n";
     }
 
     @Override
     public int compareTo(Rol o) {
-        if(rol.equalsIgnoreCase(Rol.laboratorista) && o.getRol().equalsIgnoreCase(Rol.profesor)) return 1;
-        else if(rol.equalsIgnoreCase(Rol.laboratorista) && o.getRol().equalsIgnoreCase(Rol.estudiante)) return 1; 
-        else if(rol.equalsIgnoreCase(Rol.profesor) && o.getRol().equalsIgnoreCase(Rol.estudiante)) return 1;
-        else if(rol.equalsIgnoreCase(o.getRol())) return 0;
-        else return -1;
+        if (rol.equalsIgnoreCase(Rol.laboratorista) && o.getRol().equalsIgnoreCase(Rol.profesor)) {
+            return 1;
+        } else if (rol.equalsIgnoreCase(Rol.laboratorista) && o.getRol().equalsIgnoreCase(Rol.estudiante)) {
+            return 1;
+        } else if (rol.equalsIgnoreCase(Rol.profesor) && o.getRol().equalsIgnoreCase(Rol.estudiante)) {
+            return 1;
+        } else if (rol.equalsIgnoreCase(o.getRol())) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -128,7 +134,5 @@ public class Rol implements Comparable<Rol>{
     public void setTiposPrestamo(Map tiposPrestamo) {
         this.tiposPrestamo = tiposPrestamo;
     }
-    
-    
-    
+
 }

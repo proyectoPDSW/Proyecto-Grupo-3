@@ -63,6 +63,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     /**
      * Obj: Conocer la hora actual
+     *
      * @return la hora actual
      */
     public static Timestamp currDate() {
@@ -152,8 +153,8 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     }
 
     /**
-     * 
-     * @param equiposComplejosP 
+     *
+     * @param equiposComplejosP
      */
     public void setEquiposComplejosPrestados(Set<EquipoComplejo> equiposComplejosP) {
         Set<EquipoComplejo> tmp = new HashSet<>();
@@ -164,16 +165,16 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     }
 
     /**
-     * 
-     * @param elQuePideElPrestamo 
+     *
+     * @param elQuePideElPrestamo
      */
     public void setElQuePideElPrestamo(Persona elQuePideElPrestamo) {
         this.elQuePideElPrestamo = elQuePideElPrestamo;
     }
 
     /**
-     * 
-     * @param equiposSencillosPrestados 
+     *
+     * @param equiposSencillosPrestados
      */
     public void setEquiposSencillosPrestados(Set<EquipoSencillo> equiposSencillosPrestados) {
         this.equiposSencillosPrestados = equiposSencillosPrestados;
@@ -182,7 +183,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     }
 
     /**
-     * 
+     *
      * @return el dueño del prestamo
      */
     public String getTipo_prestamo() {
@@ -190,8 +191,8 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     }
 
     /**
-     * 
-     * @param tipo_prestamo 
+     *
+     * @param tipo_prestamo
      */
     public void setTipo_prestamo(String tipo_prestamo) {
         this.tipo_prestamo = tipo_prestamo;
@@ -255,24 +256,24 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     }
 
     /**
-     * 
-     * @param fechaInicio 
+     *
+     * @param fechaInicio
      */
     public void setFechaInicio(Timestamp fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
     /**
-     * 
-     * @param fechaEstimadaDeEntrega 
+     *
+     * @param fechaEstimadaDeEntrega
      */
     public void setFechaEstimadaDeEntrega(Timestamp fechaEstimadaDeEntrega) {
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
     }
 
     /**
-     * 
-     * @param fechaRealEntregada 
+     *
+     * @param fechaRealEntregada
      */
     public void setFechaRealEntregada(Timestamp fechaRealEntregada) {
         this.fechaRealEntregada = fechaRealEntregada;
@@ -332,6 +333,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     /**
      * Calcular la fecha estimada
+     *
      * @param tipo
      * @return la fecha estimada
      */
@@ -341,13 +343,13 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         calen.setTime(currDate());
         if (tipo.equalsIgnoreCase(EquipoComplejo.p24h)) {
             calen.add(Calendar.DAY_OF_MONTH, 1);
-            fecha=new Timestamp(calen.getTimeInMillis());
+            fecha = new Timestamp(calen.getTimeInMillis());
         } else if (tipo.equalsIgnoreCase(EquipoComplejo.diario)) {
             calen.set(Calendar.HOUR, 19);
-            fecha=new Timestamp(calen.getTimeInMillis());
+            fecha = new Timestamp(calen.getTimeInMillis());
         } else if (tipo.equalsIgnoreCase(EquipoComplejo.semestre)) {
             calen.set(Calendar.MONTH, 6);
-            fecha=new Timestamp(calen.getTimeInMillis());
+            fecha = new Timestamp(calen.getTimeInMillis());
         }
         return fecha;
     }

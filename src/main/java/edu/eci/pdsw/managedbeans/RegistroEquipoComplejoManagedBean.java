@@ -24,97 +24,113 @@ import javax.validation.constraints.Size;
  *
  * @author Daniela Sepulveda
  */
-
-@ManagedBean(name="RegistroEquiposComplejos")
+@ManagedBean(name = "RegistroEquiposComplejos")
 @SessionScoped
 
-public class RegistroEquipoComplejoManagedBean implements Serializable{
-    
+public class RegistroEquipoComplejoManagedBean implements Serializable {
+
     private final ServiciosEquipoComplejo SERVICIOS;
-    
-    @Size(min=1,max=50, message="Es un campo requerido*")
+
+    @Size(min = 1, max = 50, message = "Es un campo requerido*")
     private String nombreModelo;
-    
+
     private Modelo modelo;
 
-        private int vidaUtil;
-        private String nombre;
-        private String clase;
-        private long valorComercial;
-        private String fotografia;
-        private String descripcion;
-        private String accesorios;
-    
+    private int vidaUtil;
+    private String nombre;
+    private String clase;
+    private long valorComercial;
+    private String fotografia;
+    private String descripcion;
+    private String accesorios;
+
     private EquipoComplejo equipo;
-    
-        private boolean asegurado;
-        private boolean disponibilidad;
-        private String estado;
-        private String serial;
-        private String placa;
-        private String marca;
-    
-    private String aseguradoEquipo="";
-    private String disponibilidadEquipo="";
+
+    private boolean asegurado;
+    private boolean disponibilidad;
+    private String estado;
+    private String serial;
+    private String placa;
+    private String marca;
+
+    private String aseguradoEquipo = "";
+    private String disponibilidadEquipo = "";
 
     private boolean showPanelConsultaModelo = false;
     private boolean showPanelRegistroModelo = false;
     private boolean showPanelRegistroExitoso = false;
-     
+
+    /**
+     * Constructor del bean
+     */
     public RegistroEquipoComplejoManagedBean() {
-        SERVICIOS=ServiciosEquipoComplejo.getInstance();    
+        SERVICIOS = ServiciosEquipoComplejo.getInstance();
     }
-    
-    public void limpiar(){
-       vidaUtil=0;
-       nombre="";
-       clase="";
-       valorComercial=0;
-       fotografia="";
-       descripcion="";
-       accesorios="";
-       serial="";
-       placa="0";
-       marca="";      
+
+    /**
+     * Resetea todos los parametros
+     */
+    public void limpiar() {
+        vidaUtil = 0;
+        nombre = "";
+        clase = "";
+        valorComercial = 0;
+        fotografia = "";
+        descripcion = "";
+        accesorios = "";
+        serial = "";
+        placa = "0";
+        marca = "";
     }
-    
-    public List<String> modelosAproximados(String query){
-        List<String> aproximados=new ArrayList<>();
-        try{
-            aproximados=SERVICIOS.consultarAproximado(query);
-        }catch (ExcepcionServicios ex) {
+
+    /**
+     * Obtiene una lista de modelos por nombre aproximado
+     * 
+     * @param query la consulta
+     * @return los modelos que se parecen a la consulta
+     */
+    public List<String> modelosAproximados(String query) {
+        List<String> aproximados = new ArrayList<>();
+        try {
+            aproximados = SERVICIOS.consultarAproximado(query);
+        } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
         }
         return aproximados;
     }
-    
-    public boolean showPanelRegistroExitoso(){
-        if(equipo!=null && equipo.getAsegurado()){
-            aseguradoEquipo="Si";
-        }else{
-            aseguradoEquipo="No";
+
+    /**
+     * 
+     * @return 
+     */
+    public boolean showPanelRegistroExitoso() {
+        if (equipo != null && equipo.getAsegurado()) {
+            aseguradoEquipo = "Si";
+        } else {
+            aseguradoEquipo = "No";
         }
-        if(equipo!=null && equipo.getDisponibilidad()){
-            disponibilidadEquipo="Si";
-        }else{
-            disponibilidadEquipo="No";
+        if (equipo != null && equipo.getDisponibilidad()) {
+            disponibilidadEquipo = "Si";
+        } else {
+            disponibilidadEquipo = "No";
         }
         return showPanelRegistroExitoso;
     }
-    public boolean showPanelConsulta(){
+
+    public boolean showPanelConsulta() {
         return showPanelConsultaModelo;
     }
-    
-    public boolean showPanelRegistro(){
+
+    public boolean showPanelRegistro() {
         return showPanelRegistroModelo;
     }
-   
-    public void consultarModelo(){
+
+    public void consultarModelo() {
         try {
-            modelo=SERVICIOS.consultarModelo(nombreModelo);
-            showPanelRegistroModelo=false;
-            showPanelConsultaModelo=true;
+            modelo = SERVICIOS.consultarModelo(nombreModelo);
+            showPanelRegistroModelo = false;
+            showPanelConsultaModelo = true;
             showPanelRegistroExitoso = false;
             limpiar();
         } catch (ExcepcionServicios ex) {
@@ -122,39 +138,39 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             Registro.anotar(ex);
         }
     }
-    
-    public void registrarEquipo(){
+
+    public void registrarEquipo() {
         try {
-            equipo=new EquipoComplejo(modelo, marca, serial,placa);
+            equipo = new EquipoComplejo(modelo, marca, serial, placa);
             equipo.setAsegurado(asegurado);
             equipo.setMarca(marca);
             equipo.setPlaca(placa);
             equipo.setDisponibilidad(true);
             equipo.setEstado("Activo");
             SERVICIOS.registrarEquipoComplejo(equipo);
-            showPanelConsultaModelo=false;
-            showPanelRegistroModelo=false;
-            showPanelRegistroExitoso=true;
+            showPanelConsultaModelo = false;
+            showPanelRegistroModelo = false;
+            showPanelRegistroExitoso = true;
             facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios | EquipoException ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
         }
     }
-    
-    public void agregarModelo(){
-        showPanelRegistroModelo=true;
-        showPanelConsultaModelo=false;
+
+    public void agregarModelo() {
+        showPanelRegistroModelo = true;
+        showPanelConsultaModelo = false;
         showPanelRegistroExitoso = false;
     }
-  
-    public void registrarEquipoModelo(){
+
+    public void registrarEquipoModelo() {
         try {
-            modelo=new Modelo(vidaUtil,nombre,fotografia,clase,valorComercial);
+            modelo = new Modelo(vidaUtil, nombre, fotografia, clase, valorComercial);
             modelo.setDescripcion(descripcion);
             modelo.setAccesorios(accesorios);
             //SERVICIOS.registrarModelo(modelo);
-            equipo=new EquipoComplejo(modelo, marca, serial,placa);
+            equipo = new EquipoComplejo(modelo, marca, serial, placa);
             equipo.setModelo_Eq(modelo);
             equipo.setAsegurado(asegurado);
             equipo.setPlaca(placa);
@@ -162,16 +178,16 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
             equipo.setDisponibilidad(true);
             equipo.setEstado("Activo");
             SERVICIOS.registrarEquipoComplejo(equipo);
-            showPanelConsultaModelo=false;
-            showPanelRegistroModelo=false;
-            showPanelRegistroExitoso=true;
+            showPanelConsultaModelo = false;
+            showPanelRegistroModelo = false;
+            showPanelRegistroExitoso = true;
             facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios | EquipoException ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
         }
-    }  
-    
+    }
+
     //////////////////////informacion Modelo
     public int getVidaUtil() {
         return vidaUtil;
@@ -205,7 +221,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
         this.valorComercial = valorComercial;
     }
 
-
     public String getFotografia() {
         return fotografia;
     }
@@ -228,25 +243,27 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
 
     public void setAccesorios(String accesorios) {
         this.accesorios = accesorios;
-        
+
     }
-    
+
     public Modelo getModelo() {
         return modelo;
     }
+
     //////////////////Informacion consulta
     public void setNombreModelo(String nombreModelo) {
         this.nombreModelo = nombreModelo;
     }
-    
+
     public String getNombreModelo() {
         return nombreModelo;
     }
 /////////////////////////////////////////////////informacion Equipo
+
     public EquipoComplejo getEquipo() {
         return equipo;
     }
-    
+
     public boolean isAsegurado() {
         return asegurado;
     }
@@ -297,35 +314,41 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
 
     /**
      * Muestra un mensaje de error en la vista
+     *
      * @param message Mensaje de error
      */
     private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: "+message, null));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: " + message, null));
     }
-    
+
     /**
      * Muestra un mensaje de informacion en la vista
+     *
      * @param message Mensaje de informativo
      */
     public void facesInfo(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
+
     /**
      * Muestra un mensaje de alarma en la vista
+     *
      * @param message Mensaje de Alarma
      */
     public void facesWarn(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
     }
-    
+
     /**
      * Muestra un mensaje de error grave en la vista
+     *
      * @param message Mensaje fatal
      */
     public void facesFatal(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, message, null));
     }
 ////////////////////////////////datos registro exitoso
+
     public String getAseguradoEquipo() {
         return aseguradoEquipo;
     }
@@ -343,5 +366,3 @@ public class RegistroEquipoComplejoManagedBean implements Serializable{
     }
 
 }
-
-

@@ -7,6 +7,7 @@ package edu.eci.pdsw.persistence;
 
 import java.util.Properties;
 import edu.eci.pdsw.persistence.mybatis.MyBatisDAOFactory;
+
 /**
  *
  * @author David Useche
@@ -17,6 +18,7 @@ public abstract class DAOFactory {
 
     /**
      * Obtiene una instancia del DAOFactory
+     *
      * @param appProperties Las propiedades del instance
      * @return La DAOFactory concerniente a las properties
      */
@@ -57,25 +59,31 @@ public abstract class DAOFactory {
 
     /**
      * Obtiene un DAOEquipoComplejo
-     * @return el DAOEquipoComplejo correspondiente a las propiedades del DAOFactory
+     *
+     * @return el DAOEquipoComplejo correspondiente a las propiedades del
+     * DAOFactory
      */
     public abstract DAOEquipoComplejo getDaoEquipoComplejo();
 
     /**
      * Obtiene un DAOEquipoSencillo
-     * @return  el DAOEquipoSencillo correspondiente a las propiedades del DAOFactory
+     *
+     * @return el DAOEquipoSencillo correspondiente a las propiedades del
+     * DAOFactory
      */
     public abstract DAOEquipoSencillo getDaoEquipoSencillo();
 
     /**
      * Obtiene un DAOPersona
+     *
      * @return el DAOPersona correspondiente a las propiedades del DAOFactory
      */
     public abstract DAOPersona getDaoPersona();
-    
+
     /**
      * Obtiene un DAOPrestamos
-     * @return 
+     *
+     * @return
      */
     public abstract DAOPrestamo getDaoPrestamo();
 

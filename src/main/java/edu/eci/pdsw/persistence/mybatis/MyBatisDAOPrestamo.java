@@ -8,7 +8,6 @@ package edu.eci.pdsw.persistence.mybatis;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Prestamo;
-import edu.eci.pdsw.entities.PrestamoException;
 import edu.eci.pdsw.persistence.DAOPrestamo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper;
@@ -16,11 +15,7 @@ import edu.eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper;
 import edu.eci.pdsw.persistence.mybatis.mappers.PersonaMapper;
 import edu.eci.pdsw.persistence.mybatis.mappers.PrestamoMapper;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 /**
