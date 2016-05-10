@@ -104,19 +104,15 @@ public class RegistroDevolucionManageBean implements Serializable{
             EquipoComplejo eqcomp = EQCOMPLEJO.consultarPorPlaca(placa);
             List<Prestamo> prestamos = PRESTAMO.consultarPrestamosEquipoComplejo(eqcomp);
             for (Prestamo p1 : prestamos) {
-                list<Prestamo> otros = PRESTAMO.consultarPrestamosPersona(placa);
-                if (!p1.terminado()) {
-                    
-                    System.out.println("ERSDGFSDGSDF");
-                    Set<EquipoComplejo> ecp = p1.getEquiposComplejosFaltantes();
-                    
+                Prestamo otros = PRESTAMO.consultarPrestamosPrestamo(p1);
+                if (!otros.terminado()) {
+                    Set<EquipoComplejo> ecp = otros.getEquiposComplejosFaltantes();
                     for (EquipoComplejo ecp1 : ecp) {
-                        System.out.println(ecp1.toString() +"\n"+eqcomp.toString());
                         if (ecp1.equals(eqcomp)) {
                             check=true;
-                            elQuePideElPrestamo = p1.getElQuePideElPrestamo();
-                            equiposComplejosPrestados=p1.getEquiposComplejosPrestados();
-                            equiposComplejosFaltantes=p1.getEquiposComplejosFaltantes();
+                            elQuePideElPrestamo = otros.getElQuePideElPrestamo();
+                            equiposComplejosPrestados=otros.getEquiposComplejosPrestados();
+                            equiposComplejosFaltantes=otros.getEquiposComplejosFaltantes();
                         }
                     }
                 }

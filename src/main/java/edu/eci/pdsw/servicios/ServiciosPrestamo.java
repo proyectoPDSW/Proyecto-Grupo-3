@@ -47,6 +47,7 @@ public abstract class ServiciosPrestamo {
     /**
      * Consulta todos los prestamos con algun equipo en mora
      * @return los prestamos que posean algun equipo en mora de ser entregado
+     * @throws ExcepcionServicios
      */
     public abstract List<Prestamo> consultarPrestamosMorosos() throws ExcepcionServicios;
     
@@ -54,21 +55,30 @@ public abstract class ServiciosPrestamo {
      * Consulta todos los prestamos de una persona determinada
      * @param p la persona de la que se quieren conocer los prestamos
      * @return Los prestamos de p
+     * @throws ExcepcionServicios
      */
-    public abstract List<Prestamo> consultarPrestamosPersona(String p);
+    public abstract List<Prestamo> consultarPrestamosPersona(String p) throws ExcepcionServicios;
     
     /**
      * Consulta todos los prestamos de un equipo complejo determinado
      * @param ec el equipo complejo del que se quieren conocer los prestamos
      * @return Los prestamos de ec
+     * @throws ExcepcionServicios
      */
-    public abstract List<Prestamo> consultarPrestamosEquipoComplejo(EquipoComplejo ec);
+    public abstract List<Prestamo> consultarPrestamosEquipoComplejo(EquipoComplejo ec) throws ExcepcionServicios;
     
     /**
      * Consulta todos los prestamos
      * @return todos los prestamos registrados
      */
     public abstract List<Prestamo> consultarTodos();
+    
+    /**
+     * Consulta todos los prestamos
+     * @param p, prestamo a revisar
+     * @return el prestamo registrado
+     */
+    public abstract Prestamo consultarPrestamosPrestamo(Prestamo p) throws ExcepcionServicios;
     
     /**
      *Consultar una persona por su carne 

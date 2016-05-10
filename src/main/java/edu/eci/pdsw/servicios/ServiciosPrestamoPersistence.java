@@ -65,44 +65,46 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             basePaciente = daoF.getDaoPrestamo();
             morosos = basePaciente.loadMorosos();
             //Collections.sort(morosos);
+            return morosos;
         } catch (PersistenceException e) {
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
         } finally {
             daoF.endSession();
-            return morosos;
         }
 
     }
 
     @Override
-    public List<Prestamo> consultarPrestamosPersona(String p) {
+    public List<Prestamo> consultarPrestamosPersona(String p) throws ExcepcionServicios{
         List<Prestamo> prestamos = new LinkedList<>();
         try {
             daoF.beginSession();
             basePaciente = daoF.getDaoPrestamo();
             prestamos = basePaciente.loadByCarne(p);
             Collections.sort(prestamos);
+            return prestamos;
         } catch (PersistenceException e) {
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
         } finally {
             daoF.endSession();
-            return prestamos;
+            
         }
     }
 
     @Override
-    public List<Prestamo> consultarPrestamosEquipoComplejo(EquipoComplejo ec) {
+    public List<Prestamo> consultarPrestamosEquipoComplejo(EquipoComplejo ec) throws ExcepcionServicios{
         List<Prestamo> prestamos = new LinkedList<>();
         try {
             daoF.beginSession();
             basePaciente = daoF.getDaoPrestamo();
             prestamos = basePaciente.loadByEquipoComplejo(ec);
             Collections.sort(prestamos);
+            return prestamos;
         } catch (PersistenceException e) {
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
         } finally {
             daoF.endSession();
-            return prestamos;
+            //return prestamos;
         }
     }
 
@@ -303,6 +305,21 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         daoF.endSession();
         return now;
             
+    }
+
+    @Override
+    public Prestamo consultarPrestamosPrestamo(Prestamo p)throws ExcepcionServicios{
+        try {
+            if(p==null) throw new ExcepcionServicios("El prestamo a consultar no debe ser nulo");
+            daoF.beginSession();
+            basePaciente = daoF.getDaoPrestamo();
+            Prestamo p1 = basePaciente.load(p.getFechaInicio(), p.getElQuePideElPrestamo().getCarnet());            
+            return p1;
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
+        }finally{
+            daoF.endSession();
+        }
     }
 
 }
