@@ -38,10 +38,11 @@ import javax.faces.context.FacesContext;
  *
  * @author German Lopez
  */
-@ManagedBean(name="RegistroPrestamo")
+@ManagedBean(name = "RegistroPrestamo")
 @SessionScoped
-public class RegistroPrestamoManageBean implements Serializable{
-    private final  ServiciosPrestamo PRESTAMO;
+public class RegistroPrestamoManageBean implements Serializable {
+
+    private final ServiciosPrestamo PRESTAMO;
     private final ServiciosEquipoComplejo EQCOMPLEJO;
     private final ServiciosEquipoSencillo EQSENCILLO;
     //Atributos de prestamo
@@ -59,27 +60,27 @@ public class RegistroPrestamoManageBean implements Serializable{
     private String nombre;
     //Cantidad de equipo sencillo de prestamo termino fijo
     private int cantidad;
-    
+
     //Atributos de prestamo
     //Prestamo termino fijo
     private Set<EquipoComplejo> equiposComplejosPrestados;
     private Set<EquipoSencillo> equiposSencillosPrestados;
-    
+
     private List<Integer> equiposSencillosPrestadosCantidad;
     private Persona elQuePideElPrestamo;
     private int tipo_prestamo;
     //Pantallas
-    private boolean showPanelRegistro=false;
-    private boolean showPanelRegistrado=false;
-    private boolean showPanelPersona=true;
+    private boolean showPanelRegistro = false;
+    private boolean showPanelRegistrado = false;
+    private boolean showPanelPersona = true;
     private String selectEqSe;
-    
+
     // Lista de equipo complejo para consultar los equipos prestamo termino fijo
     private List<EquipoComplejo> eqC;
     //Lista de equipo sencillo para consultar los equipos prestamo termino fijo
     private List<EquipoSencillo> eqS;
     //Mapa de los tiempos que posee un prestamo, equipo complejo prestamo termino fijo
-    private Map<String,String> tipoPrestamo;
+    private Map<String, String> tipoPrestamo;
     //Tiempo de vida del prestamo, equipo complejo prestamo termino fijo
     private String fechaTipoPrestamo;
     //lista para saber la cantidad de los equipos
@@ -91,220 +92,217 @@ public class RegistroPrestamoManageBean implements Serializable{
     private String placa;
     private String eqcompl;
 
-    public List<String> modelosAproximados(String query){
-        List<String> aproximados=new ArrayList<>();
-        try{
-            aproximados=EQCOMPLEJO.consultarAproximado(query);
-        }catch (ExcepcionServicios ex) {
+    public List<String> modelosAproximados(String query) {
+        List<String> aproximados = new ArrayList<>();
+        try {
+            aproximados = EQCOMPLEJO.consultarAproximado(query);
+        } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
         }
         return aproximados;
     }
-    
-    
-    public  RegistroPrestamoManageBean(){
-        
-        PRESTAMO=ServiciosPrestamo.getInstance();
-        EQCOMPLEJO=ServiciosEquipoComplejoPersistence.getInstance();
-        EQSENCILLO=ServiciosEquipoSencillo.getInstance();
-        equiposComplejosPrestados=new LinkedHashSet<>();
-        equiposSencillosPrestados=new LinkedHashSet<>();
-        fechaTipoPrestamo="";
-        cantidadDisponible=0;
-        fechaEstimadaDeEntrega=Prestamo.currDate();
-        tipoPrestamo=new HashMap<>();
-        tipoPrestamo.put(EquipoComplejo.p24h,EquipoComplejo.p24h);
+
+    public RegistroPrestamoManageBean() {
+
+        PRESTAMO = ServiciosPrestamo.getInstance();
+        EQCOMPLEJO = ServiciosEquipoComplejoPersistence.getInstance();
+        EQSENCILLO = ServiciosEquipoSencillo.getInstance();
+        equiposComplejosPrestados = new LinkedHashSet<>();
+        equiposSencillosPrestados = new LinkedHashSet<>();
+        fechaTipoPrestamo = "";
+        cantidadDisponible = 0;
+        fechaEstimadaDeEntrega = Prestamo.currDate();
+        tipoPrestamo = new HashMap<>();
+        tipoPrestamo.put(EquipoComplejo.p24h, EquipoComplejo.p24h);
         tipoPrestamo.put(EquipoComplejo.diario, EquipoComplejo.diario);
-        tipoPrestamo.put(EquipoComplejo.semestre,EquipoComplejo.semestre);
+        tipoPrestamo.put(EquipoComplejo.semestre, EquipoComplejo.semestre);
         tipoPrestamo.put(EquipoComplejo.indefinido, EquipoComplejo.indefinido);
-        es=new ArrayList<>();
+        es = new ArrayList<>();
     }
-    /**
-     * Consulta una persona por su carne para 
-     * realizar un prestamo hacia el
-     */
-    public void consultarPersona(){
-        try {
-            elQuePideElPrestamo=PRESTAMO.personaCarne(carne);
-            showPanelRegistro=true;
-        } catch (ExcepcionServicios ex) {
-            facesError(ex.getMessage());
-            
-        }
-    }
-    public List<EquipoComplejo> sacarEqC(){
-        return eqC;
-    }
-    
-    public List<EquipoSencillo> sacarEqS(){
-        return eqS;
-    }
-    
 
     /**
-     *Consulta la lista de equipos complejos que tengan
-     * un modelo especifico
-     * 
+     * Consulta una persona por su carne para realizar un prestamo hacia el
      */
-    public void consultarEqModelo(){
-        List<EquipoComplejo> equipos=new ArrayList<>();
-        try{
-            equipos=EQCOMPLEJO.consultarEnAlmacenModelo(modelo);
-        }catch(ExcepcionServicios ex){
+    public void consultarPersona() {
+        try {
+            elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
+            showPanelRegistro = true;
+        } catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+
+        }
+    }
+
+    public List<EquipoComplejo> sacarEqC() {
+        return eqC;
+    }
+
+    public List<EquipoSencillo> sacarEqS() {
+        return eqS;
+    }
+
+    /**
+     * Consulta la lista de equipos complejos que tengan un modelo especifico
+     *
+     */
+    public void consultarEqModelo() {
+        List<EquipoComplejo> equipos = new ArrayList<>();
+        try {
+            equipos = EQCOMPLEJO.consultarEnAlmacenModelo(modelo);
+        } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
-        eqC=equipos;
+        eqC = equipos;
     }
-    
+
     /**
      * Consulta un equipo sencillo por su nombre
      */
-    public void consultarEqSNombre(){
-       List<EquipoSencillo> equiposS=new ArrayList<>();
-       try{
-           equiposS.add(EQSENCILLO.ConsultarDisponibilidadPorNombre(nombre));
-       }catch(ExcepcionServicios ex){
-           facesError(ex.getMessage());
-       }
-       eqS=equiposS;
-       if(!eqS.isEmpty()){
-        cantidadDisponibleEqs(eqS.get(0).getNombre());
-       }
-    }
-    
-    
-    /**
-     * Agrega equipos complejos al prestamo termino fijo
-    */
-    public void agregarEquipoC(){
-        if(selectEquipoComplejo!=null){
-        selectEquipoComplejo.setEstado(fechaTipoPrestamo);
-        actualizarEquipoComplejo(selectEquipoComplejo);
-        consultarEqModelo();
-        equiposComplejosPrestados.add(selectEquipoComplejo);
-        }
-    }
-    
-    /**
-     * Actualiza los equipos despues de haber sufrido un
-     * cambio en su estado
-     * @param nuevo 
-     */
-    public void actualizarEquipoComplejo(EquipoComplejo nuevo){
-        try{
-            EQCOMPLEJO.actualizarEquipo(nuevo);
-        }catch(ExcepcionServicios ex){
+    public void consultarEqSNombre() {
+        List<EquipoSencillo> equiposS = new ArrayList<>();
+        try {
+            equiposS.add(EQSENCILLO.ConsultarDisponibilidadPorNombre(nombre));
+        } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
-        
+        eqS = equiposS;
+        if (!eqS.isEmpty()) {
+            cantidadDisponibleEqs(eqS.get(0).getNombre());
+        }
     }
-    
+
+    /**
+     * Agrega equipos complejos al prestamo termino fijo
+     */
+    public void agregarEquipoC() {
+        if (selectEquipoComplejo != null) {
+            selectEquipoComplejo.setEstado(fechaTipoPrestamo);
+            actualizarEquipoComplejo(selectEquipoComplejo);
+            consultarEqModelo();
+            equiposComplejosPrestados.add(selectEquipoComplejo);
+        }
+    }
+
+    /**
+     * Actualiza los equipos despues de haber sufrido un cambio en su estado
+     *
+     * @param nuevo
+     */
+    public void actualizarEquipoComplejo(EquipoComplejo nuevo) {
+        try {
+            EQCOMPLEJO.actualizarEquipo(nuevo);
+        } catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+        }
+
+    }
+
     /**
      * Agrega equipos sencillos al prestamo termino fijo
      */
-    public void agregarEquipoS(){
-        if(getSelectEquipoSencillo()!=null){
+    public void agregarEquipoS() {
+        if (getSelectEquipoSencillo() != null) {
             cantidadDisponibleEqs(selectEquipoSencillo.getNombre());
             selectEquipoSencillo.setCantidadTotal(cantidad);
             consultarEqSNombre();
             equiposSencillosPrestados.add(getSelectEquipoSencillo());
         }
     }
-    
-    public void cantidadDisponibleEqs(String nom){
-        try{
-            cantidadDisponible=EQSENCILLO.consultarCantidadDisponibleEqSencillo(nom)-cantidad;
-        }catch(ExcepcionServicios ex){
+
+    public void cantidadDisponibleEqs(String nom) {
+        try {
+            cantidadDisponible = EQSENCILLO.consultarCantidadDisponibleEqSencillo(nom) - cantidad;
+        } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
     }
-    
+
     /**
-     * Registra un prestamo dependiendo de la persona que haga el prestamo se 
+     * Registra un prestamo dependiendo de la persona que haga el prestamo se
      * obtiene el tipo del prestamo si es indefinido o termino fijo
      */
-    public void registrarPrestamo(){
-        try{
-            fechaEstimadaDeEntrega=Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
-            if(elQuePideElPrestamo!=null && fechaTipoPrestamo.length()!=0){
+    public void registrarPrestamo() {
+        try {
+            if (elQuePideElPrestamo != null && fechaTipoPrestamo.length() != 0) {
+                fechaEstimadaDeEntrega = Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
                 System.out.println("Entro cuando la persona es nula");
-                if(elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)){
-                    prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,fechaTipoPrestamo);
-                }
-                else if(getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor) ){
-                        if(fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)){
-                            setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
-                        }else{
-                            prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,fechaTipoPrestamo);
-                        }
+                if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)) {
+                    prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
+                } else if (getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor)) {
+                    if (fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)) {
+                        setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
+                    } else {
+                        prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
                     }
+                }
             }
-            if(prestamo!=null){
+            if (prestamo != null) {
                 System.out.println("Entro cuando prestamo es nulo");
-            PRESTAMO.registrarPrestamo(prestamo);
+                PRESTAMO.registrarPrestamo(prestamo);
+                facesInfo("El prestamo ha sido registrado satisfactoriamente");
+                showPanelRegistro = false;
+                showPanelRegistrado = true;
             }
-            facesInfo("El prestamo ha sido registrado satisfactoriamente");
-            showPanelRegistro=false;
-            showPanelRegistrado=true;
-            }catch (ExcepcionServicios ex) {
+
+        } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
     }
-    
-    
 
-    
     /**
      * Reinicia todas las variables para realizar otro prestamo
      */
-    public void registrarOtroPrestamo(){
+    public void registrarOtroPrestamo() {
         setFechaEstimadaDeEntrega(Prestamo.currDate());
-        equiposComplejosPrestados=new LinkedHashSet<>();
-        equiposSencillosPrestados=new LinkedHashSet<>();
+        equiposComplejosPrestados = new LinkedHashSet<>();
+        equiposSencillosPrestados = new LinkedHashSet<>();
         setElQuePideElPrestamo(null);
         setPrestamo(null);
-        cantidadDisponible=0;
-        showPanelRegistro=false;
-        showPanelRegistrado=false;
-        fechaTipoPrestamo="";
+        cantidadDisponible = 0;
+        showPanelRegistro = false;
+        showPanelRegistrado = false;
+        fechaTipoPrestamo = "";
     }
-    
+
     public boolean ShowPanelRegistro() {
         return showPanelRegistro;
     }
-
 
     public boolean showPanelRegistrado() {
         return showPanelRegistrado;
     }
 
-    
-    /**        restriccion();
-     * Muestra un mensaje de error en la vista
+    /**
+     * restriccion(); Muestra un mensaje de error en la vista
+     *
      * @param message Mensaje de error
      */
     private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: "+message, null));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: " + message, null));
     }
-    
+
     /**
      * Muestra un mensaje de informacion en la vista
+     *
      * @param message Mensaje de informativo
      */
     public void facesInfo(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
+
     /**
      * Muestra un mensaje de alarma en la vista
+     *
      * @param message Mensaje de Alarma
      */
     public void facesWarn(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
     }
-    
+
     /**
      * Muestra un mensaje de error grave en la vista
+     *
      * @param message Mensaje fatal
      */
     public void facesFatal(String message) {
@@ -339,7 +337,6 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.equiposComplejosPrestados = equiposComplejosPrestados;
     }
 
-
     /**
      * @return the equiposSencillosPrestados
      */
@@ -354,8 +351,6 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.equiposSencillosPrestados = equiposSencillosPrestados;
     }
 
-
-
     /**
      * @return the equiposSencillosPrestadosCantidad2
      */
@@ -364,7 +359,8 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
 
     /**
-     * @param equiposSencillosPrestadosCantidad2 the equiposSencillosPrestadosCantidad2 to set
+     * @param equiposSencillosPrestadosCantidad2 the
+     * equiposSencillosPrestadosCantidad2 to set
      */
     public void setEquiposSencillosPrestadosCantidad2(List<Integer> equiposSencillosPrestadosCantidad2) {
         this.equiposSencillosPrestadosCantidad = equiposSencillosPrestadosCantidad2;
@@ -411,20 +407,20 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void setPrestamo(Prestamo prestamo) {
         this.prestamo = prestamo;
     }
-    
-    public void setCarne(String car){
-        this.carne=car;
+
+    public void setCarne(String car) {
+        this.carne = car;
     }
-    
-    public String getCarne(){
+
+    public String getCarne() {
         return carne;
     }
-    
-    public void setNombre(String n){
-        this.nombre=n;
+
+    public void setNombre(String n) {
+        this.nombre = n;
     }
-    
-    public String getNombre(){
+
+    public String getNombre() {
         return nombre;
     }
 
@@ -434,16 +430,15 @@ public class RegistroPrestamoManageBean implements Serializable{
     public boolean isShowPanelPersona() {
         return showPanelPersona;
     }
-    
-    
-    public void setModelo(String mo){
-        this.modelo=mo;
+
+    public void setModelo(String mo) {
+        this.modelo = mo;
     }
-    
-    public String getModelo(){
+
+    public String getModelo() {
         return modelo;
-    } 
-   
+    }
+
     public String getLaPersona() {
         return laPersona;
     }
@@ -451,23 +446,26 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void setLaPersona(String laPersona) {
         this.laPersona = laPersona;
     }
-    
-    public List<String> mostrarListaEquipoSencillo(){
+
+    public List<String> mostrarListaEquipoSencillo() {
         es = new ArrayList<>();
         List<String> es2 = new ArrayList<>();
-        if(laPersona!=null && laPersona.length()>0){
+        if (laPersona != null && laPersona.length() > 0) {
             List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
-            for (Prestamo p1 : p) 
-                if(p1.getFechaRealEntregada()==null)
-                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) 
+            for (Prestamo p1 : p) {
+                if (p1.getFechaRealEntregada() == null) {
+                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) {
                         es.add(es1);
+                    }
+                }
+            }
         }
         for (EquipoSencillo e : es) {
             es2.add(e.getNombre());
         }
         return es2;
     }
-    
+
     public EquipoSencillo getSelectEquipoSencillo() {
         return selectEquipoSencillo;
     }
@@ -475,15 +473,17 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void setSelectEquipoSencillo(EquipoSencillo equiS) {
         this.selectEquipoSencillo = equiS;
     }
-    
-    public void onEquipoChange(){
+
+    public void onEquipoChange() {
     }
-    
-    public int maxValue(){
+
+    public int maxValue() {
         //System.out.println("Entro con "+Arrays.toString(es.toArray())+" y "+selectEqSe);
         for (EquipoSencillo esqs : es) {
             //System.out.println("Entro con "+esqs+" y "+selectEqSe);
-            if(esqs.getNombre().equals(selectEqSe)) return esqs.getCantidadTotal();
+            if (esqs.getNombre().equals(selectEqSe)) {
+                return esqs.getCantidadTotal();
+            }
         }
         return 1;
     }
@@ -501,7 +501,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void setSelectEquipoComplejo(EquipoComplejo selectEqC) {
         this.selectEquipoComplejo = selectEqC;
     }
-        
+
     /**
      * @return the cantidad
      */
@@ -519,14 +519,14 @@ public class RegistroPrestamoManageBean implements Serializable{
     /**
      * @return the tipoPrestamo
      */
-    public Map<String,String> getTipoPrestamo() {
+    public Map<String, String> getTipoPrestamo() {
         return tipoPrestamo;
     }
 
     /**
      * @param tipoPrestamo the tipoPrestamo to set
      */
-    public void setTipoPrestamo(Map<String,String> tipoPrestamo) {
+    public void setTipoPrestamo(Map<String, String> tipoPrestamo) {
         this.tipoPrestamo = tipoPrestamo;
     }
 
@@ -553,8 +553,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
 
     //////////////////////////Devolucion
-
-    public void registroDevolucionEquipoSencillo(){
+    public void registroDevolucionEquipoSencillo() {
         try {
             PRESTAMO.registarDevolucion(laPersona, selectEqSe, cantidad);
             facesInfo("Se realizo con exito la devolución");
@@ -562,16 +561,17 @@ public class RegistroPrestamoManageBean implements Serializable{
             facesError(ex.getMessage());
         }
     }
-    public void registroDevolucionEquipoComplejo(){
+
+    public void registroDevolucionEquipoComplejo() {
         try {
             EquipoComplejo eqcomp = EQCOMPLEJO.consultarPorPlaca(placa);
             List<Prestamo> prestamos = PRESTAMO.consultarPrestamosEquipoComplejo(eqcomp);
             for (Prestamo p1 : prestamos) {
-                if(!p1.terminado()){
+                if (!p1.terminado()) {
                     Set<EquipoComplejo> ecp = p1.getEquiposComplejosFaltantes();
                     for (EquipoComplejo ecp1 : ecp) {
-                        if(ecp1.equals(eqcomp)){
-                            laPersona=p1.getElQuePideElPrestamo().getNombre();
+                        if (ecp1.equals(eqcomp)) {
+                            laPersona = p1.getElQuePideElPrestamo().getNombre();
                         }
                     }
                 }
@@ -614,5 +614,4 @@ public class RegistroPrestamoManageBean implements Serializable{
         this.eqcompl = eqcompl;
     }
 
-    
 }
