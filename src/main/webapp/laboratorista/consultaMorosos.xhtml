@@ -21,7 +21,7 @@ and open the template in the editor.
                     <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
                 </f:facet>
             </p:ajaxStatus>
-            <p:panel id="conultMorosos" header="Prestamos en mora a la fecha #{consultaMorosos.currDate()}" style="margin-bottom:20px">
+            <p:panel id="conultMorosos" header="Préstamos en mora a la fecha #{consultaMorosos.currDate()}" style="margin-bottom:20px">
                 <p:dataTable var="prestamo" value="#{consultaMorosos.morosos}" tableStyle="width:auto" >
                     <p:column headerText="Fecha esperada entrega" >
                         <p:outputLabel value="#{prestamo.fechaEstimadaDeEntrega}"/>

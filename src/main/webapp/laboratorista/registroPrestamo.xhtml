@@ -43,7 +43,7 @@
                 </p:panel>
 
                 <p:tabView >
-                    <p:tab title="Información Prestamo">
+                    <p:tab title="Información Préstamo">
                         <p:panelGrid columns="2"  rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
                             <p:panel id="Complejo">
 
@@ -113,13 +113,13 @@
                             </p:panel>
                         </p:panelGrid>
                     </p:tab>
-                    <p:tab title="Información Prestamo Realizado">
+                    <p:tab title="Información Préstamo Realizado">
                         <p:panel rendered="#{RegistroPrestamo.showPanelRegistrado()}">
                             <br/><h:outputLabel value="Nombre: " />
                             <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.nombre}" /><br/>
                             <br/><h:outputLabel value="Apellido: " />
                             <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.apellido}" /><br/>
-                            <br/><h:outputLabel value="Carne: " />
+                            <br/><h:outputLabel value="Carné: " />
                             <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.carnet}" /><br/>
                             <br/><h:outputLabel value="Fecha estimada de entrega: " />
                             <p:outputLabel value="#{RegistroPrestamo.fechaEstimadaDeEntrega}" /><br/>

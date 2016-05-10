@@ -23,33 +23,33 @@ and open the template in the editor.
                     <p:tab title="Devolver Equipo Complejo">
                         <h:panelGrid id="devEquCom" columns="2" cellpadding="5">
                             <center>Equipo Complejo (placa)</center>
-                            <center><p:inputText value="#{RegistroPrestamo.placa}"></p:inputText></center>
-                            <center><p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoComplejo()}" update="devEquCom"></p:commandButton></center>
+                            <center><p:inputText value="#{RegistroDevolucion.placa}"></p:inputText></center>
+                            <center><p:commandButton value="Aceptar devolucion" action="#{RegistroDevolucion.registroDevolucionEquipoComplejo()}" update="devEquCom"></p:commandButton></center>
                             
-                            <h:outputText value="#{RegistroPrestamo.laPersona}" />
-                            <h:outputText value="#{RegistroPrestamo.eqcompl}" />
+                            <h:outputText value="#{RegistroDevolucion.laPersona}" />
+                            <h:outputText value="#{RegistroDevolucion.eqcompl}" />
                         </h:panelGrid>
                         
                     </p:tab>
                     <p:tab title="Devolver Equipo Sencillo">
                         <h:panelGrid id="devEquSen" columns="8" cellpadding="5">
                             <center>Carné del prestamista
-                                <p:inputText id="carnet" value="#{RegistroPrestamo.laPersona}" >
+                                <p:inputText id="carnet" value="#{RegistroDevolucion.laPersona}" >
                                     <p:ajax event="change" update="eqse" />
                                 </p:inputText>
                             </center>
                             <center>
-                                <p:selectOneMenu id="eqse" value="#{RegistroPrestamo.selectEqSe}">
+                                <p:selectOneMenu id="eqse" value="#{RegistroDevolucion.selectEqSe}">
                                     <f:selectItem itemLabel="Seleccione el equipo sencillo" itemValue="" noSelectionOption="true" />
-                                    <f:selectItems value="#{RegistroPrestamo.mostrarListaEquipoSencillo()}" />
+                                    <f:selectItems value="#{RegistroDevolucion.mostrarListaEquipoSencillo()}" />
                                     <p:ajax event="change" update="basic" />
                                 </p:selectOneMenu>
                             </center>
                             <center>
-                                <p:spinner id="basic" value="#{RegistroPrestamo.cantidad}" min="1" max="#{RegistroPrestamo.maxValue()}"/>
+                                <p:spinner id="basic" value="#{RegistroDevolucion.cantidad}" min="1" max="#{RegistroDevolucion.maxValue()}"/>
                             </center>
                             <center>
-                                <p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoSencillo()}" update="devEquSen"></p:commandButton>
+                                <p:commandButton value="Aceptar devolución" action="#{RegistroDevolucion.registroDevolucionEquipoSencillo()}" update="devEquSen"></p:commandButton>
                             </center>
                         </h:panelGrid>
                     </p:tab>
