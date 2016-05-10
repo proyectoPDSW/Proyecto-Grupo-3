@@ -4,16 +4,14 @@
 <h:head>
 </h:head>
 <h:body>
-    <center><p:graphicImage value="resource/ImagenInicio.jpg"/></center>
+    <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
     <h1>RESTRICTED PAGE!</h1>
     <h:outputLink value="/logout">logout</h:outputLink>
     <pre>     
     subject = <p:outputLabel value="#{loginBean.subject}"/>
     principal = <p:outputLabel value="#{loginBean.subject.principal}"/>
     session = <p:outputLabel value="#{loginBean.subject.session}"/>
-    role user = <p:outputLabel value="#{loginBean.subject.hasRole('user')}"/>
     role admin = <p:outputLabel value="#{loginBean.subject.hasRole('admin')}"/>
-    role employee = <p:outputLabel value="#{loginBean.subject.hasRole('employee')}"/>
     </pre>
         vista admin
     
