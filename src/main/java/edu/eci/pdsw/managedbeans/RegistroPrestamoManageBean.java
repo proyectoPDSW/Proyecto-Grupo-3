@@ -239,6 +239,7 @@ public class RegistroPrestamoManageBean implements Serializable{
             PRESTAMO.registrarPrestamo(prestamo);
             facesInfo("El prestamo ha sido registrado satisfactoriamente");
             showPanelRegistro=false;
+            showPanelRegistro=true;
             }catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
@@ -266,7 +267,7 @@ public class RegistroPrestamoManageBean implements Serializable{
     }
 
 
-    public boolean ShowPanelRegistrado() {
+    public boolean showPanelRegistrado() {
         return showPanelRegistrado;
     }
 
@@ -424,13 +425,6 @@ public class RegistroPrestamoManageBean implements Serializable{
      */
     public boolean isShowPanelPersona() {
         return showPanelPersona;
-    }
-
-    /**
-     * @param showPanelPersona the showPanelPersona to set
-     */
-    public void setShowPanelPersona(boolean showPanelPersona) {
-        this.showPanelPersona = showPanelPersona;
     }
     
     

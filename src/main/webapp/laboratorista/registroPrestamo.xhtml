@@ -116,7 +116,44 @@
                                     </p:layoutUnit>
                                 </p:layout>
                             </h:panelGrid>
-                        </p:tab>        
+                        </p:tab>
+                        <p:tab title="Informacion Prestamo Realizado">
+                            <h:panelGrid columns="2" cellpadding="5" rendered="#{RegistroPrestamo.showPanelRegistrado()}">
+                                <h:outputLabel value="Nombre :" />
+                                <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.nombre}" />
+                                <h:outputLabel value="Apellido:" />
+                                <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.apellido}" />
+                                <h:outputLabel value="Carne :" />
+                                <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.carnet}" />
+                                <h:outputLabel value="Fecha Estimada De Entrega :" />
+                                <p:outputLabel value="#{RegistroPrestamo.fechaEstimadaDeEntrega}" />
+                                <h:outputLabel value="Equipos Complejos:" />
+                                <p:dataTable id="EquiposCPrestados" var="equipoC2" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{equipoC2.modelo_Eq.nombre}" />
+                                    </p:column>
+                                    <p:column headerText="Estado">
+                                        <h:outputText value="#{equipoC2.estado}" />
+                                    </p:column>
+                                    <f:facet name="footer">
+                                    </f:facet>
+                                </p:dataTable> 
+                                <h:outputLabel value="Equipos Sencillos:" />
+                                <p:dataTable id="EquiposSPrestados" var="equipoS2" value="#{RegistroPrestamo.equiposSencillosPrestados}"  >
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{equipoS2.nombre}" />
+                                    </p:column>
+                                    <p:column headerText="Cantidad Total">
+                                        <h:outputText value="#{RegistroPrestamo.cantidad}" />
+                                    </p:column>
+                                    <p:column headerText="Clase">
+                                        <h:outputText value="#{equipoS2.clase}" />
+                                    </p:column>
+                                    <f:facet name="footer">
+                                    </f:facet>
+                            </p:dataTable>  
+                            </h:panelGrid>
+                        </p:tab>
                     </p:tabView>
                 </h:form>
             </p:panel>

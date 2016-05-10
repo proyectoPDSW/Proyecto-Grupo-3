@@ -162,9 +162,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                     guardar.setEquiposSencillosPrestados(equiposS);
                     fp = false;
                 }
-                System.out.println("Vamos bien");
                 basePaciente.save(guardar);
-                System.out.println("Guardo");
                 daoF.commitTransaction();
             }
             /*for (EquipoComplejo c:equiposC){
