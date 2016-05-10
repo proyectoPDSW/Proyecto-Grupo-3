@@ -40,7 +40,7 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
     @Override
     public EquipoComplejo load(String placa) throws PersistenceException {
         if (eMap.loadEquipoByPlaca(placa) == null) {
-            throw new PersistenceException("El equipo con serial " + placa + " no esta registrado");
+            throw new PersistenceException("El equipo con placa " + placa + " no esta registrado");
         }
         //System.out.println(eMap.loadEquipoByPlaca(placa));
         return eMap.loadEquipoByPlaca(placa);
