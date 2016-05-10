@@ -29,6 +29,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -127,8 +129,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             Set<EquipoComplejo> equiposC = new HashSet<>(pres.getEquiposComplejosPrestados());
             Set<EquipoSencillo> equiposS = new HashSet<>(pres.getEquiposSencillosPrestados());
             boolean fp = true;
-            int cant=equiposC.size();
-            while (cant!=0) {
+            int cant = equiposC.size();
+            while (cant != 0) {
                 EquipoComplejo ec = null;
                 Set<EquipoComplejo> aAgregar = new HashSet<>();
                 boolean first = true;
@@ -155,18 +157,21 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                     fp = false;
                 }
                 basePaciente.save(guardar);
+                Thread.sleep(1000);
                 daoF.commitTransaction();
-                cant=equiposC.size();
+                cant = equiposC.size();
             }
-            if(fp){
+            if (fp) {
                 Prestamo guardar = new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(), null, equiposS, Prestamo.calcularFechaEstimada(EquipoComplejo.p24h), EquipoComplejo.p24h);
                 basePaciente.save(guardar);
+                Thread.sleep(1000);
                 daoF.commitTransaction();
             }
-        } catch (PersistenceException e) {
+        } catch (PersistenceException | InterruptedException e) {
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
         } finally {
+
             daoF.endSession();
         }
     }
