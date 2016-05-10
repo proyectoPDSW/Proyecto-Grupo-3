@@ -44,7 +44,7 @@
                         <h:panelGrid columns="3" cellpadding="5" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
                             <p:layout >
                                 <p:messages id="messages2" autoUpdate="false" closable="true" />
-                                <p:layoutUnit position="west" size="600">
+                                <p:layoutUnit position="west" style="width: 50%">
                                     <h:outputLabel value="Modelo : (*) " />
                                     <p:autoComplete id="modelo1" dropdown="true" value="#{RegistroPrestamo.modelo}" completeMethod="#{RegistroPrestamo.modelosAproximados}"/>
                                     <!--p:outputLabel value="#{RegistroPrestamo.ShowPanelRegistro()}"/-->

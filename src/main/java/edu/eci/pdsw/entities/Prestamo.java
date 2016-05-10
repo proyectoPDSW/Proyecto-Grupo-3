@@ -285,7 +285,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return si un equipo sencillo falta por entregar en este prestamo
      */
     public boolean isFaltante(EquipoSencillo equipo) {
-        return equiposSencillosFaltantes.contains(equipo);
+        return getEquiposSencillosFaltantes().contains(equipo);
     }
 
     /**

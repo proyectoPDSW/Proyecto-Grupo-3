@@ -187,6 +187,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             for (int i = 0; i < cargadosDePersona.size() && cantidad > 0; i++) {
                 //Para cada prestamo donde me falte entregar algo del equipo lo entrego
                 //Asi hasta que la cantidad que estoy entregando es 0
+                
                 if (cargadosDePersona.get(i).isFaltante(loaded)) {
                     EquipoSencillo tmp = cargadosDePersona.get(i).getSencillo(loaded);
                     if (cantidad <= tmp.getCantidadTotal()) {
