@@ -8,6 +8,7 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
+    
     <h:head>
         <title>Registro Devoluciones del Equipo</title>
         <meta charset="UTF-8"/>
@@ -16,16 +17,19 @@ and open the template in the editor.
     <h:body>
         <h:form id="devolucion">
             <p:panel header="Registrar Devoluciones">
+                <p:messages id="messages" autoUpdate="true" closable="true" />
+                
                 <p:tabView>
                     <p:tab title="Devolver Equipo Complejo">
                         <h:panelGrid id="devEquCom" columns="2" cellpadding="5">
                             <center>Equipo Complejo (placa)</center>
                             <center><p:inputText value="#{RegistroPrestamo.placa}"></p:inputText></center>
                             <center><p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoComplejo()}" update="devEquCom"></p:commandButton></center>
+                            
                             <h:outputText value="#{RegistroPrestamo.laPersona}" />
                             <h:outputText value="#{RegistroPrestamo.eqcompl}" />
                         </h:panelGrid>
-                        <p:messages id="messages1" autoUpdate="true" closable="true" />
+                        
                     </p:tab>
                     <p:tab title="Devolver Equipo Sencillo">
                         <h:panelGrid id="devEquSen" columns="8" cellpadding="5">
@@ -48,7 +52,6 @@ and open the template in the editor.
                                 <p:commandButton value="Aceptar devolucion" action="#{RegistroPrestamo.registroDevolucionEquipoSencillo()}" update="devEquSen"></p:commandButton>
                             </center>
                         </h:panelGrid>
-                        <p:messages id="messages2" autoUpdate="true" closable="true" />
                     </p:tab>
                     <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
                         <f:facet name="start">

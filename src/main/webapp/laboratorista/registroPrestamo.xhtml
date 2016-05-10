@@ -26,7 +26,7 @@
 
                 <p:panel header="Consultar Persona">
                     <h:panelGrid columns="3" cellpadding="5" rendered="#{RegistroPrestamo.showPanelPersona}">
-                        <h:outputLabel value="Carne : (*) " />
+                        <h:outputLabel value="Carné : (*) " />
                         <p:inputText id="persona" value="#{RegistroPrestamo.carne}"/>
                         <p:commandButton value="Consultar" actionListener="#{RegistroPrestamo.consultarPersona()}" ajax="false" icon="ui-icon-search"/>
                         <br/>

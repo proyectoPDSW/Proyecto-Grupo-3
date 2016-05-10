@@ -463,24 +463,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         this.laPersona = laPersona;
     }
 
-    public List<String> mostrarListaEquipoSencillo() {
-        es = new ArrayList<>();
-        List<String> es2 = new ArrayList<>();
-        if (laPersona != null && laPersona.length() > 0) {
-            List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
-            for (Prestamo p1 : p) {
-                if (p1.getFechaRealEntregada() == null) {
-                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) {
-                        es.add(es1);
-                    }
-                }
-            }
-        }
-        for (EquipoSencillo e : es) {
-            es2.add(e.getNombre());
-        }
-        return es2;
-    }
+    
 
     public EquipoSencillo getSelectEquipoSencillo() {
         return selectEquipoSencillo;
@@ -489,20 +472,7 @@ public class RegistroPrestamoManageBean implements Serializable {
     public void setSelectEquipoSencillo(EquipoSencillo equiS) {
         this.selectEquipoSencillo = equiS;
     }
-
-    public void onEquipoChange() {
-    }
-
-    public int maxValue() {
-        //System.out.println("Entro con "+Arrays.toString(es.toArray())+" y "+selectEqSe);
-        for (EquipoSencillo esqs : es) {
-            //System.out.println("Entro con "+esqs+" y "+selectEqSe);
-            if (esqs.getNombre().equals(selectEqSe)) {
-                return esqs.getCantidadTotal();
-            }
-        }
-        return 1;
-    }
+    
 
     /**
      * @return the selectEqC
@@ -569,36 +539,7 @@ public class RegistroPrestamoManageBean implements Serializable {
     }
 
     //////////////////////////Devolucion
-    public void registroDevolucionEquipoSencillo() {
-        try {
-            PRESTAMO.registarDevolucion(laPersona, selectEqSe, cantidad);
-            facesInfo("Se realizo con exito la devolución");
-        } catch (ExcepcionServicios ex) {
-            facesError(ex.getMessage());
-        }
-    }
-
-    public void registroDevolucionEquipoComplejo() {
-        try {
-            EquipoComplejo eqcomp = EQCOMPLEJO.consultarPorPlaca(placa);
-            List<Prestamo> prestamos = PRESTAMO.consultarPrestamosEquipoComplejo(eqcomp);
-            for (Prestamo p1 : prestamos) {
-                if (!p1.terminado()) {
-                    Set<EquipoComplejo> ecp = p1.getEquiposComplejosFaltantes();
-                    for (EquipoComplejo ecp1 : ecp) {
-                        if (ecp1.equals(eqcomp)) {
-                            laPersona = p1.getElQuePideElPrestamo().getNombre();
-                        }
-                    }
-                }
-            }
-            eqcompl = eqcomp.getModelo_Eq().getNombre();
-            PRESTAMO.registrarDevolucion(placa);
-            facesInfo("Se realizo con exito la devolución");
-        } catch (ExcepcionServicios ex) {
-            facesError(ex.getMessage());
-        }
-    }
+    
 
     public String getPlaca() {
         return placa;
