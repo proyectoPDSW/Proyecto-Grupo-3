@@ -73,6 +73,7 @@ public class RegistroPrestamoManageBean implements Serializable {
     private boolean showPanelRegistro = false;
     private boolean showPanelRegistrado = false;
     private boolean showPanelPersona = true;
+    private boolean showPanelInfo=false;
     private String selectEqSe;
 
     // Lista de equipo complejo para consultar los equipos prestamo termino fijo
@@ -91,6 +92,10 @@ public class RegistroPrestamoManageBean implements Serializable {
     private String laPersona;
     private String placa;
     private String eqcompl;
+    
+    public boolean showPanelInformacion(){ 
+        return showPanelInfo;
+    }
 
     public List<String> modelosAproximados(String query) {
         List<String> aproximados = new ArrayList<>();
@@ -129,8 +134,10 @@ public class RegistroPrestamoManageBean implements Serializable {
             registrarOtroPrestamo();
             elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
             showPanelRegistro = true;
+            showPanelInfo=true;
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
+            showPanelInfo=false;
 
         }
     }
