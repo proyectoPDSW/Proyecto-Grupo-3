@@ -15,59 +15,61 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
 /**
  *
  * @author Daniela Sepulveda
  */
 
-@ManagedBean(name="RegistroEquipoSencillo")
+@ManagedBean(name = "RegistroEquipoSencillo")
 @SessionScoped
-public class RegistroEquipoSencilloManagedBean  implements Serializable {
-    
-    private final ServiciosEquipoSencillo SERVICIOS;
-    
-        private String nombre;
-        private String clase;
-        private long valorComercial;
-        private int cantidadTotal;
-        private String fotografia;
+public class RegistroEquipoSencilloManagedBean implements Serializable {
 
-        private boolean showPanelRegistro=true;
-        private boolean showPanelRegistrado=false;
-        private EquipoSencillo equipoSencillo;
-    
-       
-    public RegistroEquipoSencilloManagedBean(){
-        SERVICIOS=ServiciosEquipoSencillo.getInstance();
+    private final ServiciosEquipoSencillo SERVICIOS;
+
+    private String nombre;
+    private String clase;
+    private long valorComercial;
+    private int cantidadTotal;
+    private String fotografia;
+
+    private boolean showPanelRegistro = true;
+    private boolean showPanelRegistrado = false;
+    private EquipoSencillo equipoSencillo;
+
+    public RegistroEquipoSencilloManagedBean() {
+        SERVICIOS = ServiciosEquipoSencillo.getInstance();
     }
+
     /**
      * Registra un equipo sencillo
-    */
-    public void registrarEquipo(){ 
-        try {                  
-                equipoSencillo=new EquipoSencillo(nombre, clase, valorComercial, cantidadTotal);
-                equipoSencillo.setFotografia(fotografia);
-                SERVICIOS.registrarEquipoSencillo(equipoSencillo);
-                facesInfo("El equipo ha sido registrado satisfactoriamente");
-                setShowPanelRegistro(false);
-                setShowPanelRegistrado(true);
+     */
+    public void registrarEquipo() {
+        try {
+            equipoSencillo = new EquipoSencillo(nombre, clase, valorComercial, cantidadTotal);
+            equipoSencillo.setFotografia(fotografia);
+            SERVICIOS.registrarEquipoSencillo(equipoSencillo);
+            facesInfo("El equipo ha sido registrado satisfactoriamente");
+            setShowPanelRegistro(false);
+            setShowPanelRegistrado(true);
         } catch (ExcepcionServicios | EquipoException ex) {
-                facesError(ex.getMessage());
-                Registro.anotar(ex);
+            facesError(ex.getMessage());
+            Registro.anotar(ex);
         }
-        
+
     }
+
     /**
      * Reinicia el formulario para agregar otro equipo
      */
-    public void registrarOtroEquipo(){
-        nombre="";
-        clase="";
-        fotografia="";
+    public void registrarOtroEquipo() {
+        nombre = "";
+        clase = "";
+        fotografia = "";
         setShowPanelRegistro(true);
         setShowPanelRegistrado(false);
-        valorComercial=new Long("0");
-        cantidadTotal=0;
+        valorComercial = new Long("0");
+        cantidadTotal = 0;
     }
 
     public String getNombre() {
@@ -117,8 +119,7 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
     public void setEquipoSencillo(EquipoSencillo equipoSencillo) {
         this.equipoSencillo = equipoSencillo;
     }
-    
-    
+
     public boolean isShowPanelRegistro() {
         return showPanelRegistro;
     }
@@ -134,32 +135,37 @@ public class RegistroEquipoSencilloManagedBean  implements Serializable {
     public void setShowPanelRegistrado(boolean showPanelRegistrado) {
         this.showPanelRegistrado = showPanelRegistrado;
     }
-    
+
     /**
      * Muestra un mensaje de error en la vista
+     *
      * @param message Mensaje de error
      */
     private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: "+message, null));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: " + message, null));
     }
-    
+
     /**
      * Muestra un mensaje de informacion en la vista
+     *
      * @param message Mensaje de informativo
      */
     public void facesInfo(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
+
     /**
      * Muestra un mensaje de alarma en la vista
+     *
      * @param message Mensaje de Alarma
      */
     public void facesWarn(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
     }
-    
+
     /**
      * Muestra un mensaje de error grave en la vista
+     *
      * @param message Mensaje fatal
      */
     public void facesFatal(String message) {

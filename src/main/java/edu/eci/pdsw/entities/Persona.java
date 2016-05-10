@@ -16,6 +16,7 @@ import java.util.Set;
  * @author Hugo Alvarez
  */
 public class Persona {
+
     private String carnet;
     private String nombre;
     private String apellido;
@@ -24,27 +25,38 @@ public class Persona {
     private Set<String> departamentos;
     private List<Rol> roles;
 
+    /**
+     * Constructor de persona
+     *
+     * @param carnet
+     * @param nombre
+     * @param apellido
+     * @param email
+     * @param telefono
+     * @param rol
+     */
     public Persona(String carnet, String nombre, String apellido, String email, String telefono, List<Rol> rol) {
         this.carnet = carnet;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.telefono = telefono;
-        this.roles=rol;
+        this.roles = rol;
     }
 
     public Persona() {
     }
+
     /**
-     * Obj: Sirve para saber a que departamento es la persona.
-     * pre: un departamento
-     * pos: Si, la persona es de ese departamento, No d.l.c.
+     * Obj: Sirve para saber a que departamento es la persona. pre: un
+     * departamento pos: Si, la persona es de ese departamento, No d.l.c.
+     *
      * @param departamento, el departamento a revisar
      * @return True si es de ese departamento, False d.l.c
      */
-    public boolean perteneceA(String departamento){
+    public boolean perteneceA(String departamento) {
         boolean estaElDepartamento = false;
-        for (Iterator<String> iterator = getDepartamentos().iterator();!estaElDepartamento && iterator.hasNext();) {
+        for (Iterator<String> iterator = getDepartamentos().iterator(); !estaElDepartamento && iterator.hasNext();) {
             String next = iterator.next();
             estaElDepartamento = next.equals(departamento);
         }
@@ -53,22 +65,21 @@ public class Persona {
 
     @Override
     public boolean equals(Object obj) {
-        Persona p=(Persona)obj; 
+        Persona p = (Persona) obj;
         return carnet.equals(p.getCarnet());
     }
 
     @Override
     public String toString() {
         String res;
-        res="Persona:["+carnet+ " "+nombre+" "+apellido+" "+email+" "+telefono+"] \n";
-        if(roles!=null){
-            for(Rol e: roles){
-                res+=e.toString();
+        res = "Persona:[" + carnet + " " + nombre + " " + apellido + " " + email + " " + telefono + "] \n";
+        if (roles != null) {
+            for (Rol e : roles) {
+                res += e.toString();
             }
         }
         return res;
     }
-    
 
     /**
      * @return the carnet
@@ -111,44 +122,50 @@ public class Persona {
     public Set<String> getDepartamentos() {
         return departamentos;
     }
+
     /**
-     * 
-     * @param carnet 
+     *
+     * @param carnet
      */
     public void setCarnet(String carnet) {
         this.carnet = carnet;
     }
+
     /**
-     * 
-     * @param nombre 
+     *
+     * @param nombre
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     /**
-     * 
-     * @param apellido 
+     *
+     * @param apellido
      */
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
     /**
-     * 
-     * @param email 
+     *
+     * @param email
      */
     public void setEmail(String email) {
         this.email = email;
     }
+
     /**
-     * 
-     * @param telefono 
+     *
+     * @param telefono
      */
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
     /**
-     * 
-     * @param departamentos 
+     *
+     * @param departamentos
      */
     public void setDepartamentos(Set<String> departamentos) {
         this.departamentos = departamentos;
@@ -167,28 +184,42 @@ public class Persona {
     public void setRoles(List<Rol> roles) {
         this.roles = roles;
     }
-    
-    public List<Rol> prioridad(){
-       Collections.sort(roles);
-       return roles;
+
+    /**
+     * Ordena los roles por prioridad
+     *
+     * @return los roles ordenados por prioridad
+     */
+    public List<Rol> prioridad() {
+        Collections.sort(roles);
+        return roles;
     }
-    
-    public String rolMasValioso(){
-        String r="";
-        if(!roles.isEmpty()){
+
+    /**
+     * Retorna el rol mas valioso
+     *
+     * @return el rol mas valioso
+     */
+    public String rolMasValioso() {
+        String r = "";
+        if (!roles.isEmpty()) {
             Collections.sort(roles);
-            r=roles.get(roles.size()-1).getRol();
+            r = roles.get(roles.size() - 1).getRol();
         }
         return r;
     }
-    
-    public Map<String,String> getRolMasValioso2(){
-        Map<String,String> r=null;
-        if(!roles.isEmpty()){
+
+    /**
+     *
+     * @return
+     */
+    public Map<String, String> getRolMasValioso2() {
+        Map<String, String> r = null;
+        if (!roles.isEmpty()) {
             Collections.sort(roles);
-            r=roles.get(roles.size()-1).getTiposPrestamo();
+            r = roles.get(roles.size() - 1).getTiposPrestamo();
         }
         return r;
     }
-    
+
 }

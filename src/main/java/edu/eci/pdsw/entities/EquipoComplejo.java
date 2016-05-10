@@ -53,7 +53,8 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     }
 
     /**
-     *
+     * Constructor de equipo complejo
+     * 
      * @param asegurado
      * @param disponibilidad
      * @param estado en que estado inicia el equipo

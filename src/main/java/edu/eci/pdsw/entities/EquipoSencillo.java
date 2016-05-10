@@ -7,48 +7,58 @@ package edu.eci.pdsw.entities;
 
 import java.util.Objects;
 
-
-
 /**
  *
  * @author Julian Devia
  */
 public class EquipoSencillo implements Comparable<EquipoSencillo> {
+
     private String nombre;
     private String clase;
     private long valorComercial;
     private int cantidadTotal;
     private String fotografia;
+
     /**
      * Constructor de equipo sencillo
+     *
      * @param name, nombre del equipo
      * @param clas, clase del equipo
      * @param valorC, valor comercial del equipo
      * @param cantidad, cantidad del equipo
-     * @throws EquipoException 
+     * @throws EquipoException
      */
-    public EquipoSencillo(String name, String clas,long valorC, int cantidad) throws EquipoException {
-        if(name.length()<=0) throw new EquipoException(EquipoException.EQUIPO_S_SIN_NOMBRE);
-        if(clas.length()<=0) throw new EquipoException(EquipoException.EQUIPO_S_SIN_CLASE);
-        if(valorC<=0) throw new EquipoException(EquipoException.EQUIPO_S_COMERCIAL_INADECUADO);
-        if(cantidad<0) throw new EquipoException(EquipoException.EQUIPO_S_CANTIDAD_INADECUADA);
-        nombre=name;
-        clase=clas;
-        valorComercial=valorC;
-        cantidadTotal=cantidad;
+    public EquipoSencillo(String name, String clas, long valorC, int cantidad) throws EquipoException {
+        if (name.length() <= 0) {
+            throw new EquipoException(EquipoException.EQUIPO_S_SIN_NOMBRE);
+        }
+        if (clas.length() <= 0) {
+            throw new EquipoException(EquipoException.EQUIPO_S_SIN_CLASE);
+        }
+        if (valorC <= 0) {
+            throw new EquipoException(EquipoException.EQUIPO_S_COMERCIAL_INADECUADO);
+        }
+        if (cantidad < 0) {
+            throw new EquipoException(EquipoException.EQUIPO_S_CANTIDAD_INADECUADA);
+        }
+        nombre = name;
+        clase = clas;
+        valorComercial = valorC;
+        cantidadTotal = cantidad;
     }
 
     public EquipoSencillo() {
     }
-    
+
     /**
      * Constructor de equipo sencillo
+     *
      * @param nombre, nombre del equipo
      * @param clase, clase del equipo
      * @param valorComercial, valor comercial del equipo
      * @param cantidadTotal, cantidad del equipo
      * @param fotografia, la fotografia del equipo
-     * @throws EquipoException 
+     * @throws EquipoException
      */
     public EquipoSencillo(String nombre, String clase, long valorComercial, int cantidadTotal, String fotografia) {
         this.nombre = nombre;
@@ -127,27 +137,34 @@ public class EquipoSencillo implements Comparable<EquipoSencillo> {
     public void setFotografia(String fotografia) {
         this.fotografia = fotografia;
     }
+
     /**
      * Metodo para retornar en un cadena toda la informacion del equipo sencillo
+     *
      * @return res, cadena que posee toda la informacion
      */
     @Override
-    public String toString(){
-        String res="EquipoSencillo:["+nombre+","+clase+","+valorComercial+","+cantidadTotal+"]\n";
+    public String toString() {
+        String res = "EquipoSencillo:[" + nombre + "," + clase + "," + valorComercial + "," + cantidadTotal + "]\n";
         return res;
     }
-    
+
     /**
      * Metodo para comparar equipos sencillos
+     *
      * @param o
-     * @return -1 si el valor comercial de un equipo es menor a otro, de lo contrario retorna 1 
+     * @return -1 si el valor comercial de un equipo es menor a otro, de lo
+     * contrario retorna 1
      */
     @Override
     public int compareTo(EquipoSencillo o) {
-        if(valorComercial<o.valorComercial) return -1;
-        else return 1;
+        if (valorComercial < o.valorComercial) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -176,5 +193,5 @@ public class EquipoSencillo implements Comparable<EquipoSencillo> {
         hash = 29 * hash + (int) (this.valorComercial ^ (this.valorComercial >>> 32));
         return hash;
     }
-    
+
 }

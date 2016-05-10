@@ -21,14 +21,11 @@ import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -73,7 +70,7 @@ public class RegistroPrestamoManageBean implements Serializable {
     private boolean showPanelRegistro = false;
     private boolean showPanelRegistrado = false;
     private boolean showPanelPersona = true;
-    private boolean showPanelInfo=false;
+    private boolean showPanelInfo = false;
     private String selectEqSe;
 
     // Lista de equipo complejo para consultar los equipos prestamo termino fijo
@@ -92,8 +89,8 @@ public class RegistroPrestamoManageBean implements Serializable {
     private String laPersona;
     private String placa;
     private String eqcompl;
-    
-    public boolean showPanelInformacion(){ 
+
+    public boolean showPanelInformacion() {
         return showPanelInfo;
     }
 
@@ -134,10 +131,10 @@ public class RegistroPrestamoManageBean implements Serializable {
             registrarOtroPrestamo();
             elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
             showPanelRegistro = true;
-            showPanelInfo=true;
+            showPanelInfo = true;
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
-            showPanelInfo=false;
+            showPanelInfo = false;
 
         }
     }
@@ -185,9 +182,9 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void agregarEquipoC() {
         if (selectEquipoComplejo != null) {
-            if(fechaTipoPrestamo==null || fechaTipoPrestamo.length()<=0){
+            if (fechaTipoPrestamo == null || fechaTipoPrestamo.length() <= 0) {
                 facesError("Debe seleccionar un tipo de prestamo para poder continuar");
-            }else{
+            } else {
                 selectEquipoComplejo.setEstado(fechaTipoPrestamo);
                 actualizarEquipoComplejo(selectEquipoComplejo);
                 consultarEqModelo();
@@ -226,7 +223,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         try {
             cantidadDisponible = EQSENCILLO.consultarCantidadDisponibleEqSencillo(nom);
             for (EquipoSencillo eqse : equiposSencillosPrestados) {
-                if(eqse.getNombre().equals(nom)){
+                if (eqse.getNombre().equals(nom)) {
                     cantidadDisponible -= eqse.getCantidadTotal();
                 }
             }
@@ -241,7 +238,7 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void registrarPrestamo() {
         try {
-            elQuePideElPrestamo=PRESTAMO.personaCarne(carne);
+            elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
             fechaEstimadaDeEntrega = Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
             if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)) {
                 prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
@@ -252,7 +249,7 @@ public class RegistroPrestamoManageBean implements Serializable {
                     prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
                 }
             }
-            if(fechaTipoPrestamo==null || fechaTipoPrestamo.length()<=0){
+            if (fechaTipoPrestamo == null || fechaTipoPrestamo.length() <= 0) {
                 facesError("Debe seleccionar un tipo de prestamo para poder continuar");
             }
             PRESTAMO.registrarPrestamo(prestamo);
@@ -278,7 +275,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         showPanelRegistro = false;
         showPanelRegistrado = false;
         fechaTipoPrestamo = "";
-        cantidad=0;
+        cantidad = 0;
     }
 
     public boolean ShowPanelRegistro() {
