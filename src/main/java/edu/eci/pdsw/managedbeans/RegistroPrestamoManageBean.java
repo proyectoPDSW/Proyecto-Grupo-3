@@ -110,7 +110,7 @@ public class RegistroPrestamoManageBean implements Serializable{
         EQSENCILLO=ServiciosEquipoSencillo.getInstance();
         equiposComplejosPrestados=new LinkedHashSet<>();
         equiposSencillosPrestados=new LinkedHashSet<>();
-        fechaTipoPrestamo=null;
+        fechaTipoPrestamo="";
         cantidadDisponible=0;
         fechaEstimadaDeEntrega=Prestamo.currDate();
         tipoPrestamo=new HashMap<>();
@@ -227,17 +227,23 @@ public class RegistroPrestamoManageBean implements Serializable{
     public void registrarPrestamo(){
         try{
             fechaEstimadaDeEntrega=Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
-            if(elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)){
-                prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,fechaTipoPrestamo);
-            }
-            else if(getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor)){
-                if(fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)){
-                setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
-                }else{
+            if(elQuePideElPrestamo!=null && fechaTipoPrestamo.length()!=0){
+                System.out.println("Entro cuando la persona es nula");
+                if(elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)){
                     prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,fechaTipoPrestamo);
                 }
+                else if(getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor) ){
+                        if(fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)){
+                            setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
+                        }else{
+                            prestamo=new PrestamoTerminoFijo(elQuePideElPrestamo,equiposComplejosPrestados,equiposSencillosPrestados,fechaEstimadaDeEntrega,fechaTipoPrestamo);
+                        }
+                    }
             }
+            if(prestamo!=null){
+                System.out.println("Entro cuando prestamo es nulo");
             PRESTAMO.registrarPrestamo(prestamo);
+            }
             facesInfo("El prestamo ha sido registrado satisfactoriamente");
             showPanelRegistro=false;
             showPanelRegistrado=true;
@@ -257,10 +263,11 @@ public class RegistroPrestamoManageBean implements Serializable{
         equiposComplejosPrestados=new LinkedHashSet<>();
         equiposSencillosPrestados=new LinkedHashSet<>();
         setElQuePideElPrestamo(null);
-        fechaTipoPrestamo=null;
+        setPrestamo(null);
         cantidadDisponible=0;
         showPanelRegistro=false;
         showPanelRegistrado=false;
+        fechaTipoPrestamo="";
     }
     
     public boolean ShowPanelRegistro() {
