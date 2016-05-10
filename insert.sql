@@ -53,11 +53,13 @@ insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2107646'
 -- laboratorista
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('laboratorista','Laboratorista','$shiro1$SHA-256$500000$3w3mjQnwRu/k8jEAKZtQIQ==$wXU2o3uplaCbyWtRg1RYP4tPBRuso7kqLIVV63di020=','bXlwcml2YXRlc2FsdA==');
 -- estudiante
-insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('estudiante','estudiante','$shiro1$SHA-256$500000$UYQIxz6nvGvo/9Kt/6VyVg==$vg/RwUwILPCFG49UMzLJX5WLAvwVZ85ZkInygMFwrpo=','bXlwcml2YXRlc2FsdA==');
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('estudiante','Estudiante','$shiro1$SHA-256$500000$UYQIxz6nvGvo/9Kt/6VyVg==$vg/RwUwILPCFG49UMzLJX5WLAvwVZ85ZkInygMFwrpo=','bXlwcml2YXRlc2FsdA==');
 -- profe
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('108763526','Profesor','','bXlwcml2YXRlc2FsdA==');
 -- pr
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('109328347','Profesor','','bXlwcml2YXRlc2FsdA==');
+-- pres
+insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('109328347','Estudiante','','bXlwcml2YXRlc2FsdA==');
 -- es
 insert into Rol_Persona(Personas_carne,Rol_rol,contrasena,sal) values ('2107653','Estudiante','','bXlwcml2YXRlc2FsdA==');
 -- es1

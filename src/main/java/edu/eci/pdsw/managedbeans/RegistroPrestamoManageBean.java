@@ -126,6 +126,7 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void consultarPersona() {
         try {
+            registrarOtroPrestamo();
             elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
             showPanelRegistro = true;
         } catch (ExcepcionServicios ex) {
@@ -270,6 +271,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         showPanelRegistro = false;
         showPanelRegistrado = false;
         fechaTipoPrestamo = "";
+        cantidad=0;
     }
 
     public boolean ShowPanelRegistro() {
