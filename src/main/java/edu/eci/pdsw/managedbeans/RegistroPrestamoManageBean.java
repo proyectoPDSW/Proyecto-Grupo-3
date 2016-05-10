@@ -113,6 +113,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         equiposComplejosPrestados = new LinkedHashSet<>();
         equiposSencillosPrestados = new LinkedHashSet<>();
         fechaTipoPrestamo = "";
+        nombre="";
         cantidadDisponible = 0;
         fechaEstimadaDeEntrega = Prestamo.currDate();
         tipoPrestamo = new HashMap<>();
