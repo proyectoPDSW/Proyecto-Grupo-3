@@ -113,4 +113,10 @@ public interface DAOPrestamo {
      * @throws PrestamoException
      */
     public abstract void saveEquipoComplejoPrestamo(Prestamo p, EquipoComplejo ec) throws PersistenceException;
+    
+    /**
+     * Carga la fecha actual de la base de datos
+     * @return la fecha actual de la base de datos
+     */
+    public abstract Timestamp currDate();
 }

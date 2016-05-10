@@ -5,6 +5,8 @@
  */
 package edu.eci.pdsw.entities;
 
+import java.util.Objects;
+
 /**
  *
  * @author David Useche
@@ -215,6 +217,35 @@ public class Modelo {
     public String toString() {
         String res = "Modelo:[" + vidaUtil + "," + nombre + "," + clase + "," + valorComercial + "]\n";
         return res;
+    }
+    
+    @Override 
+    public boolean equals(Object obj){
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Modelo other = (Modelo) obj;
+        if (!Objects.equals(this.clase, other.clase)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.valorComercial, other.valorComercial)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.vidaUtil, other.vidaUtil)) {
+            return false;
+        }
+        
+        return true;
     }
 
 }

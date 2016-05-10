@@ -9,6 +9,7 @@ import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -91,4 +92,10 @@ public abstract class ServiciosPrestamo {
      * @throws ExcepcionServicios 
      */
     public abstract void registrarEquipoComplejoPrestamo(Prestamo p,EquipoComplejo ec) throws ExcepcionServicios;
+    
+    /**
+     * carga la fecha actual
+     * @return la fecha actual
+     */
+    public abstract Timestamp currDate();
 }

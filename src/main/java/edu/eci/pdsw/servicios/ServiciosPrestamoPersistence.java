@@ -21,6 +21,8 @@ import edu.eci.pdsw.persistence.DAOPrestamo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -290,6 +292,17 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         } catch (PersistenceException ex) {
             throw new ExcepcionServicios(ex, ex.getLocalizedMessage());
         }
+    }
+
+    @Override
+    public Timestamp currDate() {
+        Timestamp now=null;
+        daoF.beginSession();
+        basePaciente = daoF.getDaoPrestamo();
+        now = basePaciente.currDate();
+        daoF.endSession();
+        return now;
+            
     }
 
 }

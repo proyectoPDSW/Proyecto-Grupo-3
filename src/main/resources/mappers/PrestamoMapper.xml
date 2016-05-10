@@ -375,4 +375,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update Equipo_prestamo_sencillo set cantidad_devuelta=cantidad-#{Eq_Sencillo.cantidadTotal}
         where Prestamos_fecha_inicio=#{Prestamo.fechaInicio} and Prestamos_persona=#{Prestamo.elQuePideElPrestamo.carnet} and equipo=#{Eq_Sencillo.nombre}
     </update>
+    <select id="loadCurrDate" resultType="date" >
+        select now() as fecha from Prestamos group by fecha
+    </select>
 </mapper>

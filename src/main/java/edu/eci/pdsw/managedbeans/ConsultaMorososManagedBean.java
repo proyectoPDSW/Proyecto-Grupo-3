@@ -52,7 +52,7 @@ public class ConsultaMorososManagedBean implements Serializable {
      * @return la diferencia en horas entre d y la hora actual
      */
     public int diffHoras(Timestamp d) {
-        Timestamp curr = Prestamo.currDate();
+        Timestamp curr = sp.currDate();
         //Timestamp curr=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("Europe/Budapest")).getTime().getTime());
         int hoursCurr = curr.getHours() + curr.getDay() * 24 + curr.getMonth() * 30 * 24 + curr.getYear() * 12 * 30 * 24;
         int hoursD = d.getHours() + d.getDay() * 24 + d.getMonth() * 30 * 24 + d.getYear() * 12 * 30 * 24;
@@ -66,7 +66,7 @@ public class ConsultaMorososManagedBean implements Serializable {
      * @return
      */
     public Timestamp currDate() {
-        return Prestamo.currDate();
+        return sp.currDate();
     }
 
 }
