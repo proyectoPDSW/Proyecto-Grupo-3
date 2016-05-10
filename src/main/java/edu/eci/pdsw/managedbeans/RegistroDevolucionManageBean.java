@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -63,14 +65,18 @@ public class RegistroDevolucionManageBean implements Serializable{
         es = new ArrayList<>();
         List<String> es2 = new ArrayList<>();
         if (laPersona != null && laPersona.length() > 0) {
-            List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
-            for (Prestamo p1 : p) {
-                if (p1.getFechaRealEntregada() == null) {
-                    
-                    for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) {
-                        es.add(es1);
+            try {
+                List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
+                for (Prestamo p1 : p) {
+                    if (p1.getFechaRealEntregada() == null) {
+                        
+                        for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) {
+                            es.add(es1);
+                        }
                     }
                 }
+            } catch (ExcepcionServicios ex) {
+                facesError(ex.getMessage());
             }
         }
         for (EquipoSencillo e : es) {
