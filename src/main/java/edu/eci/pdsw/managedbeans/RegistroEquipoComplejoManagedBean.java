@@ -176,7 +176,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             equipo.setPlaca(placa);
             equipo.setMarca(marca);
             equipo.setDisponibilidad(true);
-            equipo.setEstado("Activo");
+            equipo.setEstado("en almacen");
             SERVICIOS.registrarEquipoComplejo(equipo);
             showPanelConsultaModelo = false;
             showPanelRegistroModelo = false;
