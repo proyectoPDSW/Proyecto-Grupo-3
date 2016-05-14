@@ -177,7 +177,6 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
         dao.beginSession();
         complejoPersistencia=dao.getDaoEquipoComplejo();
         List<String> ans=complejoPersistencia.loadModelosAproximados(cadena);
-        dao.commitTransaction();
         dao.endSession();
         return ans;
     }

@@ -121,4 +121,14 @@ public class ServiciosEquipoSencilloPersistence extends ServiciosEquipoSencillo 
         return ans;
     }
 
+    @Override
+    public List<String> consultarPorNombreAproximado(String busqueda) throws ExcepcionServicios{
+        if(busqueda.length()==0)throw new ExcepcionServicios("Longitud de cadena invalida");
+        dao.beginSession();
+        sencilloPersistencia=dao.getDaoEquipoSencillo();
+        List<String> ans=sencilloPersistencia.loadAproximadamente(busqueda);
+        dao.endSession();
+        return ans;
+    }
+
 }

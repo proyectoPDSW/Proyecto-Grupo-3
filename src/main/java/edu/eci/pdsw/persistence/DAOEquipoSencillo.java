@@ -7,6 +7,7 @@ package edu.eci.pdsw.persistence;
 
 import edu.eci.pdsw.entities.EquipoSencillo;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -62,8 +63,15 @@ public interface DAOEquipoSencillo {
      * prestamos
      *
      * @param nomre
-     * @return
+     * @return la cantidad disponible de un equipo sencillo
      * @throws PersistenceException
      */
     public int loadCantidadDisponibleEquipoSencillo(String nomre) throws PersistenceException;
+    
+    /**
+     * Consulta herramientas por nombre aproximado
+     * @param nombre de la herramienta
+     * @return una lista con el nombre de las herramientas que sean como el nombre
+     */
+    public List<String> loadAproximadamente(String nombre);
 }

@@ -7,6 +7,7 @@ package edu.eci.pdsw.persistence.mybatis.mappers;
 
 import edu.eci.pdsw.entities.EquipoSencillo;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -62,4 +63,12 @@ public interface EquipoSencilloMapper {
      * @return
      */
     public int consultarEquipoSencilloCantidadDisponible(@Param("Eq_Nombre") String nombre);
+        
+    /**
+     * Consulta los nombres de herramientas que contengan una cadena
+     * 
+     * @param toSearch la cadena a buscar
+     * @return una lista que contiene los nombres que contienen una cadena
+     */
+    public List<String> loadHerramientaAproximada(@Param("Aproximado") String toSearch);
 }

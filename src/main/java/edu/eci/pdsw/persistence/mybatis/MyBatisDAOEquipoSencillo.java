@@ -11,6 +11,7 @@ import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.persistence.DAOEquipoSencillo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper;
+import java.util.List;
 
 /**
  *
@@ -72,6 +73,12 @@ public class MyBatisDAOEquipoSencillo implements DAOEquipoSencillo {
             throw new PersistenceException("Favor colocar un nombre valido");
         }
         return eMap.consultarEquipoSencilloCantidadDisponible(nombre);
+    }
+
+    @Override
+    public List<String> loadAproximadamente(String nombre) {
+        nombre=nombre.trim();
+        return eMap.loadHerramientaAproximada(nombre);
     }
 
 }

@@ -18,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -185,8 +186,7 @@ public class ConsultarEquipoTest {
         ans.add(model1.getNombre());
         ans.add(model2.getNombre());
         List<String>loaded=des.loadModelosAproximados("Modelo");
-        //System.out.println(loaded.size());
-        //System.out.println(loaded.get(0)+" "+loaded.get(1)+" "+model1+ " "+model2);
+        daof.endSession();
         Assert.assertTrue("No son iguales",loaded.size()==2 && (loaded.get(0).equals(ans.get(0)) || 
                 loaded.get(0).equals(ans.get(1))) && (loaded.get(1).equals(ans.get(0)) || 
                 loaded.get(1).equals(ans.get(1))));
@@ -222,6 +222,29 @@ public class ConsultarEquipoTest {
         Assert.assertTrue("No carga los equipos en almacen", loaded.contains(aConsultar) && loaded.contains(aConsultar2) && loaded.size()==2);
     }
 
+    //Clase equivalencia 8, deberia consultar herramientas aproximadamente
+    @Test
+    public void deberiaConsultarHerramientaAproximada()throws Exception{
+        InputStream input;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties = new Properties();
+        properties.load(input);
+        DAOFactory daof = DAOFactory.getInstance(properties);
+        daof.beginSession();   
+        DAOEquipoSencillo des=daof.getDaoEquipoSencillo();
+        EquipoSencillo her1=new EquipoSencillo("Cable UTP", "Cable", 1000, 20);
+        EquipoSencillo her2=new EquipoSencillo("Cable fibra optica", "Cable", 9000, 10);
+        EquipoSencillo her3=new EquipoSencillo("Destornillador", "Herramienta", 10000, 40);
+        des.save(her1);
+        des.save(her2);
+        des.save(her3);
+        daof.commitTransaction();
+        List<String> loaded=des.loadAproximadamente("Cable");
+        Assert.assertTrue("No son iguales",loaded.size()==2 && (loaded.get(0).equals(her1.getNombre()) || 
+                loaded.get(0).equals(her2.getNombre())) && (loaded.get(1).equals(her1.getNombre()) || 
+                loaded.get(1).equals(her2.getNombre())));  
+        daof.endSession();
+    }
     
     
 }

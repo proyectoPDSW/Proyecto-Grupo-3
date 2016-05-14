@@ -60,9 +60,18 @@ public abstract class ServiciosEquipoSencillo {
     /**
      * Consulta la cantidad disponible de un equipo sencillo 
      * para hacer prestamos
-     * @param nombre
-     * @return
-     * @throws ExcepcionServicios 
+     * @param nombre del equipo a consultar
+     * @return la cantidad que se puede prestar
+     * @throws ExcepcionServicios si el equipo sencillo no existe
      */
     public abstract int consultarCantidadDisponibleEqSencillo(String nombre) throws ExcepcionServicios;
+    
+    /**
+     * Busca un equipo sencillo por su nombre aproximado
+     * 
+     * @param busqueda a hacer
+     * @return una lista con los equiṕos sencillos que cumplen la condicion
+     * @throws ExcepcionServicios si la cadena esta vacia
+     */
+    public abstract List<String> consultarPorNombreAproximado(String busqueda) throws ExcepcionServicios;
 }

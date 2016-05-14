@@ -50,5 +50,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select cantidad_total -(select sum(cantidad -cantidad_devuelta) from Equipo_prestamo_sencillo where equipo=#{Eq_Nombre})
         from Equipos_Sencillos where nombre=#{Eq_Nombre}
     </select>
-    
+
+    <select id='loadHerramientaAproximada' parameterType='map' resultType='String'>
+        select eq.nombre from Equipos_Sencillos as eq where eq.nombre like '%'||#{Aproximado}||'%'
+    </select>
 </mapper>
