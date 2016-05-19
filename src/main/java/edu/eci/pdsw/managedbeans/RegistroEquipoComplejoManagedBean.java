@@ -5,6 +5,7 @@
  */
 package edu.eci.pdsw.managedbeans;
 
+import edu.eci.pdsw.entities.DatosGenerales;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.Modelo;
@@ -52,6 +53,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     private String serial;
     private String placa;
     private String marca;
+    private DatosGenerales ordenCompra;
 
     private String aseguradoEquipo = "";
     private String disponibilidadEquipo = "";
@@ -141,7 +143,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipo() {
         try {
-            equipo = new EquipoComplejo(modelo, marca, serial, placa);
+            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra);
             equipo.setAsegurado(asegurado);
             equipo.setMarca(marca);
             equipo.setPlaca(placa);
@@ -170,7 +172,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             modelo.setDescripcion(descripcion);
             modelo.setAccesorios(accesorios);
             //SERVICIOS.registrarModelo(modelo);
-            equipo = new EquipoComplejo(modelo, marca, serial, placa);
+            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra);
             equipo.setModelo_Eq(modelo);
             equipo.setAsegurado(asegurado);
             equipo.setPlaca(placa);

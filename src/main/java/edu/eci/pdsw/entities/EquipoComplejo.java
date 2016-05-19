@@ -21,6 +21,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     private String placa;
     private String marca;
     private Modelo modelo_Eq;
+    private DatosGenerales ordenCompra;
     public static String diario = "prestamo diario", p24h = "prestamo 24 horas", mantenimiento = "mantenimiento", almacen = "en almacen", indefinido = "prestamo indefinido", semestre = "prestamo por semestre";
     public static String baja = "dado de baja", reparacion = "en reparacion";
 
@@ -31,9 +32,10 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param mar marca del equipo
      * @param ser serial del equipo
      * @param plac placa del equipo
+     * @param dg datos generales del equipo
      * @throws EquipoException
      */
-    public EquipoComplejo(Modelo mod, String mar, String ser, String plac) throws EquipoException {
+    public EquipoComplejo(Modelo mod, String mar, String ser, String plac,DatosGenerales dg) throws EquipoException {
         if (mod == null) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         }
@@ -46,10 +48,14 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (new BigInteger(plac).compareTo(BigInteger.ZERO) < 0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }
+        if(dg==null){
+            throw new EquipoException(EquipoException.EUIPOC_SIN_ORDEN_DE_COMPRA);
+        }
         this.marca = mar;
         this.serial = ser;
         this.modelo_Eq = mod;
         this.placa = plac;
+        this.ordenCompra=dg;
     }
 
     /**
@@ -62,8 +68,9 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param placa del equipo
      * @param marca del equipo
      * @param modelo_Eq del equipo
+     * @param dg datos generales del equipo
      */
-    public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, String placa, String marca, Modelo modelo_Eq) {
+    public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, String placa, String marca, Modelo modelo_Eq,DatosGenerales dg) {
         this.asegurado = asegurado;
         this.disponibilidad = disponibilidad;
         this.estado = estado;
@@ -71,6 +78,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         this.placa = placa;
         this.marca = marca;
         this.modelo_Eq = modelo_Eq;
+        this.ordenCompra=dg;
     }
 
     public EquipoComplejo() {

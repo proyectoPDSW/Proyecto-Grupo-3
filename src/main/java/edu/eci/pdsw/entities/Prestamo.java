@@ -349,7 +349,15 @@ public abstract class Prestamo implements Comparable<Prestamo> {
             calen.set(Calendar.HOUR, 19);
             fecha = new Timestamp(calen.getTimeInMillis());
         } else if (tipo.equalsIgnoreCase(EquipoComplejo.semestre)) {
-            calen.set(Calendar.MONTH, 6);
+            if(Prestamo.currDate().getMonth()>=1 && Prestamo.currDate().getMonth()<5){
+                calen.set(Calendar.MONTH, 5);
+            }
+            else if(Prestamo.currDate().getMonth()==6 || Prestamo.currDate().getMonth()==7){
+                calen.set(Calendar.MONTH, 7);
+            }
+            else if(Prestamo.currDate().getMonth()>=8 && Prestamo.currDate().getMonth()<12){
+                calen.set(Calendar.MONTH, 12);
+            }
             fecha = new Timestamp(calen.getTimeInMillis());
         }
         return fecha;
