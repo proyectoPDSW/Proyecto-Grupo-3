@@ -110,4 +110,12 @@ public interface EquipoComplejoMapper {
      * @return una lista que contiene los modelos que contienen una cadena
      */
     public List<String> loadModelosAproximados(@Param("Aproximado") String toSearch);
+    
+    /**
+     * Consulta un equipo complejo con una placa especifica que este en almacen
+     * es decir que este disponible para prestar
+     * @param placa
+     * @return 
+     */
+    public EquipoComplejo loadEquipoDisponibleByPlaca(@Param("Eq_Placa") String placa);
 }

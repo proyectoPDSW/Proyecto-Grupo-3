@@ -197,4 +197,20 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
         return ans;
     }
 
+    @Override
+    public EquipoComplejo consultarEquipoEnAlmacenPorPlaca(String placa) throws ExcepcionServicios {
+        if(placa.length()==0) throw new ExcepcionServicios("Placa invalida");
+        EquipoComplejo eq=null;
+        try{
+            dao.beginSession();
+            complejoPersistencia=dao.getDaoEquipoComplejo();
+            eq=complejoPersistencia.loadEnAlmacenPorPlaca(placa);
+            dao.commitTransaction();
+            dao.endSession();
+        }catch(PersistenceException ex){
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
+        }
+        return eq;
+    }
+
 }

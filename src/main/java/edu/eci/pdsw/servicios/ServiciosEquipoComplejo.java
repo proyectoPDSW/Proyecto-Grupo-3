@@ -107,4 +107,14 @@ public abstract class ServiciosEquipoComplejo {
      */
     public abstract List<EquipoComplejo> consultarEnAlmacenModelo(String modelo) throws ExcepcionServicios;
     
+    /**
+     * Consulta un equipo complejo con una placa especifica y que ademas este en almacen
+     * es decir que este disponible para prestar
+     * @param placa
+     * @return
+     * @throws ExcepcionServicios 
+     */
+    public abstract EquipoComplejo consultarEquipoEnAlmacenPorPlaca(String placa) throws ExcepcionServicios;
+    
+    
 }

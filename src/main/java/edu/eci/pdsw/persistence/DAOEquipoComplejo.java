@@ -121,5 +121,13 @@ public interface DAOEquipoComplejo {
      * @return una lista que contiene los modelos que contienen una cadena
      */
     public List<String> loadModelosAproximados(String toSearch);
+    
+    /**
+     * Consulta un equipo complejo por placa y ademas que este en almacen
+     * es decir que este disponible para prestar
+     * @param placa
+     * @return 
+     */
+    public EquipoComplejo loadEnAlmacenPorPlaca(String placa) throws PersistenceException;
 
 }

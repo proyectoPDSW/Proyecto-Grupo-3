@@ -70,6 +70,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where
         ec.num_placa=#{Eq_Placa}
     </select>
+    
+    <select id='loadEquipoDisponibleByPlaca' parameterType='map' resultMap='EquipoComplejoResult'>
+        select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
+        ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
+        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
+        from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where
+        ec.num_placa=#{Eq_Placa} and ec.estado='en almacen'
+    </select>
 
     <update id='update' parameterType='map'>
         update Equipos_Complejos SET 

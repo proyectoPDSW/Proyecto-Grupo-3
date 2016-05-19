@@ -143,4 +143,15 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
         return eMap.loadEnAlmacenByModelo(modelo);
     }
 
+    @Override
+    public EquipoComplejo loadEnAlmacenPorPlaca(String placa) throws PersistenceException {
+        if(eMap.loadEquipoDisponibleByPlaca(placa)==null){
+            throw new PersistenceException("El equipo con placa "+ placa +" no esta registrado");
+        }
+        if(!eMap.loadEquipoByPlaca(placa).getEstado().equals(EquipoComplejo.almacen)){
+            throw new PersistenceException("El equipo con placa "+ placa +" no esta disponible para prestar");
+        }
+        return eMap.loadEquipoDisponibleByPlaca(placa);
+    }
+
 }

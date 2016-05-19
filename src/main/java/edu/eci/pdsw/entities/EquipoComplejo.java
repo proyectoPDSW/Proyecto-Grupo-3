@@ -21,7 +21,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     private String placa;
     private String marca;
     private Modelo modelo_Eq;
-    private DatosGenerales ordenCompra;
+    private OrdenCompra ordenCompra;
     public static String diario = "prestamo diario", p24h = "prestamo 24 horas", mantenimiento = "mantenimiento", almacen = "en almacen", indefinido = "prestamo indefinido", semestre = "prestamo por semestre";
     public static String baja = "dado de baja", reparacion = "en reparacion";
 
@@ -35,7 +35,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param dg datos generales del equipo
      * @throws EquipoException
      */
-    public EquipoComplejo(Modelo mod, String mar, String ser, String plac,DatosGenerales dg) throws EquipoException {
+    public EquipoComplejo(Modelo mod, String mar, String ser, String plac,OrdenCompra dg) throws EquipoException {
         if (mod == null) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         }
@@ -70,7 +70,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param modelo_Eq del equipo
      * @param dg datos generales del equipo
      */
-    public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, String placa, String marca, Modelo modelo_Eq,DatosGenerales dg) {
+    public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, String placa, String marca, Modelo modelo_Eq,OrdenCompra dg) {
         this.asegurado = asegurado;
         this.disponibilidad = disponibilidad;
         this.estado = estado;
