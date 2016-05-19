@@ -54,6 +54,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     private String placa;
     private String marca;
     private OrdenCompra ordenCompra;
+    private int tiempoDeUso;
 
     private String aseguradoEquipo = "";
     private String disponibilidadEquipo = "";
@@ -83,6 +84,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         serial = "";
         placa = "0";
         marca = "";
+        tiempoDeUso=0;
     }
 
     /**
@@ -143,7 +145,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipo() {
         try {
-            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra);
+            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra,tiempoDeUso);
             equipo.setAsegurado(asegurado);
             equipo.setMarca(marca);
             equipo.setPlaca(placa);
@@ -172,7 +174,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             modelo.setDescripcion(descripcion);
             modelo.setAccesorios(accesorios);
             //SERVICIOS.registrarModelo(modelo);
-            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra);
+            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra,tiempoDeUso);
             equipo.setModelo_Eq(modelo);
             equipo.setAsegurado(asegurado);
             equipo.setPlaca(placa);

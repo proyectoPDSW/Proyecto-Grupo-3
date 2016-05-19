@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class Modelo {
 
-    private int vidaUtil;
+    private long vidaUtil;
     private String nombre;
     private String clase;
     private long valorComercial;
@@ -132,7 +132,7 @@ public class Modelo {
      *
      * @param vu
      */
-    public void setVidaUtil(int vu) {
+    public void setVidaUtil(long vu) {
         this.vidaUtil = vu;
     }
 
@@ -140,7 +140,7 @@ public class Modelo {
      *
      * @return la vida util del modelo
      */
-    public int getVidaUtil() {
+    public long getVidaUtil() {
         return vidaUtil;
     }
 

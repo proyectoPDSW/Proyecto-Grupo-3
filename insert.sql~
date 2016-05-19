@@ -100,8 +100,8 @@ insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,aseg
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('msaiudag','22',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke',0);
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('afghjkpok','23',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke',0);
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('qazwsxrf','24',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke',0);
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('asdjkasdas','25',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke',0);
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('nciasds','26',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke',0);
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('asdjkasdas','25',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('nciasds','26',TRUE,'en almacen','multimetro Digital',TRUE,'Fluke');
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('asdhbsay','27',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE'),0;
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('aasdweads','28',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE',0);
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values('nsaihhadg','29',TRUE,'en almacen','osciloscopio digital 50MHz',FALSE,'PCE',0);

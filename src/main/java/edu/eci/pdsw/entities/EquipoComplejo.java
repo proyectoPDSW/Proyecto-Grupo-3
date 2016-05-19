@@ -22,6 +22,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     private String marca;
     private Modelo modelo_Eq;
     private OrdenCompra ordenCompra;
+    private long tiempoRestante;
     public static String diario = "prestamo diario", p24h = "prestamo 24 horas", mantenimiento = "mantenimiento", almacen = "en almacen", indefinido = "prestamo indefinido", semestre = "prestamo por semestre";
     public static String baja = "dado de baja", reparacion = "en reparacion";
 
@@ -33,9 +34,11 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param ser serial del equipo
      * @param plac placa del equipo
      * @param dg datos generales del equipo
+     * @param tiempoDeUso cuanto tiempo ha sido usado el equipo
      * @throws EquipoException
      */
-    public EquipoComplejo(Modelo mod, String mar, String ser, String plac,OrdenCompra dg) throws EquipoException {
+
+    public EquipoComplejo(Modelo mod, String mar, String ser, String plac, OrdenCompra dg, long tiempoDeUso) throws EquipoException {
         if (mod == null) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         }
@@ -48,19 +51,24 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (new BigInteger(plac).compareTo(BigInteger.ZERO) < 0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }
-        if(dg==null){
+        if (dg == null) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_ORDEN_DE_COMPRA);
+        }
+        if (mod.getVidaUtil() - tiempoDeUso < 0) {
+            tiempoRestante = 0;
+        } else {
+            tiempoRestante = mod.getVidaUtil() - tiempoDeUso;
         }
         this.marca = mar;
         this.serial = ser;
         this.modelo_Eq = mod;
         this.placa = plac;
-        this.ordenCompra=dg;
+        this.ordenCompra = dg;
     }
 
     /**
      * Constructor de equipo complejo
-     * 
+     *
      * @param asegurado
      * @param disponibilidad
      * @param estado en que estado inicia el equipo
@@ -69,8 +77,30 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param marca del equipo
      * @param modelo_Eq del equipo
      * @param dg datos generales del equipo
+     * @param tiempoDeUso e tiempo que ha sido usado el equipo
+     * @throws EquipoException
      */
-    public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, String placa, String marca, Modelo modelo_Eq,OrdenCompra dg) {
+    public EquipoComplejo(boolean asegurado, boolean disponibilidad, String estado, String serial, String placa, String marca, Modelo modelo_Eq, OrdenCompra dg, long tiempoDeUso) throws EquipoException {
+        if (modelo_Eq == null) {
+            throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
+        }
+        if (serial.length() <= 0) {
+            throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
+        }
+        if (marca.length() <= 0) {
+            throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
+        }
+        if (new BigInteger(placa).compareTo(BigInteger.ZERO) < 0) {
+            throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
+        }
+        if (dg == null) {
+            throw new EquipoException(EquipoException.EUIPOC_SIN_ORDEN_DE_COMPRA);
+        }
+        if (modelo_Eq.getVidaUtil() - tiempoDeUso < 0) {
+            tiempoRestante = 0;
+        } else {
+            tiempoRestante = modelo_Eq.getVidaUtil() - tiempoDeUso;
+        }
         this.asegurado = asegurado;
         this.disponibilidad = disponibilidad;
         this.estado = estado;
@@ -78,10 +108,26 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         this.placa = placa;
         this.marca = marca;
         this.modelo_Eq = modelo_Eq;
-        this.ordenCompra=dg;
+        this.ordenCompra = dg;
     }
 
     public EquipoComplejo() {
+    }
+
+    public OrdenCompra getOrdenCompra() {
+        return ordenCompra;
+    }
+
+    public void setOrdenCompra(OrdenCompra ordenCompra) {
+        this.ordenCompra = ordenCompra;
+    }
+
+    public long getTiempoRestante() {
+        return tiempoRestante;
+    }
+
+    public void setTiempoRestante(long tiempoRestante) {
+        this.tiempoRestante = tiempoRestante;
     }
 
     /**

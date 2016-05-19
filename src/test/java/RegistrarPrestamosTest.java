@@ -86,7 +86,7 @@ public class RegistrarPrestamosTest {
         dec.save(mod);
         daof.commitTransaction();
         OrdenCompra dg=new OrdenCompra(1,"nombre","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg);
+        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg,0);
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
@@ -161,7 +161,7 @@ public class RegistrarPrestamosTest {
         dec.save(mod);
         daof.commitTransaction();
         OrdenCompra dg=new OrdenCompra(1,"nombre","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg);
+        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg,0);
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
@@ -212,7 +212,7 @@ public class RegistrarPrestamosTest {
         dec.save(mod);
         daof.commitTransaction();
         OrdenCompra dg=new OrdenCompra(1,"nombre","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","54351",dg);
+        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","54351",dg,0);
         ec.setEstado(EquipoComplejo.indefinido);
         dec.save(ec);
         daof.commitTransaction();
