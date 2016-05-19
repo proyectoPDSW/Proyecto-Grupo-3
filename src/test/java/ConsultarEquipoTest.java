@@ -6,13 +6,6 @@ import edu.eci.pdsw.persistence.DAOEquipoSencillo;
 import edu.eci.pdsw.entities.Modelo;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoSencillo;
-import edu.eci.pdsw.entities.Persona;
-import edu.eci.pdsw.entities.Prestamo;
-import edu.eci.pdsw.entities.PrestamoTerminoFijo;
-import edu.eci.pdsw.persistence.DAOPersona;
-import edu.eci.pdsw.persistence.DAOPrestamo;
-import edu.eci.pdsw.persistence.PersistenceException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -20,14 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
-import java.util.Set;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,8 +30,8 @@ import org.junit.Test;
  * @author David Useche
  */
 public class ConsultarEquipoTest {
-    
-     public ConsultarEquipoTest() {
+
+    public ConsultarEquipoTest() {
     }
 
     @Before
@@ -72,8 +59,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
-        DatosGenerales dg=new DatosGenerales("Modelo de prueba","Toshiba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",100000,3);
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","734829",dg);
+        DatosGenerales dg = new DatosGenerales("Modelo de prueba", "Toshiba", "AC3X", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 3);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X", "734829", dg, 0);
         aConsultar.setPlaca("2");
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
@@ -81,7 +68,7 @@ public class ConsultarEquipoTest {
         ArrayList<EquipoComplejo> loaded = dec.loadByModelo(aConsultar.getModelo_Eq().getNombre());
         daof.commitTransaction();
         daof.endSession();
-        Assert.assertTrue("no consulta adecuadamente uno por equipo",loaded.size() == 1 && aConsultar.equals(loaded.get(0)));
+        Assert.assertTrue("no consulta adecuadamente uno por equipo", loaded.size() == 1 && aConsultar.equals(loaded.get(0)));
     }
 
     //Clase equivalencia 2, Deberia consultar varios equipos por modelo
@@ -95,10 +82,10 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
-        DatosGenerales dg=new DatosGenerales("Modelo de prueba","Toshiba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",100000,3);
-        DatosGenerales dg2=new DatosGenerales("Modelo de prueba","Asus","BD5F",Timestamp.valueOf("2000-2-3 0:0:0"),Timestamp.valueOf("2001-2-3 0:0:0"),"LOL",100000,4);
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","38294",dg);
-        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F","74892",dg2);
+        DatosGenerales dg = new DatosGenerales("Modelo de prueba", "Toshiba", "AC3X", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 3);
+        DatosGenerales dg2 = new DatosGenerales("Modelo de prueba", "Asus", "BD5F", Timestamp.valueOf("2000-2-3 0:0:0"), Timestamp.valueOf("2001-2-3 0:0:0"), "LOL", 100000, 4);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X", "38294", dg, 0);
+        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F", "74892", dg2, 0);
         aConsultar.setEstado("En prueba");
         aConsultar2.setEstado("En prueba");
         dec.save(aConsultar);
@@ -108,7 +95,7 @@ public class ConsultarEquipoTest {
         ArrayList<EquipoComplejo> loaded = dec.loadByModelo(aConsultar.getModelo_Eq().getNombre());
         daof.commitTransaction();
         daof.endSession();
-        Assert.assertTrue("no consulta adecuadamente varios por equipo",loaded.size() == 2 && aConsultar.equals(loaded.get(0)) && aConsultar2.equals(loaded.get(1)));
+        Assert.assertTrue("no consulta adecuadamente varios por equipo", loaded.size() == 2 && aConsultar.equals(loaded.get(0)) && aConsultar2.equals(loaded.get(1)));
     }
 
     //Clase equivalencia 3, Deberia consultar equipo por placa
@@ -122,13 +109,13 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
-        DatosGenerales dg=new DatosGenerales("Modelo de prueba","Toshiba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",100000,3);
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","189",dg);
+        DatosGenerales dg = new DatosGenerales("Modelo de prueba", "Toshiba", "AC3X", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 3);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X", "189", dg, 0);
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
         daof.commitTransaction();
         EquipoComplejo loaded = dec.load("189");
-        Assert.assertEquals("no conulta adecuadamente por placa",aConsultar, loaded);
+        Assert.assertEquals("no conulta adecuadamente por placa", aConsultar, loaded);
     }
 
     //Clase equivalencia 4, Deberia consultar equipo por serial
@@ -144,14 +131,14 @@ public class ConsultarEquipoTest {
         Modelo model = new Modelo(7, "Modelo de prueba", null, "Clase x", 100000);
         //dec.save(model);
         //daof.commitTransaction();
-        DatosGenerales dg=new DatosGenerales("Modelo de prueba","Toshiba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",100000,3);
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","2",dg);
+        DatosGenerales dg = new DatosGenerales("Modelo de prueba", "Toshiba", "AC3X", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 3);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X", "2", dg, 0);
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
         daof.commitTransaction();
-        EquipoComplejo loaded = dec.load(model.getNombre(),"AC3X");
+        EquipoComplejo loaded = dec.load(model.getNombre(), "AC3X");
         daof.endSession();
-        Assert.assertEquals("no consulta adecuadamente por serial",aConsultar, loaded);
+        Assert.assertEquals("no consulta adecuadamente por serial", aConsultar, loaded);
     }
 
     //Clase equivalencia 5, Deberia consultar Equipo sencillo por nombre
@@ -169,36 +156,36 @@ public class ConsultarEquipoTest {
         daof.commitTransaction();
         EquipoSencillo loaded = des.load("Cable");
         daof.endSession();
-        Assert.assertEquals("no consulta adecuadamente por nombre",aConsultar.toString(), loaded.toString());
+        Assert.assertEquals("no consulta adecuadamente por nombre", aConsultar.toString(), loaded.toString());
     }
-    
+
     //Clase equivalencia 6, Deberia consultar modelos por aproximacion
     @Test
-    public void deberiaConsultarAproximados() throws Exception{
+    public void deberiaConsultarAproximados() throws Exception {
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
-        DAOEquipoComplejo des=daof.getDaoEquipoComplejo();
-        Modelo model1=new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
-        Modelo model2=new Modelo(6, "Modelo de prueba2", null, "Clase y", 100000);
-        Modelo model3=new Modelo(6, "Nada que ver", null, "Clase z", 100000);
+        DAOEquipoComplejo des = daof.getDaoEquipoComplejo();
+        Modelo model1 = new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
+        Modelo model2 = new Modelo(6, "Modelo de prueba2", null, "Clase y", 100000);
+        Modelo model3 = new Modelo(6, "Nada que ver", null, "Clase z", 100000);
         des.save(model1);
         des.save(model2);
         des.save(model3);
         daof.commitTransaction();
-        ArrayList<String>ans=new ArrayList<>();
+        ArrayList<String> ans = new ArrayList<>();
         ans.add(model1.getNombre());
         ans.add(model2.getNombre());
-        List<String>loaded=des.loadModelosAproximados("Modelo");
+        List<String> loaded = des.loadModelosAproximados("Modelo");
         daof.endSession();
-        Assert.assertTrue("No son iguales",loaded.size()==2 && (loaded.get(0).equals(ans.get(0)) || 
-                loaded.get(0).equals(ans.get(1))) && (loaded.get(1).equals(ans.get(0)) || 
-                loaded.get(1).equals(ans.get(1))));
+        Assert.assertTrue("No son iguales", loaded.size() == 2 && (loaded.get(0).equals(ans.get(0))
+                || loaded.get(0).equals(ans.get(1))) && (loaded.get(1).equals(ans.get(0))
+                || loaded.get(1).equals(ans.get(1))));
     }
-    
+
     //Clase equivalencia 7, Deberia consultar los equipos en almacen de un modelo
     @Test
     public void deberiaConsultarEnAlmacenPorModelo() throws Exception {
@@ -210,12 +197,12 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
-        DatosGenerales dg=new DatosGenerales("Modelo de prueba","Toshiba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",100000,3);
-        DatosGenerales dg2=new DatosGenerales("Modelo de prueba","Toshiba","ACasd",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",100000,4);
-        DatosGenerales dg3=new DatosGenerales("Modelo de prueba","Toshiba","AC23d",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",100000,5);
-        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","734829",dg);
-        EquipoComplejo aConsultar1 = new EquipoComplejo(model, "Toshiba", "ACasd","734829",dg2);
-        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Toshiba", "AC23d","734829",dg3);
+        DatosGenerales dg = new DatosGenerales("Modelo de prueba", "Toshiba", "AC3X", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 3);
+        DatosGenerales dg2 = new DatosGenerales("Modelo de prueba", "Toshiba", "ACasd", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 4);
+        DatosGenerales dg3 = new DatosGenerales("Modelo de prueba", "Toshiba", "AC23d", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 5);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X", "734829", dg, 0);
+        EquipoComplejo aConsultar1 = new EquipoComplejo(model, "Toshiba", "ACasd", "734829", dg2, 0);
+        EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Toshiba", "AC23d", "734829", dg3, 0);
         aConsultar.setPlaca("2");
         aConsultar2.setPlaca("3");
         aConsultar1.setPlaca("4");
@@ -229,32 +216,93 @@ public class ConsultarEquipoTest {
         ArrayList<EquipoComplejo> loaded = dec.loadEnAlmacenByModelo(aConsultar.getModelo_Eq().getNombre());
         daof.commitTransaction();
         daof.endSession();
-        Assert.assertTrue("No carga los equipos en almacen", loaded.contains(aConsultar) && loaded.contains(aConsultar2) && loaded.size()==2);
+        Assert.assertTrue("No carga los equipos en almacen", loaded.contains(aConsultar) && loaded.contains(aConsultar2) && loaded.size() == 2);
     }
 
     //Clase equivalencia 8, deberia consultar herramientas aproximadamente
     @Test
-    public void deberiaConsultarHerramientaAproximada()throws Exception{
+    public void deberiaConsultarHerramientaAproximada() throws Exception {
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
         properties.load(input);
         DAOFactory daof = DAOFactory.getInstance(properties);
-        daof.beginSession();   
-        DAOEquipoSencillo des=daof.getDaoEquipoSencillo();
-        EquipoSencillo her1=new EquipoSencillo("Cable UTP", "Cable", 1000, 20);
-        EquipoSencillo her2=new EquipoSencillo("Cable fibra optica", "Cable", 9000, 10);
-        EquipoSencillo her3=new EquipoSencillo("Destornillador", "Herramienta", 10000, 40);
+        daof.beginSession();
+        DAOEquipoSencillo des = daof.getDaoEquipoSencillo();
+        EquipoSencillo her1 = new EquipoSencillo("Cable UTP", "Cable", 1000, 20);
+        EquipoSencillo her2 = new EquipoSencillo("Cable fibra optica", "Cable", 9000, 10);
+        EquipoSencillo her3 = new EquipoSencillo("Destornillador", "Herramienta", 10000, 40);
         des.save(her1);
         des.save(her2);
         des.save(her3);
         daof.commitTransaction();
-        List<String> loaded=des.loadAproximadamente("Cable");
-        Assert.assertTrue("No son iguales",loaded.size()==2 && (loaded.get(0).equals(her1.getNombre()) || 
-                loaded.get(0).equals(her2.getNombre())) && (loaded.get(1).equals(her1.getNombre()) || 
-                loaded.get(1).equals(her2.getNombre())));  
+        List<String> loaded = des.loadAproximadamente("Cable");
+        Assert.assertTrue("No son iguales", loaded.size() == 2 && (loaded.get(0).equals(her1.getNombre())
+                || loaded.get(0).equals(her2.getNombre())) && (loaded.get(1).equals(her1.getNombre())
+                || loaded.get(1).equals(her2.getNombre())));
+        daof.endSession();
+    }
+
+    //Clase equivalencia 9, el tiempo de vida deberia ser 0
+    @Test
+    public void tiempoDeVidaDeberiaSerCero() throws Exception {
+        InputStream input;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties = new Properties();
+        properties.load(input);
+        DAOFactory daof = DAOFactory.getInstance(properties);
+        daof.beginSession();
+        DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
+        Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
+        DatosGenerales dg = new DatosGenerales("Modelo de prueba", "Toshiba", "AC3X", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 3);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X", "734829", dg, 4);
+        aConsultar.setPlaca("2");
+        aConsultar.setEstado("En prueba");
+        dec.save(aConsultar);
+        daof.commitTransaction();
+        Assert.assertTrue("El tiempo de vida deberia ser 0", dec.load(aConsultar.getPlaca()).getTiempoRestante() == 0);
+        daof.endSession();
+    }
+
+    //Clase equivalencia 10, el tiempo de vida deberia ser el del modelo (Equipo nuevo)
+    @Test
+    public void tiempoDeVidaDeberiaSerElDeModelo() throws Exception {
+        InputStream input;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties = new Properties();
+        properties.load(input);
+        DAOFactory daof = DAOFactory.getInstance(properties);
+        daof.beginSession();
+        DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
+        Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
+        DatosGenerales dg = new DatosGenerales("Modelo de prueba", "Toshiba", "AC3X", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 3);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X", "734829", dg, 0);
+        aConsultar.setPlaca("2");
+        aConsultar.setEstado("En prueba");
+        dec.save(aConsultar);
+        daof.commitTransaction();
+        Assert.assertTrue("El tiempo de vida deberia ser 4", dec.load(aConsultar.getPlaca()).getTiempoRestante() == 4);
         daof.endSession();
     }
     
-    
+    //Clase equivalencia 11, el tiempo de vida esta entre el del modelo y 0
+    @Test
+    public void tiempoDeVidaDeberiaEstarEntreModeloYCero() throws Exception{
+        InputStream input;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties = new Properties();
+        properties.load(input);
+        DAOFactory daof = DAOFactory.getInstance(properties);
+        daof.beginSession();
+        DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
+        Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
+        DatosGenerales dg = new DatosGenerales("Modelo de prueba", "Toshiba", "AC3X", Timestamp.valueOf("2000-2-2 0:0:0"), Timestamp.valueOf("2001-2-2 0:0:0"), "Holi", 100000, 3);
+        EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X", "734829", dg, 2);
+        aConsultar.setPlaca("2");
+        aConsultar.setEstado("En prueba");
+        dec.save(aConsultar);
+        daof.commitTransaction();
+        Assert.assertTrue("El tiempo de vida deberia ser 2", dec.load(aConsultar.getPlaca()).getTiempoRestante() == 2);
+        daof.endSession();    
+    }
 }

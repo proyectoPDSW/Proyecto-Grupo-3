@@ -43,6 +43,7 @@ CREATE TABLE Equipos_Complejos (
     modelo varchar(50)   NOT NULL,
     asegurado bool NOT NULL,
     marca varchar(30)   NOT NULL,
+    vida_restante int NOT NULL,
     UNIQUE INDEX Equipos_Complejos_ak_1 (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (serial,modelo)
 )ENGINE=InnoDB  ;

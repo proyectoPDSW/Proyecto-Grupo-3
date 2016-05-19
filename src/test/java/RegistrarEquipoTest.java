@@ -67,7 +67,7 @@ public class RegistrarEquipoTest {
         reg.save(mod);
         daof.commitTransaction();
         DatosGenerales dg=new DatosGenerales("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
-        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg);
+        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg,0);
         ec.setEstado("hola");
         reg.save(ec);
         daof.commitTransaction();
@@ -81,7 +81,7 @@ public class RegistrarEquipoTest {
     public void CE2() throws PersistenceException, EquipoException{
         Modelo mod = new Modelo(100000,"Destornillador de strella",null,"Destornillador",5000);
         DatosGenerales dg=new DatosGenerales("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
-        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg);
+        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg,0);
         DAOFactory daof = null;
         try{
         properties.load(input);
@@ -160,7 +160,7 @@ public class RegistrarEquipoTest {
         daof.commitTransaction();
         Modelo test=reg.loadModelo(mod.getNombre());
         DatosGenerales dg=new DatosGenerales("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
-        EquipoComplejo ec=new EquipoComplejo(test,"marca","serial","123456",dg);
+        EquipoComplejo ec=new EquipoComplejo(test,"marca","serial","123456",dg,0);
         reg.save(ec);
         daof.commitTransaction();
         ArrayList<EquipoComplejo> prueba=reg.loadByModelo(mod.getNombre());

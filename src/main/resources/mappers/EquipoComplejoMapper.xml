@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='estado' column='estado'/>
         <result property='asegurado' column='asegurado'/>
         <result property='marca' column='marca'/>
+        <result property='tiempoRestante' column='vida_restante'/>
         <association property='modelo_Eq' resultMap='ModeloResult' columnPrefix='mo_'/>
     </resultMap>
 
@@ -25,8 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <insert id='insertEquipo' parameterType='map'>
-        insert into Equipos_Complejos (serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values(#{EqComplejo.serial},#{EqComplejo.placa},#{EqComplejo.disponibilidad},
-        #{EqComplejo.estado},#{EqComplejo.modelo_Eq.nombre},#{EqComplejo.asegurado},#{EqComplejo.marca})
+        insert into Equipos_Complejos (serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values(#{EqComplejo.serial},#{EqComplejo.placa},#{EqComplejo.disponibilidad},
+        #{EqComplejo.estado},#{EqComplejo.modelo_Eq.nombre},#{EqComplejo.asegurado},#{EqComplejo.marca},#{EqComplejo.tiempoRestante})
     </insert>
 
     <insert id='insertModelo' parameterType='map'>
@@ -38,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id='loadDisponibles' parameterType='map' resultMap='EquipoComplejoResult'>
         select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
         from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where
         ec.disponible=#{'true'}
@@ -47,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id='loadEnAlmacenByModelo' parameterType='map' resultMap='EquipoComplejoResult'>
         select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
         from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where
         ec.estado='en almacen' and ec.modelo=#{Modelo}
@@ -56,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id='loadEquipoBySerial' parameterType='map' resultMap='EquipoComplejoResult'>
         select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
         from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where
         ec.serial=#{Eq_Serial} AND mo.nombre=#{Modelo_Equipo}
@@ -65,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id='loadEquipoByPlaca' parameterType='map' resultMap='EquipoComplejoResult'>
         select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
         from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where
         ec.num_placa=#{Eq_Placa}
@@ -74,7 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id='update' parameterType='map'>
         update Equipos_Complejos SET 
         disponibilidad=#{Eq_Nuevo.disponibilidad},estado=#{Eq_Nuevo.estado},
-        asegurado=#{Eq_Nuevo.asegurado},marca=#{Eq_Nuevo.marca}
+        asegurado=#{Eq_Nuevo.asegurado},marca=#{Eq_Nuevo.marca},
+        vida_restante=#{Eq_Nuevo.tiempoRestante}
         where serial=#{Eq_Viejo.serial} 
     </update>
 
@@ -85,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id='loadAll' resultMap='EquipoComplejoResult'>
         select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
         from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
     </select>
@@ -93,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id='loadEquipoByModelo' parameterType='map' resultMap='EquipoComplejoResult'>
         select ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre
         from Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre where 
         ec.modelo=#{Eq_Modelo}
