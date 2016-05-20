@@ -6,28 +6,31 @@
 package edu.eci.pdsw.entities;
 
 import java.sql.Timestamp;
-import java.util.List;
+
 
 /**
  *
- * @author german
+ * @author German
  */
 public class OrdenCompra implements Comparable<OrdenCompra>{
-    private Timestamp adquisicion=Prestamo.currDate();
-    private Timestamp garantia=Prestamo.currDate();
-    private String proveedor="";
-
+    private Timestamp adquisicion;
+    private Timestamp garantia;
+    private String proveedor;
+    private String codigoOrdenCompra;
+    private String codigoActivo;
     
     public OrdenCompra(){
     }
     
-    public OrdenCompra(Timestamp adq,Timestamp gar,String provee) throws EquipoException{
+    public OrdenCompra(Timestamp adq,Timestamp gar,String provee,String codOrden,String codAct) throws EquipoException{
         if(provee.length()==0) throw new EquipoException("Favor colocar un proveedor del equipo adecuado");
         if(adq==null) throw new EquipoException("Favor colocar una fecha de adquisicion adecuada");
         if(gar==null) throw new EquipoException("Favor colocar una fecha de garantia adecuada");
         this.adquisicion=adq;
         this.garantia=gar;
         this.proveedor=provee;
+        this.codigoActivo=codAct;
+        this.codigoOrdenCompra=codOrden;
     }
     
     //Por implementar 
@@ -84,6 +87,34 @@ public class OrdenCompra implements Comparable<OrdenCompra>{
     public String toString() {
         String res = "Datos Generales:[" + adquisicion.toString() + "," + garantia.toString() + "," + proveedor +"]\n";
         return res;
+    }
+
+    /**
+     * @return the codigoOrdenCompra
+     */
+    public String getCodigoOrdenCompra() {
+        return codigoOrdenCompra;
+    }
+
+    /**
+     * @param codigoOrdenCompra the codigoOrdenCompra to set
+     */
+    public void setCodigoOrdenCompra(String codigoOrdenCompra) {
+        this.codigoOrdenCompra = codigoOrdenCompra;
+    }
+
+    /**
+     * @return the codigoActivo
+     */
+    public String getCodigoActivo() {
+        return codigoActivo;
+    }
+
+    /**
+     * @param codigoActivo the codigoActivo to set
+     */
+    public void setCodigoActivo(String codigoActivo) {
+        this.codigoActivo = codigoActivo;
     }
 
     
