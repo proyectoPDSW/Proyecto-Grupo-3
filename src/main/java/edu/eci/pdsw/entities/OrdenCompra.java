@@ -6,18 +6,18 @@
 package edu.eci.pdsw.entities;
 
 import java.sql.Timestamp;
-import java.util.List;
+
 
 /**
  *
- * @author german
+ * @author German
  */
 public class OrdenCompra implements Comparable<OrdenCompra>{
-    private Timestamp adquisicion=Prestamo.currDate();
-    private Timestamp garantia=Prestamo.currDate();
-    private String proveedor="";
-    private String activo="";
-    private String codigo="";
+    private Timestamp adquisicion;
+    private Timestamp garantia;
+    private String proveedor;
+    private String activo;
+    private String codigo;
     
     public OrdenCompra(){
     }
@@ -118,7 +118,5 @@ public class OrdenCompra implements Comparable<OrdenCompra>{
      */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-
-    
+    }   
 }
