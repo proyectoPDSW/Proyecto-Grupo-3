@@ -82,10 +82,10 @@
                             </p:panel>
 
                             <p:panel id="Sencillo">
-                                <h:outputLabel value="Nombre del equipo : (*) " />
+                                <h:outputLabel value="Nombre de la herramienta : (*) " />
                                 <p:inputText id="nombreEq" value="#{RegistroPrestamo.nombre}" />
-                                <br/><br/><p:commandButton value="Consultar Equipos" update=":tablas2" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre()}" icon="ui-icon-search"/>
-                                <p:commandButton value="Agregar Equipo" update=":tablas2" actionListener="#{RegistroPrestamo.agregarEquipoS()}" ajax="false" icon="ui-icon-plusthick"/>
+                                <br/><br/><p:commandButton value="Consultar Herramientas" update=":tablas2" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre()}" icon="ui-icon-search"/>
+                                <p:commandButton value="Agregar Herramienta" update=":tablas2" actionListener="#{RegistroPrestamo.agregarEquipoS()}" ajax="false" icon="ui-icon-plusthick"/>
                                 <p:panel id="tablas2" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
                                     <p:dataTable id="EquiposNombre1" var="equipoS1" value="#{RegistroPrestamo.sacarEqS()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoSencillo}" rowKey="#{equipoS1.nombre}" >
                                         <p:column headerText="Nombre">      
@@ -129,7 +129,7 @@
                             <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.carnet}" /><br/>
                             <br/><h:outputLabel value="Fecha estimada de entrega: " />
                             <p:outputLabel value="#{RegistroPrestamo.fechaEstimadaDeEntrega}" /><br/>
-                            <br/><h:outputLabel value="Equipos complejos prestados: " /><br/>
+                            <br/><h:outputLabel value="Equipos prestados: " /><br/>
                             <br/>
                             <p:dataTable id="EquiposCPrestados" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
                                 <p:column headerText="Nombre">
@@ -142,7 +142,7 @@
                                     <h:outputText value="#{equipoC1.estado}" />
                                 </p:column>
                             </p:dataTable>
-                            <br/><h:outputLabel value="Equipos sencillos prestados: " /><br/>
+                            <br/><h:outputLabel value="Herramioentas prestadas: " /><br/>
                             <br/>
                             <p:dataTable id="EquiposSPrestados" var="equipoS1" value="#{RegistroPrestamo.equiposSencillosPrestados}"  >
                                 <p:column headerText="Nombre">

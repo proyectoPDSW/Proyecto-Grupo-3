@@ -20,9 +20,9 @@ and open the template in the editor.
                 <p:messages id="messages" autoUpdate="true" closable="true" />
 
                 <p:tabView>
-                    <p:tab title="Devolver Equipo Complejo">
+                    <p:tab title="Devolver Equipo">
                         <h:panelGrid id="devEquCom" columns="2" cellpadding="5">
-                            <center>Equipo Complejo (placa)</center>
+                            <center>Equipo (placa)</center>
                             <center><p:inputText value="#{RegistroDevolucion.placa}"></p:inputText></center>
                             <center><p:commandButton value="Aceptar devolucion" action="#{RegistroDevolucion.registroDevolucionEquipoComplejo()}" update="devEquCom"></p:commandButton></center>
                             <p:panel rendered="#{RegistroDevolucion.showPanelInfo()}">
@@ -34,14 +34,14 @@ and open the template in the editor.
                                 <br/><h:outputLabel value="Carne: " />
                                 <p:outputLabel value="#{RegistroDevolucion.elQuePideElPrestamo.carnet}" /><br/>
                                 <br/>
-                                <h:outputLabel value="Equipos complejos prestados: "></h:outputLabel><br/>
+                                <h:outputLabel value="Equipos prestados: "></h:outputLabel><br/>
                                 <p:dataTable id="EquiposCPrestados" var="equipoC1" value="#{RegistroDevolucion.equiposComplejosPrestados}"  >
                                     <p:column headerText="Nombre">
                                         <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
                                     </p:column>
                                 </p:dataTable>
                                 <br/>
-                                <h:outputLabel value="Equipos complejos faltantes: "></h:outputLabel><br/>
+                                <h:outputLabel value="Equipos faltantes: "></h:outputLabel><br/>
                                 <p:dataTable id="EquiposCFaltantes" var="equipoC1" value="#{RegistroDevolucion.equiposComplejosFaltantes}"  >
                                     <p:column headerText="Nombre">
                                         <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
@@ -52,7 +52,7 @@ and open the template in the editor.
                         </h:panelGrid>
 
                     </p:tab>
-                    <p:tab title="Devolver Equipo Sencillo">
+                    <p:tab title="Devolver Herramienta">
                         <h:panelGrid id="devEquSen" columns="8" cellpadding="5">
                             <center>Carné del prestamista
                                 <p:inputText id="carnet" value="#{RegistroDevolucion.laPersona}" >
@@ -61,7 +61,7 @@ and open the template in the editor.
                             </center>
                             <center>
                                 <p:selectOneMenu id="eqse" value="#{RegistroDevolucion.selectEqSe}">
-                                    <f:selectItem itemLabel="Seleccione el equipo sencillo" itemValue="" noSelectionOption="true" />
+                                    <f:selectItem itemLabel="Seleccione la herramienta" itemValue="" noSelectionOption="true" />
                                     <f:selectItems value="#{RegistroDevolucion.mostrarListaEquipoSencillo()}" />
                                     <p:ajax event="change" update="basic" />
                                 </p:selectOneMenu>
