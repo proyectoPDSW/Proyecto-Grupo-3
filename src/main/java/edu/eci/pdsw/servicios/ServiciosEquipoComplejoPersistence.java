@@ -48,7 +48,7 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
         try {
             dao.beginSession();
             complejoPersistencia=dao.getDaoEquipoComplejo();
-            complejoPersistencia.save(model);
+            complejoPersistencia.saveModelo(model);
             dao.commitTransaction();
             dao.endSession();
         } catch (PersistenceException  ex) {

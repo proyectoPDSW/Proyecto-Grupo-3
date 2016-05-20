@@ -16,6 +16,7 @@ public class Modelo {
     private long vidaUtil;
     private String nombre;
     private String clase;
+    private String marca;
     private long valorComercial;
     private String fotografia;
     private String descripcion;
@@ -26,17 +27,21 @@ public class Modelo {
      *
      * @param vidaU
      * @param name
+     * @param mar
      * @param foto
      * @param clas
      * @param valor
      * @throws EquipoException
      */
-    public Modelo(int vidaU, String name, String foto, String clas, long valor) throws EquipoException {
+    public Modelo(int vidaU, String name,String mar, String foto, String clas, long valor) throws EquipoException {
         if (vidaU <= 0) {
             throw new EquipoException(EquipoException.MODELO_VIDA_UTIL_INADECUADA);
         }
         if (name.length() <= 0) {
             throw new EquipoException(EquipoException.MODELO_SIN_NOMBRE);
+        }
+        if (mar.length() <= 0) {
+            throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
         }
         if (clas.length() <= 0) {
             throw new EquipoException(EquipoException.MODELO_SIN_CLASE);
@@ -56,6 +61,7 @@ public class Modelo {
      * 
      * @param vidaUtil
      * @param nombre
+     * @param marca
      * @param clase
      * @param valorComercial
      * @param fotografia
@@ -63,7 +69,7 @@ public class Modelo {
      * @param accesorios
      * @throws EquipoException 
      */
-    public Modelo(int vidaUtil, String nombre, String clase, long valorComercial, String fotografia, String descripcion, String accesorios) throws EquipoException{
+    public Modelo(int vidaUtil, String nombre,String marca,String clase, long valorComercial, String fotografia, String descripcion, String accesorios) throws EquipoException{
         if (vidaUtil <= 0) {
             throw new EquipoException(EquipoException.MODELO_VIDA_UTIL_INADECUADA);
         }
@@ -72,6 +78,9 @@ public class Modelo {
         }
         if (clase.length() <= 0) {
             throw new EquipoException(EquipoException.MODELO_SIN_CLASE);
+        }
+        if (marca.length() <= 0) {
+            throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
         }
         if (valorComercial <= 0) {
             throw new EquipoException(EquipoException.MODELO_VALOR_COMERCIAL_INADECUADO);
@@ -207,6 +216,20 @@ public class Modelo {
     public String getAccesorios() {
         return accesorios;
     }
+    
+       /**
+     * @return the marca
+     */
+    public String getMarca() {
+        return marca;
+    }
+
+    /**
+     * @param marca the marca to set
+     */
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 
     /**
      * Metodo que retorna una cadena donde esta toda la informacion del modelo
@@ -215,7 +238,7 @@ public class Modelo {
      */
     @Override
     public String toString() {
-        String res = "Modelo:[" + vidaUtil + "," + nombre + "," + clase + "," + valorComercial + "]\n";
+        String res = "Modelo:[" + vidaUtil + "," + nombre + "," + clase + "," +getMarca()+","+ valorComercial + "]\n";
         return res;
     }
     
@@ -237,6 +260,9 @@ public class Modelo {
         if (!Objects.equals(this.nombre, other.nombre)) {
             return false;
         }
+        if (!Objects.equals(this.marca, other.marca)) {
+            return false;
+        }
         if (!Objects.equals(this.valorComercial, other.valorComercial)) {
             return false;
         }
@@ -246,6 +272,20 @@ public class Modelo {
         }
         
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + (int) (this.vidaUtil ^ (this.vidaUtil >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.nombre);
+        hash = 97 * hash + Objects.hashCode(this.clase);
+        hash = 97 * hash + Objects.hashCode(this.marca);
+        hash = 97 * hash + (int) (this.valorComercial ^ (this.valorComercial >>> 32));
+        hash = 97 * hash + Objects.hashCode(this.fotografia);
+        hash = 97 * hash + Objects.hashCode(this.descripcion);
+        hash = 97 * hash + Objects.hashCode(this.accesorios);
+        return hash;
     }
 
 }

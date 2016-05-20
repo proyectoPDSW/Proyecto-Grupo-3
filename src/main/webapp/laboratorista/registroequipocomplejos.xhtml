@@ -41,6 +41,9 @@
 
                             <h:outputLabel value="Nombre:" />
                             <h:outputText value="#{RegistroEquiposComplejos.modelo.nombre}" />
+                            
+                            <h:outputLabel value="Marca:" />
+                            <h:outputText value="#{RegistroEquiposComplejos.modelo.marca}" />
 
                             <h:outputLabel value="Clase:" />
                             <h:outputText value="#{RegistroEquiposComplejos.modelo.clase}" />
@@ -66,9 +69,6 @@
 
                             <h:outputLabel value="Placa: (*)" />
                             <p:spinner value="#{RegistroEquiposComplejos.placa}" min="1" max="1000000000" />
-
-                            <h:outputLabel value="Marca: (*)" />
-                            <h:inputText value="#{RegistroEquiposComplejos.marca}" />
 
                             <h:outputLabel value="¿Se encuentra asegurado?" />
                             <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
@@ -98,6 +98,9 @@
 
                             <h:outputLabel value="Nombre: (*)" />
                             <h:inputText value="#{RegistroEquiposComplejos.nombre}" />
+                            
+                            <h:outputLabel value="Marca: (*)" />
+                            <h:inputText id="clase" value="#{RegistroEquiposComplejos.marca}"/>
 
                             <h:outputLabel value="Clase: (*)" />
                             <h:inputText id="clase" value="#{RegistroEquiposComplejos.clase}"/>
@@ -126,9 +129,6 @@
                             <h:outputLabel value="Placa: (*)" />
                             <p:spinner  value="#{RegistroEquiposComplejos.placa}" min="1" max="100000000"/>
 
-                            <h:outputLabel value="Marca: (*)" />
-                            <h:inputText  value="#{RegistroEquiposComplejos.marca}" />
-
                             <h:outputLabel value="¿Se encuentra asegurado?" />
                             <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
                         </p:panelGrid> 
@@ -154,6 +154,9 @@
                             <h:outputLabel value="Nombre:" />
                             <h:outputText value="#{RegistroEquiposComplejos.modelo.nombre}" />
 
+                            <h:outputLabel value="Marca:" />
+                            <h:outputText value="#{RegistroEquiposComplejos.modelo.marca}" />
+                            
                             <h:outputLabel value="Clase:" />
                             <h:outputText value="#{RegistroEquiposComplejos.modelo.clase}" />
 
@@ -177,9 +180,6 @@
 
                             <h:outputLabel value="Placa:" />
                             <h:outputText value="#{RegistroEquiposComplejos.equipo.placa}"/>
-
-                            <h:outputLabel value="Marca:" />
-                            <h:outputText value="#{RegistroEquiposComplejos.equipo.marca}" />
 
                             <h:outputLabel value="Asegurado: " />
                             <h:outputText value="#{RegistroEquiposComplejos.aseguradoEquipo}"/>

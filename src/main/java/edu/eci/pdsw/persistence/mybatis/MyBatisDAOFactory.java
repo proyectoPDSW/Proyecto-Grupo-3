@@ -65,7 +65,7 @@ public class MyBatisDAOFactory extends DAOFactory {
 
     @Override
     public DAOEquipoComplejo getDaoEquipoComplejo() {
-        return new MybatisDAOEquipoComplejo(sesion);
+        return new MyBatisDAOEquipoComplejo(sesion);
     }
 
     @Override

@@ -95,7 +95,18 @@ public interface DAOEquipoComplejo {
      * @param model a guardar
      * @throws PersistenceException si el modelo ya existe
      */
-    public void save(Modelo model) throws PersistenceException;
+    public void saveModelo(Modelo model) throws PersistenceException;
+    
+    /**
+     * Guarda la orden de compra del equipo complejo en la base de datos
+     *
+     * @param ordenCompra
+     * @param serialEquipo
+     * @param model
+     * @throws PersistenceException si la orden de compra ya existe
+     */
+    
+    public void saveOrdenCompra(OrdenCompra ordenCompra, String serialEquipo, Modelo model) throws PersistenceException;
 
     /**
      * Carga un modelo de la base de datos
@@ -117,8 +128,9 @@ public interface DAOEquipoComplejo {
     /**
      * Carga la orden de compra del equipo complejo por serial
      *
-     * @param serial la cadena a buscar
+     * @param serial del equipo complejo
      * @return la orden de compra del equipo
+     * @throws PersistenceException si no existe el equipo con el seria, si la orden de compra no existe
      */
     
     public OrdenCompra loadOrdenCompraBySerial(String serial) throws PersistenceException;
@@ -127,7 +139,8 @@ public interface DAOEquipoComplejo {
      * Consulta un equipo complejo por placa y ademas que este en almacen
      * es decir que este disponible para prestar
      * @param placa
-     * @return 
+     * @return EquipoCompejo
+     * @throws PersistenceException si el equipo con la placa no esta registrado, el equipo no esta disponible
      */
     public EquipoComplejo loadEnAlmacenPorPlaca(String placa) throws PersistenceException;
 }
