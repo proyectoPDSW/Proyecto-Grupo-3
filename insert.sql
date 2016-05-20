@@ -77,6 +77,7 @@ insert into Modelos(vida_util,fotografia,valor_comercial,clase,descripcion,acces
 insert into Modelos(vida_util,fotografia,valor_comercial,clase,descripcion,accesorios,nombre,marca) values('10','http://2.bp.blogspot.com/_FOyXBkqQWYA/SxGfTGtKtDI/AAAAAAAAAF4/w4DfEEf2I0I/s1600/380-multimetro-digital-con-funda.jpg','100000','Multimetro','es un instrumento eléctrico portátil para medir directamente magnitudes eléctricas activas como corrientes y potenciales (tensiones) y/o pasivas como resistencias, capacidades y otras','2 puntas de sonda','multimetro digital','Fluke');
 
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('abd24b','1',TRUE,'prestamo 24 horas','generador de señales 5MHz',TRUE,'0');
+
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('kb132k','2',TRUE,'prestamo 24 horas','generador de señales 5MHz',FALSE,'0');
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('asd123','3',FALSE,'en reparacion','multimetro Digital',TRUE,'0');
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('d23j3s','4',TRUE,'prestamo diario','multimetro Digital',TRUE,'0');
@@ -124,4 +125,4 @@ insert into Equipo_prestamo_sencillo (equipo,cantidad,cantidad_devuelta,Prestamo
 insert into Equipo_prestamo_sencillo (equipo,cantidad,cantidad_devuelta,Prestamos_fecha_inicio,Prestamos_persona) values('destornillador de estrella','30','7','2016-04-29 12:00:00','2105684');
 insert into Equipo_prestamo_sencillo (equipo,cantidad,cantidad_devuelta,Prestamos_fecha_inicio,Prestamos_persona) values('cable UTP','10','2','2016-04-29 07:00:00','2105533');
 insert into Equipo_prestamo_sencillo (equipo,cantidad,cantidad_devuelta,Prestamos_fecha_inicio,Prestamos_persona) values('destornillador de estrella','15','3','2016-04-29 07:00:00','2105533');
-insert into Equipo_prestamo_sencillo (equipo,cantidad,cantidad_devuelta,Prestamos_fecha_inicio,Prestamos_persona) values('cronómetro','27','2','2016-05-08 12:00:00','2107646');
+insert into Equipo_prestamo_sencillo (equipo,cantidad,cantidad_devuelta,Prestamos_fecha_inicio,Prestamos_persona) values ('cronómetro','27','2','2016-05-08 12:00:00','2107646'); 
