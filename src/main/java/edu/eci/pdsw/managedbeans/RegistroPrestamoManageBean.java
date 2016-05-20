@@ -46,8 +46,6 @@ public class RegistroPrestamoManageBean implements Serializable {
     private Timestamp fechaEstimadaDeEntrega;
     //Consultar persona
     private String carne;
-    //Consultar modelo prestamo termino fijo
-    private String modelo;
     //Equipo Complejo prestamo termino fijo
     private EquipoComplejo selectEquipoComplejo;
     //Equipo Sencillo prestamo termino fijo
@@ -114,6 +112,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         equiposSencillosPrestados = new LinkedHashSet<>();
         fechaTipoPrestamo = "";
         nombre="";
+        placa="";
         cantidadDisponible = 0;
         fechaEstimadaDeEntrega = Prestamo.currDate();
         tipoPrestamo = new HashMap<>();
@@ -152,10 +151,11 @@ public class RegistroPrestamoManageBean implements Serializable {
      * Consulta la lista de equipos complejos que tengan un modelo especifico
      *
      */
-    public void consultarEqModelo() {
+    public void consultarEqPlacaDisponible() {
         List<EquipoComplejo> equipos = new ArrayList<>();
         try {
-            equipos = EQCOMPLEJO.consultarEnAlmacenModelo(modelo);
+            equipos.add(EQCOMPLEJO.consultarEquipoEnAlmacenPorPlaca(placa));
+
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
         }
@@ -188,7 +188,7 @@ public class RegistroPrestamoManageBean implements Serializable {
             } else {
                 selectEquipoComplejo.setEstado(fechaTipoPrestamo);
                 actualizarEquipoComplejo(selectEquipoComplejo);
-                consultarEqModelo();
+                consultarEqPlacaDisponible();
                 equiposComplejosPrestados.add(selectEquipoComplejo);
             }
         }
@@ -272,6 +272,8 @@ public class RegistroPrestamoManageBean implements Serializable {
         equiposSencillosPrestados = new LinkedHashSet<>();
         setElQuePideElPrestamo(null);
         setPrestamo(null);
+        nombre="";
+        placa="";
         cantidadDisponible = 0;
         showPanelRegistro = false;
         showPanelRegistrado = false;
@@ -443,14 +445,6 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public boolean isShowPanelPersona() {
         return showPanelPersona;
-    }
-
-    public void setModelo(String mo) {
-        this.modelo = mo;
-    }
-
-    public String getModelo() {
-        return modelo;
     }
 
     public String getLaPersona() {

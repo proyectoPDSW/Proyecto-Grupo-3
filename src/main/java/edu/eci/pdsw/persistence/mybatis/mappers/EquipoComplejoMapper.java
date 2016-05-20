@@ -118,4 +118,12 @@ public interface EquipoComplejoMapper {
      *@return la orden de compra del equipo complejo
      */
     public OrdenCompra loadOrddenCompraBySerial(@Param("serial") String serial);
+    
+    /**
+     * Consulta un equipo complejo con una placa especifica que este en almacen
+     * es decir que este disponible para prestar
+     * @param placa
+     * @return 
+     */
+    public EquipoComplejo loadEquipoDisponibleByPlaca(@Param("Eq_Placa") String placa);
 }

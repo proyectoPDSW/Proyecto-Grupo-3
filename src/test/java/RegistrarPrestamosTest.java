@@ -1,10 +1,8 @@
-
-
-import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
@@ -85,8 +83,8 @@ public class RegistrarPrestamosTest {
         Modelo mod=new Modelo(400,"nombre","foto","clase",50000);
         dec.save(mod);
         daof.commitTransaction();
-        OrdenCompra dg=new OrdenCompra("nombre","marca","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",50000,3);
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg);
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg,0);
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
@@ -160,8 +158,8 @@ public class RegistrarPrestamosTest {
         Modelo mod=new Modelo(400,"nombre","foto","clase",50000);
         dec.save(mod);
         daof.commitTransaction();
-        OrdenCompra dg=new OrdenCompra("nombre","marca","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",50000,3);
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg);
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg,0);
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
@@ -211,8 +209,8 @@ public class RegistrarPrestamosTest {
         Modelo mod=new Modelo(400,"nombre","foto","clase",5000);
         dec.save(mod);
         daof.commitTransaction();
-        OrdenCompra dg=new OrdenCompra("nombre","marca","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",50000,3);
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","54351",dg);
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","54351",dg,0);
         ec.setEstado(EquipoComplejo.indefinido);
         dec.save(ec);
         daof.commitTransaction();

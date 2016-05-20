@@ -123,4 +123,11 @@ public interface DAOEquipoComplejo {
     
     public OrdenCompra loadOrdenCompraBySerial(String serial) throws PersistenceException;
     
+    /**
+     * Consulta un equipo complejo por placa y ademas que este en almacen
+     * es decir que este disponible para prestar
+     * @param placa
+     * @return 
+     */
+    public EquipoComplejo loadEnAlmacenPorPlaca(String placa) throws PersistenceException;
 }

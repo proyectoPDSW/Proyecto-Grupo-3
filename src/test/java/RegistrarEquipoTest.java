@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.EquipoSencillo;
@@ -14,6 +13,7 @@ import java.io.InputStream;
 import java.util.Properties;
 import org.junit.Test;
 import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.DAOEquipoSencillo;
@@ -63,11 +63,11 @@ public class RegistrarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo reg=daof.getDaoEquipoComplejo();
         
-        Modelo mod = new Modelo(100000,"Destornillador de astrella","udfyzsiudfyziduvz","Destornillador",5000);
+        Modelo mod = new Modelo(100000,"Destornillador de estrella","udfyzsiudfyziduvz","Destornillador",5000);
         reg.save(mod);
         daof.commitTransaction();
-        OrdenCompra dg=new OrdenCompra("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
-        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg);
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg,0);
         ec.setEstado("hola");
         reg.save(ec);
         daof.commitTransaction();
@@ -79,9 +79,9 @@ public class RegistrarEquipoTest {
     //No deberia registrar dos veces el mismo equipo
     @Test
     public void CE2() throws PersistenceException, EquipoException{
-        Modelo mod = new Modelo(100000,"Destornillador de strella",null,"Destornillador",5000);
-        OrdenCompra dg=new OrdenCompra("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
-        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg);
+        Modelo mod = new Modelo(100000,"Destornillador de estrella",null,"Destornillador",5000);
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg,0);
         DAOFactory daof = null;
         try{
         properties.load(input);
@@ -159,8 +159,8 @@ public class RegistrarEquipoTest {
         reg.save(mod);
         daof.commitTransaction();
         Modelo test=reg.loadModelo(mod.getNombre());
-        OrdenCompra dg=new OrdenCompra("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
-        EquipoComplejo ec=new EquipoComplejo(test,"marca","serial","123456",dg);
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        EquipoComplejo ec=new EquipoComplejo(test,"marca","serial","123456",dg,0);
         reg.save(ec);
         daof.commitTransaction();
         ArrayList<EquipoComplejo> prueba=reg.loadByModelo(mod.getNombre());

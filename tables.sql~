@@ -4,120 +4,119 @@
 -- tables
 -- Table: Departamento_persona
 CREATE TABLE Departamento_persona (
-    departamento varchar(50)   NOT NULL,
-    persona varchar(20)   NOT NULL,
+    departamento varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    persona varchar(20) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Departamento_persona_pk PRIMARY KEY (departamento,persona)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Departamentos
 CREATE TABLE Departamentos (
-    departamento varchar(50)   NOT NULL,
+    departamento varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Departamentos_pk PRIMARY KEY (departamento)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Equipo_prestamo_complejo
 CREATE TABLE Equipo_prestamo_complejo (
     Prestamos_fecha_inicio timestamp NOT NULL,
-    Prestamos_persona varchar(20)   NOT NULL,
-    Equipos_Complejos_serial varchar(30)   NOT NULL,
-    Equipos_Complejos_modelo varchar(50)   NOT NULL,
+    Prestamos_persona varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+    Equipos_Complejos_serial varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    Equipos_Complejos_modelo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Equipo_prestamo_complejo_pk PRIMARY KEY (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_modelo)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Equipo_prestamo_sencillo
 CREATE TABLE Equipo_prestamo_sencillo (
-    equipo varchar(100)   NOT NULL,
+    equipo varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     cantidad int NOT NULL,
     cantidad_devuelta int NOT NULL,
     Prestamos_fecha_inicio timestamp NOT NULL,
-    Prestamos_persona varchar(20)   NOT NULL,
+    Prestamos_persona varchar(20) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Equipo_prestamo_sencillo_pk PRIMARY KEY (equipo,Prestamos_fecha_inicio,Prestamos_persona)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Equipos_Complejos
 CREATE TABLE Equipos_Complejos (
-    serial varchar(30)   NOT NULL,
-    num_placa varchar(50)   NOT NULL,
+    serial varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    num_placa varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     disponibilidad bool NOT NULL,
-    estado varchar(50)   NOT NULL,
-    modelo varchar(50)   NOT NULL,
+    estado varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    modelo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     asegurado bool NOT NULL,
-    marca varchar(30)   NOT NULL,
-    vida_restante int NOT NULL,
+    marca varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     UNIQUE INDEX Equipos_Complejos_ak_1 (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (serial,modelo)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Equipos_Sencillos
 CREATE TABLE Equipos_Sencillos (
-    nombre varchar(100)   NOT NULL,
+    nombre varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     cantidad_total int NOT NULL,
-    clase varchar(100)   NOT NULL,
-    fotografia varchar(500)   NULL,
+    clase varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    fotografia varchar(500) COLLATE utf8_unicode_ci NULL,
     valor_comercial int NOT NULL,
     UNIQUE INDEX NOMBRE_AK (nombre),
     CONSTRAINT Equipos_Sencillos_pk PRIMARY KEY (nombre)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Informacion_Compra
 CREATE TABLE Informacion_Compra (
     id int NOT NULL AUTO_INCREMENT,
     fecha_compra date NOT NULL,
-    proveedor varchar(100)   NOT NULL,
+    proveedor varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     fecha_garantia date NOT NULL,
-    Equipos_Complejos_serial varchar(30)   NOT NULL,
-    Equipos_Complejos_modelo varchar(50)   NOT NULL,
-    CONSTRAINT Informacion_Compra_pk PRIMARY KEY (Equipos_Complejos_serial,Equipos_Complejos_modelo)
-)ENGINE=InnoDB  ;
+    Equipos_Complejos_serial varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    Equipos_Complejos_modelo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    CONSTRAINT Informacion_Compra_pk PRIMARY KEY (id)
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Modelos
 CREATE TABLE Modelos (
     vida_util int NOT NULL,
-    fotografia varchar(500)   NULL,
+    fotografia varchar(500) COLLATE utf8_unicode_ci NULL,
     valor_comercial int NOT NULL,
-    clase varchar(50)   NOT NULL,
-    descripcion varchar(200)   NOT NULL,
-    accesorios varchar(300)   NOT NULL,
-    nombre varchar(100)   NOT NULL,
+    clase varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    descripcion varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+    accesorios varchar(300) COLLATE utf8_unicode_ci NOT NULL,
+    nombre varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Modelos_pk PRIMARY KEY (nombre)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Personas
 CREATE TABLE Personas (
-    carne varchar(20)   NOT NULL,
-    nombre varchar(100)   NOT NULL,
-    apellido varchar(100)   NOT NULL,
-    email varchar(50)   NOT NULL,
-    telefono varchar(20)   NOT NULL,
+    carne varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+    nombre varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    apellido varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    email varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    telefono varchar(20) COLLATE utf8_unicode_ci NOT NULL,
     UNIQUE INDEX EMAIL_AK (email),
     CHECK (email like '%.escuelaing.edu.co'),
     CONSTRAINT Personas_pk PRIMARY KEY (carne)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Prestamos
 CREATE TABLE Prestamos (
     fecha_inicio timestamp  NOT NULL,
-    persona varchar(20)   NOT NULL,
+    persona varchar(20) COLLATE utf8_unicode_ci NOT NULL,
     fecha_fin_estimada timestamp NULL,
     fecha_fin_real timestamp NULL,
-    tipo_prestamo varchar(50)   NOT NULL,
+    tipo_prestamo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Prestamos_pk PRIMARY KEY (fecha_inicio,persona)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Rol
 CREATE TABLE Rol (
-    rol varchar(50)   NOT NULL,
+    rol varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Rol_pk PRIMARY KEY (rol)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Rol_Persona
 CREATE TABLE Rol_Persona (
-    Personas_carne varchar(20)   NOT NULL,
-    Rol_rol varchar(50)   NOT NULL,
-    contrasena varchar(200)   NOT NULL,
-    sal varchar(10)   NOT NULL,
+    Personas_carne varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+    Rol_rol varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    contrasena varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+    sal varchar(10) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Rol_Persona_pk PRIMARY KEY (Personas_carne,Rol_rol)
-)ENGINE=InnoDB  ;
+)ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- foreign keys
 -- Reference: Departamento_persona_Departamentos (table: Departamento_persona)

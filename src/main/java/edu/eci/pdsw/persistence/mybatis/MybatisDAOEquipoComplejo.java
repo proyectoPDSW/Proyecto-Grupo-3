@@ -133,12 +133,21 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
         }
         return modelos;
     }
-
     @Override
     public OrdenCompra loadOrdenCompraBySerial(String serial) throws PersistenceException {
         if(serial==null || serial.length()==0) throw new PersistenceException("No se ha encontrado equipos registrados con ese serial");
         OrdenCompra orden=eMap.loadOrddenCompraBySerial(serial);
         if (orden==null) throw new PersistenceException("El equipo no tiene orden de compra");
         return orden;
+    }
+    @Override
+    public EquipoComplejo loadEnAlmacenPorPlaca(String placa) throws PersistenceException {
+        if(eMap.loadEquipoDisponibleByPlaca(placa)==null){
+            throw new PersistenceException("El equipo con placa "+ placa +" no esta registrado");
+        }
+        if(!eMap.loadEquipoByPlaca(placa).getEstado().equals(EquipoComplejo.almacen)){
+            throw new PersistenceException("El equipo con placa "+ placa +" no esta disponible para prestar");
+        }
+        return eMap.loadEquipoDisponibleByPlaca(placa);
     }
 }

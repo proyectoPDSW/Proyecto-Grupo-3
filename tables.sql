@@ -43,6 +43,7 @@ CREATE TABLE Equipos_Complejos (
     modelo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     asegurado bool NOT NULL,
     marca varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    vida_restante int NOT NULL,
     UNIQUE INDEX Equipos_Complejos_ak_1 (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (serial,modelo)
 )ENGINE=InnoDB COLLATE utf8_unicode_ci;
@@ -60,13 +61,12 @@ CREATE TABLE Equipos_Sencillos (
 
 -- Table: Informacion_Compra
 CREATE TABLE Informacion_Compra (
-    id int NOT NULL AUTO_INCREMENT,
     fecha_compra date NOT NULL,
     proveedor varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     fecha_garantia date NOT NULL,
     Equipos_Complejos_serial varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     Equipos_Complejos_modelo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-    CONSTRAINT Informacion_Compra_pk PRIMARY KEY (id)
+    CONSTRAINT Informacion_Compra_pk PRIMARY KEY (Equipos_Complejos_serial,Equipos_Complejos_modelo)
 )ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
 -- Table: Modelos

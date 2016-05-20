@@ -47,9 +47,9 @@
                         <p:panelGrid columns="2"  rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
                             <p:panel id="Complejo">
 
-                                <h:outputLabel value="Modelo : (*)  " />
-                                <p:autoComplete id="modelo1" dropdown="true" value="#{RegistroPrestamo.modelo}" completeMethod="#{RegistroPrestamo.modelosAproximados}"/>
-                                <br/><br/><p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqModelo()}" icon="ui-icon-search"/>
+                                <h:outputLabel value="Placa : (*)  " />
+                                <p:autoComplete id="placa1" dropdown="true" value="#{RegistroPrestamo.placa}" completeMethod="#{RegistroPrestamo.modelosAproximados}"/>
+                                <br/><br/><p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqPlacaDisponible()}" icon="ui-icon-search"/>
                                 <p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
                                 <p:panel id="tablas" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
                                     <p:selectOneMenu id="TPrestamo" value="#{RegistroPrestamo.fechaTipoPrestamo}">
@@ -60,6 +60,9 @@
                                         <p:column headerText="Nombre">      
                                             <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
                                         </p:column>
+                                        <p:column headerText="Placa">
+                                            <h:outputText value="#{equipoC1.placa}" />
+                                        </p:column>
                                         <p:column headerText="Estado">
                                             <h:outputText value="#{equipoC1.estado}" />
                                         </p:column>
@@ -67,6 +70,9 @@
                                     <p:dataTable id="EquiposPrestar1" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
                                         <p:column headerText="Nombre">
                                             <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
+                                        </p:column>
+                                        <p:column headerText="Placa">
+                                            <h:outputText value="#{equipoC1.placa}" />
                                         </p:column>
                                         <p:column headerText="Estado">
                                             <h:outputText value="#{equipoC1.estado}" />
@@ -128,6 +134,9 @@
                             <p:dataTable id="EquiposCPrestados" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
                                 <p:column headerText="Nombre">
                                     <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
+                                </p:column>
+                                <p:column headerText="Placa">
+                                    <h:outputText value="#{equipoC1.placa}" />
                                 </p:column>
                                 <p:column headerText="Estado">
                                     <h:outputText value="#{equipoC1.estado}" />

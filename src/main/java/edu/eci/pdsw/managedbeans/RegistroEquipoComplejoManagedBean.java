@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -5,10 +6,10 @@
  */
 package edu.eci.pdsw.managedbeans;
 
-import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
@@ -54,6 +55,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     private String placa;
     private String marca;
     private OrdenCompra ordenCompra;
+    private int tiempoDeUso;
 
     private String aseguradoEquipo = "";
     private String disponibilidadEquipo = "";
@@ -83,6 +85,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         serial = "";
         placa = "0";
         marca = "";
+        tiempoDeUso=0;
     }
 
     /**
@@ -143,7 +146,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipo() {
         try {
-            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra);
+            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra,tiempoDeUso);
             equipo.setAsegurado(asegurado);
             equipo.setMarca(marca);
             equipo.setPlaca(placa);
@@ -172,7 +175,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             modelo.setDescripcion(descripcion);
             modelo.setAccesorios(accesorios);
             //SERVICIOS.registrarModelo(modelo);
-            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra);
+            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra,tiempoDeUso);
             equipo.setModelo_Eq(modelo);
             equipo.setAsegurado(asegurado);
             equipo.setPlaca(placa);
