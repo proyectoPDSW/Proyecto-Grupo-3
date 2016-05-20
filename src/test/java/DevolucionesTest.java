@@ -73,7 +73,7 @@ public class DevolucionesTest {
         
         Persona yo= new Persona("2105684", "Julian", "Devia", "julian.devia@mail.escuelaing.edu.co", "6030405", null);
         Modelo mod=new Modelo(12, "hola", null, "asd", 123);
-        OrdenCompra dg=null;
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo ec=new EquipoComplejo(true, true, EquipoComplejo.almacen, "qwe2", "123", "asd", mod,dg,0);
         EquipoSencillo es=new EquipoSencillo("nombre", "clase", 3, 0);
         HashSet<EquipoComplejo> sec=new HashSet<>();sec.add(ec);
@@ -104,7 +104,7 @@ public class DevolucionesTest {
 
             Persona yo= new Persona("2105684", "Julian", "Devia", "julian.devia@mail.escuelaing.edu.co", "6030405", null);
             Modelo mod=new Modelo(12, "hola", null, "asd", 123);
-            OrdenCompra dg=null;
+            OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
             EquipoComplejo ec=new EquipoComplejo(true, true, EquipoComplejo.almacen, "qwe2", "123", "asd", mod,dg,0);
             EquipoSencillo es=new EquipoSencillo("xnombre", "clase", 3, 0);
             dape.save(yo);
@@ -151,7 +151,7 @@ public class DevolucionesTest {
 
             Persona yo= new Persona("2105684", "Julian", "Devia", "julian.devia@mail.escuelaing.edu.co", "6030405", null);
             Modelo mod=new Modelo(12, "hola", null, "asd", 123);
-            OrdenCompra dg=null;
+            OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
             EquipoComplejo ec=new EquipoComplejo(true, true, EquipoComplejo.almacen, "qwe2", "123", "asd", mod,dg,0);
             EquipoSencillo es=new EquipoSencillo("xnombre", "clase", 3, 4);
             dape.save(yo);

@@ -88,7 +88,7 @@ public class PrestamosTest {
         
         Modelo model = new Modelo(4, "Modelo de prueba 1", null, "Clase x", 100000);
         eqco.save(model);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 1","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","1000",dg,0);
         ec.setEstado(EquipoComplejo.indefinido);
         eqco.save(ec);
@@ -187,8 +187,8 @@ public class PrestamosTest {
         
         Modelo model = new Modelo(4, "Modelo de prueba 3", null, "Clase x", 100000);
         eqco.save(model);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 3","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        OrdenCompra dg2=new OrdenCompra(2,"Modelo de prueba 3","AC3Y",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg2=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","26",dg,0);
         EquipoComplejo ec2 = new EquipoComplejo(model, "Toshiba", "AC3Y","45",dg2,0);
         ec.setEstado(EquipoComplejo.indefinido);ec2.setEstado(EquipoComplejo.indefinido);
@@ -283,8 +283,8 @@ public class PrestamosTest {
         
         Modelo model = new Modelo(4, "Modelo de prueba 4", null, "Clase x", 100000);
         eqco.save(model);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 4","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        OrdenCompra dg2=new OrdenCompra(2,"Modelo de prueba 4","AC3Y",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg2=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","26",dg,0);
         EquipoComplejo ec2 = new EquipoComplejo(model, "Toshiba", "AC3Y","45",dg2,0);
         ec.setEstado(EquipoComplejo.indefinido);ec2.setEstado(EquipoComplejo.indefinido);
@@ -335,7 +335,7 @@ public class PrestamosTest {
         
         Modelo model = new Modelo(4, "Modelo de prueba 5", null, "Clase x", 100000);
         eqco.save(model);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 5","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","26",dg,0);
         ec.setEstado(EquipoComplejo.indefinido);
         eqco.save(ec);
@@ -425,8 +425,8 @@ public class PrestamosTest {
             daof.beginSession();
             DAOPrestamo prestamo= daof.getDaoPrestamo();
             Modelo model = new Modelo(4, "Modelo de prueba 7", null, "Clase x", 100000);
-            OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 7","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-            OrdenCompra dg2=new OrdenCompra(2,"Modelo de prueba 7","AC3Y",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+            OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+            OrdenCompra dg2=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
             EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","26",dg,0);
             EquipoComplejo ec2 = new EquipoComplejo(model, "Toshiba", "AC3Y","45",dg2,0);
             ec.setEstado(EquipoComplejo.indefinido);ec2.setEstado(EquipoComplejo.indefinido);
@@ -470,7 +470,7 @@ public class PrestamosTest {
         DAOPrestamo prestamo= daof.getDaoPrestamo();
         Modelo model = new Modelo(4, "Modelo de prueba 8", null, "Clase x", 100000);
         eqco.save(model);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 8","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","12",dg,0);
         ec.setEstado(EquipoComplejo.diario);
         eqco.save(ec);
@@ -565,8 +565,8 @@ public class PrestamosTest {
         
         Modelo model = new Modelo(4, "Modelo de prueba 10", null, "Clase x", 100000);
         eqco.save(model);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 10","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        OrdenCompra dg2=new OrdenCompra(2,"Modelo de prueba 10","AC3Y",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg2=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","12",dg,0);
         EquipoComplejo ec2 = new EquipoComplejo(model, "Toshiba", "AC3Y","13",dg2,0);
         ec.setEstado(EquipoComplejo.diario);ec2.setEstado(EquipoComplejo.diario);
@@ -665,8 +665,8 @@ public class PrestamosTest {
         
         Modelo model = new Modelo(4, "Modelo de prueba 12", null, "Clase x", 100000);
         eqco.save(model);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 12","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        OrdenCompra dg2=new OrdenCompra(2,"Modelo de prueba 12","AC3Y",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg2=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","12",dg,0);
         EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y","13",dg2,0);
         ec.setEstado(EquipoComplejo.diario);ec2.setEstado(EquipoComplejo.diario);
@@ -718,7 +718,7 @@ public class PrestamosTest {
         
         Modelo model = new Modelo(4, "Modelo de prueba 13", null, "Clase x", 100000);
         eqco.save(model);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 13","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","12",dg,0);
         ec.setEstado(EquipoComplejo.diario);
         eqco.save(ec);
@@ -805,7 +805,7 @@ public class PrestamosTest {
             daof.beginSession();
             DAOPrestamo prestamo= daof.getDaoPrestamo();
             Modelo model = new Modelo(4, "Modelo de prueba 16", null, "Clase x", 100000);
-            OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba 16","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+            OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
             EquipoComplejo ec = new EquipoComplejo(model, "Toshiba", "AC3X","12",dg,0);
             ec.setEstado(EquipoComplejo.diario);
             //EquipoComplejo ec2 = new EquipoComplejo(model, "Toshib", "AC3Y");

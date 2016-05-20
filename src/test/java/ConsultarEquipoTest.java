@@ -66,7 +66,7 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","734829",dg,0);
         aConsultar.setPlaca("2");
         aConsultar.setEstado("En prueba");
@@ -89,8 +89,8 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(5, "Modelo de prueba", null, "Clase x", 100000);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        OrdenCompra dg2=new OrdenCompra(2,"Modelo de prueba","BD5F",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"LOL");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg2=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"LOL");
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","38294",dg,0);
         EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Asus", "BD5F","74892",dg2,0);
         aConsultar.setEstado("En prueba");
@@ -116,7 +116,7 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(6, "Modelo de prueba", null, "Clase x", 100000);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","189",dg,0);
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
@@ -138,7 +138,7 @@ public class ConsultarEquipoTest {
         Modelo model = new Modelo(7, "Modelo de prueba", null, "Clase x", 100000);
         //dec.save(model);
         //daof.commitTransaction();
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","2",dg,0);
         aConsultar.setEstado("En prueba");
         dec.save(aConsultar);
@@ -204,9 +204,9 @@ public class ConsultarEquipoTest {
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
         Modelo model = new Modelo(4, "Modelo de prueba", null, "Clase x", 100000);
-        OrdenCompra dg=new OrdenCompra(1,"Modelo de prueba","AC3X",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        OrdenCompra dg2=new OrdenCompra(2,"Modelo de prueba","ACasd",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        OrdenCompra dg3=new OrdenCompra(3,"Modelo de prueba","AC23d",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg2=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        OrdenCompra dg3=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo aConsultar = new EquipoComplejo(model, "Toshiba", "AC3X","734829",dg,0);
         EquipoComplejo aConsultar1 = new EquipoComplejo(model, "Toshiba", "ACasd","734829",dg2,0);
         EquipoComplejo aConsultar2 = new EquipoComplejo(model, "Toshiba", "AC23d","734829",dg3,0);
