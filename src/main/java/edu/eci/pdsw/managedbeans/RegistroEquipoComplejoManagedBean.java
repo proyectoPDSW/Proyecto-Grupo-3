@@ -41,6 +41,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     private int vidaUtil;
     private String nombre;
     private String clase;
+    private String marca;
     private long valorComercial;
     private String fotografia;
     private String descripcion;
@@ -53,7 +54,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     private String estado;
     private String serial;
     private String placa;
-    private String marca;
     private OrdenCompra ordenCompra;
     private int tiempoDeUso;
 
@@ -146,9 +146,8 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipo() {
         try {
-            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra,tiempoDeUso);
+            equipo = new EquipoComplejo(modelo,serial, placa, ordenCompra,tiempoDeUso);
             equipo.setAsegurado(asegurado);
-            equipo.setMarca(marca);
             equipo.setPlaca(placa);
             equipo.setDisponibilidad(true);
             equipo.setEstado("Activo");
@@ -171,15 +170,14 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipoModelo() {
         try {
-            modelo = new Modelo(vidaUtil, nombre, fotografia, clase, valorComercial);
+            modelo = new Modelo(vidaUtil, nombre,marca, fotografia, clase, valorComercial);
             modelo.setDescripcion(descripcion);
             modelo.setAccesorios(accesorios);
             //SERVICIOS.registrarModelo(modelo);
-            equipo = new EquipoComplejo(modelo, marca, serial, placa, ordenCompra,tiempoDeUso);
+            equipo = new EquipoComplejo(modelo,serial, placa, ordenCompra,tiempoDeUso);
             equipo.setModelo_Eq(modelo);
             equipo.setAsegurado(asegurado);
             equipo.setPlaca(placa);
-            equipo.setMarca(marca);
             equipo.setDisponibilidad(true);
             equipo.setEstado("en almacen");
             SERVICIOS.registrarEquipoComplejo(equipo);

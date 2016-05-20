@@ -80,11 +80,11 @@ public class RegistrarPrestamosTest {
         DAOPersona dp = daof.getDaoPersona();
         DAOPrestamo dpres=daof.getDaoPrestamo();
         
-        Modelo mod=new Modelo(400,"nombre","foto","clase",50000);
-        dec.save(mod);
+        Modelo mod=new Modelo(400,"nombre","Marca A","foto","clase",50000);
+        dec.saveModelo(mod);
         daof.commitTransaction();
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg,0);
+        EquipoComplejo ec=new EquipoComplejo(mod,"serial","123456",dg,0);
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
@@ -155,11 +155,11 @@ public class RegistrarPrestamosTest {
         DAOPersona dp = daof.getDaoPersona();
         DAOPrestamo dpres=daof.getDaoPrestamo();
         
-        Modelo mod=new Modelo(400,"nombre","foto","clase",50000);
-        dec.save(mod);
+        Modelo mod=new Modelo(400,"nombre","Marca","foto","clase",50000);
+        dec.saveModelo(mod);
         daof.commitTransaction();
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg,0);
+        EquipoComplejo ec=new EquipoComplejo(mod,"serial","123456",dg,0);
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
         daof.commitTransaction();
@@ -206,11 +206,11 @@ public class RegistrarPrestamosTest {
         DAOPersona dp = daof.getDaoPersona();
         DAOPrestamo dpres=daof.getDaoPrestamo();
         try{
-        Modelo mod=new Modelo(400,"nombre","foto","clase",5000);
-        dec.save(mod);
+        Modelo mod=new Modelo(400,"nombre","Marca","foto","clase",5000);
+        dec.saveModelo(mod);
         daof.commitTransaction();
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","54351",dg,0);
+        EquipoComplejo ec=new EquipoComplejo(mod,"serial","54351",dg,0);
         ec.setEstado(EquipoComplejo.indefinido);
         dec.save(ec);
         daof.commitTransaction();

@@ -33,6 +33,15 @@ public interface EquipoComplejoMapper {
     public void insertModelo(@Param("Modelo") Modelo m);
 
     /**
+     * Registra una orden de compra del equipo en la base de datos
+     *
+     * @param orden
+     * @param serial
+     * @param m
+     */
+    public void insertOrdenCompra(@Param("orden") OrdenCompra orden,@Param("serial") String serial, @Param("modelo") Modelo m);
+    
+    /**
      * Consulta todos los equipos complejos que esten disponibles
      *
      * @return un arreglo de equipos complejos que esten disponibles
@@ -117,7 +126,7 @@ public interface EquipoComplejoMapper {
      *@param serial, el serial del equipo complejo 
      *@return la orden de compra del equipo complejo
      */
-    public OrdenCompra loadOrddenCompraBySerial(@Param("serial") String serial);
+    public OrdenCompra loadOrdenCompraBySerial(@Param("serial") String serial);
     
     /**
      * Consulta un equipo complejo con una placa especifica que este en almacen
