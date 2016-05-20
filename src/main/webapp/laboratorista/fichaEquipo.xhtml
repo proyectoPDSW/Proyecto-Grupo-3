@@ -182,6 +182,28 @@ and open the template in the editor.
                     </p:column>
                     
                 </p:dataTable>
+                <br/><p:panelGrid style="width:100%" >
+                    <p:row>
+                        <p:column style="width:50%">
+                            <h:outputText value="Revisado por:"/>
+                            <!--p:signature readonly="true"/-->
+                        </p:column>
+                        <p:column style="width:50%">
+                            <h:outputText value="Vo.Bo.:"/>
+                            <!--p:signature readonly="true"/-->
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column style="width:50%">
+                            <h:outputText value="Fecha: #{FichaEquipo.fecha}"/>
+                            <!--p:signature readonly="true"/-->
+                        </p:column>
+                        <p:column style="width:50%">
+                            <h:outputText value="Fecha: #{FichaEquipo.fecha}"/>
+                            <!--p:signature readonly="true"/-->
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
             <p:commandButton value="Imprimir" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px" rendered="#{FichaEquipo.consulto}">
                 <p:printer target="panelFicha" />
