@@ -20,7 +20,7 @@ and open the template in the editor.
                 <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 <br/><p:outputLabel value="Placa del equipo: "/>
                 <p:inputText value="#{FichaEquipo.placaAConsultar}"/>
-                <p:commandButton value="Consultar Equipo" actionListener="#{FichaEquipo.ConsultarEquipoByPlaca()}" update=":FichaEquipoForm"/>
+                <p:commandButton value="Consultar Equipo" actionListener="#{FichaEquipo.ConsultarEquipoByPlaca()}" update=":FichaEquipoForm" icon="ui-icon-search"/>
                 <br/><p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
                     <f:facet name="start">
                         <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
@@ -31,12 +31,7 @@ and open the template in the editor.
         <h:form id="FichaEquipoForm" >
             
             <p:panel id="panelFicha" rendered="#{FichaEquipo.consulto}">
-                <p:panelGrid >
-                    <!--p:graphicImage url="../resource/Logo_Escuela.jpg"/>
-                    <p:outputLabel style="font-weight: bold;" value="LABORATORIO ELECTRÓNICA"/>
-                    
-                    <p:outputLabel/>
-                    <p:outputLabel value="Ubicacion: Almacén de electrónica"/-->
+                <p:panelGrid style="width:100%">
                     <p:row>
                         <p:column rowspan="2">
                             <p:graphicImage url="../resource/Logo_Escuela.jpg"/>
@@ -98,38 +93,58 @@ and open the template in the editor.
                         </p:column>
                     </p:row>
                 </p:panelGrid>
-                <p:dataTable tableStyle="width:auto" >
-                    <p:column headerText="Fecha Adquisición">
-                        <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.adquisicion}"/>
-                    </p:column>
-                    <p:column headerText="Fecha Límite Garantía">
-                        <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.garantia}"/>
-                    </p:column>
-                    <p:column headerText="Proveedor">
-                        <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.proveedor}"/>
-                    </p:column>
-                    <p:column headerText="Orden de Compra">
-                        <p:outputLabel value="y acá que?"/>
-                    </p:column>
-                    <p:column headerText="Valor">
-                        <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.valorComercial}">
-                            <f:convertNumber locale="es_CO" />
-                        </p:outputLabel><p:outputLabel value=" COP"/>
-                    </p:column>
-                </p:dataTable>
-                <p:dataTable tableStyle="width:auto" >
-                    <p:column headerText="Codigo de Activo">
-                        <p:outputLabel value="que es esta vaina?"/>
-                    </p:column>
-                    <p:column headerText="Asegurado">
-                        <p:outputLabel value="SI" rendered="#{FichaEquipo.consultado.asegurado}"/>
-                        <p:outputLabel value="NO" rendered="#{!FichaEquipo.consultado.asegurado}"/>
-                    </p:column>
-                    <p:column headerText="Categoría">
-                        <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.clase}"/>
-                    </p:column>
-                </p:dataTable>
-                <p:dataTable var="prestamo" value="#{FichaEquipo.consultarPrestamosEquipo()}" tableStyle="width:auto" >
+                <p:panelGrid  style="width:100%" >
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column>Fecha Adquisición</p:column>
+                            <p:column>Fecha Límite Garantía</p:column>
+                            <p:column>Proveedor</p:column>
+                            <p:column>Orden Compra</p:column>
+                            <p:column>Valor</p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column >
+                            <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.adquisicion}"/>
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.garantia}"/>
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.proveedor}"/>
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="y acá que?"/>
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.valorComercial}">
+                                <f:convertNumber locale="es_CO" />
+                            </p:outputLabel><p:outputLabel value=" COP"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <p:panelGrid style="width:100%">
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column>Codigo de Activo</p:column>
+                            <p:column>Asegurado</p:column>
+                            <p:column>Categoría</p:column>
+                        </p:row>
+                    </f:facet>
+                    <p:row>
+                        <p:column >
+                            <p:outputLabel value="que es esta vaina?"/>
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="SI" rendered="#{FichaEquipo.consultado.asegurado}"/>
+                            <p:outputLabel value="NO" rendered="#{!FichaEquipo.consultado.asegurado}"/>
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.clase}"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <p:dataTable var="prestamo" value="#{FichaEquipo.consultarPrestamosEquipo()}" style="width:100%" >
                     <f:facet name="header">
                         Historial
                     </f:facet>
@@ -149,6 +164,9 @@ and open the template in the editor.
                     
                 </p:dataTable>
             </p:panel>
+            <p:commandButton value="Imprimir" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px" rendered="#{FichaEquipo.consulto}">
+                <p:printer target="panelFicha" />
+            </p:commandButton>
         </h:form>
     </body>
 </html>
