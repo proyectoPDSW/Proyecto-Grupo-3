@@ -43,7 +43,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (ser.length() <= 0) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         }
-        if (new BigInteger(plac).compareTo(BigInteger.ZERO) < 0) {
+        if (placa.length()==0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }
         if (dg == null) {
@@ -80,7 +80,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (serial.length() <= 0) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         }
-        if (new BigInteger(placa).compareTo(BigInteger.ZERO) < 0) {
+        if (placa.length()==0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }
         if (dg == null) {
