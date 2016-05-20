@@ -10,7 +10,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='disponibilidad' column='disponibilidad'/>
         <result property='estado' column='estado'/>
         <result property='asegurado' column='asegurado'/>
-        <result property='marca' column='marca'/>
         <result property='tiempoRestante' column='vida_restante'/>
         <association property='modelo_Eq' resultMap='ModeloResult' columnPrefix='mo_'/>
         <association property='ordenCompra_Eq' resultMap='OrdenCompraResult' columnPrefix='ord_'/>
@@ -22,42 +21,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='fotografia' column='fotografia'/>
         <result property='valorComercial' column='valor_comercial'/>
         <result property='clase' column='clase'/>
+        <result property='marca' column='marca'/>
         <result property='descripcion' column='descripcion'/>
         <result property='accesorios' column='accesorios'/>
     </resultMap>
     
     <resultMap type='OrdenCompra' id='OrdenCompraResult'>
         <result property='proveedor' column='proveedor'></result>
-       <result property='adquisicion' column='fecha_compra'></result>
+        <result property='adquisicion' column='fecha_compra'></result>
         <result property='garantia' column='fecha_garantia'></result>    
     </resultMap>
 
     <insert id='insertEquipo' parameterType='map'>
-        insert into Equipos_Complejos (serial,num_placa,disponibilidad,estado,modelo,asegurado,marca,vida_restante) values(#{EqComplejo.serial},#{EqComplejo.placa},#{EqComplejo.disponibilidad},
-        #{EqComplejo.estado},#{EqComplejo.modelo_Eq.nombre},#{EqComplejo.asegurado},#{EqComplejo.marca},#{EqComplejo.tiempoRestante})
+        insert into Equipos_Complejos 
+        (serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) 
+        values(#{EqComplejo.serial},#{EqComplejo.placa},#{EqComplejo.disponibilidad},
+        #{EqComplejo.estado},#{EqComplejo.modelo_Eq.nombre},#{EqComplejo.asegurado},#{EqComplejo.tiempoRestante})
     </insert>
 
     <insert id='insertModelo' parameterType='map'>
-        insert into Modelos (vida_util,fotografia,valor_comercial,clase,descripcion,accesorios,nombre)
-        values(#{Modelo.vidaUtil},#{Modelo.fotografia},#{Modelo.valorComercial},#{Modelo.clase},
-        #{Modelo.descripcion},#{Modelo.accesorios},#{Modelo.nombre})
+        insert into Modelos 
+        (vida_util,fotografia,valor_comercial,clase,descripcion,accesorios,nombre,marca)
+        values
+        (#{Modelo.vidaUtil},#{Modelo.fotografia},#{Modelo.valorComercial},#{Modelo.clase},
+        #{Modelo.descripcion},#{Modelo.accesorios},#{Modelo.nombre},#{Modelo.marca})
     </insert>
     <insert id='insertOrdenCompra' parameterType='map'>
         INSERT INTO
             Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo)
-        VALUES (#{orden.getProveedor()},#{orden.getAdquisicion()},#{ordengetGarantia()},#{serial},#{modelo.getNombre})    
+        VALUES (#{orden.Proveedor},#{orden.Adquisicion},#{orden.Garantia},#{serial},#{modelo.nombre})    
     </insert>
 
     <select id='loadDisponibles' parameterType='map' resultMap='EquipoComplejoResult'>
-        SELECT 
+         SELECT 
             ec.serial AS serial, 
             ec.num_placa AS  num_placa, 
             ec.disponibilidad AS  disponibilidad,
             ec.estado AS  estado, 
             ec.modelo AS modelo, 
             ec.asegurado AS  asegurado,
-            ec.marca AS  marca, 
             ec.vida_restante AS  vida_restante, 
+            mo.marca AS  marca, 
             mo.vida_util AS  mo_vida_util, 
             mo.fotografia AS  mo_fotografia, 
             mo.valor_comercial AS mo_valor_comercial,
@@ -65,27 +69,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             mo.descripcion AS  mo_descripcion, 
             mo.accesorios AS  mo_accesorios, 
             mo.nombre AS  mo_nombre,
-            or.proveedor AS ord_proveedor, 
-            or.fecha_compra AS  ord_fecha_compra, 
-            or.fecha_garantia AS  ord_fecha_garantia
+            ord.proveedor AS ord_proveedor, 
+            ord.fecha_compra AS  ord_fecha_compra, 
+            ord.fecha_garantia AS  ord_fecha_garantia
         FROM Equipos_Complejos AS ec 
             LEFT JOIN Modelos AS  mo ON ec.modelo=mo.nombre 
-            LEFT JOIN Informacion_Compra AS or ON ec.serial=or.Equipos_Complejos_serial AND ec.modelo=Equipos_Complejos_modelo
-        WHERE
-            ec.disponible=#{'true'}
+            LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo	
+	WHERE 
+            ec.disponibilidad=#{'true'}
     </select>
     
     <select id='loadEnAlmacenByModelo' parameterType='map' resultMap='EquipoComplejoResult'>
-        SELECT ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
-        ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        SELECT ec.serial as serial, 
+        ec.num_placa as num_placa, 
+        ec.disponibilidad as disponibilidad,
+        ec.estado as estado, 
+        ec.modelo as modelo, 
+        ec.asegurado as asegurado,
+        mo.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
-        or.proveedor AS ord_proveedor, 
-        or.fecha_compra AS  ord_fecha_compra, 
-        or.fecha_garantia AS  ord_fecha_garantia
+        ord.proveedor AS ord_proveedor, 
+        ord.fecha_compra AS  ord_fecha_compra, 
+        ord.fecha_garantia AS  ord_fecha_garantia
         FROM Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
         LEFT JOIN 
-            Informacion_Compra AS or ON ec.serial=or.Equipos_Complejos_serial AND ec.modelo=Equipos_Complejos_modelo 
+            Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo 
         WHERE
             ec.estado='en almacen' and ec.modelo=#{Modelo}
     </select>
@@ -95,26 +103,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
         ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
-        or.proveedor AS ord_proveedor, 
-        or.fecha_compra AS  ord_fecha_compra, 
-        or.fecha_garantia AS  ord_fecha_garantia       
+        ord.proveedor AS ord_proveedor, 
+        ord.fecha_compra AS  ord_fecha_compra, 
+        ord.fecha_garantia AS  ord_fecha_garantia       
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
-        LEFT JOIN Informacion_Compra AS or ON ec.serial=or.Equipos_Complejos_serial AND ec.modelo=Equipos_Complejos_modelo
+        LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord_Equipos_Complejos_modelo
         WHERE ec.serial=#{Eq_Serial} AND mo.nombre=#{Modelo_Equipo}
     </select>
 
     <select id='loadEquipoByPlaca' parameterType='map' resultMap='EquipoComplejoResult'>
         SELECT ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
-        or.proveedor AS ord_proveedor, 
-        or.fecha_compra AS  ord_fecha_compra, 
-        or.fecha_garantia AS  ord_fecha_garantia  
+        ord.proveedor AS ord_proveedor, 
+        ord.fecha_compra AS  ord_fecha_compra, 
+        ord.fecha_garantia AS  ord_fecha_garantia  
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre 
-        LEFT JOIN Informacion_Compra AS or ON ec.serial=or.Equipos_Complejos_serial AND ec.modelo=Equipos_Complejos_modelo
+        LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
         WHERE
             ec.num_placa=#{Eq_Placa}
     </select>
@@ -122,14 +130,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id='loadEquipoDisponibleByPlaca' parameterType='map' resultMap='EquipoComplejoResult'>
         SELECT ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.marca as marca, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
-        or.proveedor AS ord_proveedor, 
-        or.fecha_compra AS  ord_fecha_compra, 
-        or.fecha_garantia AS  ord_fecha_garantia  
+        ord.proveedor AS ord_proveedor, 
+        ord.fecha_compra AS  ord_fecha_compra, 
+        ord.fecha_garantia AS  ord_fecha_garantia  
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre 
-        LEFT JOIN Informacion_Compra AS or ON ec.serial=or.Equipos_Complejos_serial AND ec.modelo=Equipos_Complejos_modelo
+        LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
         WHERE
         ec.num_placa=#{Eq_Placa} and ec.estado='en almacen'
     </select>
@@ -137,9 +145,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id='update' parameterType='map'>
         update Equipos_Complejos SET 
         disponibilidad=#{Eq_Nuevo.disponibilidad},estado=#{Eq_Nuevo.estado},
-        asegurado=#{Eq_Nuevo.asegurado},marca=#{Eq_Nuevo.marca},
+        asegurado=#{Eq_Nuevo.asegurado},
         vida_restante=#{Eq_Nuevo.tiempoRestante}
-        where serial=#{Eq_Viejo.serial} 
+        where serial=#{Eq_Viejo.serial}
     </update>
 
     <delete id='delete' parameterType='map'>
@@ -149,33 +157,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id='loadAll' resultMap='EquipoComplejoResult'>
         SELECT ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
-        or.proveedor AS ord_proveedor, 
-        or.fecha_compra AS  ord_fecha_compra, 
-        or.fecha_garantia AS  ord_fecha_garantia 
+        ord.proveedor AS ord_proveedor, 
+        ord.fecha_compra AS  ord_fecha_compra, 
+        ord.fecha_garantia AS  ord_fecha_garantia 
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
-        LEFT JOIN Informacion_Compra AS or ON ec.serial=or.Equipos_Complejos_serial AND ec.modelo=Equipos_Complejos_modelo
+        LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
     </select>
 
     <select id='loadEquipoByModelo' parameterType='map' resultMap='EquipoComplejoResult'>
         SELECT ec.serial as serial, ec.num_placa as num_placa, ec.disponibilidad as disponibilidad,
         ec.estado as estado, ec.modelo as modelo, ec.asegurado as asegurado,
-        ec.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
+        mo.marca as marca, ec.vida_restante as vida_restante, mo.vida_util as mo_vida_util, mo.fotografia as mo_fotografia, mo.valor_comercial as mo_valor_comercial, mo.clase as mo_clase,
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
-        or.proveedor AS ord_proveedor, 
-        or.fecha_compra AS  ord_fecha_compra, 
-        or.fecha_garantia AS  ord_fecha_garantia 
+        ord.proveedor AS ord_proveedor, 
+        ord.fecha_compra AS  ord_fecha_compra, 
+        ord.fecha_garantia AS  ord_fecha_garantia 
         FROM Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
-        LEFT JOIN Informacion_Compra AS or ON ec.serial=or.Equipos_Complejos_serial AND ec.modelo=Equipos_Complejos_modelo
+        LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
         WHERE
         ec.modelo=#{Eq_Modelo}
     </select>
     
     <select id='loadModelo' parameterType='map' resultMap='ModeloResult'>
         select mo.vida_util as vida_util, mo.fotografia as fotografia, mo.valor_comercial as valor_comercial,
-        mo.clase as clase, mo.descripcion as descripcion, mo.accesorios as accesorios,
+        mo.clase as clase, mo.descripcion as descripcion, mo.marca as marca, mo.accesorios as accesorios,
         mo.nombre as nombre from Modelos as mo where mo.nombre=#{Modelo}
     </select>
 
@@ -185,10 +193,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id='loadOrdenCompraBySerial' parameterType='map' resultType='OrdenCompraResult'>
         SELECT 
-            proveedor, fecha_compra, fecha_garantia 
+            ord.proveedor, ord.fecha_compra, ord.fecha_garantia 
         FROM 
-            Informacion_Compra 
+            Informacion_Compra AS ord 
         WHERE 
-            Equipos_Complejos_Serial=#{serial}
+            ord.Equipos_Complejos_Serial=#{serial}
     </select>
 </mapper>
