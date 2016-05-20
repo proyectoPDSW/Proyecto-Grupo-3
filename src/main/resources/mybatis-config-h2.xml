@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type='edu.eci.pdsw.entities.EquipoComplejo' alias='EquipoComplejo'/>
 		<typeAlias type='edu.eci.pdsw.entities.EquipoSencillo' alias='EquipoSencillo'/>
 		<typeAlias type='edu.eci.pdsw.entities.Modelo' alias='Modelo'/>
+                <typeAlias type='edu.eci.pdsw.entities.OrdenCompra' alias='OrdenCompra'/>
 		<typeAlias type='edu.eci.pdsw.entities.Persona' alias='Persona'/>
 		<typeAlias type='edu.eci.pdsw.entities.Prestamo' alias='Prestamo'/>
 		<typeAlias type='edu.eci.pdsw.entities.PrestamoIndefinido' alias='PrestamoIndefinido'/>

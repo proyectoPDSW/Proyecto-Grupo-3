@@ -7,6 +7,7 @@ package edu.eci.pdsw.persistence.mybatis.mappers;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.entities.OrdenCompra;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -110,4 +111,11 @@ public interface EquipoComplejoMapper {
      * @return una lista que contiene los modelos que contienen una cadena
      */
     public List<String> loadModelosAproximados(@Param("Aproximado") String toSearch);
+    
+    /**
+     * Cargar la orden de compra de un equipo complejo dado su serial
+     *@param serial, el serial del equipo complejo 
+     *@return la orden de compra del equipo complejo
+     */
+    public OrdenCompra loadOrddenCompraBySerial(@Param("serial") String serial);
 }

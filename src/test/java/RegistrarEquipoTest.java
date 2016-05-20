@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import edu.eci.pdsw.entities.DatosGenerales;
+import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.EquipoSencillo;
@@ -66,7 +66,7 @@ public class RegistrarEquipoTest {
         Modelo mod = new Modelo(100000,"Destornillador de astrella","udfyzsiudfyziduvz","Destornillador",5000);
         reg.save(mod);
         daof.commitTransaction();
-        DatosGenerales dg=new DatosGenerales("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
+        OrdenCompra dg=new OrdenCompra("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg);
         ec.setEstado("hola");
         reg.save(ec);
@@ -80,7 +80,7 @@ public class RegistrarEquipoTest {
     @Test
     public void CE2() throws PersistenceException, EquipoException{
         Modelo mod = new Modelo(100000,"Destornillador de strella",null,"Destornillador",5000);
-        DatosGenerales dg=new DatosGenerales("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
+        OrdenCompra dg=new OrdenCompra("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","ssaa","123456",dg);
         DAOFactory daof = null;
         try{
@@ -159,7 +159,7 @@ public class RegistrarEquipoTest {
         reg.save(mod);
         daof.commitTransaction();
         Modelo test=reg.loadModelo(mod.getNombre());
-        DatosGenerales dg=new DatosGenerales("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
+        OrdenCompra dg=new OrdenCompra("Destornillador de astrella","shdasdh564","ssaa",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",5000,23);
         EquipoComplejo ec=new EquipoComplejo(test,"marca","serial","123456",dg);
         reg.save(ec);
         daof.commitTransaction();

@@ -5,7 +5,7 @@
  */
 package edu.eci.pdsw.managedbeans;
 
-import edu.eci.pdsw.entities.DatosGenerales;
+import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.Modelo;
@@ -53,7 +53,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     private String serial;
     private String placa;
     private String marca;
-    private DatosGenerales ordenCompra;
+    private OrdenCompra ordenCompra;
 
     private String aseguradoEquipo = "";
     private String disponibilidadEquipo = "";

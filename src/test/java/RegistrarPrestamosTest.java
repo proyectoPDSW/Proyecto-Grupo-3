@@ -1,6 +1,6 @@
 
 
-import edu.eci.pdsw.entities.DatosGenerales;
+import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoException;
 import edu.eci.pdsw.entities.EquipoSencillo;
@@ -85,7 +85,7 @@ public class RegistrarPrestamosTest {
         Modelo mod=new Modelo(400,"nombre","foto","clase",50000);
         dec.save(mod);
         daof.commitTransaction();
-        DatosGenerales dg=new DatosGenerales("nombre","marca","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",50000,3);
+        OrdenCompra dg=new OrdenCompra("nombre","marca","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",50000,3);
         EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg);
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
@@ -160,7 +160,7 @@ public class RegistrarPrestamosTest {
         Modelo mod=new Modelo(400,"nombre","foto","clase",50000);
         dec.save(mod);
         daof.commitTransaction();
-        DatosGenerales dg=new DatosGenerales("nombre","marca","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",50000,3);
+        OrdenCompra dg=new OrdenCompra("nombre","marca","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",50000,3);
         EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","123456",dg);
         ec.setEstado(EquipoComplejo.diario);
         dec.save(ec);
@@ -211,7 +211,7 @@ public class RegistrarPrestamosTest {
         Modelo mod=new Modelo(400,"nombre","foto","clase",5000);
         dec.save(mod);
         daof.commitTransaction();
-        DatosGenerales dg=new DatosGenerales("nombre","marca","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",50000,3);
+        OrdenCompra dg=new OrdenCompra("nombre","marca","serial",Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi",50000,3);
         EquipoComplejo ec=new EquipoComplejo(mod,"marca","serial","54351",dg);
         ec.setEstado(EquipoComplejo.indefinido);
         dec.save(ec);

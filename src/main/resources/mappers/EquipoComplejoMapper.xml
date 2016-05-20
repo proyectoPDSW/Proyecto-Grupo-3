@@ -23,6 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='descripcion' column='descripcion'/>
         <result property='accesorios' column='accesorios'/>
     </resultMap>
+    
+    <resultMap type='OrdenCompra' id='OrdenCompraResult'>
+        <result property='proveedor' column='proveedor'></result>
+        <result property='adquisicion' column='fecha_compra'></result>
+        <result property='garantia' column='fecha_garantia'></result>    
+    </resultMap>
 
     <insert id='insertEquipo' parameterType='map'>
         insert into Equipos_Complejos (serial,num_placa,disponibilidad,estado,modelo,asegurado,marca) values(#{EqComplejo.serial},#{EqComplejo.placa},#{EqComplejo.disponibilidad},
@@ -107,5 +113,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id='loadModelosAproximados' parameterType='map' resultType="string">
         select mo.nombre from Modelos as mo where mo.nombre like '%'||#{Aproximado}||'%'
+    </select>
+    
+    <select id='loadOrdenCompraBySerial' parameterType='map' resultType='OrdenCompraResult'>
+        SELECT 
+            proveedor, fecha_compra, fecha_garantia 
+        FROM 
+            Informacion_Compra 
+        WHERE 
+            Equipos_Complejos_Serial=#{serial}
     </select>
 </mapper>

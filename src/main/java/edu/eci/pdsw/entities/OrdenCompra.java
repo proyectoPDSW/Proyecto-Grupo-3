@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author german
  */
-public class DatosGenerales implements Comparable<DatosGenerales>{
+public class OrdenCompra implements Comparable<OrdenCompra>{
     private String nombre="";
     private String marca="";
     private String serial="";
@@ -28,10 +28,10 @@ public class DatosGenerales implements Comparable<DatosGenerales>{
     private int ordenC=0;
     private boolean asegurado;
     
-    public DatosGenerales(){
+    public OrdenCompra(){
     }
     
-    public DatosGenerales(String nom,String mar,String ser,Timestamp adqu,Timestamp garan,String provee,int val,int orden) throws EquipoException{
+    public OrdenCompra(String nom,String mar,String ser,Timestamp adqu,Timestamp garan,String provee,int val,int orden) throws EquipoException{
         if(nom.length()==0) throw new EquipoException("Favor colocar un nombre adecuado al equipo");
         if(mar.length()==0) throw new EquipoException("Favor colocar una marca adecuada al equipo");
         if(ser.length()==0) throw new EquipoException("Favor colocar un serial adecuado al equipo");
@@ -48,7 +48,7 @@ public class DatosGenerales implements Comparable<DatosGenerales>{
         this.ordenC=orden;
     }
     
-    public DatosGenerales(String nom,String mar,String ser,String est,String ref,List<EquipoSencillo> acc,String desc,Timestamp adqu,Timestamp garan,String provee,int va,String cat,int orden,boolean ase){
+    public OrdenCompra(String nom,String mar,String ser,String est,String ref,List<EquipoSencillo> acc,String desc,Timestamp adqu,Timestamp garan,String provee,int va,String cat,int orden,boolean ase){
         this.nombre=nom;
         this.marca=mar;
         this.serial=ser;
@@ -66,7 +66,7 @@ public class DatosGenerales implements Comparable<DatosGenerales>{
     }
     //Por implementar 
     @Override
-    public int compareTo(DatosGenerales o) {
+    public int compareTo(OrdenCompra o) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

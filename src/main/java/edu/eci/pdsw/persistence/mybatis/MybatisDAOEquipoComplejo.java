@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper;
@@ -100,12 +101,6 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
         return eMap.loadModelo(nombre);
     }
 
-    //SOBRARIA!!!!!!
-    @Override
-    public void reemplazar(EquipoComplejo old, EquipoComplejo novo) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public ArrayList<EquipoComplejo> loadAll() throws PersistenceException {
         return eMap.loadAll();
@@ -127,20 +122,23 @@ public class MybatisDAOEquipoComplejo implements DAOEquipoComplejo {
     @Override
     public List<String> loadModelosAproximados(String toSearch) {
         toSearch = toSearch.trim().toLowerCase();
-        /*ArrayList<Modelo> tmp=eMap.loadModelosAproximados(toSearch);
-        ArrayList<String> ans=new ArrayList<>();
-        for (Modelo m:tmp){
-            ans.add(m.getNombre());
-        }*/
         return eMap.loadModelosAproximados(toSearch);
     }
 
     @Override
     public ArrayList<EquipoComplejo> loadEnAlmacenByModelo(String modelo) throws PersistenceException {
-        if (eMap.loadEnAlmacenByModelo(modelo) == null) {
+        ArrayList<EquipoComplejo> modelos=eMap.loadEnAlmacenByModelo(modelo);
+        if (modelos == null) {
             throw new PersistenceException("El modelo " + modelo + " no esta registrado");
         }
-        return eMap.loadEnAlmacenByModelo(modelo);
+        return modelos;
     }
 
+    @Override
+    public OrdenCompra loadOrdenCompraBySerial(String serial) throws PersistenceException {
+        if(serial==null || serial.length()==0) throw new PersistenceException("No se ha encontrado equipos registrados con ese serial");
+        OrdenCompra orden=eMap.loadOrddenCompraBySerial(serial);
+        if (orden==null) throw new PersistenceException("El equipo no tiene orden de compra");
+        return orden;
+    }
 }

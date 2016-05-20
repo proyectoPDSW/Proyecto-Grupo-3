@@ -10,6 +10,9 @@ package edu.eci.pdsw.persistence;
  * @author David Useche
  */
 public class PersistenceException extends Exception {
+    
+    public final String EQUIPO_SIN_ORDEN_COMPRA="El equipo no tiene orden de compra";
+    public final String NO_EXISTE_EQUIPO="No existe un equipo registrado con ese serial";
 
     public PersistenceException(String message) {
         super(message);

@@ -8,6 +8,7 @@ package edu.eci.pdsw.persistence;
 import java.util.ArrayList;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
+import edu.eci.pdsw.entities.OrdenCompra;
 import java.util.List;
 
 /**
@@ -52,15 +53,6 @@ public interface DAOEquipoComplejo {
      * @throws PersistenceException si el equipo no existe
      */
     public void update(EquipoComplejo toUpdate) throws PersistenceException;
-
-    /**
-     * Reemplaza un equipo por otro en la base de datos
-     *
-     * @param old el equipo a reemplazar
-     * @param novo el equipo que lo reemplaza
-     * @throws PersistenceException si el equipo a reemplazar no existe
-     */
-    public void reemplazar(EquipoComplejo old, EquipoComplejo novo) throws PersistenceException;
 
     /**
      * Carga todos los equipos complejos de la base de datos
@@ -121,5 +113,14 @@ public interface DAOEquipoComplejo {
      * @return una lista que contiene los modelos que contienen una cadena
      */
     public List<String> loadModelosAproximados(String toSearch);
-
+    
+    /**
+     * Carga la orden de compra del equipo complejo por serial
+     *
+     * @param serial la cadena a buscar
+     * @return la orden de compra del equipo
+     */
+    
+    public OrdenCompra loadOrdenCompraBySerial(String serial) throws PersistenceException;
+    
 }
