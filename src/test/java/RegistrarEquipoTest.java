@@ -98,7 +98,7 @@ public class RegistrarEquipoTest {
         daof.endSession();
         Assert.fail("Registro dos veces el mismo equipo");
         }catch(IOException | PersistenceException e){
-            Assert.assertEquals(e.getMessage(),"El equipo con placa "+ec.getPlaca()+" ya esta registrado");
+            Assert.assertEquals(e.getMessage(),"El equipo con placa "+ec.getPlaca()+" ya está registrado");
         }finally{
             daof.endSession();
         }
@@ -160,13 +160,13 @@ public class RegistrarEquipoTest {
         daof.commitTransaction();
         Modelo test=reg.loadModelo(mod.getNombre());
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
-        EquipoComplejo ec=new EquipoComplejo(test,"marca","123456",dg,0);
+        EquipoComplejo ec=new EquipoComplejo(test,"serial","123456",dg,0);
         reg.save(ec);
         daof.commitTransaction();
         ArrayList<EquipoComplejo> prueba=reg.loadByModelo(mod.getNombre());
         daof.commitTransaction();
         daof.endSession();
-        Assert.assertEquals("no registra el modelo del equipo",ec, prueba.get(0));
+        Assert.assertEquals("no registra el modelo del equipo",ec.getModelo_Eq(), prueba.get(0).getModelo_Eq());
      }
 }
     

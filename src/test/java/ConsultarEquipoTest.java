@@ -58,7 +58,7 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(4, "Modelo de prueba","Marca taX", null, "Clase x", 100000);
+        Modelo model = new Modelo(4, "Modelo de prueba","Marca taX", "foto", "Clase x", 100000);
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo aConsultar = new EquipoComplejo(model, "AC3X","734829",dg,0);
         aConsultar.setPlaca("2");
@@ -81,7 +81,7 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(5, "Modelo de prueba","Marca op", null, "Clase x", 100000);
+        Modelo model = new Modelo(5, "Modelo de prueba","Marca op", "foto", "Clase x", 100000);
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         OrdenCompra dg2=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"LOL");
         EquipoComplejo aConsultar = new EquipoComplejo(model,"AC3X","38294",dg,0);
@@ -108,7 +108,7 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(6, "Modelo de prueba","Marca tu", null, "Clase x", 100000);
+        Modelo model = new Modelo(6, "Modelo de prueba","Marca tu", "foto", "Clase x", 100000);
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         EquipoComplejo aConsultar = new EquipoComplejo(model,"AC3X","189",dg,0);
         aConsultar.setEstado("En prueba");
@@ -128,7 +128,7 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(7, "Modelo de prueba","Toshiba", null, "Clase x", 100000);
+        Modelo model = new Modelo(7, "Modelo de prueba","Toshiba", "foto", "Clase x", 100000);
         //dec.save(model);
         //daof.commitTransaction();
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
@@ -169,9 +169,9 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo des=daof.getDaoEquipoComplejo();
-        Modelo model1=new Modelo(6, "Modelo de prueba","Lenovo", null, "Clase x", 100000);
-        Modelo model2=new Modelo(6, "Modelo de prueba2","Dell", null, "Clase y", 100000);
-        Modelo model3=new Modelo(6, "Nada que ver", "Rt",null, "Clase z", 100000);
+        Modelo model1=new Modelo(6, "Modelo de prueba","Lenovo", "foto", "Clase x", 100000);
+        Modelo model2=new Modelo(6, "Modelo de prueba2","Dell", "foto", "Clase y", 100000);
+        Modelo model3=new Modelo(6, "Nada que ver", "Rt","foto", "Clase z", 100000);
         des.saveModelo(model1);
         des.saveModelo(model2);
         des.saveModelo(model3);
@@ -196,7 +196,7 @@ public class ConsultarEquipoTest {
         DAOFactory daof = DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
-        Modelo model = new Modelo(4, "Modelo de prueba","Toshiba" ,null, "Clase x", 100000);
+        Modelo model = new Modelo(4, "Modelo de prueba","Toshiba" ,"foto", "Clase x", 100000);
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         OrdenCompra dg2=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
         OrdenCompra dg3=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");

@@ -54,6 +54,7 @@ public class Modelo {
         clase = clas;
         valorComercial = valor;
         fotografia = foto;
+        marca=mar;
     }
 
     /**
@@ -69,7 +70,7 @@ public class Modelo {
      * @param accesorios
      * @throws EquipoException 
      */
-    public Modelo(int vidaUtil, String nombre,String marca,String clase, long valorComercial, String fotografia, String descripcion, String accesorios) throws EquipoException{
+    public Modelo(int vidaUtil, String nombre,String mar,String clase, long valorComercial, String foto, String descripcion, String accesorios) throws EquipoException{
         if (vidaUtil <= 0) {
             throw new EquipoException(EquipoException.MODELO_VIDA_UTIL_INADECUADA);
         }
@@ -89,9 +90,10 @@ public class Modelo {
         this.nombre = nombre.trim().toLowerCase();
         this.clase = clase;
         this.valorComercial = valorComercial;
-        this.fotografia = fotografia;
+        this.fotografia = foto;
         this.descripcion = descripcion;
         this.accesorios = accesorios;
+        this.marca=mar;
     }
 
     public Modelo() {
@@ -238,7 +240,7 @@ public class Modelo {
      */
     @Override
     public String toString() {
-        String res = "Modelo:[" + vidaUtil + "," + nombre + "," + clase + "," +getMarca()+","+ valorComercial + "]\n";
+        String res = "Modelo:[" + vidaUtil + "," + nombre + "," + clase + "," + marca +","+ valorComercial + "]\n";
         return res;
     }
     
