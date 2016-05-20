@@ -6,11 +6,11 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <br></br><b><title>Registro Equipo Complejo</title></b>
+        <br></br><b><title>Registro Equipo </title></b>
     </h:head>
     <h:body>
         <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
-        <center><b><h1>Registro Equipos Complejos</h1></b></center>
+        <center><b><h1>Registro Equipos</h1></b></center>
         
         <h:form id="formularioEquipoComplejo">
 
@@ -142,7 +142,7 @@
                 </p:ajaxStatus>
                 <br/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipoModelo()}" update=":registro" icon="ui-icon-plusthick"/>
             </p:panel> 
-            <p:panel header="Registro equipo complejo" rendered="#{RegistroEquiposComplejos.showPanelRegistroExitoso()}">
+            <p:panel header="Registro equipo " rendered="#{RegistroEquiposComplejos.showPanelRegistroExitoso()}">
                 <p:panelGrid columns="2" >
                     <p:panel header="Información Modelo">
                         <p:panelGrid id="modeloconsultadoRE" style="margin-bottom:20px"  columns="2" >
