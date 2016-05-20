@@ -108,4 +108,11 @@ public abstract class ServiciosPrestamo {
      * @return la fecha actual
      */
     public abstract Timestamp currDate();
+    
+    /**
+     * Actualiza un prestamo
+     * @param p
+     * @throws ExcepcionServicios 
+     */
+    public abstract void actualizarPrestamo(Prestamo p) throws ExcepcionServicios;
 }

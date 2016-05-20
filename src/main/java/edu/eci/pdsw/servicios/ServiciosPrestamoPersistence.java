@@ -130,6 +130,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             daoF.beginSession();
             basePaciente = daoF.getDaoPrestamo();
             if(pres==null) throw new ExcepcionServicios("El prestamo no puede ser nulo");
+            /*
             Set<EquipoComplejo> equiposC = new HashSet<>(pres.getEquiposComplejosPrestados());
             Set<EquipoSencillo> equiposS = new HashSet<>(pres.getEquiposSencillosPrestados());
             boolean fp = true;
@@ -168,9 +169,10 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                 Prestamo guardar = new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(), null, equiposS, Prestamo.calcularFechaEstimada(EquipoComplejo.p24h), EquipoComplejo.p24h);
                 basePaciente.save(guardar);
                 Thread.sleep(1000);
-            }
+            }*/
+            basePaciente.save(pres);
             daoF.commitTransaction();
-        } catch (PersistenceException | InterruptedException e) {
+        } catch (PersistenceException e) {
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
         } finally {
@@ -320,6 +322,20 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         }finally{
             daoF.endSession();
         }
+    }
+
+    @Override
+    public void actualizarPrestamo(Prestamo p) throws ExcepcionServicios {
+        try{
+            daoF.beginSession();
+            basePaciente= daoF.getDaoPrestamo();
+            basePaciente.update(p);
+        }catch(PersistenceException ex){
+            throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
+        }finally{
+            daoF.endSession();
+        }
+        
     }
 
 }

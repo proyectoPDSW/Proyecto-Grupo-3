@@ -362,4 +362,21 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         }
         return fecha;
     }
+    
+    /**
+     * Revisa si un prestamo esta activo o ya se cumlpio
+     * @return true si esta activo de lo contrario false
+     */
+    public boolean prestamoActivo(){
+        boolean res=false;
+        if(fechaEstimadaDeEntrega==null){
+            res=true;
+        }
+        else if(fechaEstimadaDeEntrega.compareTo(currDate())<0){
+            res=true;
+        } else {
+            res=false;
+        }
+        return res;
+    }
 }

@@ -253,7 +253,26 @@ public class RegistroPrestamoManageBean implements Serializable {
             if (fechaTipoPrestamo == null || fechaTipoPrestamo.length() <= 0) {
                 facesError("Debe seleccionar un tipo de prestamo para poder continuar");
             }
-            PRESTAMO.registrarPrestamo(prestamo);
+            if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getNombre()).isEmpty()){
+                PRESTAMO.registrarPrestamo(prestamo);
+            }else{
+                List<Prestamo> prestados=PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getNombre());
+                boolean ban=true;
+                for(int i=0;i<prestados.size() && ban==true;i++){
+                    if(prestados.get(i).prestamoActivo()){
+                        for(EquipoComplejo ec:equiposComplejosPrestados){
+                            prestados.get(i).getEquiposComplejosPrestados().add(ec);
+                        }
+                        for(EquipoSencillo es:equiposSencillosPrestados){
+                            prestados.get(i).getEquiposSencillosPrestados().add(es);
+                        }
+                        PRESTAMO.actualizarPrestamo(prestados.get(i));
+                        ban=false;
+                    }
+                }if(ban){
+                    PRESTAMO.registrarPrestamo(prestamo);
+                }
+            }  
             facesInfo("El prestamo ha sido registrado satisfactoriamente");
             showPanelRegistro = false;
             showPanelRegistrado = true;
