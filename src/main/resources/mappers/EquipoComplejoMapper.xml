@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id='insertOrdenCompra' parameterType='map'>
         INSERT INTO
             Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo)
-        VALUES (#{orden.Proveedor},#{orden.Adquisicion},#{orden.Garantia},#{serial},#{modelo.nombre})    
+        VALUES (#{orden.proveedor},#{orden.adquisicion},#{orden.garantia},#{serial},#{modelo.nombre})    
     </insert>
 
     <select id='loadDisponibles' parameterType='map' resultMap='EquipoComplejoResult'>
@@ -108,7 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ord.fecha_garantia AS  ord_fecha_garantia       
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
-        LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord_Equipos_Complejos_modelo
+        LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
         WHERE ec.serial=#{Eq_Serial} AND mo.nombre=#{Modelo_Equipo}
     </select>
 
