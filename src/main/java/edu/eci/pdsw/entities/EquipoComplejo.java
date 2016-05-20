@@ -43,7 +43,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (ser.length() <= 0) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         }
-        if (placa.length()==0) {
+        if (plac.length()==0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }
         if (dg == null) {
