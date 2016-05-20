@@ -283,6 +283,12 @@ public class RegistroPrestamoManageBean implements Serializable {
                 }
                 PRESTAMO.registrarPrestamo(prestamo);
             }else{
+                for(EquipoComplejo ec: equiposComplejosPrestados){
+                    prestamoAgregarle.getEquiposComplejosPrestados().add(ec);
+                }
+                for(EquipoSencillo es: equiposSencillosPrestados){
+                    prestamoAgregarle.getEquiposSencillosPrestados().add(es);
+                }
                 PRESTAMO.actualizarPrestamo(prestamoAgregarle);
             }  
             facesInfo("El prestamo ha sido registrado satisfactoriamente");
