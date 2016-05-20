@@ -57,6 +57,7 @@ public class RegistrarPrestamosTest {
     public void clearDB() throws SQLException {
         Connection conn = DriverManager.getConnection("jdbc:h2:file:./target/db/testdb2;MODE=MYSQL", "anonymous", "");
         Statement stmt = conn.createStatement();
+        stmt.execute("delete from Informacion_Compra");
         stmt.execute("delete from Equipo_prestamo_complejo");
         stmt.execute("delete from Equipo_prestamo_sencillo");
         stmt.execute("delete from Equipos_Complejos");
