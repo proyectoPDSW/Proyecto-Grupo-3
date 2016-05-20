@@ -30,12 +30,12 @@ public class FichaEquipoManagedBean {
         if(getPlacaAConsultar()!=null && getPlacaAConsultar().length()>0){
 
             try {
-                consultado= SEC.consultarPorPlaca(getPlacaAConsultar());
+                setConsultado(SEC.consultarPorPlaca(getPlacaAConsultar()));
             } catch (ExcepcionServicios ex) {
                 facesError(ex.getMessage());
             }
-            if(consultado!=null)
-                consulto=true;
+            if(getConsultado()!=null)
+                setConsulto(true);
         }else{
             facesError("Por favor coloque una placa para consultar");
         }
@@ -89,6 +89,34 @@ public class FichaEquipoManagedBean {
      */
     public void setPlacaAConsultar(String placaAConsultar) {
         this.placaAConsultar = placaAConsultar;
+    }
+
+    /**
+     * @return the consulto
+     */
+    public boolean isConsulto() {
+        return consulto;
+    }
+
+    /**
+     * @param consulto the consulto to set
+     */
+    public void setConsulto(boolean consulto) {
+        this.consulto = consulto;
+    }
+
+    /**
+     * @return the consultado
+     */
+    public EquipoComplejo getConsultado() {
+        return consultado;
+    }
+
+    /**
+     * @param consultado the consultado to set
+     */
+    public void setConsultado(EquipoComplejo consultado) {
+        this.consultado = consultado;
     }
 
 

@@ -16,7 +16,7 @@ and open the template in the editor.
         <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
         <center><b><h1>Ficha de Equipo</h1></b></center>
         <h:form id="consultaEquipoForm">
-            <p:panel id="consultarEquipo" header="Consultar Equipo"style="margin-bottom:10px" >
+            <p:panel id="consultarEquipo" header="Consultar Equipo" style="margin-bottom:10px" >
                 <p:outputLabel value="Placa del equipo: "/>
                 <p:inputText value="#{FichaEquipo.placaAConsultar}"/>
                 <p:commandButton value="Consultar Equipo" actionListener="#{FichaEquipo.consultarEquipoByPlaca()}" update="FichaEquipoForm"/>
@@ -27,7 +27,36 @@ and open the template in the editor.
                 </p:ajaxStatus>
             </p:panel>
         </h:form>
-        <h:form id="FichaEquipoForm">
+        <h:form id="FichaEquipoForm" rendered="#{FichaEquipo.consulto}">
+            <p:panelGrid style="margin-top:20px">
+                <p:column >
+                    <p:graphicImage url="../resource/Logo_Escuela.jpg"/>
+                </p:column>
+                <p:column colspan="2" >
+                    <p:outputLabel style="font-weight: bold;" value="LABORATORIO ELECTRÓNICA"/>
+                </p:column>
+                <p:column colspan="2" >
+                    <p:outputLabel value="Ubicacion: Almacén de electrónica"/>
+                </p:column>
+            </p:panelGrid>
+            <p:panelGrid columns="2" >
+                <p:outputLabel value="Nombre: "/>
+                <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.nombre}"/>
+                
+                <p:outputLabel value="Marca: #{FichaEquipo.consultado.marca}"/>
+                <p:outputLabel value="Serial: #{FichaEquipo.consultado.serial}"/>
+                
+                <p:outputLabel value="Referencia Interna Lab: #{FichaEquipo.consultado.placa}"/>
+                <p:outputLabel value="Estado: Activo" rendered="#{FichaEquipo.consultado.disponibilidad}" />
+                <p:outputLabel value="Estado: Inactivo" rendered="#{!FichaEquipo.consultado.disponibilidad}" />
+                
+                <p:outputLabel value="Accesorios: "/>
+                <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.accesorios}"/>
+                
+                <p:outputLabel value="Descripción del equipo: "/>
+                <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.descripcion}"/>
+            </p:panelGrid>
+            
         </h:form>
     </body>
 </html>
