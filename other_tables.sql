@@ -42,7 +42,6 @@ CREATE TABLE Equipos_Complejos (
     estado varchar(50)   NOT NULL,
     modelo varchar(50)   NOT NULL,
     asegurado bool NOT NULL,
-    marca varchar(30)   NOT NULL,
     vida_restante int NOT NULL,
     UNIQUE INDEX Equipos_Complejos_ak_1 (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (serial,modelo)
@@ -79,6 +78,7 @@ CREATE TABLE Modelos (
     descripcion varchar(200)   NOT NULL,
     accesorios varchar(300)   NOT NULL,
     nombre varchar(100)   NOT NULL,
+    marca varchar(30)   NOT NULL,
     CONSTRAINT Modelos_pk PRIMARY KEY (nombre)
 )ENGINE=InnoDB  ;
 
