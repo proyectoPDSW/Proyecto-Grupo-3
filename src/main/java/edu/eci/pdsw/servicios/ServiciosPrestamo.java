@@ -18,10 +18,10 @@ import java.util.List;
  */
 public abstract class ServiciosPrestamo {
     
-    private static final ServiciosPrestamo instance=new ServiciosPrestamoPersistence();
+    private static final ServiciosPrestamo INSTANCE=new ServiciosPrestamoPersistence();
 
     public static ServiciosPrestamo getInstance() throws RuntimeException{        
-        return instance;
+        return INSTANCE;
     }
     
     /**
@@ -36,6 +36,7 @@ public abstract class ServiciosPrestamo {
      * @param persona que devuelve el equipo
      * @param equipo que se devuelve
      * @param cantidad devuelta
+     * @throws ExcepcionServicios si se devuelven demasiados objetos, la persona no existe o no tiene prestamos de ese equipo pendientes
      */
     public abstract void registarDevolucion(String persona,String equipo,int cantidad)throws ExcepcionServicios;
     /**
@@ -70,13 +71,15 @@ public abstract class ServiciosPrestamo {
     /**
      * Consulta todos los prestamos
      * @return todos los prestamos registrados
+     * @throws ExcepcionServicios si hay un error en DAO
      */
-    public abstract List<Prestamo> consultarTodos();
+    public abstract List<Prestamo> consultarTodos()throws ExcepcionServicios;
     
     /**
      * Consulta todos los prestamos
      * @param p, prestamo a revisar
      * @return el prestamo registrado
+     * @throws ExcepcionServicios si el prestamo no existe
      */
     public abstract Prestamo consultarPrestamosPrestamo(Prestamo p) throws ExcepcionServicios;
     
@@ -84,6 +87,7 @@ public abstract class ServiciosPrestamo {
      *Consultar una persona por su carne 
      * @param carne de la persona consultada
      * @return La persona
+     * @throws ExcepcionServicios si la persona no existe
      */
     public abstract Persona personaCarne(String carne) throws ExcepcionServicios;
     
