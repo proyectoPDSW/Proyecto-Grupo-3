@@ -17,9 +17,10 @@ and open the template in the editor.
         <center><b><h1>Ficha de Equipo</h1></b></center>
         <h:form id="consultaEquipoForm">
             <p:panel id="consultarEquipo" header="Consultar Equipo" style="margin-bottom:10px" >
-                <p:outputLabel value="Placa del equipo: "/>
+                <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
+                <br/><p:outputLabel value="Placa del equipo: "/>
                 <p:inputText value="#{FichaEquipo.placaAConsultar}"/>
-                <p:commandButton value="Consultar Equipo" actionListener="#{FichaEquipo.consultarEquipoByPlaca()}" update="FichaEquipoForm"/>
+                <p:commandButton value="Consultar Equipo" actionListener="#{FichaEquipo.ConsultarEquipoByPlaca()}" update=":FichaEquipoForm"/>
                 <br/><p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
                     <f:facet name="start">
                         <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
@@ -27,36 +28,127 @@ and open the template in the editor.
                 </p:ajaxStatus>
             </p:panel>
         </h:form>
-        <h:form id="FichaEquipoForm" rendered="#{FichaEquipo.consulto}">
-            <p:panelGrid style="margin-top:20px">
-                <p:column >
-                    <p:graphicImage url="../resource/Logo_Escuela.jpg"/>
-                </p:column>
-                <p:column colspan="2" >
-                    <p:outputLabel style="font-weight: bold;" value="LABORATORIO ELECTRÓNICA"/>
-                </p:column>
-                <p:column colspan="2" >
-                    <p:outputLabel value="Ubicacion: Almacén de electrónica"/>
-                </p:column>
-            </p:panelGrid>
-            <p:panelGrid columns="2" >
-                <p:outputLabel value="Nombre: "/>
-                <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.nombre}"/>
-                
-                <p:outputLabel value="Marca: #{FichaEquipo.consultado.marca}"/>
-                <p:outputLabel value="Serial: #{FichaEquipo.consultado.serial}"/>
-                
-                <p:outputLabel value="Referencia Interna Lab: #{FichaEquipo.consultado.placa}"/>
-                <p:outputLabel value="Estado: Activo" rendered="#{FichaEquipo.consultado.disponibilidad}" />
-                <p:outputLabel value="Estado: Inactivo" rendered="#{!FichaEquipo.consultado.disponibilidad}" />
-                
-                <p:outputLabel value="Accesorios: "/>
-                <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.accesorios}"/>
-                
-                <p:outputLabel value="Descripción del equipo: "/>
-                <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.descripcion}"/>
-            </p:panelGrid>
+        <h:form id="FichaEquipoForm" >
             
+            <p:panel id="panelFicha" rendered="#{FichaEquipo.consulto}">
+                <p:panelGrid >
+                    <!--p:graphicImage url="../resource/Logo_Escuela.jpg"/>
+                    <p:outputLabel style="font-weight: bold;" value="LABORATORIO ELECTRÓNICA"/>
+                    
+                    <p:outputLabel/>
+                    <p:outputLabel value="Ubicacion: Almacén de electrónica"/-->
+                    <p:row>
+                        <p:column rowspan="2">
+                            <p:graphicImage url="../resource/Logo_Escuela.jpg"/>
+                        </p:column>
+                        <p:column >
+                            <p:outputLabel style="font-weight: bold;" value="LABORATORIO ELECTRÓNICA"/>
+                        </p:column>
+                    </p:row>
+                    <p:row >
+                        <!--p:column/-->
+                        <p:column>
+                            <p:outputLabel value="Ubicacion: Almacén de electrónica"/>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row>
+                        <p:column>
+                            <p:outputLabel value="Nombre: "/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.nombre}"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row >
+                        <p:column>
+                            <p:outputLabel value="Marca: #{FichaEquipo.consultado.modelo_Eq.marca}"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="Serial: #{FichaEquipo.consultado.serial}"/>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row >
+                        <p:column>
+                            <p:outputLabel value="Referencia Interna Lab: #{FichaEquipo.consultado.placa}"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="Estado: Activo" rendered="#{FichaEquipo.consultado.disponibilidad}" />
+                            <p:outputLabel value="Estado: Inactivo" rendered="#{!FichaEquipo.consultado.disponibilidad}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row >
+                        <p:column>
+                            <p:outputLabel value="Accesorios: "/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.accesorios}"/>
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row >
+                        <p:column>
+                            <p:outputLabel value="Descripción del equipo: "/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.descripcion}"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+                <p:dataTable tableStyle="width:auto" >
+                    <p:column headerText="Fecha Adquisición">
+                        <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.adquisicion}"/>
+                    </p:column>
+                    <p:column headerText="Fecha Límite Garantía">
+                        <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.garantia}"/>
+                    </p:column>
+                    <p:column headerText="Proveedor">
+                        <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.proveedor}"/>
+                    </p:column>
+                    <p:column headerText="Orden de Compra">
+                        <p:outputLabel value="y acá que?"/>
+                    </p:column>
+                    <p:column headerText="Valor">
+                        <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.valorComercial}">
+                            <f:convertNumber locale="es_CO" />
+                        </p:outputLabel><p:outputLabel value=" COP"/>
+                    </p:column>
+                </p:dataTable>
+                <p:dataTable tableStyle="width:auto" >
+                    <p:column headerText="Codigo de Activo">
+                        <p:outputLabel value="que es esta vaina?"/>
+                    </p:column>
+                    <p:column headerText="Asegurado">
+                        <p:outputLabel value="SI" rendered="#{FichaEquipo.consultado.asegurado}"/>
+                        <p:outputLabel value="NO" rendered="#{!FichaEquipo.consultado.asegurado}"/>
+                    </p:column>
+                    <p:column headerText="Categoría">
+                        <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.clase}"/>
+                    </p:column>
+                </p:dataTable>
+                <p:dataTable var="prestamo" value="#{FichaEquipo.consultarPrestamosEquipo()}" tableStyle="width:auto" >
+                    <f:facet name="header">
+                        Historial
+                    </f:facet>
+                    <p:column headerText="A quien se le ha prestado">
+                        <p:outputLabel value="#{prestamo.elQuePideElPrestamo.nombre} #{prestamo.elQuePideElPrestamo.apellido}"/>
+                    </p:column>
+                    <p:column headerText="Fecha de inicio del prestamo">
+                        <p:outputLabel value="#{prestamo.fechaInicio}"/>
+                    </p:column>
+                    <p:column headerText="Fecha de terminación del prestamo">
+                        <p:outputLabel value="#{prestamo.fechaEstimadaDeEntrega}"/>
+                    </p:column>
+                    <p:column headerText="Fecha devolución del prestamo">
+                        <p:outputLabel value="#{prestamo.fechaRealEntregada}" rendered="#{prestamo.fechaRealEntregada!=null}"/>
+                        <p:outputLabel value="No ha sido devuelto aún" rendered="#{prestamo.fechaRealEntregada==null}"/>
+                    </p:column>
+                    
+                </p:dataTable>
+            </p:panel>
         </h:form>
     </body>
 </html>

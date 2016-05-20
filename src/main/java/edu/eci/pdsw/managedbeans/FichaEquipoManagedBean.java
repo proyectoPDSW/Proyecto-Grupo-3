@@ -6,8 +6,13 @@
 package edu.eci.pdsw.managedbeans;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
+import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
+import edu.eci.pdsw.servicios.ServiciosPrestamo;
+import edu.eci.pdsw.servicios.ServiciosPrestamoPersistence;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -24,6 +29,7 @@ import javax.faces.context.FacesContext;
 public class FichaEquipoManagedBean {
     private String placaAConsultar;
     private ServiciosEquipoComplejo SEC=ServiciosEquipoComplejo.getInstance();
+    private ServiciosPrestamo SEP=ServiciosPrestamo.getInstance();
     private EquipoComplejo consultado;
     private boolean consulto;
     public void ConsultarEquipoByPlaca(){
@@ -36,11 +42,22 @@ public class FichaEquipoManagedBean {
             }
             if(getConsultado()!=null)
                 setConsulto(true);
+            else
+                facesError("La placa no corresponde a ningún equipo registrado");
         }else{
             facesError("Por favor coloque una placa para consultar");
         }
     }
     
+    public List<Prestamo> consultarPrestamosEquipo(){
+        List<Prestamo> lista=null;
+        try {
+            lista= SEP.consultarPrestamosEquipoComplejo(consultado);
+        } catch (ExcepcionServicios ex) {
+            Registro.anotar(ex);
+        }
+        return lista;
+    }
     /**
      * Muestra un mensaje de error en la vista
      *
