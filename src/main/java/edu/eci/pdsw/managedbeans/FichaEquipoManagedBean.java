@@ -34,7 +34,7 @@ public class FichaEquipoManagedBean {
     private boolean consulto;
     public void ConsultarEquipoByPlaca(){
         if(getPlacaAConsultar()!=null && getPlacaAConsultar().length()>0){
-
+            
             try {
                 setConsultado(SEC.consultarPorPlaca(getPlacaAConsultar()));
             } catch (ExcepcionServicios ex) {
