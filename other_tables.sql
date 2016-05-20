@@ -67,7 +67,7 @@ CREATE TABLE Informacion_Compra (
     fecha_garantia date NOT NULL,
     Equipos_Complejos_serial varchar(30)   NOT NULL,
     Equipos_Complejos_modelo varchar(50)   NOT NULL,
-    CONSTRAINT Informacion_Compra_pk PRIMARY KEY (id)
+    CONSTRAINT Informacion_Compra_pk PRIMARY KEY (Equipos_Complejos_serial,Equipos_Complejos_modelo)
 )ENGINE=InnoDB  ;
 
 -- Table: Modelos
