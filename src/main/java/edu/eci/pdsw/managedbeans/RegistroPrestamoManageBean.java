@@ -69,6 +69,8 @@ public class RegistroPrestamoManageBean implements Serializable {
     private boolean showPanelRegistrado = false;
     private boolean showPanelPersona = true;
     private boolean showPanelInfo = false;
+    private boolean showPanelOtroRegistro=false;
+    private boolean showPanelOtraInfo=false;
     private String selectEqSe;
 
     // Lista de equipo complejo para consultar los equipos prestamo termino fijo
@@ -87,6 +89,10 @@ public class RegistroPrestamoManageBean implements Serializable {
     private String laPersona;
     private String placa;
     private String eqcompl;
+    //Avisa si a la persona toca agregarle un prestamo o si se le pueden agregar equipos a uno activo que ya tiene
+    private boolean pres;
+    
+    private Prestamo prestamoAgregarle;
 
     public boolean showPanelInformacion() {
         return showPanelInfo;
@@ -130,8 +136,29 @@ public class RegistroPrestamoManageBean implements Serializable {
         try {
             registrarOtroPrestamo();
             elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
-            showPanelRegistro = true;
-            showPanelInfo = true;
+            if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getNombre()).isEmpty()){
+                pres=true;
+                showPanelRegistro = true;
+                showPanelInfo = true;
+            }else{
+                List<Prestamo> prestados=PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getNombre());
+                boolean ban=true;
+                for(int i=0;i<prestados.size() && ban==true;i++){
+                    if(prestados.get(i).prestamoActivo()){
+                        pres=false;
+                        prestamoAgregarle=prestados.get(i);
+                        ban=false;
+                    }
+                }
+                if(!ban){    
+                    showPanelOtroRegistro=true;
+                    showPanelOtraInfo=true;
+                }else{
+                    pres=true;
+                    showPanelRegistro = true;
+                    showPanelInfo = true;
+            }
+          }  
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             showPanelInfo = false;
@@ -250,28 +277,13 @@ public class RegistroPrestamoManageBean implements Serializable {
                     prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
                 }
             }
-            if (fechaTipoPrestamo == null || fechaTipoPrestamo.length() <= 0) {
-                facesError("Debe seleccionar un tipo de prestamo para poder continuar");
-            }
-            if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getNombre()).isEmpty()){
+            if(pres){
+               if(fechaTipoPrestamo == null || fechaTipoPrestamo.length() <= 0) {
+                 facesError("Debe seleccionar un tipo de prestamo para poder continuar");
+                }
                 PRESTAMO.registrarPrestamo(prestamo);
             }else{
-                List<Prestamo> prestados=PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getNombre());
-                boolean ban=true;
-                for(int i=0;i<prestados.size() && ban==true;i++){
-                    if(prestados.get(i).prestamoActivo()){
-                        for(EquipoComplejo ec:equiposComplejosPrestados){
-                            prestados.get(i).getEquiposComplejosPrestados().add(ec);
-                        }
-                        for(EquipoSencillo es:equiposSencillosPrestados){
-                            prestados.get(i).getEquiposSencillosPrestados().add(es);
-                        }
-                        PRESTAMO.actualizarPrestamo(prestados.get(i));
-                        ban=false;
-                    }
-                }if(ban){
-                    PRESTAMO.registrarPrestamo(prestamo);
-                }
+                PRESTAMO.actualizarPrestamo(prestamoAgregarle);
             }  
             facesInfo("El prestamo ha sido registrado satisfactoriamente");
             showPanelRegistro = false;
