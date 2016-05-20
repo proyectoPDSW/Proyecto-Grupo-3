@@ -75,8 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             mo.nombre AS  mo_nombre,
             ord.proveedor AS ord_proveedor, 
             ord.fecha_compra AS  ord_fecha_compra, 
-            ord.fecha_garantia AS  ord_fecha_garantia
-            ord.codigo_orden_compra AS ord_codigo_orden_compra
+            ord.fecha_garantia AS  ord_fecha_garantia,
+            ord.codigo_orden_compra AS ord_codigo_orden_compra,
             ord.codigo_activo AS ord_codigo_activo
         FROM Equipos_Complejos AS ec 
             LEFT JOIN Modelos AS  mo ON ec.modelo=mo.nombre 
@@ -96,8 +96,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia
-        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.fecha_garantia AS  ord_fecha_garantia,
+        ord.codigo_orden_compra AS ord_codigo_orden_compra,
         ord.codigo_activo AS ord_codigo_activo
         FROM Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
         LEFT JOIN 
@@ -113,8 +113,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia
-        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.fecha_garantia AS  ord_fecha_garantia,
+        ord.codigo_orden_compra AS ord_codigo_orden_compra,
         ord.codigo_activo AS ord_codigo_activo       
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
@@ -129,8 +129,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia
-        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.fecha_garantia AS  ord_fecha_garantia,
+        ord.codigo_orden_compra AS ord_codigo_orden_compra,
         ord.codigo_activo AS ord_codigo_activo  
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre 
@@ -146,8 +146,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia
-        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.fecha_garantia AS  ord_fecha_garantia,
+        ord.codigo_orden_compra AS ord_codigo_orden_compra,
         ord.codigo_activo AS ord_codigo_activo  
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre 
@@ -175,8 +175,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia
-        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.fecha_garantia AS  ord_fecha_garantia,
+        ord.codigo_orden_compra AS ord_codigo_orden_compra,
         ord.codigo_activo AS ord_codigo_activo 
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
@@ -190,8 +190,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia
-        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.fecha_garantia AS  ord_fecha_garantia,
+        ord.codigo_orden_compra AS ord_codigo_orden_compra,
         ord.codigo_activo AS ord_codigo_activo 
         FROM Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
         LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo

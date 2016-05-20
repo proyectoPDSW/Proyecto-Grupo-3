@@ -21,6 +21,7 @@ and open the template in the editor.
                 <br/><p:outputLabel value="Placa del equipo: "/>
                 <p:inputText value="#{FichaEquipo.placaAConsultar}"/>
                 <p:commandButton value="Consultar Equipo" actionListener="#{FichaEquipo.ConsultarEquipoByPlaca()}" update=":FichaEquipoForm" icon="ui-icon-search"/>
+                <p:messages id="messages1" autoUpdate="true" closable="true" />
                 <br/><p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
                     <f:facet name="start">
                         <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
@@ -114,7 +115,7 @@ and open the template in the editor.
                             <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.proveedor}"/>
                         </p:column>
                         <p:column >
-                            <p:outputLabel value="y acá que?"/>
+                            <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.codigo}"/>
                         </p:column>
                         <p:column >
                             <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.valorComercial}">
@@ -133,7 +134,7 @@ and open the template in the editor.
                     </f:facet>
                     <p:row>
                         <p:column >
-                            <p:outputLabel value="que es esta vaina?"/>
+                            <p:outputLabel value="#{FichaEquipo.consultado.ordenCompra.activo}"/>
                         </p:column>
                         <p:column >
                             <p:outputLabel value="SI" rendered="#{FichaEquipo.consultado.asegurado}"/>
