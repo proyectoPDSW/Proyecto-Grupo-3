@@ -50,6 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='estado' column='estado'/>
         <result property='asegurado' column='asegurado'/>
         <result property='marca' column='marca'/>
+        <result property='tiempoRestante' column='vida_restante'/>
         <collection property='modelo_Eq' resultMap='ModeloResult' columnPrefix='mo_'/>
         <collection property='ordenCompra_Eq' resultMap='OrdenCompra' columnPrefix='ord_'/>
     </resultMap>
@@ -98,6 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
+                Equipos_Complejos.vida_restante as vida_restante,
                 Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
@@ -148,6 +150,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
+                Equipos_Complejos.vida_restante as vida_restante,
                 Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
@@ -200,6 +203,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
+                Equipos_Complejos.vida_restante as vida_restante,
                 Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
@@ -253,6 +257,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
+                Equipos_Complejos.vida_restante as vida_restante,
                 Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
@@ -304,6 +309,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
+                Equipos_Complejos.vida_restante as vida_restante,
                 Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
@@ -356,6 +362,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
+                Equipos_Complejos.vida_restante as vida_restante,
                 Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,

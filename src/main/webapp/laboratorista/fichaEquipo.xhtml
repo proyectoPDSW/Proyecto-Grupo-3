@@ -44,13 +44,14 @@ and open the template in the editor.
                     <p:row >
                         <!--p:column/-->
                         <p:column>
-                            <p:outputLabel value="Ubicacion: Almacén de electrónica"/>
+                            <p:outputLabel value="Ubicacion: " style="font-weight:bold"/>
+                            <p:outputLabel value="Almacén de electrónica"/>
                         </p:column>
                     </p:row>
                     
                     <p:row>
                         <p:column>
-                            <p:outputLabel value="Nombre: "/>
+                            <p:outputLabel value="Nombre: " style="font-weight:bold"/>
                         </p:column>
                         <p:column>
                             <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.nombre}"/>
@@ -59,26 +60,30 @@ and open the template in the editor.
 
                     <p:row >
                         <p:column>
-                            <p:outputLabel value="Marca: #{FichaEquipo.consultado.modelo_Eq.marca}"/>
+                            <p:outputLabel value="Marca: " style="font-weight:bold"/>
+                            <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.marca}"/>
                         </p:column>
                         <p:column>
-                            <p:outputLabel value="Serial: #{FichaEquipo.consultado.serial}"/>
-                        </p:column>
-                    </p:row>
-                    
-                    <p:row >
-                        <p:column>
-                            <p:outputLabel value="Referencia Interna Lab: #{FichaEquipo.consultado.placa}"/>
-                        </p:column>
-                        <p:column>
-                            <p:outputLabel value="Estado: Activo" rendered="#{FichaEquipo.consultado.disponibilidad}" />
-                            <p:outputLabel value="Estado: Inactivo" rendered="#{!FichaEquipo.consultado.disponibilidad}" />
+                            <p:outputLabel value="Serial: " style="font-weight:bold"/>
+                            <p:outputLabel value="#{FichaEquipo.consultado.serial}"/>
                         </p:column>
                     </p:row>
                     
                     <p:row >
                         <p:column>
-                            <p:outputLabel value="Accesorios: "/>
+                            <p:outputLabel value="Referencia Interna Lab: " style="font-weight:bold"/>
+                            <p:outputLabel value="#{FichaEquipo.consultado.placa}"/>
+                        </p:column>
+                        <p:column>
+                            <p:outputLabel value="Estado: " style="font-weight:bold"/>
+                            <p:outputLabel value="Activo" rendered="#{FichaEquipo.consultado.disponibilidad}" />
+                            <p:outputLabel value="Inactivo" rendered="#{!FichaEquipo.consultado.disponibilidad}" />
+                        </p:column>
+                    </p:row>
+                    
+                    <p:row >
+                        <p:column>
+                            <p:outputLabel value="Accesorios: " style="font-weight:bold"/>
                         </p:column>
                         <p:column>
                             <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.accesorios}"/>
@@ -87,7 +92,7 @@ and open the template in the editor.
                     
                     <p:row >
                         <p:column>
-                            <p:outputLabel value="Descripción del equipo: "/>
+                            <p:outputLabel value="Descripción del equipo: " style="font-weight:bold"/>
                         </p:column>
                         <p:column>
                             <p:outputLabel value="#{FichaEquipo.consultado.modelo_Eq.descripcion}"/>
@@ -145,25 +150,60 @@ and open the template in the editor.
                         </p:column>
                     </p:row>
                 </p:panelGrid>
+                <p:separator />
                 <br/><p:dataTable var="prestamo" value="#{FichaEquipo.consultarPrestamosEquipo()}" style="width:100%" >
                     <f:facet name="header">
-                        Historial
+                        Historial de prestamos
                     </f:facet>
-                    <p:column headerText="A quien se le ha prestado">
+                    <p:column >
+                        <f:facet name="header">  
+                            <h:outputText value="Prestamista" style="font-weight:bold" />  
+                        </f:facet>
                         <p:outputLabel value="#{prestamo.elQuePideElPrestamo.nombre} #{prestamo.elQuePideElPrestamo.apellido}"/>
                     </p:column>
-                    <p:column headerText="Fecha de inicio del prestamo">
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Fecha de Inicio" style="font-weight:bold" />  
+                        </f:facet>
                         <p:outputLabel value="#{prestamo.fechaInicio}"/>
                     </p:column>
-                    <p:column headerText="Fecha de terminación del prestamo">
+                    <p:column>
+                        <f:facet name="header">  
+                            <h:outputText value="Fecha de Terminación" style="font-weight:bold" />  
+                        </f:facet>
                         <p:outputLabel value="#{prestamo.fechaEstimadaDeEntrega}"/>
                     </p:column>
-                    <p:column headerText="Fecha devolución del prestamo">
+                    <p:column >
+                        <f:facet name="header">  
+                            <h:outputText value="Fecha Devolución" style="font-weight:bold" />  
+                        </f:facet>
                         <p:outputLabel value="#{prestamo.fechaRealEntregada}" rendered="#{prestamo.fechaRealEntregada!=null}"/>
-                        <p:outputLabel value="No ha sido devuelto aún" rendered="#{prestamo.fechaRealEntregada==null}"/>
+                        <p:outputLabel value="Aún no ha sido devuelto" rendered="#{prestamo.fechaRealEntregada==null}"/>
                     </p:column>
                     
                 </p:dataTable>
+                <br/><p:panelGrid style="width:100%" >
+                    <p:row>
+                        <p:column style="width:50%">
+                            <h:outputText value="Revisado por:"/>
+                            <!--p:signature readonly="true"/-->
+                        </p:column>
+                        <p:column style="width:50%">
+                            <h:outputText value="Vo.Bo.:"/>
+                            <!--p:signature readonly="true"/-->
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column style="width:50%">
+                            <h:outputText value="Fecha: #{FichaEquipo.fecha}"/>
+                            <!--p:signature readonly="true"/-->
+                        </p:column>
+                        <p:column style="width:50%">
+                            <h:outputText value="Fecha: #{FichaEquipo.fecha}"/>
+                            <!--p:signature readonly="true"/-->
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
             </p:panel>
             <p:commandButton value="Imprimir" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px" rendered="#{FichaEquipo.consulto}">
                 <p:printer target="panelFicha" />

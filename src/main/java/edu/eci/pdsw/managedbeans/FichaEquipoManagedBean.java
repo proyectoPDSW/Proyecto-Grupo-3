@@ -12,6 +12,7 @@ import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import edu.eci.pdsw.servicios.ServiciosPrestamoPersistence;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +33,7 @@ public class FichaEquipoManagedBean {
     private ServiciosPrestamo SEP=ServiciosPrestamo.getInstance();
     private EquipoComplejo consultado;
     private boolean consulto;
+    private Timestamp fecha;
     public void ConsultarEquipoByPlaca(){
         if(getPlacaAConsultar()!=null && getPlacaAConsultar().length()>0){
             
@@ -40,8 +42,10 @@ public class FichaEquipoManagedBean {
             } catch (ExcepcionServicios ex) {
                 facesError(ex.getMessage());
             }
-            if(getConsultado()!=null)
+            if(getConsultado()!=null){
                 setConsulto(true);
+                setFecha(currDate());
+            }
             else
                 facesError("La placa no corresponde a ningún equipo registrado");
         }else{
@@ -134,6 +138,24 @@ public class FichaEquipoManagedBean {
      */
     public void setConsultado(EquipoComplejo consultado) {
         this.consultado = consultado;
+    }
+    
+    public Timestamp currDate() {
+        return SEP.currDate();
+    }
+
+    /**
+     * @return the fecha
+     */
+    public Timestamp getFecha() {
+        return fecha;
+    }
+
+    /**
+     * @param fecha the fecha to set
+     */
+    public void setFecha(Timestamp fecha) {
+        this.fecha = fecha;
     }
 
 
