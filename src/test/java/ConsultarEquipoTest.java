@@ -242,6 +242,60 @@ public class ConsultarEquipoTest {
                 loaded.get(1).equals(her2.getNombre())));  
         daof.endSession();
     }
+    //Clase Equivalencia 9, el tiempo de vida deberia ser 0
+    @Test
+    public void tiempoDeVidaDeberiaSerCero() throws Exception {
+        InputStream input;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties = new Properties();
+        properties.load(input);
+        DAOFactory daof = DAOFactory.getInstance(properties);
+        daof.beginSession();        
+        DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
+        Modelo model = new Modelo(4, "Modelo de prueba","Toshiba" ,"foto", "Clase x", 100000);
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        EquipoComplejo aConsultar = new EquipoComplejo(model,"AC3X","734829",dg,5);
+        aConsultar.setEstado(EquipoComplejo.almacen);
+        dec.save(aConsultar);
+        daof.commitTransaction();
+        Assert.assertTrue("Se esperaba tiempo de vida 0", dec.load(aConsultar.getPlaca()).getTiempoRestante()==0);
+    }
     
+    //Clase Equivalencia 10, el tiempo de vida deberia ser el del modelo
+    @Test
+    public void elTiempoDeVidaDeberiaSerElDelModelo()throws Exception{
+        InputStream input;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties = new Properties();
+        properties.load(input);
+        DAOFactory daof = DAOFactory.getInstance(properties);
+        daof.beginSession();        
+        DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
+        Modelo model = new Modelo(4, "Modelo de prueba","Toshiba" ,"foto", "Clase x", 100000);
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        EquipoComplejo aConsultar = new EquipoComplejo(model,"AC3X","734829",dg,0);
+        aConsultar.setEstado(EquipoComplejo.almacen);
+        dec.save(aConsultar);
+        daof.commitTransaction();
+        Assert.assertTrue("Se esperaba tiempo de vida 4", dec.load(aConsultar.getPlaca()).getTiempoRestante()==4);       
+    }
     
+    //Clase Equivalencia 11, el tiempo de vida deberia ser intermedio
+    @Test
+    public void elTiempoDeVidaDeberiaSerIntermedio() throws Exception{
+        InputStream input;
+        input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
+        Properties properties = new Properties();
+        properties.load(input);
+        DAOFactory daof = DAOFactory.getInstance(properties);
+        daof.beginSession();        
+        DAOEquipoComplejo dec = daof.getDaoEquipoComplejo();
+        Modelo model = new Modelo(4, "Modelo de prueba","Toshiba" ,"foto", "Clase x", 100000);
+        OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi");
+        EquipoComplejo aConsultar = new EquipoComplejo(model,"AC3X","734829",dg,2);
+        aConsultar.setEstado(EquipoComplejo.almacen);
+        dec.save(aConsultar);
+        daof.commitTransaction();
+        Assert.assertTrue("Se esperaba tiempo de vida 2", dec.load(aConsultar.getPlaca()).getTiempoRestante()==2);
+    }
 }
