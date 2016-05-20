@@ -164,6 +164,7 @@ public class RegistrarEquipoTest {
         reg.save(ec);
         daof.commitTransaction();
         ArrayList<EquipoComplejo> prueba=reg.loadByModelo(mod.getNombre());
+        System.out.println(test.toString());
         daof.commitTransaction();
         daof.endSession();
         Assert.assertEquals("no registra el modelo del equipo",ec.getModelo_Eq(), prueba.get(0).getModelo_Eq());

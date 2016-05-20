@@ -16,18 +16,23 @@ public class OrdenCompra implements Comparable<OrdenCompra>{
     private Timestamp adquisicion=Prestamo.currDate();
     private Timestamp garantia=Prestamo.currDate();
     private String proveedor="";
-
+    private String activo="";
+    private String codigo="";
     
     public OrdenCompra(){
     }
     
-    public OrdenCompra(Timestamp adq,Timestamp gar,String provee) throws EquipoException{
+    public OrdenCompra(Timestamp adq,Timestamp gar,String provee,String act,String cod) throws EquipoException{
         if(provee.length()==0) throw new EquipoException("Favor colocar un proveedor del equipo adecuado");
         if(adq==null) throw new EquipoException("Favor colocar una fecha de adquisicion adecuada");
         if(gar==null) throw new EquipoException("Favor colocar una fecha de garantia adecuada");
+        if(act.length()==0) throw new EquipoException("Favor colocar un codigo activo adecuado");
+        if(cod.length()==0) throw new EquipoException("Favor colocar un codigo de orden de compra adecuado");
         this.adquisicion=adq;
         this.garantia=gar;
         this.proveedor=provee;
+        this.activo=act;
+        this.codigo=cod;
     }
     
     //Por implementar 
@@ -82,8 +87,37 @@ public class OrdenCompra implements Comparable<OrdenCompra>{
 
     @Override
     public String toString() {
-        String res = "Datos Generales:[" + adquisicion.toString() + "," + garantia.toString() + "," + proveedor +"]\n";
+        String res = "Datos Generales:[" + adquisicion.toString() + "," + garantia.toString() + "," + proveedor 
+                + ","+ activo +","+ codigo +"]\n";
         return res;
+    }
+
+    /**
+     * @return the activo
+     */
+    public String getActivo() {
+        return activo;
+    }
+
+    /**
+     * @param activo the activo to set
+     */
+    public void setActivo(String activo) {
+        this.activo = activo;
+    }
+
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     

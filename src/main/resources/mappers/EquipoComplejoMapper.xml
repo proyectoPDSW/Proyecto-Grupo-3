@@ -29,7 +29,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type='OrdenCompra' id='OrdenCompra'>
         <result property='proveedor' column='proveedor'></result>
         <result property='adquisicion' column='fecha_compra'></result>
-        <result property='garantia' column='fecha_garantia'></result>    
+        <result property='garantia' column='fecha_garantia'></result>
+        <result property='activo' column='codigo_activo'></result>
+        <result property='codigo' column='codigo_orden_compra'></result>    
     </resultMap>
 
     <insert id='insertEquipo' parameterType='map'>
@@ -48,8 +50,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </insert>
     <insert id='insertOrdenCompra' parameterType='map'>
         INSERT INTO
-            Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo)
-        VALUES (#{orden.adquisicion},#{orden.proveedor},#{orden.garantia},#{serial},#{modelo.nombre})    
+            Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,
+            codigo_orden_compra,codigo_activo)
+        VALUES (#{orden.adquisicion},#{orden.proveedor},#{orden.garantia},#{serial},#{modelo.nombre},#{orden.codigo},
+                #{orden.activo})    
     </insert>
 
     <select id='loadDisponibles' parameterType='map' resultMap='EquipoComplejoResult'>
@@ -72,6 +76,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             ord.proveedor AS ord_proveedor, 
             ord.fecha_compra AS  ord_fecha_compra, 
             ord.fecha_garantia AS  ord_fecha_garantia
+            ord.codigo_orden_compra AS ord_codigo_orden_compra
+            ord.codigo_activo AS ord_codigo_activo
         FROM Equipos_Complejos AS ec 
             LEFT JOIN Modelos AS  mo ON ec.modelo=mo.nombre 
             LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo	
@@ -91,6 +97,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
         ord.fecha_garantia AS  ord_fecha_garantia
+        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.codigo_activo AS ord_codigo_activo
         FROM Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
         LEFT JOIN 
             Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo 
@@ -105,7 +113,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia       
+        ord.fecha_garantia AS  ord_fecha_garantia
+        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.codigo_activo AS ord_codigo_activo       
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
         LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
@@ -119,7 +129,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia  
+        ord.fecha_garantia AS  ord_fecha_garantia
+        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.codigo_activo AS ord_codigo_activo  
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre 
         LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
@@ -134,7 +146,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia  
+        ord.fecha_garantia AS  ord_fecha_garantia
+        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.codigo_activo AS ord_codigo_activo  
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre 
         LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
@@ -161,7 +175,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia 
+        ord.fecha_garantia AS  ord_fecha_garantia
+        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.codigo_activo AS ord_codigo_activo 
         FROM Equipos_Complejos as ec 
         LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
         LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
@@ -174,7 +190,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         mo.descripcion as mo_descripcion, mo.accesorios as mo_accesorios, mo.nombre as mo_nombre,
         ord.proveedor AS ord_proveedor, 
         ord.fecha_compra AS  ord_fecha_compra, 
-        ord.fecha_garantia AS  ord_fecha_garantia 
+        ord.fecha_garantia AS  ord_fecha_garantia
+        ord.codigo_orden_compra AS ord_codigo_orden_compra
+        ord.codigo_activo AS ord_codigo_activo 
         FROM Equipos_Complejos as ec LEFT JOIN Modelos as mo on ec.modelo=mo.nombre
         LEFT JOIN Informacion_Compra AS ord ON ec.serial=ord.Equipos_Complejos_serial AND ec.modelo=ord.Equipos_Complejos_modelo
         WHERE
@@ -183,7 +201,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id='loadModelo' parameterType='map' resultMap='ModeloResult'>
         select mo.vida_util as vida_util, mo.fotografia as fotografia, mo.valor_comercial as valor_comercial,
-        mo.clase as clase, mo.descripcion as descripcion, mo.marca as mo_marca, mo.accesorios as accesorios,
+        mo.clase as clase, mo.descripcion as descripcion, mo.marca as marca, mo.accesorios as accesorios,
         mo.nombre as nombre from Modelos as mo where mo.nombre=#{Modelo}
     </select>
 
@@ -193,7 +211,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id='loadOrdenCompraBySerial' parameterType='map' resultType='OrdenCompra'>
         SELECT 
-            ord.proveedor, ord.fecha_compra, ord.fecha_garantia 
+            ord.proveedor, ord.fecha_compra, ord.fecha_garantia,
+            ord.codigo_orden_compra, ord.codigo_activo
         FROM 
             Informacion_Compra AS ord 
         WHERE 
