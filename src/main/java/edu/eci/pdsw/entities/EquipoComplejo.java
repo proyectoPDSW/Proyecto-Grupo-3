@@ -116,7 +116,8 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     }
 
     public void setTiempoRestante(long tiempoRestante) {
-        this.tiempoRestante = tiempoRestante;
+        if (tiempoRestante<0)this.tiempoRestante=0;
+        else this.tiempoRestante = tiempoRestante;
     }
 
     /**

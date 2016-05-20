@@ -232,7 +232,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     /**
      *
-     * @return return the equiposSencillosPrestados2
+     * @return return the equiposSencillosPrestados
      */
     public Set<EquipoSencillo> getEquiposSencillosPrestados() {
         if (equiposSencillosPrestados != null) {
@@ -280,6 +280,16 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         this.fechaRealEntregada = fechaRealEntregada;
     }
 
+    /**
+     * Me dice si un equipo complejo falta por entregar en este prestamo
+     * 
+     * @param equipo a buscar
+     * @return si un equipo complejo falta por entregar en este prestamo
+     */
+    public boolean isFaltante(EquipoComplejo equipo){
+        return getEquiposComplejosFaltantes().contains(equipo);
+    }
+    
     /**
      * Me dice si un equipo sencillo falta por entregar en este prestamo
      *
@@ -374,8 +384,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         }
         else if(fechaEstimadaDeEntrega.compareTo(currDate())<0){
             res=true;
-        } else {
-            res=false;
         }
         return res;
     }
