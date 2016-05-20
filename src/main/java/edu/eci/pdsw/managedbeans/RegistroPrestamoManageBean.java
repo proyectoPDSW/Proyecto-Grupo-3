@@ -266,18 +266,17 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void registrarPrestamo() {
         try {
-            elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
             fechaEstimadaDeEntrega = Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
-            if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)) {
-                prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
-            } else if (getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor)) {
-                if (fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)) {
-                    setPrestamo(new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados));
-                } else {
-                    prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
-                }
-            }
             if(pres){
+                if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)) {
+                    prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
+                } else if (getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor)) {
+                    if (fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)) {
+                        prestamo= new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados);
+                    } else {
+                        prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
+                    }
+                }
                if(fechaTipoPrestamo == null || fechaTipoPrestamo.length() <= 0) {
                  facesError("Debe seleccionar un tipo de prestamo para poder continuar");
                 }

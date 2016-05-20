@@ -66,6 +66,8 @@ CREATE TABLE Informacion_Compra (
     Equipos_Complejos_serial varchar(30) COLLATE utf8_unicode_ci NOT NULL,
     Equipos_Complejos_modelo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     marca varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    codigo_orden_compra varchar(100) NOT NULL,
+    codigo_activo varchar(100) NOT NULL,
     CONSTRAINT Informacion_Compra_pk PRIMARY KEY (Equipos_Complejos_serial,Equipos_Complejos_modelo)
 )ENGINE=InnoDB COLLATE utf8_unicode_ci;
 

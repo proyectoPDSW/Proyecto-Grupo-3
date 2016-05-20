@@ -16,21 +16,23 @@ public class OrdenCompra implements Comparable<OrdenCompra>{
     private Timestamp adquisicion;
     private Timestamp garantia;
     private String proveedor;
-    private String codigoOrdenCompra;
-    private String codigoActivo;
+    private String activo;
+    private String codigo;
     
     public OrdenCompra(){
     }
     
-    public OrdenCompra(Timestamp adq,Timestamp gar,String provee,String codOrden,String codAct) throws EquipoException{
+    public OrdenCompra(Timestamp adq,Timestamp gar,String provee,String act,String cod) throws EquipoException{
         if(provee.length()==0) throw new EquipoException("Favor colocar un proveedor del equipo adecuado");
         if(adq==null) throw new EquipoException("Favor colocar una fecha de adquisicion adecuada");
         if(gar==null) throw new EquipoException("Favor colocar una fecha de garantia adecuada");
+        if(act.length()==0) throw new EquipoException("Favor colocar un codigo activo adecuado");
+        if(cod.length()==0) throw new EquipoException("Favor colocar un codigo de orden de compra adecuado");
         this.adquisicion=adq;
         this.garantia=gar;
         this.proveedor=provee;
-        this.codigoActivo=codAct;
-        this.codigoOrdenCompra=codOrden;
+        this.activo=act;
+        this.codigo=cod;
     }
     
     //Por implementar 
@@ -85,37 +87,36 @@ public class OrdenCompra implements Comparable<OrdenCompra>{
 
     @Override
     public String toString() {
-        String res = "Datos Generales:[" + adquisicion.toString() + "," + garantia.toString() + "," + proveedor +"]\n";
+        String res = "Datos Generales:[" + adquisicion.toString() + "," + garantia.toString() + "," + proveedor 
+                + ","+ activo +","+ codigo +"]\n";
         return res;
     }
 
     /**
-     * @return the codigoOrdenCompra
+     * @return the activo
      */
-    public String getCodigoOrdenCompra() {
-        return codigoOrdenCompra;
+    public String getActivo() {
+        return activo;
     }
 
     /**
-     * @param codigoOrdenCompra the codigoOrdenCompra to set
+     * @param activo the activo to set
      */
-    public void setCodigoOrdenCompra(String codigoOrdenCompra) {
-        this.codigoOrdenCompra = codigoOrdenCompra;
+    public void setActivo(String activo) {
+        this.activo = activo;
     }
 
     /**
-     * @return the codigoActivo
+     * @return the codigo
      */
-    public String getCodigoActivo() {
-        return codigoActivo;
+    public String getCodigo() {
+        return codigo;
     }
 
     /**
-     * @param codigoActivo the codigoActivo to set
+     * @param codigo the codigo to set
      */
-    public void setCodigoActivo(String codigoActivo) {
-        this.codigoActivo = codigoActivo;
-    }
-
-    
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }   
 }
