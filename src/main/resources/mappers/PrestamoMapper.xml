@@ -51,6 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='asegurado' column='asegurado'/>
         <result property='marca' column='marca'/>
         <collection property='modelo_Eq' resultMap='ModeloResult' columnPrefix='mo_'/>
+        <collection property='ordenCompra_Eq' resultMap='OrdenCompra' columnPrefix='ord_'/>
     </resultMap>
     
     <resultMap type='Persona' id='PersonaResult'>
@@ -80,6 +81,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='accesorios' column='accesorios'/>
     </resultMap>
     
+    <resultMap type='OrdenCompra' id='OrdenCompra'>
+        <result property='proveedor' column='proveedor'></result>
+        <result property='adquisicion' column='fecha_compra'></result>
+        <result property='garantia' column='fecha_garantia'></result>    
+    </resultMap>
+    
     <select id='loadAll' parameterType='map' resultMap='PrestamoResult'>
         select 
                 Prestamos.fecha_inicio as fecha_inicio, 
@@ -91,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
-                Equipos_Complejos.marca as eqco_marca,
+                Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
                 Modelos.fotografia as eqco_mo_fotografia,
@@ -99,6 +106,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Modelos.clase as eqco_mo_clase,
                 Modelos.descripcion as eqco_mo_descripcion,
                 Modelos.accesorios as eqco_mo_accesorios,
+                Informacion_Compra.proveedor as eqco_ord_proveedor,
+                Informacion_Compra.fecha_compra as eqco_ord_adquisicion,
+                Informacion_Compra.fecha_garantia as eqco_ord_garantia,
                 Equipos_Sencillos.nombre as eqse_nombre,
                 Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta as eqse_cantidad,
                 Equipos_Sencillos.clase as eqse_clase,
@@ -122,6 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+                left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
 	
     </select>
     <select id='loadPrestamo' parameterType='map' resultMap='PrestamoResult'>
@@ -135,7 +146,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
-                Equipos_Complejos.marca as eqco_marca,
+                Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
                 Modelos.fotografia as eqco_mo_fotografia,
@@ -143,6 +154,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Modelos.clase as eqco_mo_clase,
                 Modelos.descripcion as eqco_mo_descripcion,
                 Modelos.accesorios as eqco_mo_accesorios,
+                Informacion_Compra.proveedor as eqco_ord_proveedor,
+                Informacion_Compra.fecha_compra as eqco_ord_adquisicion,
+                Informacion_Compra.fecha_garantia as eqco_ord_garantia,
                 Equipos_Sencillos.nombre as eqse_nombre,
                 Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta as eqse_cantidad,
                 Equipos_Sencillos.clase as eqse_clase,
@@ -166,6 +180,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+        left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
         where
                 Prestamos.fecha_inicio=#{time}
                 and Prestamos.persona = #{carnet}
@@ -181,7 +196,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
-                Equipos_Complejos.marca as eqco_marca,
+                Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
                 Modelos.fotografia as eqco_mo_fotografia,
@@ -189,6 +204,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Modelos.clase as eqco_mo_clase,
                 Modelos.descripcion as eqco_mo_descripcion,
                 Modelos.accesorios as eqco_mo_accesorios,
+                Informacion_Compra.proveedor as eqco_ord_proveedor,
+                Informacion_Compra.fecha_compra as eqco_ord_adquisicion,
+                Informacion_Compra.fecha_garantia as eqco_ord_garantia,
                 Equipos_Sencillos.nombre as eqse_nombre,
                 Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta as eqse_cantidad,
                 Equipos_Sencillos.clase as eqse_clase,
@@ -212,6 +230,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+                left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
         where
                 Month(Prestamos.fecha_inicio) = Month(#{fecha}) 
                 and Year(Prestamos.fecha_inicio) = Year(#{fecha})
@@ -228,7 +247,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
-                Equipos_Complejos.marca as eqco_marca,
+                Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
                 Modelos.fotografia as eqco_mo_fotografia,
@@ -236,6 +255,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Modelos.clase as eqco_mo_clase,
                 Modelos.descripcion as eqco_mo_descripcion,
                 Modelos.accesorios as eqco_mo_accesorios,
+                Informacion_Compra.proveedor as eqco_ord_proveedor,
+                Informacion_Compra.fecha_compra as eqco_ord_adquisicion,
+                Informacion_Compra.fecha_garantia as eqco_ord_garantia,
                 Equipos_Sencillos.nombre as eqse_nombre,
                 Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta as eqse_cantidad,
                 Equipos_Sencillos.clase as eqse_clase,
@@ -259,6 +281,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+                left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
         where
                 Prestamos.persona = #{carne}
     </select>
@@ -273,7 +296,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
-                Equipos_Complejos.marca as eqco_marca,
+                Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
                 Modelos.fotografia as eqco_mo_fotografia,
@@ -281,6 +304,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Modelos.clase as eqco_mo_clase,
                 Modelos.descripcion as eqco_mo_descripcion,
                 Modelos.accesorios as eqco_mo_accesorios,
+                Informacion_Compra.proveedor as eqco_ord_proveedor,
+                Informacion_Compra.fecha_compra as eqco_ord_adquisicion,
+                Informacion_Compra.fecha_garantia as eqco_ord_garantia,
                 Equipos_Sencillos.nombre as eqse_nombre,
                 Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta as eqse_cantidad,
                 Equipos_Sencillos.clase as eqse_clase,
@@ -304,6 +330,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+                left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
         where
                 Equipos_Complejos.serial = #{Eq_Complejo.serial} and
                 Equipos_Complejos.modelo = #{Eq_Complejo.modelo_Eq.nombre}
@@ -319,7 +346,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.disponibilidad as eqco_disponibilidad,
                 Equipos_Complejos.estado as eqco_estado,
                 Equipos_Complejos.asegurado as eqco_asegurado,
-                Equipos_Complejos.marca as eqco_marca,
+                Modelos.marca as eqco_mo_marca,
                 Modelos.nombre as eqco_mo_nombre,
                 Modelos.vida_util as eqco_mo_vida_util,
                 Modelos.fotografia as eqco_mo_fotografia,
@@ -327,6 +354,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Modelos.clase as eqco_mo_clase,
                 Modelos.descripcion as eqco_mo_descripcion,
                 Modelos.accesorios as eqco_mo_accesorios,
+                Informacion_Compra.proveedor as eqco_ord_proveedor,
+                Informacion_Compra.fecha_compra as eqco_ord_adquisicion,
+                Informacion_Compra.fecha_garantia as eqco_ord_garantia,
                 Equipos_Sencillos.nombre as eqse_nombre,
                 Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta as eqse_cantidad,
                 Equipos_Sencillos.clase as eqse_clase,
@@ -350,6 +380,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+                left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
         where
                 Prestamos.fecha_fin_real is null and Prestamos.fecha_fin_estimada &lt; now()
         order by
