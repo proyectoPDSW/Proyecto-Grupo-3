@@ -87,7 +87,7 @@ import java.sql.Timestamp;
 
     @Override
     public String toString() {
-        String res = "Datos Generales:[" + adquisicion.toString() + "," + garantia.toString() + "," + proveedor 
+        String res = "Datos Generales:[" + adquisicion + "," + garantia + "," + proveedor 
                 + ","+ activo +","+ codigo +"]\n";
         return res;
     }

@@ -67,7 +67,7 @@ public class FichaEquipoTest {
         EquipoComplejo ec=new EquipoComplejo(mod,"Serial1","Placa1",dg,0);
         reg.save(ec);
         daof.commitTransaction();
-        OrdenCompra ogTest= reg.loadOrdenCompraBySerial(ec.getSerial(), ec.getModelo_Eq().getNombre());
+        OrdenCompra ogTest= reg.loadOrdenCompraBySerial(ec.getSerial(),ec.getModelo_Eq().getNombre());
         daof.endSession();
         Assert.assertEquals("No registro la orden de compra",ogTest,ec.getOrdenCompra());
     }
