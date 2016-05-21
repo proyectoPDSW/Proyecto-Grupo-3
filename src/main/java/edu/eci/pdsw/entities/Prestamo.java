@@ -131,6 +131,20 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     }
 
     /**
+     * Actualiza un equipo complejo prestado
+     *
+     * @param equipo a actualizar
+     * @throws PrestamoException si el equipo no esta prestado
+     */
+    public void updateEquipoComplejo(EquipoComplejo equipo) throws PrestamoException {
+        if (!equiposComplejosPrestados.contains(equipo)) {
+            throw new PrestamoException("El equipo no se encuentra en este prestamo");
+        }
+        equiposComplejosPrestados.remove(equipo);
+        equiposComplejosPrestados.add(equipo);
+    }
+
+    /**
      * @param equiposComplejosPrestados the equiposComplejosFaltantes to set
      */
     public void setEquiposComplejosFaltantes(Set<EquipoComplejo> equiposComplejosPrestados) {
@@ -282,14 +296,14 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     /**
      * Me dice si un equipo complejo falta por entregar en este prestamo
-     * 
+     *
      * @param equipo a buscar
      * @return si un equipo complejo falta por entregar en este prestamo
      */
-    public boolean isFaltante(EquipoComplejo equipo){
+    public boolean isFaltante(EquipoComplejo equipo) {
         return getEquiposComplejosFaltantes().contains(equipo);
     }
-    
+
     /**
      * Me dice si un equipo sencillo falta por entregar en este prestamo
      *
@@ -359,31 +373,29 @@ public abstract class Prestamo implements Comparable<Prestamo> {
             calen.set(Calendar.HOUR, 19);
             fecha = new Timestamp(calen.getTimeInMillis());
         } else if (tipo.equalsIgnoreCase(EquipoComplejo.semestre)) {
-            if(Prestamo.currDate().getMonth()>=1 && Prestamo.currDate().getMonth()<5){
+            if (Prestamo.currDate().getMonth() >= 1 && Prestamo.currDate().getMonth() < 5) {
                 calen.set(Calendar.MONTH, 5);
-            }
-            else if(Prestamo.currDate().getMonth()==6 || Prestamo.currDate().getMonth()==7){
+            } else if (Prestamo.currDate().getMonth() == 6 || Prestamo.currDate().getMonth() == 7) {
                 calen.set(Calendar.MONTH, 7);
-            }
-            else if(Prestamo.currDate().getMonth()>=8 && Prestamo.currDate().getMonth()<12){
+            } else if (Prestamo.currDate().getMonth() >= 8 && Prestamo.currDate().getMonth() < 12) {
                 calen.set(Calendar.MONTH, 12);
             }
             fecha = new Timestamp(calen.getTimeInMillis());
         }
         return fecha;
     }
-    
+
     /**
      * Revisa si un prestamo esta activo o ya se cumlpio
+     *
      * @return true si esta activo de lo contrario false
      */
-    public boolean prestamoActivo(){
-        boolean res=false;
-        if(fechaEstimadaDeEntrega==null){
-            res=true;
-        }
-        else if(fechaEstimadaDeEntrega.compareTo(currDate())<0){
-            res=true;
+    public boolean prestamoActivo() {
+        boolean res = false;
+        if (fechaEstimadaDeEntrega == null) {
+            res = true;
+        } else if (fechaEstimadaDeEntrega.compareTo(currDate()) < 0) {
+            res = true;
         }
         return res;
     }

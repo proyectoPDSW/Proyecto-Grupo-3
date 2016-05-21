@@ -96,6 +96,11 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         if (prestamo.terminado()) {
             pmap.updatePrestamo(prestamo);
         }
+        for (EquipoComplejo ec: prestamo.getEquiposComplejosPrestados()){
+            if(!prestamo.isFaltante(ec)){
+                pmap.updateEquipoComplejo(prestamo, ec);
+            }
+        }
         for (EquipoSencillo es : prestamo.getEquiposSencillosPrestados()) {
             pmap.updateEquipoSencillo(prestamo, es);
         }

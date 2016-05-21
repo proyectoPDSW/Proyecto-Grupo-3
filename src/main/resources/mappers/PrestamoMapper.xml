@@ -423,7 +423,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
     <update id='updateEquipoComplejo' parameterType='map'>
         update Equipo_prestamo_complejo set estado='No activo' where
-        Prestamos_fecha_inicio=#{Prestamo.fechaInicio} and Prestamos_persona=#{Prestamo.elQuePideElPrestamo.carne}
+        Prestamos_fecha_inicio=#{Prestamo.fechaInicio} and Prestamos_persona=#{Prestamo.elQuePideElPrestamo.carnet}
         and Equipos_Complejos_serial=#{Equipo.serial} and Equipos_Complejos_modelo=#{Equipo.modelo_Eq.nombre}
     </update>
     <update id='updateEquipoSencillo' parameterType='map'>

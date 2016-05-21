@@ -109,7 +109,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public List<Prestamo> consultarTodos() throws ExcepcionServicios{
+    public List<Prestamo> consultarTodos() throws ExcepcionServicios {
         List<Prestamo> prestamos;
         try {
             daoF.beginSession();
@@ -240,27 +240,22 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                 throw new ExcepcionServicios("El equipo no esta prestado");
             }
             boolean devuelto = false;
-            //Cargo los prestamos de ese equipo
-            List<Prestamo> prestamosEquipoCargado = basePaciente.loadByEquipoComplejo(loaded);
-            //A los prestamos les actualizo los equipos complejos faltantes
-            for (int i = 0; i < prestamosEquipoCargado.size() && !devuelto; i++) {
-                if (prestamosEquipoCargado.get(i).isFaltante(loaded)) {
-                    loaded.setEstado(EquipoComplejo.almacen);
-                    loaded.setDisponibilidad(true);
-                    //Resto las fechas para saber cuantos milisegundos estuvo prestado
-                    long diff = Prestamo.currDate().getTime() - prestamosEquipoCargado.get(i).getFechaInicio().getTime();
-                    //El resultado esta en milisegundos, lo paso a horas
-                    loaded.setTiempoRestante(loaded.getTiempoRestante() - ((diff / 1000) / 3600));
-                    //Actualizo el equipo
-                    dec.update(loaded);
-                    devuelto = true;
-                }
+            //Cargo el prestamo actual de ese equipo
+            Prestamo prestamoActualEquipoCargado = basePaciente.loadPrestamoActual(loaded);
+            loaded.setEstado(EquipoComplejo.almacen);
+            loaded.setDisponibilidad(true);
+            //Resto las fechas para saber cuantos milisegundos estuvo prestado
+            long diff = Prestamo.currDate().getTime() - prestamoActualEquipoCargado.getFechaInicio().getTime();
+            //El resultado esta en milisegundos, lo paso a horas
+            loaded.setTiempoRestante(loaded.getTiempoRestante() - ((diff / 1000) / 3600));
+            try {
+                prestamoActualEquipoCargado.updateEquipoComplejo(loaded);
+            } catch (PrestamoException ex) {
+                Logger.getLogger(ServiciosPrestamoPersistence.class.getName()).log(Level.SEVERE, null, ex);
             }
-            prestamosEquipoCargado = basePaciente.loadByEquipoComplejo(loaded);
-            for (int i = 0; i < prestamosEquipoCargado.size(); i++) {
-                prestamosEquipoCargado.get(i).getEquiposComplejosFaltantes();
-                basePaciente.update(prestamosEquipoCargado.get(i));
-            }
+            //Actualizo el equipo
+            dec.update(loaded);
+            basePaciente.update(prestamoActualEquipoCargado);
             daoF.commitTransaction();
         } catch (PersistenceException e) {
             daoF.rollbackTransaction();
