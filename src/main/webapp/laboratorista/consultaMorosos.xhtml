@@ -28,6 +28,9 @@ and open the template in the editor.
                     </p:column>
                     <p:column headerText="Equipo"  >
                         <p:dataTable  value="#{prestamo.equiposComplejosFaltantes}" var="equipo" tableStyle="width:auto" >
+                            <p:column headerText="Placa">
+                                <p:outputLabel value="#{equipo.placa}"/>
+                            </p:column>
                             <p:column headerText="Equipo">
                                 <p:outputLabel value="#{equipo.modelo_Eq.nombre} #{equipo.modelo_Eq.marca}"/>
                             </p:column>
