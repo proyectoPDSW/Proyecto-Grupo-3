@@ -14,6 +14,7 @@ import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -21,6 +22,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Size;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -38,34 +40,41 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     private Modelo modelo;
 
-    private int vidaUtil;
-    private String nombre;
-    private String clase;
-    private String marca;
-    private long valorComercial;
-    private String fotografia;
-    private String descripcion;
-    private String accesorios;
+        private int vidaUtil;
+        private String nombre;
+        private String clase;
+        private String marca;
+        private long valorComercial;
+        private String fotografia;
+        private String descripcion;
+        private String accesorios;
 
     private EquipoComplejo equipo;
 
-    private boolean asegurado;
-    private boolean disponibilidad;
-    private String estado;
-    private String serial;
-    private String placa;
+        private boolean asegurado;
+        private boolean disponibilidad;
+        private String estado;
+        private String serial;
+        private String placa;
+        private int tiempoDeUso;
+    
     private OrdenCompra ordenCompra;
-    private int tiempoDeUso;
-
+    
+        private String proveedor;
+        private String codOrdenCompra;
+        private String codActivo;
+        private Date fechaAdquisicion;
+        private Date fechaGarantia;
+    
     private String aseguradoEquipo = "";
     private String disponibilidadEquipo = "";
-
-    private boolean showPanelConsultaModelo = false;
-    private boolean showPanelRegistroModelo = false;
-    private boolean showPanelRegistroExitoso = false;
+    
+    ////////Mostrar paneles
+    private boolean showPanelRegistroModelo=false;
+    private boolean showPanelInformacionModelo=false;
 
     /**
-     * Constructor del bean
+     * Constructor del Bean
      */
     public RegistroEquipoComplejoManagedBean() {
         SERVICIOS = ServiciosEquipoComplejo.getInstance();
@@ -106,66 +115,37 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     }
 
     /**
-     * 
-     * @return 
+     * Consultar un modelo por su nombre
      */
-    public boolean showPanelRegistroExitoso() {
-        if (equipo != null && equipo.getAsegurado()) {
-            aseguradoEquipo = "Si";
-        } else {
-            aseguradoEquipo = "No";
-        }
-        if (equipo != null && equipo.getDisponibilidad()) {
-            disponibilidadEquipo = "Si";
-        } else {
-            disponibilidadEquipo = "No";
-        }
-        return showPanelRegistroExitoso;
-    }
-
-    public boolean showPanelConsulta() {
-        return showPanelConsultaModelo;
-    }
-
-    public boolean showPanelRegistro() {
-        return showPanelRegistroModelo;
-    }
 
     public void consultarModelo() {
         try {
             modelo = SERVICIOS.consultarModelo(nombreModelo);
-            showPanelRegistroModelo = false;
-            showPanelConsultaModelo = true;
-            showPanelRegistroExitoso = false;
+            showPanelRegistroModelo=false;
+            showPanelInformacionModelo=true;
             limpiar();
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
+            facesInfo("Por favor, registre el modelo!");
+            showPanelRegistroModelo=true;
+            showPanelInformacionModelo=false;
         }
     }
 
     public void registrarEquipo() {
         try {
-            equipo = new EquipoComplejo(modelo,serial, placa, ordenCompra,tiempoDeUso);
+            equipo = new EquipoComplejo(modelo,serial, placa, getOrdenCompra(),tiempoDeUso);
             equipo.setAsegurado(asegurado);
             equipo.setPlaca(placa);
             equipo.setDisponibilidad(true);
             equipo.setEstado("Activo");
             SERVICIOS.registrarEquipoComplejo(equipo);
-            showPanelConsultaModelo = false;
-            showPanelRegistroModelo = false;
-            showPanelRegistroExitoso = true;
             facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios | EquipoException ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
         }
-    }
-
-    public void agregarModelo() {
-        showPanelRegistroModelo = true;
-        showPanelConsultaModelo = false;
-        showPanelRegistroExitoso = false;
     }
 
     public void registrarEquipoModelo() {
@@ -174,16 +154,13 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             modelo.setDescripcion(descripcion);
             modelo.setAccesorios(accesorios);
             //SERVICIOS.registrarModelo(modelo);
-            equipo = new EquipoComplejo(modelo,serial, placa, ordenCompra,tiempoDeUso);
+            equipo = new EquipoComplejo(modelo,serial, placa, getOrdenCompra(),tiempoDeUso);
             equipo.setModelo_Eq(modelo);
             equipo.setAsegurado(asegurado);
             equipo.setPlaca(placa);
             equipo.setDisponibilidad(true);
             equipo.setEstado("en almacen");
             SERVICIOS.registrarEquipoComplejo(equipo);
-            showPanelConsultaModelo = false;
-            showPanelRegistroModelo = false;
-            showPanelRegistroExitoso = true;
             facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios | EquipoException ex) {
             facesError(ex.getMessage());
@@ -314,7 +291,92 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     public void setMarca(String marca) {
         this.marca = marca;
     }
+///////////////////Informacion orden compra
+    
+    /**
+     * @return the ordenCompra
+     */
+    public OrdenCompra getOrdenCompra() {
+        return ordenCompra;
+    }
 
+    /**
+     * @param ordenCompra the ordenCompra to set
+     */
+    public void setOrdenCompra(OrdenCompra ordenCompra) {
+        this.ordenCompra = ordenCompra;
+    }
+
+    /**
+     * @return the proveedor
+     */
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * @param proveedor the proveedor to set
+     */
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    /**
+     * @return the codOrdenCompra
+     */
+    public String getCodOrdenCompra() {
+        return codOrdenCompra;
+    }
+
+    /**
+     * @param codOrdenCompra the codOrdenCompra to set
+     */
+    public void setCodOrdenCompra(String codOrdenCompra) {
+        this.codOrdenCompra = codOrdenCompra;
+    }
+
+    /**
+     * @return the codActivo
+     */
+    public String getCodActivo() {
+        return codActivo;
+    }
+
+    /**
+     * @param codActivo the codActivo to set
+     */
+    public void setCodActivo(String codActivo) {
+        this.codActivo = codActivo;
+    }
+
+    /**
+     * @return the fechaAdquisicion
+     */
+    public Date getFechaAdquisicion() {
+        return fechaAdquisicion;
+    }
+
+    /**
+     * @param fechaAdquisicion the fechaAdquisicion to set
+     */
+    public void setFechaAdquisicion(Date fechaAdquisicion) {
+        this.fechaAdquisicion = fechaAdquisicion;
+    }
+
+    /**
+     * @return the fechaGarantia
+     */
+    public Date getFechaGarantia() {
+        return fechaGarantia;
+    }
+
+    /**
+     * @param fechaGarantia the fechaGarantia to set
+     */
+    public void setFechaGarantia(Date fechaGarantia) {
+        this.fechaGarantia = fechaGarantia;
+    }
+///////////////////////////////////////////////////Mensajes
     /**
      * Muestra un mensaje de error en la vista
      *
@@ -367,5 +429,28 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     public void setDisponibilidadEquipo(String disponibilidadEquipo) {
         this.disponibilidadEquipo = disponibilidadEquipo;
     }
+    
+    //// Wizard
+    public String onFlowProcessRegistro(FlowEvent event) {
+        System.out.println(event.getNewStep());
+        return event.getNewStep();
+    }
+       public String onFlowProcessInformacion(FlowEvent event) {
+        System.out.println(event.getNewStep());
+        return event.getNewStep();
+    }
+////////Mostrar paneles
+    /**
+     * @return the showPanelRegistroModelo
+     */
+    public boolean showPanelRegistroModelo() {
+        return showPanelRegistroModelo;
+    }
 
+    /**
+     * @return the showPanelConsultaModelo
+     */
+    public boolean showPanelInformacionModelo() {
+        return showPanelInformacionModelo;
+    }
 }
