@@ -211,11 +211,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id='loadOrdenCompraBySerial' parameterType='map' resultType='OrdenCompra'>
         SELECT 
-            ord.proveedor, ord.fecha_compra, ord.fecha_garantia,
-            ord.codigo_orden_compra, ord.codigo_activo
+            ord.proveedor AS ord_proveedor, ord.fecha_compra AS ord_fecha_compra, 
+            ord.fecha_garantia AS ord_fecha_garantia,
+            ord.codigo_orden_compra AS ord_codigo_orden_compra, ord.codigo_activo AS ord_codigo_activo
         FROM 
             Informacion_Compra AS ord 
         WHERE 
-            ord.Equipos_Complejos_Serial=#{serial}
+            ord.Equipos_Complejos_Serial=#{serial} AND ord.Equipos_Complejos_modelo=#{modelo}
     </select>
 </mapper>

@@ -133,9 +133,9 @@ public class MyBatisDAOEquipoComplejo implements DAOEquipoComplejo {
     }
 
     @Override
-    public OrdenCompra loadOrdenCompraBySerial(String serial) throws PersistenceException {
+    public OrdenCompra loadOrdenCompraBySerial(String serial, String modelo) throws PersistenceException {
         if(serial==null || serial.length()==0) throw new PersistenceException("No se ha encontrado equipos registrados con ese serial");
-        OrdenCompra orden=eMap.loadOrdenCompraBySerial(serial);
+        OrdenCompra orden=eMap.loadOrdenCompraBySerial(serial,modelo);
         if (orden==null) throw new PersistenceException("El equipo no tiene orden de compra");
         return orden;
     }

@@ -124,9 +124,10 @@ public interface EquipoComplejoMapper {
     /**
      * Cargar la orden de compra de un equipo complejo dado su serial
      *@param serial, el serial del equipo complejo 
+     * @param modelo 
      *@return la orden de compra del equipo complejo
      */
-    public OrdenCompra loadOrdenCompraBySerial(@Param("serial") String serial);
+    public OrdenCompra loadOrdenCompraBySerial(@Param("serial") String serial, @Param("modelo") String modelo);
     
     /**
      * Consulta un equipo complejo con una placa especifica que este en almacen
