@@ -7,6 +7,7 @@ package edu.eci.pdsw.entities;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,26 +38,18 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         boolean check = true;
         check = fechaInicio.equals(p.getFechaInicio());
         check = check && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
-        /*if(equiposComplejosPrestados!=null && p.getEquiposComplejosPrestados()!=null){
-            check = check && equiposComplejosPrestados.size()==p.getEquiposComplejosPrestados().size();
-            for (int i = 0; i < equiposComplejosPrestados.size(); i++) {
-                boolean anothercheck=false;
-                for(int j = 0; j < p.getEquiposComplejosPrestados().size(); j++){
-                    if(equiposComplejosPrestados.get(i).equals(p.getEquiposComplejosPrestados().get(j))) anothercheck=true;
-                }
-                check = check && anothercheck;
+        if(getEquiposComplejosPrestados()!=null && p.getEquiposComplejosPrestados()!=null && check){
+            check=check && getEquiposComplejosPrestados().size()==p.getEquiposComplejosPrestados().size();
+            for (EquipoComplejo ec : getEquiposComplejosPrestados()) {
+                check=check && p.getEquiposComplejosPrestados().contains(ec);
             }
         }
-        if(equiposSencillosPrestados2!=null && p.getEquiposSencillosPrestados2()!=null){
-            check = check && equiposSencillosPrestados2.size()==p.getEquiposSencillosPrestados2().size();
-            for (int i = 0; i < equiposSencillosPrestados2.size(); i++) {
-                boolean anothercheck=false;
-                for(int j = 0; j < p.getEquiposSencillosPrestados2().size(); j++){
-                    if(equiposSencillosPrestados2.get(i).equals(p.getEquiposSencillosPrestados2().get(j))) anothercheck=true;
-                }
-                check = check && anothercheck;
+        if(getEquiposSencillosPrestados()!=null && p.getEquiposSencillosPrestados()!=null && check){
+            check=check && getEquiposSencillosPrestados().size()==p.getEquiposSencillosPrestados().size();
+            for (EquipoSencillo es : getEquiposSencillosPrestados()) {
+                check=check && p.getEquiposSencillosPrestados().contains(es);
             }
-        }*/
+        }
         return check;
         //return fechaInicio.equals(p.getFechaInicio()) && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
     }

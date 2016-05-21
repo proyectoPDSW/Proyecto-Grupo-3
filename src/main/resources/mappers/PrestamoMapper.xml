@@ -49,7 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='disponibilidad' column='disponibilidad'/>
         <result property='estado' column='estado'/>
         <result property='asegurado' column='asegurado'/>
-        <result property='marca' column='marca'/>
         <result property='tiempoRestante' column='vida_restante'/>
         <collection property='modelo_Eq' resultMap='ModeloResult' columnPrefix='mo_'/>
         <collection property='ordenCompra_Eq' resultMap='OrdenCompra' columnPrefix='ord_'/>
@@ -79,6 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='valorComercial' column='valor_comercial'/>
         <result property='clase' column='clase'/>
         <result property='descripcion' column='descripcion'/>
+        <result property='marca' column='marca'/>
         <result property='accesorios' column='accesorios'/>
     </resultMap>
     
