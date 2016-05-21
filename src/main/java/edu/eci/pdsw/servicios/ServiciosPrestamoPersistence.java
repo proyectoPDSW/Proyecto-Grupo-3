@@ -235,13 +235,13 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             String[] estadosValidos = {EquipoComplejo.diario, EquipoComplejo.p24h, EquipoComplejo.indefinido, EquipoComplejo.semestre};
             ArrayList<String> tmp = new ArrayList<>();
             tmp.addAll(Arrays.asList(estadosValidos));
-            //Cambio el estado del equipo a "en almacen"
             if (!tmp.contains(loaded.getEstado())) {
                 throw new ExcepcionServicios("El equipo no esta prestado");
             }
-            boolean devuelto = false;
             //Cargo el prestamo actual de ese equipo
             Prestamo prestamoActualEquipoCargado = basePaciente.loadPrestamoActual(loaded);
+            //System.out.println(prestamoActualEquipoCargado.toString());
+            //Cambio el equipo para que se pueda volver a prestar
             loaded.setEstado(EquipoComplejo.almacen);
             loaded.setDisponibilidad(true);
             //Resto las fechas para saber cuantos milisegundos estuvo prestado
@@ -249,11 +249,12 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             //El resultado esta en milisegundos, lo paso a horas
             loaded.setTiempoRestante(loaded.getTiempoRestante() - ((diff / 1000) / 3600));
             try {
+                //Actualizo el equipo en el prestamo
                 prestamoActualEquipoCargado.updateEquipoComplejo(loaded);
             } catch (PrestamoException ex) {
                 Logger.getLogger(ServiciosPrestamoPersistence.class.getName()).log(Level.SEVERE, null, ex);
             }
-            //Actualizo el equipo
+            //Actualizo el equipo y el prestamo en la base de datos
             dec.update(loaded);
             basePaciente.update(prestamoActualEquipoCargado);
             daoF.commitTransaction();
