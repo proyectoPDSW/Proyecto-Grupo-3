@@ -61,6 +61,7 @@ public class MyBatisDAOEquipoComplejo implements DAOEquipoComplejo {
             saveModelo(toSave.getModelo_Eq());
         }
         eMap.insertEquipo(toSave);
+        System.out.println("LLego aqui :)");
         saveOrdenCompra(toSave.getOrdenCompra(),toSave.getSerial(),toSave.getModelo_Eq()); 
     }
 
