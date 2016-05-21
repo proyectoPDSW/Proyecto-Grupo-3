@@ -68,6 +68,7 @@ public class RegistrarEquipoTest {
         daof.commitTransaction();
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi","orden","activo");
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","123456",dg,0);
+        System.out.println(ec.getOrdenCompra().getAdquisicion());
         ec.setEstado("hola");
         reg.save(ec);
         daof.commitTransaction();
