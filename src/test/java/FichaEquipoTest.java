@@ -30,11 +30,11 @@ import org.junit.Test;
  *
  * @author german
  */
-public class FichaEquipoTets {
+public class FichaEquipoTest {
     public static InputStream input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
     public static Properties properties=new Properties();
     
-     public FichaEquipoTets() {
+     public FichaEquipoTest() {
     }
 
     @Before
