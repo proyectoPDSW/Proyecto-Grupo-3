@@ -129,11 +129,12 @@ public interface DAOEquipoComplejo {
      * Carga la orden de compra del equipo complejo por serial
      *
      * @param serial del equipo complejo
+     * @param modelo
      * @return la orden de compra del equipo
      * @throws PersistenceException si no existe el equipo con el seria, si la orden de compra no existe
      */
     
-    public OrdenCompra loadOrdenCompraBySerial(String serial) throws PersistenceException;
+    public OrdenCompra loadOrdenCompraBySerial(String serial, String modelo) throws PersistenceException;
     
     /**
      * Consulta un equipo complejo por placa y ademas que este en almacen
