@@ -70,4 +70,28 @@ public class FichaEquipoTest {
         daof.endSession();
         assertEquals("No registro la orden de compra",ec.getOrdenCompra(),ogTest);
     }
+    
+    //No deberia crear un equipo complejo sin orden de compra
+    @Test
+    public void CE2() throws IOException, EquipoException, PersistenceException{
+        Modelo mod=new Modelo(10000,"Nombre1","Marca1","Foto1","Clase1",100000);
+        DAOFactory daof=null;
+        try{
+            properties.load(input);
+            daof=DAOFactory.getInstance(properties);
+            daof.beginSession();
+            DAOEquipoComplejo reg=daof.getDaoEquipoComplejo();
+            OrdenCompra dg=null;
+            EquipoComplejo ec=new EquipoComplejo(mod,"Serial1","Placa1",dg,0);
+            reg.saveModelo(mod);
+            daof.commitTransaction();
+            reg.save(ec);
+            daof.commitTransaction();
+        }catch(PersistenceException | EquipoException ex){
+            assertEquals("Favor colocarle una orden de compra adecuada al equipo",ex.getMessage());
+        }finally{
+            daof.endSession();
+        }
+        
+    }
 }
