@@ -41,7 +41,13 @@ import java.sql.Timestamp;
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        OrdenCompra oc = (OrdenCompra)obj;
+        return oc.getAdquisicion().equals(adquisicion) && oc.getGarantia().equals(garantia) && oc.getProveedor().equals(proveedor) && oc.getCodigo().equals(codigo) && oc.getActivo().equals(activo);
+    }
 
+    
     /**
      * @return the adquisicion
      */
@@ -119,4 +125,6 @@ import java.sql.Timestamp;
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }   
+    
+    
 }

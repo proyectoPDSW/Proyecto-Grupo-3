@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='asegurado' column='asegurado'/>
         <result property='tiempoRestante' column='vida_restante'/>
         <association property='modelo_Eq' resultMap='ModeloResult' columnPrefix='mo_'/>
-        <association property='ordenCompra_Eq' resultMap='OrdenCompra' columnPrefix='ord_'/>
+        <association property='ordenCompra_Eq' resultMap='OrdenCompraResult' columnPrefix='ord_'/>
     </resultMap>
 
     <resultMap type='Modelo' id='ModeloResult'>
@@ -26,12 +26,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='accesorios' column='accesorios'/>
     </resultMap>
     
-    <resultMap type='OrdenCompra' id='OrdenCompra'>
-        <result property='proveedor' column='proveedor'></result>
-        <result property='adquisicion' column='fecha_compra'></result>
-        <result property='garantia' column='fecha_garantia'></result>
-        <result property='activo' column='codigo_activo'></result>
-        <result property='codigo' column='codigo_orden_compra'></result>    
+    <resultMap type='OrdenCompra' id='OrdenCompraResult'>
+        <result property='proveedor' column='proveedor'/>
+        <result property='adquisicion' column='fecha_compra'/>
+        <result property='garantia' column='fecha_garantia'/>
+        <result property='activo' column='codigo_activo'/>
+        <result property='codigo' column='codigo_orden_compra'/>
     </resultMap>
 
     <insert id='insertEquipo' parameterType='map'>
@@ -49,10 +49,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{Modelo.descripcion},#{Modelo.accesorios},#{Modelo.nombre},#{Modelo.marca})
     </insert>
     <insert id='insertOrdenCompra' parameterType='map'>
-        INSERT INTO
-            Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,
+        insert into Informacion_Compra
+        (fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,
             codigo_orden_compra,codigo_activo)
-        VALUES (#{orden.adquisicion},#{orden.proveedor},#{orden.garantia},#{serial},#{modelo.nombre},#{orden.codigo},
+        values (#{orden.adquisicion},#{orden.proveedor},#{orden.garantia},#{serial},#{modelo.nombre},#{orden.codigo},
                 #{orden.activo})    
     </insert>
 
@@ -209,16 +209,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select mo.nombre from Modelos as mo where mo.nombre like '%'||#{Aproximado}||'%'
     </select>
     
-    <select id='loadOrdenCompraBySerial' parameterType='map' resultType='OrdenCompra'>
-        SELECT 
-            ord.proveedor AS ord_proveedor, 
-            ord.fecha_compra AS ord_fecha_compra, 
-            ord.fecha_garantia AS ord_fecha_garantia,
-            ord.codigo_orden_compra AS ord_codigo_orden_compra, 
-            ord.codigo_activo AS ord_codigo_activo
-        FROM 
-            Informacion_Compra AS ord 
-        WHERE 
+    <select id='loadOrdenCompraBySerial' parameterType='map' resultMap='OrdenCompraResult'>
+        select 
+            ord.proveedor as proveedor, 
+            ord.fecha_compra as fecha_compra, 
+            ord.fecha_garantia as fecha_garantia,
+            ord.codigo_orden_compra as codigo_orden_compra, 
+            ord.codigo_activo as codigo_activo
+        from 
+            Informacion_Compra as ord 
+        where 
             ord.Equipos_Complejos_serial=#{serial} AND ord.Equipos_Complejos_modelo=#{modelo}
     </select>
 </mapper>

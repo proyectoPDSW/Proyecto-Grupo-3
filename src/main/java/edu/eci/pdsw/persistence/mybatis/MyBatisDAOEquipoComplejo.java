@@ -61,7 +61,7 @@ public class MyBatisDAOEquipoComplejo implements DAOEquipoComplejo {
             saveModelo(toSave.getModelo_Eq());
         }
         eMap.insertEquipo(toSave);
-        System.out.println("LLego aqui :)");
+        
         saveOrdenCompra(toSave.getOrdenCompra(),toSave.getSerial(),toSave.getModelo_Eq()); 
     }
 
@@ -116,7 +116,7 @@ public class MyBatisDAOEquipoComplejo implements DAOEquipoComplejo {
     public void saveOrdenCompra(OrdenCompra ordenCompra,String serialEquipo, Modelo model) throws PersistenceException {
         if (model==null || eMap.loadModelo(model.getNombre()) == null) throw new PersistenceException("El modelo no está registrado");
         if(serialEquipo==null || serialEquipo.length()==0 || null==eMap.loadEquipoBySerial(model.getNombre(), serialEquipo)) throw new PersistenceException("No se ha encontrado equipos registrados con ese serial");
-        eMap.insertOrdenCompra(ordenCompra, serialEquipo, model);   
+        eMap.insertOrdenCompra(ordenCompra, serialEquipo, model);
     }
 
     @Override

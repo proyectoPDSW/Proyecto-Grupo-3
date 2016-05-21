@@ -15,8 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Properties;
-import junit.framework.Assert;
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -59,7 +59,6 @@ public class FichaEquipoTest {
         DAOFactory daof=DAOFactory.getInstance(properties);
         daof.beginSession();
         DAOEquipoComplejo reg=daof.getDaoEquipoComplejo();
-        
         Modelo mod=new Modelo(10000,"Nombre1","Marca1","Foto1","Clase1",100000);
         reg.saveModelo(mod);
         daof.commitTransaction();
@@ -69,6 +68,6 @@ public class FichaEquipoTest {
         daof.commitTransaction();
         OrdenCompra ogTest= reg.loadOrdenCompraBySerial(ec.getSerial(),ec.getModelo_Eq().getNombre());
         daof.endSession();
-        Assert.assertEquals("No registro la orden de compra",ogTest,ec.getOrdenCompra());
+        assertEquals("No registro la orden de compra",ec.getOrdenCompra(),ogTest);
     }
 }
