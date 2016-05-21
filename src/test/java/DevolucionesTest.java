@@ -173,13 +173,10 @@ public class DevolucionesTest {
             dapr.update(pr);
             daof.commitTransaction();
             Prestamo loaded=dapr.load(pr.getFechaInicio(), pr.getElQuePideElPrestamo().getCarnet());
-            //System.out.println("pr: "+pr);
-            //System.out.println(loaded);
             daof.endSession();
             
             EquipoSencillo b=null;
             for(EquipoSencillo e:loaded.getEquiposSencillosPrestados()){
-                //System.out.println("test "+e);
                 if(e.getNombre().equals(es.getNombre())) b=e;
             }
             Assert.assertEquals("La cantidad del equipo sencillo no es correcta",0, b.getCantidadTotal());

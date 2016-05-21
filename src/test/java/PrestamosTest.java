@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -103,14 +104,10 @@ public class PrestamosTest {
         Prestamo p = new PrestamoIndefinido(per,lec,null);
         prestamo.save(p);
         daof.commitTransaction();
-        //System.out.println(per.getCarnet());
-        //System.out.println(eqco.load(ec.getModelo_Eq().getNombre(), ec.getSerial()).getEstado());
         List<Prestamo> lp = prestamo.loadByCarne(per.getCarnet());
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -152,15 +149,9 @@ public class PrestamosTest {
         prestamo.save(p);
         daof.commitTransaction();
         List<Prestamo> lp = prestamo.loadByFecha(new Timestamp(new Date().getTime()));
-        /*for (Prestamo prestamo1 : lp) {
-            System.out.println("Entro aqui");
-            System.out.println(prestamo1.toString());
-        }*/
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -204,12 +195,10 @@ public class PrestamosTest {
         Prestamo p = new PrestamoIndefinido(per,lec,null);
         prestamo.save(p);
         daof.commitTransaction();
-        List<Prestamo> lp = prestamo.loadByEquipoComplejo(ec);
+        List<Prestamo> lp = prestamo.loadByEquipoComplejo(ec2);
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -255,8 +244,6 @@ public class PrestamosTest {
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -307,8 +294,6 @@ public class PrestamosTest {
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -358,8 +343,6 @@ public class PrestamosTest {
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -490,8 +473,6 @@ public class PrestamosTest {
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -537,8 +518,6 @@ public class PrestamosTest {
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -588,8 +567,6 @@ public class PrestamosTest {
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -637,8 +614,6 @@ public class PrestamosTest {
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -690,8 +665,6 @@ public class PrestamosTest {
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));
@@ -743,8 +716,6 @@ public class PrestamosTest {
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
-            //System.out.println("Entro aqui");
-            //System.out.println(prestamo1.toString());
             check = prestamo1;
         }
         Assert.assertTrue(p.equals(check));

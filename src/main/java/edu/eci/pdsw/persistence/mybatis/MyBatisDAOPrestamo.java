@@ -17,6 +17,7 @@ import edu.eci.pdsw.persistence.mybatis.mappers.PrestamoMapper;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 

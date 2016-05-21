@@ -348,8 +348,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
                 left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
         where
-                Equipos_Complejos.serial = #{Eq_Complejo.serial} and
-                Equipos_Complejos.modelo = #{Eq_Complejo.modelo_Eq.nombre}
+                Prestamos.fecha_inicio in 
+                    (select Prestamos_fecha_inicio from Equipo_prestamo_complejo where 
+                    Equipos_Complejos_serial= #{Eq_Complejo.serial} and Equipos_Complejos_modelo = #{Eq_Complejo.modelo_Eq.nombre})
+                and Prestamos.persona in 
+                    (select Prestamos_persona from Equipo_prestamo_complejo where 
+                    Equipos_Complejos_serial= #{Eq_Complejo.serial} and Equipos_Complejos_modelo = #{Eq_Complejo.modelo_Eq.nombre})
     </select>
     <select id='loadMorosos' parameterType='map' resultMap='PrestamoResult'>
         select 
