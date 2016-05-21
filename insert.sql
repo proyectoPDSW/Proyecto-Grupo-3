@@ -76,38 +76,28 @@ insert into Modelos(vida_util,fotografia,valor_comercial,clase,descripcion,acces
 insert into Modelos(vida_util,fotografia,valor_comercial,clase,descripcion,accesorios,nombre,marca) values('10','http://www.ar.all.biz/img/ar/catalog/134366.png','1514998','Osciloscopio','Instrumento de visualización electrónico para la representación gráfica de señales eléctricas que pueden variar en el tiempo.','2 puntas de sonda, 1 software, 1 cable de red, instrucciones de uso','osciloscopio digital 50MHz','PCE');
 insert into Modelos(vida_util,fotografia,valor_comercial,clase,descripcion,accesorios,nombre,marca) values('10','http://2.bp.blogspot.com/_FOyXBkqQWYA/SxGfTGtKtDI/AAAAAAAAAF4/w4DfEEf2I0I/s1600/380-multimetro-digital-con-funda.jpg','100000','Multimetro','es un instrumento eléctrico portátil para medir directamente magnitudes eléctricas activas como corrientes y potenciales (tensiones) y/o pasivas como resistencias, capacidades y otras','2 puntas de sonda','multimetro digital','Fluke');
 
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,modelo,asegurado,vida_restante) values('abd24b','1',TRUE,'generador de señales 5MHz',TRUE,'0');
-
-'prestamo 24 horas'
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('abd24b','1',TRUE,'prestamo 24 horas','generador de señales 5MHz',TRUE,'0');
 
 INSERT INTO Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,codigo_orden_compra,codigo_activo)
 	VALUES ('2015-03-29 12:00:00','Electrix S.A','2015-04-29 12:00:00','abd24b','generador de señales 5MHz','njcas','2bj');
 
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,modelo,asegurado,vida_restante) values('kb132k','2',TRUE,'generador de señales 5MHz',FALSE,'0');
-
-'prestamo 24 horas'
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('kb132k','2',TRUE,'prestamo 24 horas','generador de señales 5MHz',FALSE,'0');
 
 INSERT INTO Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,codigo_orden_compra,codigo_activo)
 	VALUES ('2015-02-11 12:00:00','Homecenter','2015-06-11 12:00:00','kb132k','generador de señales 5MHz','akjdsnajhd','fejfnj');
 
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,modelo,asegurado,vida_restante) values('asd123','3',FALSE,'multimetro Digital',TRUE,'0');
-
-'en reparacion'
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('asd123','3',FALSE,'en reparacion','multimetro Digital',TRUE,'0');
 
 INSERT INTO Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,codigo_orden_compra,codigo_activo)
 	VALUES ('2016-01-01 12:00:00','Alkosto','2016-03-01 12:00:00','asd123','multimetro Digital','dey28','dasjhb');
 
 
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,modelo,asegurado,vida_restante) values('d23j3s','4',TRUE,'multimetro Digital',TRUE,'0');
-
-'prestamo diario'
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('d23j3s','4',TRUE,'prestamo diario','multimetro Digital',TRUE,'0');
 
 INSERT INTO Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,codigo_orden_compra,codigo_activo)
 	VALUES ('2014-01-01 12:00:00','Torniexpress','2015-01-01 12:00:00','d23j3s','multimetro Digital','iunwc0q','dcowq9');
 
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,modelo,asegurado,vida_restante) values('klñlkopk2421k','5',TRUE,'osciloscopio digital 50MHz',FALSE,'0');
-
-'prestamo diario'
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('klñlkopk2421k','5',TRUE,'prestamo diario','osciloscopio digital 50MHz',FALSE,'0');
 
 INSERT INTO Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,codigo_orden_compra,codigo_activo)
 	VALUES ('2013-01-01 12:00:00','Construcctor','2014-01-01 12:00:00','klñlkopk2421k','osciloscopio digital 50MHz','98cas','cnasoi8');
@@ -132,7 +122,7 @@ INSERT INTO Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Com
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('mdfjop','12',TRUE,'en almacen','multimetro Digital',TRUE,'0');
 INSERT INTO Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,codigo_orden_compra,codigo_activo)
 	VALUES ('2015-05-01 12:00:00','Electrix S.A','2015-10-01 12:00:00','mdfjop','multimetro Digital','n43sfg','0sd5fasd');
-insert into Equipos_Complejos(serial,num_placa,disponibilidad,modelo,asegurado,vida_restante) values('oiuhy','13',TRUE,'multimetro Digital',TRUE,'0');
+insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('oiuhy','13',TRUE,'en almacen','multimetro Digital',TRUE,'0');
 INSERT INTO Informacion_Compra(fecha_compra,proveedor,fecha_garantia,Equipos_Complejos_serial,Equipos_Complejos_modelo,codigo_orden_compra,codigo_activo)
 	VALUES ('2015-05-01 12:00:00','Constructor','2015-10-01 12:00:00','oiuhy','multimetro Digital','ad4f8','54gfs');
 insert into Equipos_Complejos(serial,num_placa,disponibilidad,estado,modelo,asegurado,vida_restante) values('cndus','14',TRUE,'en almacen','generador de señales 5MHz',TRUE,'0');
