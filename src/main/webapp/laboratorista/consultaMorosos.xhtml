@@ -66,6 +66,9 @@ and open the template in the editor.
                     <p:column headerText="Correo" >
                         <p:outputLabel value="#{prestamo.elQuePideElPrestamo.email}"/>
                     </p:column>
+                    <p:column headerText="Cantidad de moras previas">
+                        <p:outputLabel value="#{consultaMorosos.cantMoras(prestamo.elQuePideElPrestamo.carnet)}"/>
+                    </p:column>
                     <p:column headerText="Valor total" sortBy="#{prestamo.valorTotal}" >
                         <p:outputLabel value="$"/>
                         <p:outputLabel value="#{prestamo.valorTotal}">

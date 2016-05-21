@@ -5,9 +5,12 @@
  */
 package edu.eci.pdsw.managedbeans;
 
+import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.log.Registro;
+import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
+import edu.eci.pdsw.servicios.ServiciosPersona;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -24,6 +27,7 @@ import javax.faces.bean.SessionScoped;
 public class ConsultaMorososManagedBean implements Serializable {
 
     private final ServiciosPrestamo sp = ServiciosPrestamo.getInstance();
+    private final ServiciosPersona sper=ServiciosPersona.getInstance();
 
     public List<Prestamo> morosos;
 
@@ -68,5 +72,14 @@ public class ConsultaMorososManagedBean implements Serializable {
     public Timestamp currDate() {
         return sp.currDate();
     }
-
+    
+    public int cantMoras(String carnet){
+        int moras=0;
+        try{
+            moras=sper.calcMoras(carnet);
+        }catch(ExcepcionServicios e){
+            Registro.anotar(e);
+        }
+        return moras;
+    }
 }

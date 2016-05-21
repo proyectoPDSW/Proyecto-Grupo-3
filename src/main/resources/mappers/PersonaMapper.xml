@@ -56,4 +56,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id='loadAllRoles' parameterType='map' resultMap='RolResult'>
         select ro_rol from Rol 
     </select>
+    
+    <select id='cantidadMorosos' parameterType='map' resultType='java.lang.Integer'>
+        select count(pre.fecha_inicio) 
+        from Prestamos as pre 
+        left join Personas as per
+        on pre.persona=per.carne 
+        where pre.fecha_fin_real &gt; pre.fecha_fin_estimada 
+        and per.carne=#{persona}
+    </select>
 </mapper>

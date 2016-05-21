@@ -91,5 +91,14 @@ public interface DAOPersona {
     public abstract List<Rol> loadAllRoles() throws PersistenceException;
 
     public Persona loadPersRoles(String carne) throws PersistenceException;
+    
+    /**
+     * Obj: Calcula la cantidad de prestamos en mora que ha tenido una persona
+     * 
+     * @param per el carnet de la persona de la que se quieren consultar las moras
+     * @return la cantidad de prestamos en mora que ha tenido una persona
+     * @throws PersistenceException 
+     */
+    public int calcMorasPrev(String per) throws PersistenceException;
 
 }

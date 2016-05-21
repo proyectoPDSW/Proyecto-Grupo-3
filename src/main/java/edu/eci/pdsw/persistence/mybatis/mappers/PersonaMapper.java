@@ -82,4 +82,12 @@ public interface PersonaMapper {
      * @return todos los roles
      */
     public List<Rol> loadAllRoles();
+    
+    /**
+     * Calcula la cantidad de prestamos que ha tenido en mora la persona
+     * 
+     * @param per, el carnet de la persona de la que se quiere conocer la cantidad de prestamos morosos que ha tenido
+     * @return la cantidad de prestamos que ha tenido en mora la persona
+     */
+    public int cantidadMorosos(@Param("persona") String per);
 }

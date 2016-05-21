@@ -13,6 +13,8 @@ import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,8 +48,26 @@ class ServiciosPersonaPersistence extends ServiciosPersona {
             p=basePersona.load(carnet);
         }catch(PersistenceException e){
             throw new ExcepcionServicios(e,e.getLocalizedMessage());
+        }finally{
+            daoF.endSession();
         }
         return p;
+    }
+
+    @Override
+    public int calcMoras(String carnet) throws ExcepcionServicios {
+        int moras;
+        try{
+            daoF.beginSession();
+            basePersona=daoF.getDaoPersona();
+            moras=basePersona.calcMorasPrev(carnet);
+            daoF.commitTransaction();
+        } catch (PersistenceException ex) {
+            throw new ExcepcionServicios(ex, ex.getLocalizedMessage());
+        }finally{
+            daoF.endSession();
+        }
+        return moras; 
     }
     
 }

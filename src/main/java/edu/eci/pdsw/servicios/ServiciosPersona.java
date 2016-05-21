@@ -25,4 +25,12 @@ public abstract class ServiciosPersona {
     * @return persona que tiene ese carnet
     */
     public abstract Persona personaCarnet(String carnet) throws ExcepcionServicios;
+    
+    /**
+     * Calcula la cantidad de prestamos morosos que ha tenido la persona con carnet carnet
+     * @param carnet el carnet de la persona que se quiere consultar sus moras
+     * @return la cantidad de prestamos morosos que ha tenido la persona con carnet carnet
+     * @throws ExcepcionServicios 
+     */
+    public abstract int calcMoras(String carnet) throws ExcepcionServicios;
 }

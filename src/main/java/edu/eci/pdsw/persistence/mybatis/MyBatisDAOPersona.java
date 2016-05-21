@@ -118,4 +118,14 @@ public class MyBatisDAOPersona implements DAOPersona {
         return pmap.loadPersRoles(carne);
     }
 
+    @Override
+    public int calcMorasPrev(String per) throws PersistenceException {
+        if(pmap.load(per)==null){
+            throw new PersistenceException("La persona con carne " + per + " no esta registrada en la base de datos");
+        }
+        return pmap.cantidadMorosos(per);
+    }
+    
+    
+
 }
