@@ -110,7 +110,7 @@ public interface DAOPrestamo {
      *
      * @param p prestamo a añadir
      * @param ec equipo a añadir
-     * @throws PrestamoException
+     * @throws PersistenceException
      */
     public abstract void saveEquipoComplejoPrestamo(Prestamo p, EquipoComplejo ec) throws PersistenceException;
     
@@ -119,4 +119,13 @@ public interface DAOPrestamo {
      * @return la fecha actual de la base de datos
      */
     public abstract Timestamp currDate();
+    
+    /**
+     * Carga el prestamo actual de un equipo
+     * 
+     * @param equipo a buscar
+     * @return prestamo actual de ese equipo
+     * @throws PersistenceException si no hay prestamos activos o el equipo no existe
+     */
+    public Prestamo loadPrestamoActual(EquipoComplejo equipo)throws PersistenceException;
 }

@@ -14,6 +14,7 @@ import edu.eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper;
 import edu.eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper;
 import edu.eci.pdsw.persistence.mybatis.mappers.PersonaMapper;
 import edu.eci.pdsw.persistence.mybatis.mappers.PrestamoMapper;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
@@ -160,6 +161,14 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
     @Override
     public Timestamp currDate() {
         return new Timestamp(pmap.loadCurrDate().getTime());
+    }
+
+    @Override
+    public Prestamo loadPrestamoActual(EquipoComplejo equipo) throws PersistenceException {
+        if (pmap.loadPrestamoActualEquipo(equipo) == null) {
+            throw new PersistenceException("No hay prestamo activo");
+        }
+        return pmap.loadPrestamoActualEquipo(equipo);
     }
 
 }
