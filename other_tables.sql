@@ -18,11 +18,12 @@ CREATE TABLE Departamentos (
 -- Table: Equipo_prestamo_complejo
 CREATE TABLE Equipo_prestamo_complejo (
     Prestamos_fecha_inicio timestamp NOT NULL,
-    Prestamos_persona varchar(20)   NOT NULL,
-    Equipos_Complejos_serial varchar(30)   NOT NULL,
-    Equipos_Complejos_modelo varchar(50)   NOT NULL,
+    Prestamos_persona varchar(20) NOT NULL,
+    Equipos_Complejos_serial varchar(30) NOT NULL,
+    Equipos_Complejos_modelo varchar(100) NOT NULL,
+    estado varchar(50) NOT NULL,
     CONSTRAINT Equipo_prestamo_complejo_pk PRIMARY KEY (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_modelo)
-)ENGINE=InnoDB  ;
+) ENGINE=InnoDB ;
 
 -- Table: Equipo_prestamo_sencillo
 CREATE TABLE Equipo_prestamo_sencillo (
@@ -34,18 +35,17 @@ CREATE TABLE Equipo_prestamo_sencillo (
     CONSTRAINT Equipo_prestamo_sencillo_pk PRIMARY KEY (equipo,Prestamos_fecha_inicio,Prestamos_persona)
 )ENGINE=InnoDB  ;
 
--- Table: Equipos_Complejos
 CREATE TABLE Equipos_Complejos (
-    serial varchar(30)   NOT NULL,
-    num_placa varchar(50)   NOT NULL,
+    serial varchar(30) NOT NULL,
+    num_placa varchar(50) NOT NULL,
     disponibilidad bool NOT NULL,
-    estado varchar(50)   NOT NULL,
-    modelo varchar(50)   NOT NULL,
+    estado varchar(50) NOT NULL,
+    modelo varchar(100) NOT NULL,
     asegurado bool NOT NULL,
     vida_restante int NOT NULL,
     UNIQUE INDEX Equipos_Complejos_ak_1 (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (serial,modelo)
-)ENGINE=InnoDB  ;
+) ENGINE=InnoDB ;
 
 -- Table: Equipos_Sencillos
 CREATE TABLE Equipos_Sencillos (
@@ -60,12 +60,11 @@ CREATE TABLE Equipos_Sencillos (
 
 -- Table: Informacion_Compra
 CREATE TABLE Informacion_Compra (
-    id int NOT NULL AUTO_INCREMENT,
-    fecha_compra date NOT NULL,
+    fecha_compra timestamp NOT NULL,
     proveedor varchar(100)   NOT NULL,
-    fecha_garantia date NOT NULL,
+    fecha_garantia timestamp NOT NULL,
     Equipos_Complejos_serial varchar(30)   NOT NULL,
-    Equipos_Complejos_modelo varchar(50)   NOT NULL,
+    Equipos_Complejos_modelo varchar(100)   NOT NULL,
     codigo_orden_compra varchar(100) NOT NULL,
     codigo_activo varchar(100) NOT NULL,
     CONSTRAINT Informacion_Compra_pk PRIMARY KEY (Equipos_Complejos_serial,Equipos_Complejos_modelo)
@@ -80,7 +79,7 @@ CREATE TABLE Modelos (
     descripcion varchar(200)   NOT NULL,
     accesorios varchar(300)   NOT NULL,
     nombre varchar(100)   NOT NULL,
-    marca varchar(30)   NOT NULL,
+    marca varchar(100)   NOT NULL,
     CONSTRAINT Modelos_pk PRIMARY KEY (nombre)
 )ENGINE=InnoDB  ;
 
@@ -117,7 +116,7 @@ CREATE TABLE Rol_Persona (
     Personas_carne varchar(20)   NOT NULL,
     Rol_rol varchar(50)   NOT NULL,
     contrasena varchar(200)   NOT NULL,
-    sal varchar(10)   NOT NULL,
+    sal varchar(100)   NOT NULL,
     CONSTRAINT Rol_Persona_pk PRIMARY KEY (Personas_carne,Rol_rol)
 )ENGINE=InnoDB  ;
 
@@ -168,4 +167,6 @@ ALTER TABLE Rol_Persona ADD CONSTRAINT Rol_Persona_Rol FOREIGN KEY (Rol_rol)
 alter table Equipo_prestamo_sencillo change Prestamos_fecha_inicio Prestamos_fecha_inicio timestamp not null default 0;
 alter table Prestamos change fecha_inicio fecha_inicio timestamp not null default 0;
 alter table Equipo_prestamo_complejo change Prestamos_fecha_inicio Prestamos_fecha_inicio timestamp not null default 0;
+alter table Informacion_Compra change fecha_compra fecha_compra timestamp not null default 0;
+alter table Informacion_Compra change fecha_garantia fecha_garantia timestamp not null default 0;
 -- End of file.

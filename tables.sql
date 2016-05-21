@@ -20,9 +20,10 @@ CREATE TABLE Equipo_prestamo_complejo (
     Prestamos_fecha_inicio timestamp NOT NULL,
     Prestamos_persona varchar(20) COLLATE utf8_unicode_ci NOT NULL,
     Equipos_Complejos_serial varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-    Equipos_Complejos_modelo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    Equipos_Complejos_modelo varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    estado varchar(50) NOT NULL,
     CONSTRAINT Equipo_prestamo_complejo_pk PRIMARY KEY (Prestamos_fecha_inicio,Prestamos_persona,Equipos_Complejos_serial,Equipos_Complejos_modelo)
-)ENGINE=InnoDB COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB COLLATE utf8_general_ci;
 
 -- Table: Equipo_prestamo_sencillo
 CREATE TABLE Equipo_prestamo_sencillo (
@@ -37,15 +38,15 @@ CREATE TABLE Equipo_prestamo_sencillo (
 -- Table: Equipos_Complejos
 CREATE TABLE Equipos_Complejos (
     serial varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-    num_placa varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    num_placa varchar(50) NOT NULL,
     disponibilidad bool NOT NULL,
-    estado varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-    modelo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    estado varchar(50) NOT NULL,
+    modelo varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     asegurado bool NOT NULL,
     vida_restante int NOT NULL,
     UNIQUE INDEX Equipos_Complejos_ak_1 (num_placa),
     CONSTRAINT Equipos_Complejos_pk PRIMARY KEY (serial,modelo)
-)ENGINE=InnoDB COLLATE utf8_unicode_ci;
+) ENGINE=InnoDB COLLATE utf8_general_ci;
 
 -- Table: Equipos_Sencillos
 CREATE TABLE Equipos_Sencillos (
@@ -60,12 +61,11 @@ CREATE TABLE Equipos_Sencillos (
 
 -- Table: Informacion_Compra
 CREATE TABLE Informacion_Compra (
-    fecha_compra date NOT NULL,
+    fecha_compra timestamp NOT NULL,
     proveedor varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-    fecha_garantia date NOT NULL,
+    fecha_garantia timestamp NOT NULL,
     Equipos_Complejos_serial varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-    Equipos_Complejos_modelo varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-    marca varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+    Equipos_Complejos_modelo varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     codigo_orden_compra varchar(100) NOT NULL,
     codigo_activo varchar(100) NOT NULL,
     CONSTRAINT Informacion_Compra_pk PRIMARY KEY (Equipos_Complejos_serial,Equipos_Complejos_modelo)
@@ -80,7 +80,7 @@ CREATE TABLE Modelos (
     descripcion varchar(200) COLLATE utf8_unicode_ci NOT NULL,
     accesorios varchar(300) COLLATE utf8_unicode_ci NOT NULL,
     nombre varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-    marca varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+    marca varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Modelos_pk PRIMARY KEY (nombre)
 )ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
@@ -117,7 +117,7 @@ CREATE TABLE Rol_Persona (
     Personas_carne varchar(20) COLLATE utf8_unicode_ci NOT NULL,
     Rol_rol varchar(50) COLLATE utf8_unicode_ci NOT NULL,
     contrasena varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-    sal varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+    sal varchar(100) COLLATE utf8_unicode_ci NOT NULL,
     CONSTRAINT Rol_Persona_pk PRIMARY KEY (Personas_carne,Rol_rol)
 )ENGINE=InnoDB COLLATE utf8_unicode_ci;
 
@@ -133,7 +133,7 @@ ALTER TABLE Departamento_persona ADD CONSTRAINT Departamento_persona_Personas FO
 -- Reference: Equipo_prestamo_complejo_Equipos_Complejos (table: Equipo_prestamo_complejo)
 ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Equipos_Complejos FOREIGN KEY (Equipos_Complejos_serial,Equipos_Complejos_modelo)
     REFERENCES Equipos_Complejos (serial,modelo);
-
+-- no funciona esta sentencia
 -- Reference: Equipo_prestamo_complejo_Prestamos (table: Equipo_prestamo_complejo)
 ALTER TABLE Equipo_prestamo_complejo ADD CONSTRAINT Equipo_prestamo_complejo_Prestamos FOREIGN KEY (Prestamos_fecha_inicio,Prestamos_persona)
     REFERENCES Prestamos (fecha_inicio,persona);
@@ -168,4 +168,6 @@ ALTER TABLE Rol_Persona ADD CONSTRAINT Rol_Persona_Rol FOREIGN KEY (Rol_rol)
 alter table Equipo_prestamo_sencillo change Prestamos_fecha_inicio Prestamos_fecha_inicio timestamp not null default 0;
 alter table Prestamos change fecha_inicio fecha_inicio timestamp not null default 0;
 alter table Equipo_prestamo_complejo change Prestamos_fecha_inicio Prestamos_fecha_inicio timestamp not null default 0;
+alter table Informacion_Compra change fecha_compra fecha_compra timestamp not null default 0;
+alter table Informacion_Compra change fecha_garantia fecha_garantia timestamp not null default 0;
 -- End of file.
