@@ -68,7 +68,6 @@ public class RegistrarEquipoTest {
         daof.commitTransaction();
         OrdenCompra dg=new OrdenCompra(Timestamp.valueOf("2000-2-2 0:0:0"),Timestamp.valueOf("2001-2-2 0:0:0"),"Holi","orden","activo");
         EquipoComplejo ec=new EquipoComplejo(mod,"shdasdh564","123456",dg,0);
-        System.out.println(ec.getOrdenCompra().getAdquisicion());
         ec.setEstado("hola");
         reg.save(ec);
         daof.commitTransaction();
@@ -165,7 +164,6 @@ public class RegistrarEquipoTest {
         reg.save(ec);
         daof.commitTransaction();
         ArrayList<EquipoComplejo> prueba=reg.loadByModelo(mod.getNombre());
-        System.out.println(test.toString());
         daof.commitTransaction();
         daof.endSession();
         Assert.assertEquals("no registra el modelo del equipo",ec.getModelo_Eq(), prueba.get(0).getModelo_Eq());

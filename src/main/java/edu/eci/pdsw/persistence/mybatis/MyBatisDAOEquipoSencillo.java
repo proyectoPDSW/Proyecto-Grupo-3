@@ -61,10 +61,15 @@ public class MyBatisDAOEquipoSencillo implements DAOEquipoSencillo {
 
     @Override
     public EquipoSencillo loadByNombreDisponibles(String nombre) throws PersistenceException {
+        EquipoSencillo es;
         if (eMap.loadEquipoByNombre(nombre) == null) {
             throw new PersistenceException("El equipo con nombre " + nombre + " no esta registrado");
         }
-        return eMap.loadEquipoByNombreDisponibilidad(nombre);
+        es=eMap.loadEquipoByNombreDisponibilidad(nombre);
+        if(es==null){
+            throw new PersistenceException("La herramienta con nombre "+ nombre +" no esta registrada");
+        }
+        return es;
     }
 
     @Override
