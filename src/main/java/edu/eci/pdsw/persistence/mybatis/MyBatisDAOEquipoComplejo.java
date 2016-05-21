@@ -121,10 +121,13 @@ public class MyBatisDAOEquipoComplejo implements DAOEquipoComplejo {
 
     @Override
     public Modelo loadModelo(String nombre) throws PersistenceException {
+       Modelo mod;
        if (nombre==null || nombre.length() == 0) {
             throw new PersistenceException("Favor colocar un modelo adecuado");
         }
-        return eMap.loadModelo(nombre);
+       mod=eMap.loadModelo(nombre);
+       if(mod==null) throw new PersistenceException("El modelo con nombre "+ nombre +" no esta registrado");
+        return mod;
     }
 
     @Override
