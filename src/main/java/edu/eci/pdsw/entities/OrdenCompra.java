@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  *
  * @author German
  */
-public class OrdenCompra implements Comparable<OrdenCompra>{
+    public class OrdenCompra implements Comparable<OrdenCompra>{
     private Timestamp adquisicion;
     private Timestamp garantia;
     private String proveedor;
