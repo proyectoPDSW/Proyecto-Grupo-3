@@ -12,6 +12,7 @@ import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import edu.eci.pdsw.servicios.ServiciosPrestamoPersistence;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,7 +28,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "FichaEquipo")
 @SessionScoped
-public class FichaEquipoManagedBean {
+public class FichaEquipoManagedBean implements Serializable {
     private String placaAConsultar;
     private ServiciosEquipoComplejo SEC=ServiciosEquipoComplejo.getInstance();
     private ServiciosPrestamo SEP=ServiciosPrestamo.getInstance();

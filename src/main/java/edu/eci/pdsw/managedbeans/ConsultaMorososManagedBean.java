@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -23,7 +24,7 @@ import javax.faces.bean.SessionScoped;
  * @author Julian Devia
  */
 @ManagedBean(name = "consultaMorosos")
-@SessionScoped
+@RequestScoped
 public class ConsultaMorososManagedBean implements Serializable {
 
     private final ServiciosPrestamo sp = ServiciosPrestamo.getInstance();
@@ -34,7 +35,7 @@ public class ConsultaMorososManagedBean implements Serializable {
     /**
      * Consulta los prestamos en mora
      *
-     * @return the morosos
+     * @return the morosos, いいえ。
      */
     public List<Prestamo> getMorosos() {
         if (morosos == null || morosos.size() == 0) {

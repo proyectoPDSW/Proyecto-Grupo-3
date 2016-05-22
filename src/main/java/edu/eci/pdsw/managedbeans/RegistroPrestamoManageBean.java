@@ -21,6 +21,7 @@ import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -70,7 +71,6 @@ public class RegistroPrestamoManageBean implements Serializable {
     private boolean showPanelPersona = true;
     private boolean showPanelInfo = false;
     private boolean showPanelOtroRegistro=false;
-    private boolean showPanelOtraInfo=false;
     private String selectEqSe;
 
     // Lista de equipo complejo para consultar los equipos prestamo termino fijo
@@ -91,7 +91,7 @@ public class RegistroPrestamoManageBean implements Serializable {
     private String eqcompl;
     //Avisa si a la persona toca agregarle un prestamo o si se le pueden agregar equipos a uno activo que ya tiene
     private boolean pres;
-    
+    //Prestamo que ya tiene equipos prestados y se le va a agregar mas
     private Prestamo prestamoAgregarle;
 
     public boolean showPanelInformacion() {
@@ -136,28 +136,32 @@ public class RegistroPrestamoManageBean implements Serializable {
         try {
             registrarOtroPrestamo();
             elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
-            if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getNombre()).isEmpty()){
+            if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getCarnet()).isEmpty()){
                 pres=true;
                 showPanelRegistro = true;
-                showPanelInfo = true;
             }else{
-                List<Prestamo> prestados=PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getNombre());
+                List<Prestamo> prestados=PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getCarnet());
                 boolean ban=true;
                 for(int i=0;i<prestados.size() && ban==true;i++){
                     if(prestados.get(i).prestamoActivo()){
+                        showPanelOtroRegistro=true;
                         pres=false;
-                        prestamoAgregarle=prestados.get(i);
-                        ban=false;
+                        setPrestamoAgregarle(prestados.get(i));
+                        equiposComplejosPrestados=prestamoAgregarle.getEquiposComplejosPrestados();
+                        equiposSencillosPrestados=prestamoAgregarle.getEquiposSencillosPrestados();
+                        for(EquipoComplejo ecp:equiposComplejosPrestados){
+                            if(ecp.getEstado()!=null){
+                                fechaTipoPrestamo=ecp.getEstado();
+                                break;
+                            }
+                        }
+                        ban=false;                        
                     }
                 }
-                if(!ban){    
-                    showPanelOtroRegistro=true;
-                    showPanelOtraInfo=true;
-                }else{
+                if(ban){
                     pres=true;
                     showPanelRegistro = true;
-                    showPanelInfo = true;
-            }
+                }
           }  
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
@@ -210,14 +214,10 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void agregarEquipoC() {
         if (selectEquipoComplejo != null) {
-            if (fechaTipoPrestamo == null || fechaTipoPrestamo.length() <= 0) {
-                facesError("Debe seleccionar un tipo de prestamo para poder continuar");
-            } else {
-                selectEquipoComplejo.setEstado(fechaTipoPrestamo);
-                actualizarEquipoComplejo(selectEquipoComplejo);
-                consultarEqPlacaDisponible();
-                equiposComplejosPrestados.add(selectEquipoComplejo);
-            }
+            selectEquipoComplejo.setEstado(fechaTipoPrestamo);
+            actualizarEquipoComplejo(selectEquipoComplejo);
+            consultarEqPlacaDisponible();
+            equiposComplejosPrestados.add(selectEquipoComplejo);
         }
     }
 
@@ -266,8 +266,12 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void registrarPrestamo() {
         try {
+            if(fechaTipoPrestamo == null || fechaTipoPrestamo.length() <= 0) {
+              facesError("Debe seleccionar un tipo de prestamo para poder continuar");
+            }
             fechaEstimadaDeEntrega = Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
             if(pres){
+                System.out.println("No tiene prestamos activos o no tiene prestamos");
                 if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)) {
                     prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
                 } else if (getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor)) {
@@ -277,21 +281,16 @@ public class RegistroPrestamoManageBean implements Serializable {
                         prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
                     }
                 }
-               if(fechaTipoPrestamo == null || fechaTipoPrestamo.length() <= 0) {
-                 facesError("Debe seleccionar un tipo de prestamo para poder continuar");
-                }
                 PRESTAMO.registrarPrestamo(prestamo);
+                showPanelRegistro=false;
             }else{
-                for(EquipoComplejo ec: equiposComplejosPrestados){
-                    prestamoAgregarle.getEquiposComplejosPrestados().add(ec);
-                }
-                for(EquipoSencillo es: equiposSencillosPrestados){
-                    prestamoAgregarle.getEquiposSencillosPrestados().add(es);
-                }
+                System.out.println("Si tiene un prestamo activo y esta actualizando");
+                prestamoAgregarle.setEquiposComplejosPrestados(equiposComplejosPrestados);
+                prestamoAgregarle.setEquiposSencillosPrestados(equiposSencillosPrestados);
                 PRESTAMO.actualizarPrestamo(prestamoAgregarle);
+                showPanelOtroRegistro=false;
             }  
             facesInfo("El prestamo ha sido registrado satisfactoriamente");
-            showPanelRegistro = false;
             showPanelRegistrado = true;
 
         } catch (ExcepcionServicios ex) {
@@ -313,6 +312,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         cantidadDisponible = 0;
         showPanelRegistro = false;
         showPanelRegistrado = false;
+        showPanelOtroRegistro=false;
         fechaTipoPrestamo = "";
         cantidad = 0;
     }
@@ -597,6 +597,24 @@ public class RegistroPrestamoManageBean implements Serializable {
 
     public void setEqcompl(String eqcompl) {
         this.eqcompl = eqcompl;
+    }
+    
+    public boolean getShowPanelOtroRegistro(){
+        return showPanelOtroRegistro;
+    }
+
+    /**
+     * @return the prestamoAgregarle
+     */
+    public Prestamo getPrestamoAgregarle() {
+        return prestamoAgregarle;
+    }
+
+    /**
+     * @param prestamoAgregarle the prestamoAgregarle to set
+     */
+    public void setPrestamoAgregarle(Prestamo prestamoAgregarle) {
+        this.prestamoAgregarle = prestamoAgregarle;
     }
 
 }

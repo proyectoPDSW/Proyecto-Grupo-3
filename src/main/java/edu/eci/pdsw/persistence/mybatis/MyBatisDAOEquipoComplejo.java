@@ -149,10 +149,7 @@ public class MyBatisDAOEquipoComplejo implements DAOEquipoComplejo {
     public EquipoComplejo loadEnAlmacenPorPlaca(String placa) throws PersistenceException {
         EquipoComplejo equipo=eMap.loadEquipoDisponibleByPlaca(placa);
         if(equipo==null){
-            throw new PersistenceException("El equipo con placa "+ placa +" no está registrado");
-        }
-        if(!equipo.getEstado().equals(EquipoComplejo.almacen)){
-            throw new PersistenceException("El equipo con placa "+ placa +" no está disponible para prestar");
+            throw new PersistenceException("El equipo con placa "+ placa +" no está registrado o no esta disponible para prestar");
         }
         return equipo;
     }
