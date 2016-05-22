@@ -385,11 +385,9 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public boolean prestamoActivo() {
         boolean res = false;
-        if (fechaEstimadaDeEntrega == null) {
+        if (fechaRealEntregada==null) {
             res = true;
-        } else if (fechaEstimadaDeEntrega.compareTo(currDate()) < 0) {
-            res = true;
-        }
+        } 
         return res;
     }
 }
