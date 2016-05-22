@@ -40,10 +40,10 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (mod == null) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         }
-        if (ser.length() <= 0) {
+        if (ser==null || ser.length() <= 0) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         }
-        if (plac.length()==0) {
+        if (plac==null || plac.length()==0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }
         if (dg == null) {

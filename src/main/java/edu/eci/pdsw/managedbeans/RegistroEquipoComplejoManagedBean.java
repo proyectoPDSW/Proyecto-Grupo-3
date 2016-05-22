@@ -14,9 +14,12 @@ import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -40,39 +43,39 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     private Modelo modelo;
 
-        private int vidaUtil;
-        private String nombre;
-        private String clase;
-        private String marca;
-        private long valorComercial;
-        private String fotografia;
-        private String descripcion;
-        private String accesorios;
+    private int vidaUtil;
+    private String nombre;
+    private String clase;
+    private String marca;
+    private long valorComercial;
+    private String fotografia;
+    private String descripcion;
+    private String accesorios;
 
     private EquipoComplejo equipo;
 
-        private boolean asegurado;
-        private boolean disponibilidad;
-        private String estado;
-        private String serial;
-        private String placa;
-        private int tiempoDeUso;
-    
+    private boolean asegurado;
+    private boolean disponibilidad;
+    private String estado;
+    private String serial;
+    private String placa;
+    private int tiempoDeUso;
+
     private OrdenCompra ordenCompra;
-    
-        private String proveedor;
-        private String codOrdenCompra;
-        private String codActivo;
-        private Date fechaAdquisicion;
-        private Date fechaGarantia;
-    
+
+    private String proveedor;
+    private String codOrdenCompra;
+    private String codActivo;
+    private Date fechaAdquisicion;
+    private Date fechaGarantia;
+
     private String aseguradoEquipo = "";
     private String disponibilidadEquipo = "";
-    
+
     ////////Mostrar paneles
-    private boolean showPanelRegistroModelo=false;
-    private boolean showPanelInformacionModelo=false;
-    private boolean showPanelRegistroExitoso=false;
+    private boolean showPanelRegistroModelo = false;
+    private boolean showPanelInformacionModelo = false;
+    private boolean showPanelRegistroExitoso = false;
 
     /**
      * Constructor del Bean
@@ -96,12 +99,12 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         serial = "";
         placa = "0";
         marca = "";
-        tiempoDeUso=0;
+        tiempoDeUso = 0;
     }
 
     /**
      * Obtiene una lista de modelos por nombre aproximado
-     * 
+     *
      * @param query la consulta
      * @return los modelos que se parecen a la consulta
      */
@@ -119,32 +122,26 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     /**
      * Consultar un modelo por su nombre
      */
-
     public void consultarModelo() {
         try {
             modelo = SERVICIOS.consultarModelo(nombreModelo);
-            showPanelRegistroModelo=false;
-            showPanelInformacionModelo=true;
+            showPanelRegistroModelo = false;
+            showPanelInformacionModelo = true;
             limpiar();
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
             facesInfo("Por favor, registre el modelo!");
-            showPanelRegistroModelo=true;
-            showPanelInformacionModelo=false;
+            showPanelRegistroModelo = true;
+            showPanelInformacionModelo = false;
         }
     }
 
     public void registrarEquipo() {
         try {
-            equipo = new EquipoComplejo(modelo,serial, placa, getOrdenCompra(),tiempoDeUso);
-            equipo.setAsegurado(asegurado);
-            equipo.setPlaca(placa);
-            equipo.setDisponibilidad(true);
-            equipo.setEstado("Activo");
             SERVICIOS.registrarEquipoComplejo(equipo);
             facesInfo("El equipo ha sido registrado satisfactoriamente");
-        } catch (ExcepcionServicios | EquipoException ex) {
+        } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
         }
@@ -152,11 +149,11 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipoModelo() {
         try {
-            modelo = new Modelo(vidaUtil, nombre,marca, fotografia, clase, valorComercial);
+            modelo = new Modelo(vidaUtil, nombre, marca, fotografia, clase, valorComercial);
             modelo.setDescripcion(descripcion);
             modelo.setAccesorios(accesorios);
             //SERVICIOS.registrarModelo(modelo);
-            equipo = new EquipoComplejo(modelo,serial, placa, getOrdenCompra(),tiempoDeUso);
+            equipo = new EquipoComplejo(modelo, serial, placa, getOrdenCompra(), tiempoDeUso);
             equipo.setModelo_Eq(modelo);
             equipo.setAsegurado(asegurado);
             equipo.setPlaca(placa);
@@ -164,9 +161,9 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             equipo.setEstado("en almacen");
             SERVICIOS.registrarEquipoComplejo(equipo);
             facesInfo("El equipo ha sido registrado satisfactoriamente");
-            showPanelInformacionModelo=false;
-            showPanelRegistroModelo=false;
-            showPanelRegistroExitoso=true;
+            showPanelInformacionModelo = false;
+            showPanelRegistroModelo = false;
+            showPanelRegistroExitoso = true;
         } catch (ExcepcionServicios | EquipoException ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
@@ -297,7 +294,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         this.marca = marca;
     }
 ///////////////////Informacion orden compra
-    
+
     /**
      * @return the ordenCompra
      */
@@ -382,6 +379,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         this.fechaGarantia = fechaGarantia;
     }
 ///////////////////////////////////////////////////Mensajes
+
     /**
      * Muestra un mensaje de error en la vista
      *
@@ -434,19 +432,36 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     public void setDisponibilidadEquipo(String disponibilidadEquipo) {
         this.disponibilidadEquipo = disponibilidadEquipo;
     }
-    
+
     //// Wizard
     public String onFlowProcessRegistro(FlowEvent event) {
-        String pag=event.getNewStep();
-        if(pag.equals("W1InfoEquipo")){
-            
+        String pag = event.getNewStep();
+        System.out.println(pag);
+        return pag;
+    }
+
+    public String onFlowProcessInformacion(FlowEvent event) {
+        String pag = event.getNewStep();
+        if (pag.equals("W1confirm")) {
+            try {
+                ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
+                equipo = new EquipoComplejo(modelo, serial, placa,ordenCompra, tiempoDeUso);
+                equipo.setAsegurado(asegurado);
+                equipo.setPlaca(placa);
+                equipo.setDisponibilidad(true);
+                equipo.setEstado("Activo");
+                equipo.setOrdenCompra(ordenCompra);
+            } catch (EquipoException ex) {
+                Registro.anotar(ex);
+                facesError(ex.getMessage());
+                System.out.println(ex.getLocalizedMessage());
+                pag="W1InfoEquipo";
+            }
         }
         return pag;
     }
-       public String onFlowProcessInformacion(FlowEvent event) {
-        return event.getNewStep();
-    }
 ////////Mostrar paneles
+
     /**
      * @return the showPanelRegistroModelo
      */
@@ -460,6 +475,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     public boolean showPanelInformacionModelo() {
         return showPanelInformacionModelo;
     }
+
     /**
      * @return the showPanelConsultaModelo
      */
