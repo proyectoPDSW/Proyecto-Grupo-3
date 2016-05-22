@@ -88,7 +88,7 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
     @Override
     public void update(Prestamo prestamo) throws PersistenceException {
         Prestamo viejo=load(prestamo.getFechaInicio(), prestamo.getElQuePideElPrestamo().getCarnet());
-        if (load(prestamo.getFechaInicio(), prestamo.getElQuePideElPrestamo().getCarnet()) == null) {
+        if (viejo == null) {
             throw new PersistenceException("El prestamo no existe así que no se puede actualizar");
         }
         //Prestamo pres=load(prestamo.getFechaInicio(), prestamo.getElQuePideElPrestamo().getCarnet());
@@ -99,7 +99,6 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         for (EquipoComplejo ec: prestamo.getEquiposComplejosPrestados()){
             if(!viejo.getEquiposComplejosPrestados().contains(ec)){
                 pmap.insertEquipoComplejo_Prestamo(prestamo, ec);
-                
             }
             if(!prestamo.isFaltante(ec)){
                 pmap.updateEquipoComplejo(prestamo, ec);

@@ -304,6 +304,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             daoF.beginSession();
             basePaciente = daoF.getDaoPrestamo();
             basePaciente.update(p);
+            daoF.commitTransaction();
         } catch (PersistenceException ex) {
             throw new ExcepcionServicios(ex, ex.getLocalizedMessage());
         } finally {

@@ -223,8 +223,9 @@ public class RegistroPrestamoManageBean implements Serializable {
             }else{
             selectEquipoComplejo.setEstado(fechaTipoPrestamo);
             actualizarEquipoComplejo(selectEquipoComplejo);
-            consultarEqPlacaDisponible();
+            //consultarEqPlacaDisponible();
             equiposComplejosPrestados.add(selectEquipoComplejo);
+            registrarPrestamo();
             }
         }
     }
@@ -302,7 +303,6 @@ public class RegistroPrestamoManageBean implements Serializable {
                 showPanelRegistro=false;
                 showPanelRegistrado = true;
             }else{
-                System.out.println("Si tiene un prestamo activo y esta actualizando");
                 prestamoAgregarle.setEquiposComplejosPrestados(equiposComplejosPrestados);
                 prestamoAgregarle.setEquiposSencillosPrestados(equiposSencillosPrestados);
                 PRESTAMO.actualizarPrestamo(prestamoAgregarle);

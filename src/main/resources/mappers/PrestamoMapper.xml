@@ -416,7 +416,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         values(#{Prestamo.fechaInicio}, #{Prestamo.elQuePideElPrestamo.carnet}, #{Prestamo.fechaEstimadaDeEntrega}, #{Prestamo.fechaRealEntregada}, #{Prestamo.tipo_prestamo})
     </insert>
     <insert id='insertEquipoComplejo_Prestamo' parameterType='map'>
-        insert into Equipo_prestamo_complejo(Prestamos_fecha_inicio, Prestamos_persona, Equipos_Complejos_serial, Equipos_Complejos_modelo,estado) 
+        insert into Equipo_prestamo_complejo (Prestamos_fecha_inicio, Prestamos_persona, Equipos_Complejos_serial, Equipos_Complejos_modelo,estado) 
         values (#{Prestamo_id.fechaInicio},#{Prestamo_id.elQuePideElPrestamo.carnet},#{Equipo_id.serial},#{Equipo_id.modelo_Eq.nombre},'Activo')
     </insert>
     <insert id='insertEquipoSencillo_Prestamo' parameterType='map'>
