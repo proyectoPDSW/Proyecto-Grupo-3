@@ -80,6 +80,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
      */
     public RegistroEquipoComplejoManagedBean() {
         this.fechaAdquisicion = new Date();
+        this.fechaGarantia = new Date();
         SERVICIOS = ServiciosEquipoComplejo.getInstance();
     }
 
@@ -147,22 +148,12 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipoModelo() {
         try {
-            modelo = new Modelo(vidaUtil, nombre, marca, fotografia, clase, valorComercial);
-            modelo.setDescripcion(descripcion);
-            modelo.setAccesorios(accesorios);
-            //SERVICIOS.registrarModelo(modelo);
-            equipo = new EquipoComplejo(modelo, serial, placa, getOrdenCompra(), tiempoDeUso);
-            equipo.setModelo_Eq(modelo);
-            equipo.setAsegurado(asegurado);
-            equipo.setPlaca(placa);
-            equipo.setDisponibilidad(true);
-            equipo.setEstado("en almacen");
             SERVICIOS.registrarEquipoComplejo(equipo);
             facesInfo("El equipo ha sido registrado satisfactoriamente");
             showPanelInformacionModelo = false;
             showPanelRegistroModelo = false;
             showPanelRegistroExitoso = true;
-        } catch (ExcepcionServicios | EquipoException ex) {
+        } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
         }
@@ -434,7 +425,34 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     //// Wizard
     public String onFlowProcessRegistro(FlowEvent event) {
         String pag = event.getNewStep();
-        System.out.println(pag);
+        if (pag.equals("W2InfoEquipo")) {
+            try {
+                modelo = new Modelo(vidaUtil, nombre, marca, fotografia, clase, valorComercial);
+                modelo.setDescripcion(descripcion);
+                modelo.setAccesorios(accesorios);
+            } catch (EquipoException ex) {
+                Registro.anotar(ex);
+                facesError(ex.getMessage());
+                pag = "W2InfoModelo";
+            }
+
+        }
+        if(pag.equals("W2Confirm")){
+             try {
+                ordenCompra = new OrdenCompra();
+                equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
+                equipo.setAsegurado(asegurado);
+                equipo.setPlaca(placa);
+                equipo.setDisponibilidad(true);
+                equipo.setEstado("Activo");
+                ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
+                equipo.setOrdenCompra(ordenCompra);
+            } catch (EquipoException ex) {
+                Registro.anotar(ex);
+                facesError(ex.getMessage());
+                pag = "W2InfoEquipo";
+            }      
+        }
         return pag;
     }
 
@@ -442,18 +460,18 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         String pag = event.getNewStep();
         if (pag.equals("W1confirm")) {
             try {
-                ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
-                equipo = new EquipoComplejo(modelo, serial, placa,ordenCompra, tiempoDeUso);
+                ordenCompra = new OrdenCompra();
+                equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
                 equipo.setAsegurado(asegurado);
                 equipo.setPlaca(placa);
                 equipo.setDisponibilidad(true);
                 equipo.setEstado("Activo");
+                ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
                 equipo.setOrdenCompra(ordenCompra);
             } catch (EquipoException ex) {
                 Registro.anotar(ex);
                 facesError(ex.getMessage());
-                System.out.println(ex.getLocalizedMessage());
-                pag="W1InfoEquipo";
+                pag = "W1InfoEquipo";
             }
         }
         return pag;

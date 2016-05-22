@@ -23,11 +23,12 @@ import java.sql.Timestamp;
     }
     
     public OrdenCompra(Timestamp adq,Timestamp gar,String provee,String act,String cod) throws EquipoException{
-        if(provee==null || provee.length()==0) throw new EquipoException("Favor colocar un proveedor del equipo adecuado");
-        if(adq==null) throw new EquipoException("Favor colocar una fecha de adquisicion adecuada");
-        if(gar==null) throw new EquipoException("Favor colocar una fecha de garantia adecuada");
-        if(act==null || act.length()==0) throw new EquipoException("Favor colocar un codigo activo adecuado");
-        if(cod==null || cod.length()==0) throw new EquipoException("Favor colocar un codigo de orden de compra adecuado");
+        if(cod==null || cod.length()==0) throw new EquipoException("Favor colocar un código de orden de compra adecuado");
+        if(act==null || act.length()==0) throw new EquipoException("Favor colocar un código activo adecuado");
+        if(provee==null || provee.length()==0) throw new EquipoException("Favor colocar un proveedor en la orden de compra del equipo adecuado");
+        if(adq==null) throw new EquipoException("Favor colocar una fecha de adquisición adecuada");
+        if(gar==null) throw new EquipoException("Favor colocar una fecha de garantía adecuada");
+        if(gar.before(adq)) throw new EquipoException("Fecha de garatía inválida");
         this.adquisicion=adq;
         this.garantia=gar;
         this.proveedor=provee;

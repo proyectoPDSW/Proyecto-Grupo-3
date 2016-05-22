@@ -28,7 +28,7 @@
             <br/>
         </h:form>
         <h:form id="registro">
-            <p:wizard id="W1" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessInformacion}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
+            <p:wizard id="W1" style="margin-bottom:40px" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessInformacion}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
                 <p:tab id="W1InfoModelo">
                     <p:panel header="Información Modelo">
                         <p:panelGrid  style="margin-bottom:20px"  columns="2" >
@@ -59,30 +59,32 @@
                     </p:panel>
                 </p:tab>
                 <p:tab id="W1InfoEquipo">
-                    <p:panel header="Información Equipo">
-                        <p:panelGrid columns="2" style="margin-bottom:20px">
-                            <h:outputLabel value="Serial: (*)" />
-                            <h:inputText  value="#{RegistroEquiposComplejos.serial}" />
-                            <h:outputLabel value="Placa: (*)" />
-                            <p:spinner value="#{RegistroEquiposComplejos.placa}" min="1" max="1000000000" />
-                            <h:outputLabel value="¿Se encuentra asegurado?" />
-                            <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
-                        </p:panelGrid> 
-                    </p:panel>
-                    <p:panel header="Información Orden Compra">
-                        <p:panelGrid columns="2" style="margin-bottom:20px">
-                            <h:outputLabel value="Código orden compra: " />
-                            <h:inputText  value="#{RegistroEquiposComplejos.codOrdenCompra}" />
-                            <h:outputLabel value="Código Activo: " />
-                            <h:inputText value="#{RegistroEquiposComplejos.codActivo}" />
-                            <h:outputLabel value="Proveedor: (*)" />
-                            <h:inputText value="#{RegistroEquiposComplejos.proveedor}" />
-                            <h:outputLabel value="Fecha adquisición: (*)" />
-                            <p:calendar value="#{RegistroEquiposComplejos.fechaAdquisicion}" pattern="yyyy-mm-dd" mask="true" navigator="true" mindate="#{RegistroEquiposComplejos.fechaAdquisicion}" />
-                            <h:outputLabel value="Fecha garantía: (*)" />
-                            <p:calendar value="#{RegistroEquiposComplejos.fechaGarantia}" pattern="yyyy-mm-dd" mask="true" navigator="true"  mindate="#{RegistroEquiposComplejos.fechaAdquisicion}"/>
-                        </p:panelGrid> 
-                    </p:panel>
+                    <p:panelGrid columns="2" style="margin-bottom:20px">
+                        <p:panel header="Información Equipo">
+                            <p:panelGrid columns="2" style="margin-bottom:20px">
+                                <h:outputLabel value="Serial: (*)" />
+                                <h:inputText  value="#{RegistroEquiposComplejos.serial}" />
+                                <h:outputLabel value="Placa: (*)" />
+                                <p:spinner value="#{RegistroEquiposComplejos.placa}" min="1" max="1000000000" />
+                                <h:outputLabel value="¿Se encuentra asegurado?" />
+                                <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
+                            </p:panelGrid> 
+                        </p:panel>
+                        <p:panel header="Información Orden Compra">
+                            <p:panelGrid columns="2" style="margin-bottom:20px">
+                                <h:outputLabel value="Código orden compra: " />
+                                <h:inputText  value="#{RegistroEquiposComplejos.codOrdenCompra}" />
+                                <h:outputLabel value="Código Activo: " />
+                                <h:inputText value="#{RegistroEquiposComplejos.codActivo}" />
+                                <h:outputLabel value="Proveedor: (*)" />
+                                <h:inputText value="#{RegistroEquiposComplejos.proveedor}" />
+                                <h:outputLabel value="Fecha adquisición: (*)" />
+                                <p:calendar value="#{RegistroEquiposComplejos.fechaAdquisicion}" pattern="yyyy-mm-dd" mask="true" navigator="true" mindate="#{RegistroEquiposComplejos.fechaAdquisicion}" />
+                                <h:outputLabel value="Fecha garantía: (*)" />
+                                <p:calendar value="#{RegistroEquiposComplejos.fechaGarantia}" pattern="yyyy-mm-dd" mask="true" navigator="true"  mindate="#{RegistroEquiposComplejos.fechaAdquisicion}"/>
+                            </p:panelGrid> 
+                        </p:panel>
+                    </p:panelGrid>
                 </p:tab>
                 <p:tab id="W1confirm">
                     <p:panel header="Registro equipo ">
@@ -156,7 +158,7 @@
                 </p:tab>
             </p:wizard>
             <br/>
-            <p:wizard id="W2" rendered="#{RegistroEquiposComplejos.showPanelRegistroModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessRegistro}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
+            <p:wizard id="W2" style="margin-bottom:40px" rendered="#{RegistroEquiposComplejos.showPanelRegistroModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessRegistro}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
                 <p:tab id="W2InfoModelo">
                     <p:panel header="Información Modelo">
 

@@ -37,13 +37,13 @@ public class Modelo {
         if (vidaU <= 0) {
             throw new EquipoException(EquipoException.MODELO_VIDA_UTIL_INADECUADA);
         }
-        if (name.length() <= 0) {
+        if (name==null || name.length() <= 0) {
             throw new EquipoException(EquipoException.MODELO_SIN_NOMBRE);
         }
-        if (mar.length() <= 0) {
+        if (mar==null || mar.length() <= 0) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_MARCA);
         }
-        if (clas.length() <= 0) {
+        if (clas==null || clas.length() <= 0) {
             throw new EquipoException(EquipoException.MODELO_SIN_CLASE);
         }
         if (valor <= 0) {
