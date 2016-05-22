@@ -121,6 +121,10 @@ public class RegistroDevolucionManageBean implements Serializable{
             showPanelInfoPrestamista=false;
         }
     }
+    
+    public void reset(){
+        showPanelInfoPrestamista=false;
+    }
 
     public List<EquipoSencillo> getEs() {
         return es;

@@ -80,7 +80,9 @@ and open the template in the editor.
                         </f:facet>
                     </p:ajaxStatus>
                 </p:tabView>
-                <center><p:commandButton value="Volver al inicio" action="index" /></center>
+                        <center><p:commandButton value="Volver al inicio" action="index" update="devolucion">
+                                <p:ajax event="click" listener="#{RegistroDevolucion.reset()}"/>
+                    </p:commandButton></center>
             </p:panel>
 
         </h:form>
