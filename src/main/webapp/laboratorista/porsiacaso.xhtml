@@ -28,9 +28,9 @@
             <br/>
         </h:form>
         <h:form id="registro">
-            <p:wizard id="W" widgetVar="wiz" style="margin-bottom:40px" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo() or RegistroEquiposComplejos.showPanelRegistroModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessRegistro}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
-                <p:tab id="WInfoModelo">
-                    <p:panel header="Información Modelo" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo()}">
+            <p:wizard id="W1" style="margin-bottom:40px" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessInformacion}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
+                <p:tab id="W1InfoModelo">
+                    <p:panel header="Información Modelo">
                         <p:panelGrid  columns="2" >
 
                             <f:facet name="header">
@@ -57,37 +57,8 @@
 
                         </p:panelGrid>
                     </p:panel>
-                    <p:panel header="Información Modelo" rendered="#{RegistroEquiposComplejos.showPanelRegistroModelo()}">
-
-                        <p:panelGrid columns="2" >
-
-                            <h:outputLabel value="URL imagen:" />
-                            <h:inputText  value="#{RegistroEquiposComplejos.fotografia}" />
-
-                            <h:outputLabel value="Nombre: (*)" />
-                            <h:outputLabel value="#{RegistroEquiposComplejos.nombre}" />
-
-                            <h:outputLabel value="Marca: (*)" />
-                            <h:inputText  value="#{RegistroEquiposComplejos.marca}"/>
-
-                            <h:outputLabel value="Clase: (*)" />
-                            <h:inputText value="#{RegistroEquiposComplejos.clase}"/>
-
-                            <h:outputLabel value="Valor comercial en COP: (*)" />
-                            <p:spinner  value="#{RegistroEquiposComplejos.valorComercial}" prefix="$" stepFactor="50" min="50"/>
-
-                            <h:outputLabel value="Vida útil en horas: (*)" />
-                            <p:spinner  value="#{RegistroEquiposComplejos.vidaUtil}" min="1" max="1000000000" />
-
-                            <h:outputLabel value="Descripción:" />
-                            <h:inputText value="#{RegistroEquiposComplejos.descripcion}" />
-
-                            <h:outputLabel value="Accesorios: " />
-                            <h:inputText value="#{RegistroEquiposComplejos.accesorios}" />
-                        </p:panelGrid>
-                    </p:panel>
                 </p:tab>
-                <p:tab id="WInfoEquipo">
+                <p:tab id="W1InfoEquipo">
                     <p:panelGrid columns="2">
                         <p:panel header="Información Equipo">
                             <p:panelGrid columns="2">
@@ -97,7 +68,7 @@
                                 <h:inputText value="#{RegistroEquiposComplejos.placa}" />
                                 <h:outputLabel value="¿Se encuentra asegurado?" />
                                 <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
-                            </p:panelGrid>
+                            </p:panelGrid> 
                         </p:panel>
                         <p:panel header="Información Orden Compra">
                             <p:panelGrid columns="2">
@@ -111,11 +82,11 @@
                                 <p:calendar value="#{RegistroEquiposComplejos.fechaAdquisicion}" pattern="yyyy-MM-dd" mask="true" navigator="true" mindate="#{RegistroEquiposComplejos.fechaAdquisicion}" />
                                 <h:outputLabel value="Fecha garantía: (*)" />
                                 <p:calendar value="#{RegistroEquiposComplejos.fechaGarantia}" pattern="yyyy-MM-dd" mask="true" navigator="true"  mindate="#{RegistroEquiposComplejos.fechaAdquisicion}"/>
-                            </p:panelGrid>
+                            </p:panelGrid> 
                         </p:panel>
                     </p:panelGrid>
                 </p:tab>
-                <p:tab id="Wconfirm">
+                <p:tab id="W1confirm">
                     <p:panel header="Registro equipo ">
                         <p:panelGrid columns="3" >
                             <p:panel header="Información Modelo">
@@ -165,7 +136,7 @@
                                     <h:outputLabel value="Estado: " />
                                     <h:outputText value="#{RegistroEquiposComplejos.equipo.estado}"/>
 
-                                </p:panelGrid>
+                                </p:panelGrid>                        
 
                             </p:panel>
                             <p:panel header="Información Orden Compra">
@@ -180,14 +151,154 @@
                                     <h:outputLabel value="#{RegistroEquiposComplejos.fechaAdquisicion}"/>
                                     <h:outputLabel value="Fecha garantía: (*)" />
                                     <h:outputLabel value="#{RegistroEquiposComplejos.fechaGarantia}"/>
-                                </p:panelGrid>
+                                </p:panelGrid> 
                             </p:panel>
                         </p:panelGrid>
-                        <br/><center/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":registro :exitoso" icon="ui-icon-plusthick" oncomplete="wiz.loadStep (wiz.cfg.steps [0], true)" />
+                        <br/><center/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":registro :exitoso" icon="ui-icon-plusthick"/>
                     </p:panel>
-                </p:tab>
+                </p:tab>   
             </p:wizard>
             <br/>
+            <p:wizard id="W2" style="margin-bottom:40px" rendered="#{RegistroEquiposComplejos.showPanelRegistroModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessRegistro}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
+                <p:tab id="W2InfoModelo">
+                    <p:panel header="Información Modelo">
+
+                        <p:panelGrid columns="2" >
+
+                            <h:outputLabel value="URL imagen:" />
+                            <h:inputText  value="#{RegistroEquiposComplejos.fotografia}" />
+
+                            <h:outputLabel value="Nombre: (*)" />
+                            <h:inputText value="#{RegistroEquiposComplejos.nombre}" />
+
+                            <h:outputLabel value="Marca: (*)" />
+                            <h:inputText  value="#{RegistroEquiposComplejos.marca}"/>
+
+                            <h:outputLabel value="Clase: (*)" />
+                            <h:inputText value="#{RegistroEquiposComplejos.clase}"/>
+
+                            <h:outputLabel value="Valor comercial en COP: (*)" />
+                            <p:spinner  value="#{RegistroEquiposComplejos.valorComercial}" prefix="$" stepFactor="50" min="50"/>
+
+                            <h:outputLabel value="Vida útil en horas: (*)" />
+                            <p:spinner  value="#{RegistroEquiposComplejos.vidaUtil}" min="1" max="1000000000" />
+
+                            <h:outputLabel value="Descripción:" />
+                            <h:inputText value="#{RegistroEquiposComplejos.descripcion}" />
+
+                            <h:outputLabel value="Accesorios: " />
+                            <h:inputText value="#{RegistroEquiposComplejos.accesorios}" />
+                        </p:panelGrid>   
+                    </p:panel>
+
+                </p:tab>
+
+                <p:tab id="W2InfoEquipo">
+                    <center><p:panelGrid  columns="2" >
+                            <p:panel header="Información Equipo">
+                                <p:panelGrid  columns="2" >
+
+                                    <h:outputLabel value="Serial: (*)" />
+                                    <h:inputText  value="#{RegistroEquiposComplejos.serial}" />
+
+                                    <h:outputLabel value="Placa: (*)" />
+                                    <h:inputText  value="#{RegistroEquiposComplejos.placa}"/>
+
+                                    <h:outputLabel value="¿Se encuentra asegurado?" />
+                                    <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
+                                </p:panelGrid> 
+
+                            </p:panel>
+                            <p:panel header="Información Orden Compra">
+                                <p:panelGrid columns="2" >
+                                    <h:outputLabel value="Código orden compra: " />
+                                    <h:inputText  value="#{RegistroEquiposComplejos.codOrdenCompra}" />
+                                    <h:outputLabel value="Código Activo: " />
+                                    <h:inputText value="#{RegistroEquiposComplejos.codActivo}" />
+                                    <h:outputLabel value="Proveedor: (*)" />
+                                    <h:inputText value="#{RegistroEquiposComplejos.proveedor}" />
+                                    <h:outputLabel value="Fecha adquisición: (*)" />
+                                    <p:calendar value="#{RegistroEquiposComplejos.fechaAdquisicion}" pattern="yyyy-MM-dd" mask="true" navigator="true" mindate="#{RegistroEquiposComplejos.fechaAdquisicion}" />
+                                    <h:outputLabel value="Fecha garantía: (*)" />
+                                    <p:calendar value="#{RegistroEquiposComplejos.fechaGarantia}" pattern="yyyy-MM-dd" mask="true" navigator="true"  mindate="#{RegistroEquiposComplejos.fechaAdquisicion}"/>
+                                </p:panelGrid> 
+                            </p:panel>
+                        </p:panelGrid>
+                    </center>
+                </p:tab>
+                <p:tab id="W2Confirm">
+                    <p:panel header="Registro equipo ">
+                        <p:panelGrid columns="3" >
+                            <p:panel header="Información Modelo">
+                                <p:panelGrid  columns="2" >
+
+                                    <f:facet name="header">
+                                        <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" height="200px" width="200px"/>
+                                    </f:facet>
+
+                                    <h:outputLabel value="Nombre:" />
+                                    <h:outputText value="#{RegistroEquiposComplejos.modelo.nombre}" />
+
+                                    <h:outputLabel value="Marca:" />
+                                    <h:outputText value="#{RegistroEquiposComplejos.modelo.marca}" />
+
+                                    <h:outputLabel value="Clase:" />
+                                    <h:outputText value="#{RegistroEquiposComplejos.modelo.clase}" />
+
+                                    <h:outputLabel value="Valor Comercial:" />
+                                    <h:outputText value="#{RegistroEquiposComplejos.modelo.valorComercial}" />
+
+                                    <h:outputLabel value="Vida Útil:" />
+                                    <h:outputText value="#{RegistroEquiposComplejos.modelo.vidaUtil}" />
+
+                                    <h:outputLabel value="Descripción:" />
+                                    <h:outputText value="#{RegistroEquiposComplejos.modelo.descripcion}" />
+                                    <h:outputLabel value="Accesorios: " />
+                                    <h:outputText value="#{RegistroEquiposComplejos.accesorios}" />
+                                </p:panelGrid>
+                            </p:panel>
+                            <p:panel header="Informacion Equipo">
+
+                                <p:panelGrid   columns="2" >
+
+                                    <h:outputLabel value="Serial:" />
+                                    <h:outputText  value="#{RegistroEquiposComplejos.equipo.serial}" />
+
+                                    <h:outputLabel value="Placa:" />
+                                    <h:outputText value="#{RegistroEquiposComplejos.equipo.placa}"/>
+
+                                    <h:outputLabel value="Asegurado: " />
+                                    <h:outputText value="#{RegistroEquiposComplejos.aseguradoEquipo}"/>
+
+                                    <h:outputLabel value="Disponibilidad: " />
+                                    <h:outputText value="#{RegistroEquiposComplejos.disponibilidadEquipo}"/>
+
+                                    <h:outputLabel value="Estado: " />
+                                    <h:outputText value="#{RegistroEquiposComplejos.equipo.estado}"/>
+
+                                </p:panelGrid>                        
+
+                            </p:panel>
+                            <p:panel header="Información Orden Compra">
+                                <p:panelGrid columns="2" >
+                                    <h:outputLabel value="Código orden compra: " />
+                                    <h:outputText  value="#{RegistroEquiposComplejos.codOrdenCompra}" />
+                                    <h:outputLabel value="Código Activo: " />
+                                    <h:outputText value="#{RegistroEquiposComplejos.codActivo}" />
+                                    <h:outputLabel value="Proveedor: (*)" />
+                                    <h:outputText value="#{RegistroEquiposComplejos.proveedor}" />
+                                    <h:outputLabel value="Fecha adquisición: (*)" />
+                                    <h:outputLabel value="#{RegistroEquiposComplejos.fechaAdquisicion}"/>
+                                    <h:outputLabel value="Fecha garantía: (*)" />
+                                    <h:outputLabel value="#{RegistroEquiposComplejos.fechaGarantia}"/>
+                                </p:panelGrid> 
+                            </p:panel>
+                        </p:panelGrid>
+                        <br/><center/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":registro :exitoso" icon="ui-icon-plusthick"/>
+                    </p:panel>
+                    
+                </p:tab>
+            </p:wizard>
         </h:form>
         <h:form id="exitoso">
             <p:panel id="exito" header="Registro equipo " rendered="#{RegistroEquiposComplejos.showPanelRegistroExitoso()}">
@@ -237,10 +348,9 @@
 
                             <h:outputLabel value="Estado: " />
                             <h:outputText value="#{RegistroEquiposComplejos.equipo.estado}"/>
-                        </p:panelGrid>
+                        </p:panelGrid>                        
                     </p:panel>
                 </p:panelGrid>
-                <p:commandButton actionListener="#{RegistroEquiposComplejos.limpiar()}" value="Registrar otro equipo" icon="fa-repeat" update=":formularioEquipoComplejo :exitoso :registro"  />
             </p:panel>
         </h:form>
 

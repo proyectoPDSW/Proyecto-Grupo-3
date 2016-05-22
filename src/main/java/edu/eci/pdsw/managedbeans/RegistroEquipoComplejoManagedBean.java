@@ -74,14 +74,17 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     private boolean showPanelRegistroModelo = false;
     private boolean showPanelInformacionModelo = false;
     private boolean showPanelRegistroExitoso = false;
+    
+    //volver a primera tab
+    private boolean reset=true;
 
     /**
      * Constructor del Bean
      */
     public RegistroEquipoComplejoManagedBean() {
-        this.fechaAdquisicion = new Date();
-        this.fechaGarantia = new Date();
         SERVICIOS = ServiciosEquipoComplejo.getInstance();
+        this.fechaAdquisicion = SERVICIOS.currDate();
+        this.fechaGarantia = SERVICIOS.currDate();
     }
 
     /**
@@ -96,9 +99,18 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         descripcion = "";
         accesorios = "";
         serial = "";
-        placa = "0";
+        placa = "";
         marca = "";
         tiempoDeUso = 0;
+        proveedor="";
+        codOrdenCompra="";
+        codActivo="";
+        this.fechaAdquisicion = SERVICIOS.currDate();
+        this.fechaGarantia = SERVICIOS.currDate();
+        showPanelRegistroModelo = false;
+        showPanelInformacionModelo = false;
+        showPanelRegistroExitoso = false;
+        reset=true;
     }
 
     /**
@@ -132,6 +144,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             facesInfo("Por favor, registre el modelo!");
             showPanelRegistroModelo = true;
             showPanelInformacionModelo = false;
+            nombre=nombreModelo;
         }
     }
 
@@ -428,7 +441,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     //// Wizard
     public String onFlowProcessRegistro(FlowEvent event) {
         String pag = event.getNewStep();
-        if (pag.equals("W2InfoEquipo")) {
+        if (pag.equalsIgnoreCase("WInfoEquipo") && showPanelRegistroModelo) {
             try {
                 modelo = new Modelo(vidaUtil, nombre, marca, fotografia, clase, valorComercial);
                 modelo.setDescripcion(descripcion);
@@ -436,14 +449,20 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             } catch (EquipoException ex) {
                 Registro.anotar(ex);
                 facesError(ex.getMessage());
-                pag = "W2InfoModelo";
+                pag = "WInfoModelo";
             }
 
         }
-        if(pag.equals("W2Confirm")){
+        if(pag.equalsIgnoreCase("WInfoEquipo")){
+            //System.out.println("reset es false");
+            reset=false;
+        }
+        else if(pag.equalsIgnoreCase("WConfirm")){
+            //System.out.println("entro a crear");
              try {
                 ordenCompra = new OrdenCompra();
                 equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
+                 //System.out.println("creo");
                 equipo.setAsegurado(asegurado);
                 equipo.setPlaca(placa);
                 equipo.setDisponibilidad(true);
@@ -460,12 +479,18 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
                 }else{
                     aseguradoEquipo="No";
                 }
+                
             } catch (EquipoException ex) {
                 Registro.anotar(ex);
                 facesError(ex.getMessage());
-                pag = "W2InfoEquipo";
+                pag = "WInfoEquipo";
             }      
         }
+        /*if(reset){
+            //oncomplete="PF(':registro:W').loadStep('WInfoModelo', false)"
+            System.out.println("entro al reset: "+pag);
+            pag="WInfoModelo";
+        }*/
         return pag;
     }
 
@@ -473,7 +498,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         String pag = event.getNewStep();
         if(pag==null){
         System.out.println(pag);}
-        if (pag.equals("W1confirm")) {
+        if (pag.equals("Wconfirm")) {
             try {
                 ordenCompra = new OrdenCompra();
                 equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
@@ -497,7 +522,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             } catch (EquipoException ex) {
                 Registro.anotar(ex);
                 facesError(ex.getMessage());
-                pag = "W1InfoEquipo";
+                pag = "WInfoEquipo";
             }
         }
         return pag;
