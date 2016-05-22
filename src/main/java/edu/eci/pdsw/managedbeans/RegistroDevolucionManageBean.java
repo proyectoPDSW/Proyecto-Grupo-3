@@ -93,6 +93,7 @@ public class RegistroDevolucionManageBean implements Serializable{
     public void registroDevolucionEquipoComplejo() {
         try {
             boolean check=false;
+            
             EquipoComplejo eqcomp = EQCOMPLEJO.consultarPorPlaca(placa);
             List<Prestamo> prestamos = PRESTAMO.consultarPrestamosEquipoComplejo(eqcomp);
             for (Prestamo p1 : prestamos) {
@@ -111,6 +112,7 @@ public class RegistroDevolucionManageBean implements Serializable{
             }
             eqcompl = eqcomp.getModelo_Eq().getNombre();
             PRESTAMO.registrarDevolucion(placa);
+            equiposComplejosFaltantes.remove(eqcomp);
             if(check) {
                 showPanelInfoPrestamista=true;
                 facesInfo("Se realizo con exito la devolución");
