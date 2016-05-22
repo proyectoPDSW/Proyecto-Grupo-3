@@ -53,7 +53,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     private EquipoComplejo equipo;
 
     private boolean asegurado;
-    private boolean disponibilidad;
+    private boolean disponibilidad=true;
     private String estado;
     private String serial;
     private String placa;
@@ -126,7 +126,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             modelo = SERVICIOS.consultarModelo(nombreModelo);
             showPanelRegistroModelo = false;
             showPanelInformacionModelo = true;
-            limpiar();
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
@@ -138,8 +137,12 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipo() {
         try {
+            System.out.println(equipo.toString());
             SERVICIOS.registrarEquipoComplejo(equipo);
             facesInfo("El equipo ha sido registrado satisfactoriamente");
+            showPanelInformacionModelo = false;
+            showPanelRegistroModelo = false;
+            showPanelRegistroExitoso = true;
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
@@ -444,9 +447,19 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
                 equipo.setAsegurado(asegurado);
                 equipo.setPlaca(placa);
                 equipo.setDisponibilidad(true);
-                equipo.setEstado("Activo");
+                equipo.setEstado("en almacen");
                 ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
                 equipo.setOrdenCompra(ordenCompra);
+                if(disponibilidad){
+                    disponibilidadEquipo="Disponible";
+                }else{
+                    disponibilidadEquipo="No disponible";
+                }
+                if(asegurado){
+                    aseguradoEquipo="Sí";
+                }else{
+                    aseguradoEquipo="No";
+                }
             } catch (EquipoException ex) {
                 Registro.anotar(ex);
                 facesError(ex.getMessage());
@@ -458,6 +471,8 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public String onFlowProcessInformacion(FlowEvent event) {
         String pag = event.getNewStep();
+        if(pag==null){
+        System.out.println(pag);}
         if (pag.equals("W1confirm")) {
             try {
                 ordenCompra = new OrdenCompra();
@@ -465,9 +480,20 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
                 equipo.setAsegurado(asegurado);
                 equipo.setPlaca(placa);
                 equipo.setDisponibilidad(true);
-                equipo.setEstado("Activo");
+                equipo.setEstado("en almacen");
                 ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
                 equipo.setOrdenCompra(ordenCompra);
+                System.out.println(equipo.toString());
+                if(disponibilidad){
+                    disponibilidadEquipo="Disponible";
+                }else{
+                    disponibilidadEquipo="No disponible";
+                }
+                if(asegurado){
+                    aseguradoEquipo="Sí";
+                }else{
+                    aseguradoEquipo="No";
+                }
             } catch (EquipoException ex) {
                 Registro.anotar(ex);
                 facesError(ex.getMessage());

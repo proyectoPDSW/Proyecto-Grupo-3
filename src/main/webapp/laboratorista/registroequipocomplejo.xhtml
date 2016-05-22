@@ -31,7 +31,7 @@
             <p:wizard id="W1" style="margin-bottom:40px" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessInformacion}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
                 <p:tab id="W1InfoModelo">
                     <p:panel header="Información Modelo">
-                        <p:panelGrid  style="margin-bottom:20px"  columns="2" >
+                        <p:panelGrid  columns="2" >
 
                             <f:facet name="header">
                                 <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" height="200px" width="200px"/>
@@ -59,9 +59,9 @@
                     </p:panel>
                 </p:tab>
                 <p:tab id="W1InfoEquipo">
-                    <p:panelGrid columns="2" style="margin-bottom:20px">
+                    <p:panelGrid columns="2">
                         <p:panel header="Información Equipo">
-                            <p:panelGrid columns="2" style="margin-bottom:20px">
+                            <p:panelGrid columns="2">
                                 <h:outputLabel value="Serial: (*)" />
                                 <h:inputText  value="#{RegistroEquiposComplejos.serial}" />
                                 <h:outputLabel value="Placa: (*)" />
@@ -71,7 +71,7 @@
                             </p:panelGrid> 
                         </p:panel>
                         <p:panel header="Información Orden Compra">
-                            <p:panelGrid columns="2" style="margin-bottom:20px">
+                            <p:panelGrid columns="2">
                                 <h:outputLabel value="Código orden compra: " />
                                 <h:inputText  value="#{RegistroEquiposComplejos.codOrdenCompra}" />
                                 <h:outputLabel value="Código Activo: " />
@@ -90,7 +90,7 @@
                     <p:panel header="Registro equipo ">
                         <p:panelGrid columns="3" >
                             <p:panel header="Información Modelo">
-                                <p:panelGrid  style="margin-bottom:20px"  columns="2" >
+                                <p:panelGrid columns="2" >
 
                                     <f:facet name="header">
                                         <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" height="200px" width="200px"/>
@@ -119,7 +119,7 @@
                             </p:panel>
                             <p:panel header="Informacion Equipo">
 
-                                <p:panelGrid  columns="2" style="margin-bottom:20px">
+                                <p:panelGrid  columns="2" >
 
                                     <h:outputLabel value="Serial:" />
                                     <h:outputText  value="#{RegistroEquiposComplejos.equipo.serial}" />
@@ -140,7 +140,7 @@
 
                             </p:panel>
                             <p:panel header="Información Orden Compra">
-                                <p:panelGrid columns="2" style="margin-bottom:20px">
+                                <p:panelGrid columns="2" >
                                     <h:outputLabel value="Código orden compra: " />
                                     <h:outputText  value="#{RegistroEquiposComplejos.codOrdenCompra}" />
                                     <h:outputLabel value="Código Activo: " />
@@ -154,13 +154,8 @@
                                 </p:panelGrid> 
                             </p:panel>
                         </p:panelGrid>
+                        <br/><center/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":exitoso" icon="ui-icon-plusthick"/>
                     </p:panel>
-                    <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
-                        <f:facet name="start">
-                            <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
-                        </f:facet>
-                    </p:ajaxStatus>
-                    <br/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":registro" icon="ui-icon-plusthick"/>
                 </p:tab>   
             </p:wizard>
             <br/>
@@ -168,7 +163,7 @@
                 <p:tab id="W2InfoModelo">
                     <p:panel header="Información Modelo">
 
-                        <p:panelGrid columns="2" style="margin-bottom:20px">
+                        <p:panelGrid columns="2" >
 
                             <h:outputLabel value="URL imagen:" />
                             <h:inputText  value="#{RegistroEquiposComplejos.fotografia}" />
@@ -199,9 +194,9 @@
                 </p:tab>
 
                 <p:tab id="W2InfoEquipo">
-                    <center><p:panelGrid  columns="2" style="margin-bottom:20px">
+                    <center><p:panelGrid  columns="2" >
                             <p:panel header="Información Equipo">
-                                <p:panelGrid  columns="2" style="margin-bottom:20px">
+                                <p:panelGrid  columns="2" >
 
                                     <h:outputLabel value="Serial: (*)" />
                                     <h:inputText  value="#{RegistroEquiposComplejos.serial}" />
@@ -215,7 +210,7 @@
 
                             </p:panel>
                             <p:panel header="Información Orden Compra">
-                                <p:panelGrid columns="2" style="margin-bottom:20px">
+                                <p:panelGrid columns="2" >
                                     <h:outputLabel value="Código orden compra: " />
                                     <h:inputText  value="#{RegistroEquiposComplejos.codOrdenCompra}" />
                                     <h:outputLabel value="Código Activo: " />
@@ -235,7 +230,7 @@
                     <p:panel header="Registro equipo ">
                         <p:panelGrid columns="3" >
                             <p:panel header="Información Modelo">
-                                <p:panelGrid  style="margin-bottom:20px"  columns="2" >
+                                <p:panelGrid  columns="2" >
 
                                     <f:facet name="header">
                                         <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" height="200px" width="200px"/>
@@ -264,7 +259,7 @@
                             </p:panel>
                             <p:panel header="Informacion Equipo">
 
-                                <p:panelGrid   columns="2" style="margin-bottom:20px">
+                                <p:panelGrid   columns="2" >
 
                                     <h:outputLabel value="Serial:" />
                                     <h:outputText  value="#{RegistroEquiposComplejos.equipo.serial}" />
@@ -285,7 +280,7 @@
 
                             </p:panel>
                             <p:panel header="Información Orden Compra">
-                                <p:panelGrid columns="2" style="margin-bottom:20px">
+                                <p:panelGrid columns="2" >
                                     <h:outputLabel value="Código orden compra: " />
                                     <h:outputText  value="#{RegistroEquiposComplejos.codOrdenCompra}" />
                                     <h:outputLabel value="Código Activo: " />
@@ -299,19 +294,17 @@
                                 </p:panelGrid> 
                             </p:panel>
                         </p:panelGrid>
+                        <br/><center/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":exitoso" icon="ui-icon-plusthick"/>
                     </p:panel>
-                    <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
-                        <f:facet name="start">
-                            <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
-                        </f:facet>
-                    </p:ajaxStatus>
-                    <br/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":registro" icon="ui-icon-plusthick"/>
+                    
                 </p:tab>
             </p:wizard>
-            <p:panel header="Registro equipo " rendered="#{RegistroEquiposComplejos.showPanelRegistroExitoso()}">
+        </h:form>
+        <h:form id="exitoso">
+            <p:panel id="exito" header="Registro equipo " rendered="#{RegistroEquiposComplejos.showPanelRegistroExitoso()}">
                 <p:panelGrid columns="2" >
                     <p:panel header="Información Modelo">
-                        <p:panelGrid id="modeloconsultadoRE" style="margin-bottom:20px"  columns="2" >
+                        <p:panelGrid id="modeloconsultadoRE" columns="2" >
 
                             <f:facet name="header">
                                 <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" height="200px" width="200px"/>
@@ -355,11 +348,8 @@
 
                             <h:outputLabel value="Estado: " />
                             <h:outputText value="#{RegistroEquiposComplejos.equipo.estado}"/>
-
                         </p:panelGrid>                        
-
                     </p:panel>
-
                 </p:panelGrid>
             </p:panel>
         </h:form>
