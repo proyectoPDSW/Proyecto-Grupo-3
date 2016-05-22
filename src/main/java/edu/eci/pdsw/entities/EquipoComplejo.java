@@ -79,6 +79,9 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (serial==null || serial.length() <= 0) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         }
+        if (estado==null || estado.length()==0) {
+            throw new EquipoException("El estado no puede ser nulo o vacio");
+        }
         if (placa==null || placa.length()==0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }

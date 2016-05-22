@@ -29,7 +29,11 @@ public class PrestamoTerminoFijo extends Prestamo {
      * @param elQuePideElPrestamo
      * @param tipo_prestamo
      */
-    public PrestamoTerminoFijo(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Persona elQuePideElPrestamo, String tipo_prestamo) {
+    public PrestamoTerminoFijo(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Persona elQuePideElPrestamo, String tipo_prestamo) throws PrestamoException {
+        if(fechaInicio==null) throw new PrestamoException("La fecha inicio no puede ser vacia");
+        if(fechaEstimadaDeEntrega==null) throw new PrestamoException("La fecha estimada de entrega no puede ser vacia");
+        if(elQuePideElPrestamo==null) throw new PrestamoException("La persona no puede ser nula");
+        if(tipo_prestamo==null || tipo_prestamo.length()==0) throw new PrestamoException("El tipo de prestamo no puede ser nulo");
         this.fechaInicio = fechaInicio;
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
         this.fechaRealEntregada = fechaRealEntregada;
@@ -63,7 +67,10 @@ public class PrestamoTerminoFijo extends Prestamo {
      * @param fechaEstimadaDeEntrega
      * @param tipo
      */
-    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega, String tipo) {
+    public PrestamoTerminoFijo(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Timestamp fechaEstimadaDeEntrega, String tipo) throws PrestamoException {
+        if(fechaEstimadaDeEntrega==null) throw new PrestamoException("La fecha estimada de entrega no puede ser vacia");
+        if(elQuePideElPrestamo==null) throw new PrestamoException("La persona no puede ser nula");
+        if(tipo==null || tipo.length()==0) throw new PrestamoException("El tipo de prestamo no puede ser nulo");
         this.elQuePideElPrestamo = elQuePideElPrestamo;
         if (equiposComplejosPrestados == null) {
             this.equiposComplejosPrestados = new HashSet<>();
