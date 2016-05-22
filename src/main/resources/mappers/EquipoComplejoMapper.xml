@@ -221,4 +221,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where 
             ord.Equipos_Complejos_serial=#{serial} AND ord.Equipos_Complejos_modelo=#{modelo}
     </select>
+    
+    <select id="currDate" resultType="date" >
+        select now() as fecha from Prestamos group by fecha
+    </select>
 </mapper>

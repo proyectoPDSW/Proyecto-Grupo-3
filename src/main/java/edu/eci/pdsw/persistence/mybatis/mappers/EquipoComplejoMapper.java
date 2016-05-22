@@ -9,6 +9,7 @@ import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
 import edu.eci.pdsw.entities.OrdenCompra;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -136,4 +137,10 @@ public interface EquipoComplejoMapper {
      * @return 
      */
     public EquipoComplejo loadEquipoDisponibleByPlaca(@Param("Eq_Placa") String placa);
+    
+    /**
+     * calcula la fecha actual de la base de datos
+     * @return la fecha actual de la base de datos
+     */
+    public Date currDate();
 }

@@ -7,6 +7,7 @@ package edu.eci.pdsw.servicios;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -116,5 +117,10 @@ public abstract class ServiciosEquipoComplejo {
      */
     public abstract EquipoComplejo consultarEquipoEnAlmacenPorPlaca(String placa) throws ExcepcionServicios;
     
+    /**
+     * calcula la fecha actual
+     * @return la fecha actual
+     */
+    public abstract Date currDate();
     
 }
