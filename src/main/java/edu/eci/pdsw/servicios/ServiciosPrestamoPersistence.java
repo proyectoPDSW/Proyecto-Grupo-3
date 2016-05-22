@@ -241,17 +241,13 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             long diff = Prestamo.currDate().getTime() - prestamoActualEquipoCargado.getFechaInicio().getTime();
             //El resultado esta en milisegundos, lo paso a horas
             loaded.setTiempoRestante(loaded.getTiempoRestante() - ((diff / 1000) / 3600));
-            try {
-                //Actualizo el equipo en el prestamo
-                prestamoActualEquipoCargado.updateEquipoComplejo(loaded);
-            } catch (PrestamoException ex) {
-                Logger.getLogger(ServiciosPrestamoPersistence.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //Actualizo el equipo en el prestamo
+            prestamoActualEquipoCargado.updateEquipoComplejo(loaded);
             //Actualizo el equipo y el prestamo en la base de datos
             dec.update(loaded);
             basePaciente.update(prestamoActualEquipoCargado);
             daoF.commitTransaction();
-        } catch (PersistenceException e) {
+        } catch (PersistenceException |PrestamoException e) {
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
         } finally {
