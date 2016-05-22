@@ -140,6 +140,9 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             System.out.println(equipo.toString());
             SERVICIOS.registrarEquipoComplejo(equipo);
             facesInfo("El equipo ha sido registrado satisfactoriamente");
+            showPanelInformacionModelo = false;
+            showPanelRegistroModelo = false;
+            showPanelRegistroExitoso = true;
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
@@ -468,6 +471,8 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public String onFlowProcessInformacion(FlowEvent event) {
         String pag = event.getNewStep();
+        if(pag==null){
+        System.out.println(pag);}
         if (pag.equals("W1confirm")) {
             try {
                 ordenCompra = new OrdenCompra();
