@@ -271,32 +271,6 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public void registrarEquipoSencilloPrestamo(Prestamo p, EquipoSencillo es) throws ExcepcionServicios {
-        try {
-            daoF.beginSession();
-            DAOPrestamo dp = daoF.getDaoPrestamo();
-            dp.saveEquipoSencilloPrestamo(p, es);
-            daoF.commitTransaction();
-            daoF.endSession();
-        } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex, ex.getLocalizedMessage());
-        }
-    }
-
-    @Override
-    public void registrarEquipoComplejoPrestamo(Prestamo p, EquipoComplejo ec) throws ExcepcionServicios {
-        try {
-            daoF.beginSession();
-            DAOPrestamo dp = daoF.getDaoPrestamo();
-            dp.saveEquipoComplejoPrestamo(p, ec);
-            daoF.commitTransaction();
-            daoF.endSession();
-        } catch (PersistenceException ex) {
-            throw new ExcepcionServicios(ex, ex.getLocalizedMessage());
-        }
-    }
-
-    @Override
     public Timestamp currDate() {
         Timestamp now = null;
         daoF.beginSession();

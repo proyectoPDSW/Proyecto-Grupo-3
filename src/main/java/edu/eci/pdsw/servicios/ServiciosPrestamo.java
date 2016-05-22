@@ -90,22 +90,7 @@ public abstract class ServiciosPrestamo {
      * @throws ExcepcionServicios si la persona no existe
      */
     public abstract Persona personaCarne(String carne) throws ExcepcionServicios;
-    
-    /**
-     * Registra los equipos sencillos en el prestamo
-     * @param p
-     * @param es
-     * @throws ExcepcionServicios 
-     */
-    public abstract void registrarEquipoSencilloPrestamo(Prestamo p, EquipoSencillo es) throws ExcepcionServicios;
-    
-    /**
-     * Registra los equipos complejos en el prestamo
-     * @param p
-     * @param ec
-     * @throws ExcepcionServicios 
-     */
-    public abstract void registrarEquipoComplejoPrestamo(Prestamo p,EquipoComplejo ec) throws ExcepcionServicios;
+   
     
     /**
      * carga la fecha actual

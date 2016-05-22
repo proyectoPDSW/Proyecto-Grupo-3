@@ -97,22 +97,19 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
             pmap.updatePrestamo(prestamo);
         }
         for (EquipoComplejo ec: prestamo.getEquiposComplejosPrestados()){
-            System.out.println(ec);
-            if(!prestamo.isFaltante(ec)){
-                pmap.updateEquipoComplejo(prestamo, ec);
-            }
             if(!viejo.getEquiposComplejosPrestados().contains(ec)){
-                System.out.println(ec);
-                System.out.println("EBTROSDCDSFSDFDSFSDFDSFSDFSFSD");
                 pmap.insertEquipoComplejo_Prestamo(prestamo, ec);
                 
             }
+            if(!prestamo.isFaltante(ec)){
+                pmap.updateEquipoComplejo(prestamo, ec);
+            }
         }
         for (EquipoSencillo es : prestamo.getEquiposSencillosPrestados()) {
-            pmap.updateEquipoSencillo(prestamo, es);
             if(!viejo.getEquiposSencillosPrestados().contains(es)){
                 pmap.insertEquipoSencillo_Prestamo(prestamo, es);
             }
+            pmap.updateEquipoSencillo(prestamo, es);
         }
         
     }
@@ -150,28 +147,6 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
             throw new PersistenceException("El equipo complejo no puede ser nulo");
         }
         return pmap.loadByEquipoComplejo(equipocomplejo);
-    }
-
-    @Override
-    public void saveEquipoSencilloPrestamo(Prestamo p, EquipoSencillo es) throws PersistenceException {
-        if (p == null) {
-            throw new PersistenceException("El prestamo no puede ser nulo");
-        }
-        if (es == null) {
-            throw new PersistenceException("El equipo sencillo no puede ser nulo");
-        }
-        pmap.insertEquipoSencillo_Prestamo(p, es);
-    }
-
-    @Override
-    public void saveEquipoComplejoPrestamo(Prestamo p, EquipoComplejo ec) throws PersistenceException {
-        if (p == null) {
-            throw new PersistenceException("El prestamo no puede ser nulo");
-        }
-        if (ec == null) {
-            throw new PersistenceException("El equipo complejo no puede ser nulo");
-        }
-        pmap.insertEquipoComplejo_Prestamo(p, ec);
     }
 
     @Override

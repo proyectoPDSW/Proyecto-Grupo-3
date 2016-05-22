@@ -96,23 +96,6 @@ public interface DAOPrestamo {
      */
     public abstract List<Prestamo> loadByEquipoComplejo(EquipoComplejo equipocomplejo) throws PersistenceException;
 
-    /**
-     * Registra los equipos sencillos en el prestamo
-     *
-     * @param p prestamo a añadir
-     * @param es equipo a añadir
-     * @throws PersistenceException
-     */
-    public abstract void saveEquipoSencilloPrestamo(Prestamo p, EquipoSencillo es) throws PersistenceException;
-
-    /**
-     * Registra los equipos complejos en el prestamo
-     *
-     * @param p prestamo a añadir
-     * @param ec equipo a añadir
-     * @throws PersistenceException
-     */
-    public abstract void saveEquipoComplejoPrestamo(Prestamo p, EquipoComplejo ec) throws PersistenceException;
     
     /**
      * Carga la fecha actual de la base de datos

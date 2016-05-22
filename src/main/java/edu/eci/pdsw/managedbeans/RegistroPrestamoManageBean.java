@@ -139,6 +139,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         try {
             registrarOtroPrestamo();
             elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
+            showPanelPersona=true;
             if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getCarnet()).isEmpty()){
                 pres=true;
                 showPanelRegistro = true;
@@ -217,13 +218,17 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void agregarEquipoC() {
         if (selectEquipoComplejo != null) {
+            if(fechaTipoPrestamo== null || fechaTipoPrestamo.length()==0){
+                facesError("Favor seleccionar un tipo de prestamo");
+            }else{
             selectEquipoComplejo.setEstado(fechaTipoPrestamo);
             actualizarEquipoComplejo(selectEquipoComplejo);
             consultarEqPlacaDisponible();
             equiposComplejosPrestados.add(selectEquipoComplejo);
+            }
         }
     }
-
+    
     /**
      * Actualiza los equipos despues de haber sufrido un cambio en su estado
      *
@@ -237,6 +242,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         }
 
     }
+
 
     /**
      * Agrega equipos sencillos al prestamo termino fijo
@@ -279,7 +285,6 @@ public class RegistroPrestamoManageBean implements Serializable {
             }
             fechaEstimadaDeEntrega = Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
             if(pres){
-                System.out.println("No tiene prestamos activos o no tiene prestamos");
                 
                 if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante) && (fechaTipoPrestamo != null || fechaTipoPrestamo.length() > 0)) {
                     superSeteo();
@@ -324,6 +329,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         nombre="";
         placa="";
         cantidadDisponible = 0;
+        showPanelPersona=false;
         showPanelRegistro = false;
         showPanelRegistrado = false;
         showPanelOtroRegistro=false;
