@@ -9,6 +9,7 @@ import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.entities.PrestamoException;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
 import edu.eci.pdsw.entities.Rol;
@@ -27,6 +28,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -260,6 +263,11 @@ public class RegistroPrestamoManageBean implements Serializable {
         }
     }
 
+    public void superSeteo(){
+        for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
+            equiposComplejosPrestado.setEstado(fechaTipoPrestamo);
+        }
+    }
     /**
      * Registra un prestamo dependiendo de la persona que haga el prestamo se
      * obtiene el tipo del prestamo si es indefinido o termino fijo
@@ -272,30 +280,36 @@ public class RegistroPrestamoManageBean implements Serializable {
             fechaEstimadaDeEntrega = Prestamo.calcularFechaEstimada(fechaTipoPrestamo);
             if(pres){
                 System.out.println("No tiene prestamos activos o no tiene prestamos");
-                if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante)) {
+                
+                if (elQuePideElPrestamo.rolMasValioso().equalsIgnoreCase(Rol.estudiante) && (fechaTipoPrestamo != null || fechaTipoPrestamo.length() > 0)) {
+                    superSeteo();
                     prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
                 } else if (getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.laboratorista) || getElQuePideElPrestamo().rolMasValioso().equalsIgnoreCase(Rol.profesor)) {
                     if (fechaTipoPrestamo.equalsIgnoreCase(EquipoComplejo.indefinido)) {
                         prestamo= new PrestamoIndefinido(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados);
-                    } else {
+                    } else if(fechaTipoPrestamo != null || fechaTipoPrestamo.length() > 0){
+                        superSeteo();
                         prestamo = new PrestamoTerminoFijo(elQuePideElPrestamo, equiposComplejosPrestados, equiposSencillosPrestados, fechaEstimadaDeEntrega, fechaTipoPrestamo);
                     }
                 }
                 PRESTAMO.registrarPrestamo(prestamo);
+                facesInfo("El prestamo ha sido registrado satisfactoriamente");
                 showPanelRegistro=false;
+                showPanelRegistrado = true;
             }else{
                 System.out.println("Si tiene un prestamo activo y esta actualizando");
                 prestamoAgregarle.setEquiposComplejosPrestados(equiposComplejosPrestados);
                 prestamoAgregarle.setEquiposSencillosPrestados(equiposSencillosPrestados);
                 PRESTAMO.actualizarPrestamo(prestamoAgregarle);
+                facesInfo("El prestamo ha sido registrado satisfactoriamente");
                 showPanelOtroRegistro=false;
-            }  
-            facesInfo("El prestamo ha sido registrado satisfactoriamente");
-            showPanelRegistrado = true;
+                showPanelRegistrado = true;
+            } 
+            
 
-        } catch (ExcepcionServicios ex) {
+        } catch (PrestamoException | ExcepcionServicios ex) {
             facesError(ex.getMessage());
-        }
+        } 
     }
 
     /**

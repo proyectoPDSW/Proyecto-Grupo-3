@@ -48,7 +48,7 @@
                             <p:panel id="Complejo">
 
                                 <h:outputLabel value="Placa : (*)  " />
-                                <p:autoComplete id="placa1" dropdown="true" value="#{RegistroPrestamo.placa}" completeMethod="#{RegistroPrestamo.modelosAproximados}"/>
+                                <p:inputText id="placa1" value="#{RegistroPrestamo.placa}"/>
                                 <br/><br/><p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqPlacaDisponible()}" icon="ui-icon-search"/>
                                 <p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
                                 <p:panel id="tablas" rendered="#{RegistroPrestamo.ShowPanelRegistro()}">
@@ -122,7 +122,7 @@
                         <p:panelGrid columns="2"  rendered="#{RegistroPrestamo.showPanelOtroRegistro}">
                             <p:panel id="Complejo2">
                                 <h:outputLabel value="Placa : (*)  " />
-                                <p:autoComplete id="placa2" dropdown="true" value="#{RegistroPrestamo.placa}" completeMethod="#{RegistroPrestamo.modelosAproximados}"/>
+                                <p:inputText id="placa2" value="#{RegistroPrestamo.placa}"/>
                                 <br/><br/><p:commandButton value="Consultar Equipos" update=":tablas" ajax="false" actionListener="#{RegistroPrestamo.consultarEqPlacaDisponible()}" icon="ui-icon-search"/>
                                 <p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
                                 <p:panel id="tablas2" rendered="#{RegistroPrestamo.showPanelOtroRegistro}">
@@ -203,9 +203,6 @@
                                 </p:column>
                                 <p:column headerText="Placa">
                                     <h:outputText value="#{equipoC1.placa}" />
-                                </p:column>
-                                <p:column headerText="Estado">
-                                    <h:outputText value="#{equipoC1.estado}" />
                                 </p:column>
                             </p:dataTable>
                             <br/><h:outputLabel value="Herramioentas prestadas: " /><br/>

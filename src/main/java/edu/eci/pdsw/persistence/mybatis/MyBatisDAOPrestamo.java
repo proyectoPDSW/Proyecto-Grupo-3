@@ -102,7 +102,10 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
                 pmap.updateEquipoComplejo(prestamo, ec);
             }
             if(!viejo.getEquiposComplejosPrestados().contains(ec)){
+                System.out.println(ec);
+                System.out.println("EBTROSDCDSFSDFDSFSDFDSFSDFSFSD");
                 pmap.insertEquipoComplejo_Prestamo(prestamo, ec);
+                
             }
         }
         for (EquipoSencillo es : prestamo.getEquiposSencillosPrestados()) {
