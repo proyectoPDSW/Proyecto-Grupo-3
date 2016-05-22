@@ -228,8 +228,9 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         this.equiposSencillosFaltantes = new HashSet<>();
         //System.out.println(">>>>>>>>>>>>>>>>>>>><si entro al set");
         if (equiposSencillosFaltantes != null) {
+            //System.out.println(Arrays.toString(equiposSencillosFaltantes.toArray()));
             for (EquipoSencillo es : equiposSencillosPrestados) {
-                //System.out.println("si esta en el for "+es);
+                //System.out.println("si esta en el for "+es.getNombre()+" "+es.getCantidadTotal());
                 if (es.getCantidadTotal() > 0) {
                     this.equiposSencillosFaltantes.add(es);
                 }
