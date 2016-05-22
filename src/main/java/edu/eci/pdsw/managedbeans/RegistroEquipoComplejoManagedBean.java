@@ -465,24 +465,29 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         else if(pag!=null && pag.equalsIgnoreCase("WConfirm")){
             //System.out.println("entro a crear");
              try {
-                ordenCompra = new OrdenCompra();
-                equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
-                 //System.out.println("creo");
-                equipo.setAsegurado(asegurado);
-                equipo.setPlaca(placa);
-                equipo.setDisponibilidad(true);
-                equipo.setEstado("en almacen");
-                ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
-                equipo.setOrdenCompra(ordenCompra);
-                if(disponibilidad){
-                    disponibilidadEquipo="Disponible";
+                if(fechaAdquisicion!=null && fechaGarantia!=null){
+                    ordenCompra = new OrdenCompra();
+                    equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
+                     //System.out.println("creo");
+                    equipo.setAsegurado(asegurado);
+                    equipo.setPlaca(placa);
+                    equipo.setDisponibilidad(true);
+                    equipo.setEstado("en almacen");
+                    ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
+                    equipo.setOrdenCompra(ordenCompra);
+                    if(disponibilidad){
+                        disponibilidadEquipo="Disponible";
+                    }else{
+                        disponibilidadEquipo="No disponible";
+                    }
+                    if(asegurado){
+                        aseguradoEquipo="Sí";
+                    }else{
+                        aseguradoEquipo="No";
+                    }
                 }else{
-                    disponibilidadEquipo="No disponible";
-                }
-                if(asegurado){
-                    aseguradoEquipo="Sí";
-                }else{
-                    aseguradoEquipo="No";
+                    facesError("Por favor ingresar una fecha valida");
+                    pag = "WInfoEquipo";
                 }
                 
             } catch (EquipoException ex) {
@@ -500,24 +505,29 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         System.out.println(pag);}
         if (pag.equals("Wconfirm")) {
             try {
-                ordenCompra = new OrdenCompra();
-                equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
-                equipo.setAsegurado(asegurado);
-                equipo.setPlaca(placa);
-                equipo.setDisponibilidad(true);
-                equipo.setEstado("en almacen");
-                ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
-                equipo.setOrdenCompra(ordenCompra);
-                System.out.println(equipo.toString());
-                if(disponibilidad){
-                    disponibilidadEquipo="Disponible";
+                if(fechaAdquisicion!=null && fechaGarantia!=null){
+                    ordenCompra = new OrdenCompra();
+                    equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
+                    equipo.setAsegurado(asegurado);
+                    equipo.setPlaca(placa);
+                    equipo.setDisponibilidad(true);
+                    equipo.setEstado("en almacen");
+                    ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
+                    equipo.setOrdenCompra(ordenCompra);
+                    System.out.println(equipo.toString());
+                    if(disponibilidad){
+                        disponibilidadEquipo="Disponible";
+                    }else{
+                        disponibilidadEquipo="No disponible";
+                    }
+                    if(asegurado){
+                        aseguradoEquipo="Sí";
+                    }else{
+                        aseguradoEquipo="No";
+                    }
                 }else{
-                    disponibilidadEquipo="No disponible";
-                }
-                if(asegurado){
-                    aseguradoEquipo="Sí";
-                }else{
-                    aseguradoEquipo="No";
+                    facesError("Por favor ingresar una fecha valida");
+                    pag = "WInfoEquipo";
                 }
             } catch (EquipoException ex) {
                 Registro.anotar(ex);
