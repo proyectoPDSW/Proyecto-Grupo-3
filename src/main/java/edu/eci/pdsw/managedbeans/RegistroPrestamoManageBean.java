@@ -140,6 +140,7 @@ public class RegistroPrestamoManageBean implements Serializable {
             registrarOtroPrestamo();
             elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
             showPanelPersona=true;
+            showPanelInfo=true;
             if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getCarnet()).isEmpty()){
                 pres=true;
                 showPanelRegistro = true;
@@ -225,7 +226,7 @@ public class RegistroPrestamoManageBean implements Serializable {
             actualizarEquipoComplejo(selectEquipoComplejo);
             //consultarEqPlacaDisponible();
             equiposComplejosPrestados.add(selectEquipoComplejo);
-            registrarPrestamo();
+            //registrarPrestamo();
             }
         }
     }
@@ -329,7 +330,6 @@ public class RegistroPrestamoManageBean implements Serializable {
         nombre="";
         placa="";
         cantidadDisponible = 0;
-        showPanelPersona=false;
         showPanelRegistro = false;
         showPanelRegistrado = false;
         showPanelOtroRegistro=false;
