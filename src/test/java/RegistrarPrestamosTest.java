@@ -5,6 +5,7 @@ import edu.eci.pdsw.entities.Modelo;
 import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.entities.PrestamoException;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
 import edu.eci.pdsw.entities.Rol;
@@ -27,6 +28,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -72,7 +75,7 @@ public class RegistrarPrestamosTest {
     
     //Deberia registrar un prestamo con un equipo complejo
     @Test
-    public void CE1() throws IOException, EquipoException, PersistenceException{
+    public void CE1() throws IOException, EquipoException, PersistenceException, PrestamoException{
         properties.load(input);
         DAOFactory daof=DAOFactory.getInstance(properties);
         daof.beginSession();
@@ -112,7 +115,7 @@ public class RegistrarPrestamosTest {
     
     //Deberia registrar un prestamo con un equipo sencillo
     @Test
-    public void CE2() throws IOException, EquipoException, PersistenceException{
+    public void CE2() throws IOException, EquipoException, PersistenceException, PrestamoException{
         properties.load(input);
         DAOFactory daof=DAOFactory.getInstance(properties);
         daof.beginSession();
@@ -146,7 +149,7 @@ public class RegistrarPrestamosTest {
     
     //Deberia registrar dos prestamos para una misma persona
     @Test
-    public void CE3() throws IOException, EquipoException, PersistenceException{
+    public void CE3() throws IOException, EquipoException, PersistenceException, PrestamoException{
         properties.load(input);
         DAOFactory daof=DAOFactory.getInstance(properties);
         daof.beginSession();
@@ -230,7 +233,7 @@ public class RegistrarPrestamosTest {
         daof.commitTransaction();
         daof.endSession();
         Assert.fail("Registro dos veces el mismo prestamo");
-        }catch(PersistenceException | EquipoException ex){
+        }catch(PersistenceException | EquipoException | PrestamoException ex){
             Assert.assertEquals("El prestamo ya existe", ex.getMessage());
         }
     }

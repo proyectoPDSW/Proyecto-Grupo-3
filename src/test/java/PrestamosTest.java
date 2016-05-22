@@ -5,6 +5,7 @@ import edu.eci.pdsw.entities.Modelo;
 import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.entities.PrestamoException;
 import edu.eci.pdsw.entities.PrestamoIndefinido;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
 import edu.eci.pdsw.entities.Rol;
@@ -74,7 +75,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE01() throws IOException, EquipoException, PersistenceException {
+    public void CE01() throws IOException, EquipoException, PersistenceException, PrestamoException {
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -120,7 +121,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE02() throws IOException, EquipoException, PersistenceException{
+    public void CE02() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -164,7 +165,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE03() throws IOException, EquipoException, PersistenceException{
+    public void CE03() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -211,7 +212,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE04() throws IOException, EquipoException, PersistenceException{
+    public void CE04() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -255,7 +256,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE05() throws IOException, EquipoException, PersistenceException{
+    public void CE05() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -305,7 +306,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE06() throws IOException, EquipoException, PersistenceException{
+    public void CE06() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -353,7 +354,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.entities.EquipoException
      */
     @Test
-    public void CE07() throws IOException, EquipoException{
+    public void CE07() throws IOException, EquipoException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -429,6 +430,8 @@ public class PrestamosTest {
             Assert.fail("No debio continuar");
         } catch (PersistenceException ex) {
             Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
+        } catch (PrestamoException ex) {
+            Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -440,7 +443,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE09() throws IOException, EquipoException, PersistenceException{
+    public void CE09() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -484,7 +487,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE10() throws IOException, EquipoException, PersistenceException{
+    public void CE10() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -529,7 +532,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE11() throws IOException, EquipoException, PersistenceException{
+    public void CE11() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -578,7 +581,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE12() throws IOException, EquipoException, PersistenceException{
+    public void CE12() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -625,7 +628,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE13() throws IOException, EquipoException, PersistenceException{
+    public void CE13() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -676,7 +679,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.persistence.PersistenceException
      */
     @Test
-    public void CE14() throws IOException, EquipoException, PersistenceException{
+    public void CE14() throws IOException, EquipoException, PersistenceException, PrestamoException{
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -726,7 +729,7 @@ public class PrestamosTest {
      * @throws edu.eci.pdsw.entities.EquipoException
      */
     @Test
-    public void CE15() throws IOException, EquipoException{
+    public void CE15() throws IOException, EquipoException, PrestamoException{
         InputStream input;
             input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
             Properties properties = new Properties();
@@ -796,6 +799,8 @@ public class PrestamosTest {
             Assert.fail("Siguio y no debia");
             
         } catch (PersistenceException ex) {
+            Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
+        } catch (PrestamoException ex) {
             Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
         }finally{
             daof.endSession();

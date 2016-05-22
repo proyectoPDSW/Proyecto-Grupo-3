@@ -11,6 +11,7 @@ import edu.eci.pdsw.entities.Modelo;
 import edu.eci.pdsw.entities.OrdenCompra;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
+import edu.eci.pdsw.entities.PrestamoException;
 import edu.eci.pdsw.entities.PrestamoTerminoFijo;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.DAOEquipoSencillo;
@@ -60,7 +61,7 @@ public class DevolucionesTest {
      * El prestamo queda terminado cuando no le quedan equipos por devolver
      * 
      */
-    public void CE01() throws IOException, EquipoException {
+    public void CE01() throws IOException, EquipoException, PrestamoException {
         //InputStream input;
         //input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         //Properties properties = new Properties();
@@ -89,7 +90,7 @@ public class DevolucionesTest {
      * Se actualiza la fecha de fin cuando el prestamo está terminado
      * 
      */
-    public void CE02() throws IOException {
+    public void CE02() throws IOException, PrestamoException {
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
@@ -136,7 +137,7 @@ public class DevolucionesTest {
      * Se actualiza el equipo sencillo del prestamo
      * 
      */
-    public void CE03() throws IOException {
+    public void CE03() throws IOException, PrestamoException {
         InputStream input;
         input = ClassLoader.getSystemResourceAsStream("applicationconfig_test.properties");
         Properties properties = new Properties();
