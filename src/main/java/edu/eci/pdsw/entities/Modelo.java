@@ -34,9 +34,6 @@ public class Modelo {
      * @throws EquipoException
      */
     public Modelo(int vidaU, String name,String mar, String foto, String clas, long valor) throws EquipoException {
-        if (vidaU <= 0) {
-            throw new EquipoException(EquipoException.MODELO_VIDA_UTIL_INADECUADA);
-        }
         if (name==null || name.length() <= 0) {
             throw new EquipoException(EquipoException.MODELO_SIN_NOMBRE);
         }
@@ -48,6 +45,9 @@ public class Modelo {
         }
         if (valor <= 0) {
             throw new EquipoException(EquipoException.MODELO_VALOR_COMERCIAL_INADECUADO);
+        }
+        if (vidaU <= 0) {
+            throw new EquipoException(EquipoException.MODELO_VIDA_UTIL_INADECUADA);
         }
         vidaUtil = vidaU;
         nombre = name.trim().toLowerCase();
