@@ -7,7 +7,6 @@ package edu.eci.pdsw.entities;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +34,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
     @Override
     public boolean equals(Object obj) {
         Prestamo p = (Prestamo) obj;
-        boolean check = true;
+        boolean check;
         check = fechaInicio.equals(p.getFechaInicio());
         check = check && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
         if(getEquiposComplejosPrestados()!=null && p.getEquiposComplejosPrestados()!=null && check){
@@ -51,7 +50,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
             }
         }
         return check;
-        //return fechaInicio.equals(p.getFechaInicio()) && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
     }
 
     /**
@@ -150,7 +148,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
                 }
             }
         }
-        //if(terminado())fechaRealEntregada=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
     }
 
     /**
@@ -230,11 +227,8 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public void setEquiposSencillosFaltantes(Set<EquipoSencillo> equiposSencillosFaltantes) {
         this.equiposSencillosFaltantes = new HashSet<>();
-        //System.out.println(">>>>>>>>>>>>>>>>>>>><si entro al set");
         if (equiposSencillosFaltantes != null) {
-            //System.out.println(Arrays.toString(equiposSencillosFaltantes.toArray()));
             for (EquipoSencillo es : equiposSencillosFaltantes) {
-                //System.out.println("si esta en el for "+es.getNombre()+" "+es.getCantidadTotal());
                 if (es.getCantidadTotal() > 0) {
                     this.equiposSencillosFaltantes.add(es);
                 }

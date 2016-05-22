@@ -25,6 +25,7 @@ public class PrestamoIndefinido extends Prestamo {
      * @param equiposSencillosPrestados
      * @param elQuePideElPrestamo
      * @param tipo_prestamo
+     * @throws PrestamoException
      */
     public PrestamoIndefinido(Timestamp fechaInicio, Timestamp fechaEstimadaDeEntrega, Timestamp fechaRealEntregada, Set equiposComplejosPrestados, Set equiposSencillosPrestados, Persona elQuePideElPrestamo, String tipo_prestamo) throws PrestamoException{
         if(fechaInicio==null) throw new PrestamoException("La fecha inicio no puede ser vacia");
@@ -37,7 +38,7 @@ public class PrestamoIndefinido extends Prestamo {
         this.fechaEstimadaDeEntrega = fechaEstimadaDeEntrega;
         this.fechaRealEntregada = fechaRealEntregada;
         if (equiposComplejosPrestados == null) {
-            this.equiposComplejosPrestados = new HashSet<EquipoComplejo>();
+            this.equiposComplejosPrestados = new HashSet<>();
         } else {
             this.equiposComplejosPrestados = equiposComplejosPrestados;
         }
@@ -59,6 +60,7 @@ public class PrestamoIndefinido extends Prestamo {
      * @param elQuePideElPrestamo
      * @param equiposComplejosPrestados
      * @param equiposSencillosPrestados
+     * @throws PrestamoException
      */
     public PrestamoIndefinido(Persona elQuePideElPrestamo, Set equiposComplejosPrestados, Set equiposSencillosPrestados) throws PrestamoException {
         if(elQuePideElPrestamo==null) throw new PrestamoException("La persona no puede ser nulo");

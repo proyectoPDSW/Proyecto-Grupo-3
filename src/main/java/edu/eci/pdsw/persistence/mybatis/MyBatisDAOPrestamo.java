@@ -24,11 +24,11 @@ import org.apache.ibatis.session.SqlSession;
  */
 public class MyBatisDAOPrestamo implements DAOPrestamo {
 
-    private SqlSession ses;
-    private PersonaMapper ppmp;
-    private PrestamoMapper pmap;
-    private EquipoComplejoMapper ecmp;
-    private EquipoSencilloMapper esmp;
+    private final SqlSession ses;
+    private final PersonaMapper ppmp;
+    private final PrestamoMapper pmap;
+    private final EquipoComplejoMapper ecmp;
+    private final EquipoSencilloMapper esmp;
 
     public MyBatisDAOPrestamo(SqlSession ses) {
         this.ses = ses;
@@ -46,9 +46,6 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         if (fecha == null) {
             throw new PersistenceException("La fecha no puede ser nulo");
         }
-        /*if(pmap.loadPrestamo(fecha,carne).isEmpty())
-            throw new PersistenceException("no existe ningun Prestamo en la base de datos con la fecha "+fecha.toString()+" y el carnet "+carne);*/
-        //System.out.println(pmap.loadPrestamo(fecha, carne));
         return pmap.loadPrestamo(fecha, carne);
     }
 
@@ -57,7 +54,7 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         if (prestamo == null) {
             throw new PersistenceException("El prestamo no puede ser nulo");
         }
-        if ((prestamo.getEquiposComplejosPrestados() == null || prestamo.getEquiposComplejosPrestados().size() == 0) && (prestamo.getEquiposSencillosPrestados() == null || prestamo.getEquiposSencillosPrestados().size() == 0)) {
+        if ((prestamo.getEquiposComplejosPrestados() == null || prestamo.getEquiposComplejosPrestados().isEmpty()) && (prestamo.getEquiposSencillosPrestados() == null || prestamo.getEquiposSencillosPrestados().isEmpty())) {
             throw new PersistenceException("Los equipos no pueden ser nulos");
         }
         if (prestamo.getElQuePideElPrestamo() == null) {
@@ -73,6 +70,9 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         pmap.insertPrestamo(prestamo);
         if (prestamo.getEquiposComplejosPrestados() != null) {
             for (EquipoComplejo lisp1 : prestamo.getEquiposComplejosPrestados()) {
+                lisp1.setDisponibilidad(false);
+                lisp1.setEstado(prestamo.getTipo_prestamo());
+                ecmp.update(lisp1, lisp1);
                 pmap.insertEquipoComplejo_Prestamo(prestamo, lisp1);
             }
 
