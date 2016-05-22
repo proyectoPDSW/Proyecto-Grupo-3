@@ -12,6 +12,7 @@ import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.persistence.mybatis.mappers.EquipoComplejoMapper;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
@@ -154,6 +155,11 @@ public class MyBatisDAOEquipoComplejo implements DAOEquipoComplejo {
             throw new PersistenceException("El equipo con placa "+ placa +" no está disponible para prestar");
         }
         return equipo;
+    }
+
+    @Override
+    public Date currDate() {
+        return eMap.currDate();
     }
     
 }

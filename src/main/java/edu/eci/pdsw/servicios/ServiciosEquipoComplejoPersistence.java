@@ -15,6 +15,7 @@ import edu.eci.pdsw.persistence.PersistenceException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
@@ -211,6 +212,15 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
             throw new ExcepcionServicios(ex,ex.getLocalizedMessage());
         }
         return eq;
+    }
+
+    @Override
+    public Date currDate() {
+        dao.beginSession();
+        complejoPersistencia=dao.getDaoEquipoComplejo();
+        Date fecha=complejoPersistencia.currDate();
+        dao.endSession();
+        return fecha;
     }
 
 }

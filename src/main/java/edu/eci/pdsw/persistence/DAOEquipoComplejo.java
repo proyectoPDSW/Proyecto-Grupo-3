@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
 import edu.eci.pdsw.entities.OrdenCompra;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -144,4 +145,10 @@ public interface DAOEquipoComplejo {
      * @throws PersistenceException si el equipo con la placa no esta registrado, el equipo no esta disponible
      */
     public EquipoComplejo loadEnAlmacenPorPlaca(String placa) throws PersistenceException;
+    
+    /**
+     * calcula la fecha actual
+     * @return la fecha actual
+     */
+    public Date currDate();
 }

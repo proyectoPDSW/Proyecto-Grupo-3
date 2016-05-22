@@ -234,7 +234,6 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             }
             //Cargo el prestamo actual de ese equipo
             Prestamo prestamoActualEquipoCargado = basePaciente.loadPrestamoActual(loaded);
-            //System.out.println(prestamoActualEquipoCargado.toString());
             //Cambio el equipo para que se pueda volver a prestar
             loaded.setEstado(EquipoComplejo.almacen);
             loaded.setDisponibilidad(true);
