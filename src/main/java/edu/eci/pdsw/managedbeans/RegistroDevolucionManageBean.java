@@ -67,10 +67,16 @@ public class RegistroDevolucionManageBean implements Serializable{
         if (laPersona != null && laPersona.length() > 0) {
             try {
                 List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
-                for (Prestamo p1 : p)
-                    if (!p1.terminado())
-                        for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()) 
+                for (Prestamo p1 : p){
+                    System.out.println("Entro 2 "+p1.toString());
+                    if (!p1.terminado()){
+                        System.out.println("Entro");
+                        for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()){
+                            System.out.println(es1.toString());
                             if(!es.contains(es1)) es.add(es1);
+                        }
+                    }
+                }
             } catch (ExcepcionServicios ex) {
                 facesError(ex.getMessage());
             }
@@ -93,6 +99,7 @@ public class RegistroDevolucionManageBean implements Serializable{
     public void registroDevolucionEquipoComplejo() {
         try {
             boolean check=false;
+            
             EquipoComplejo eqcomp = EQCOMPLEJO.consultarPorPlaca(placa);
             List<Prestamo> prestamos = PRESTAMO.consultarPrestamosEquipoComplejo(eqcomp);
             for (Prestamo p1 : prestamos) {
@@ -111,6 +118,7 @@ public class RegistroDevolucionManageBean implements Serializable{
             }
             eqcompl = eqcomp.getModelo_Eq().getNombre();
             PRESTAMO.registrarDevolucion(placa);
+            equiposComplejosFaltantes.remove(eqcomp);
             if(check) {
                 showPanelInfoPrestamista=true;
                 facesInfo("Se realizo con exito la devolución");
@@ -120,6 +128,10 @@ public class RegistroDevolucionManageBean implements Serializable{
             facesError(ex.getMessage());
             showPanelInfoPrestamista=false;
         }
+    }
+    
+    public void reset(){
+        showPanelInfoPrestamista=false;
     }
 
     public List<EquipoSencillo> getEs() {

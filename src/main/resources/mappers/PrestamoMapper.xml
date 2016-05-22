@@ -405,8 +405,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
                 left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
         where
-                Prestamos.fecha_fin_real is null and Prestamos.fecha_fin_estimada &lt; now()
-                and (Equipo_prestamo_complejo.estado = 'Activo' or Equipo_prestamo_sencillo.cantidad_devuelta>0)
+                Prestamos.fecha_fin_real is null and Prestamos.fecha_fin_estimada &lt;  now()
+                and (Equipo_prestamo_complejo.estado = 'Activo' or Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta &gt; 0)
         order by
                 Prestamos.fecha_fin_estimada asc
     </select>
