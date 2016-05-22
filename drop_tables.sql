@@ -61,4 +61,3 @@ DROP TABLE Rol;
 DROP TABLE Rol_Persona;
 
 -- End of file.
-
