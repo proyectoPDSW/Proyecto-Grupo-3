@@ -182,11 +182,14 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     /**
      *
-     * @param equiposSencillosPrestados
+     * @param equiposSencillosP
      */
-    public void setEquiposSencillosPrestados(Set<EquipoSencillo> equiposSencillosPrestados) {
-        this.equiposSencillosPrestados = equiposSencillosPrestados;
-        setEquiposSencillosFaltantes(this.equiposSencillosPrestados);
+    public void setEquiposSencillosPrestados(Set<EquipoSencillo> equiposSencillosP) {
+        Set<EquipoSencillo> tmp = new HashSet<>();
+        tmp.addAll(equiposSencillosP);
+        equiposSencillosP.addAll(tmp);
+        this.equiposSencillosPrestados = equiposSencillosP;
+        setEquiposSencillosFaltantes(equiposSencillosPrestados);
         //Collections.sort(equiposSencillosFaltantes2);
     }
 
@@ -213,11 +216,12 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the equiposSencillosFaltantes
      */
     public Set<EquipoSencillo> getEquiposSencillosFaltantes() {
-        setEquiposSencillosFaltantes(equiposSencillosFaltantes);
+        
         if (equiposSencillosFaltantes == null) {
             equiposSencillosFaltantes = new HashSet<>();
         }
         //Collections.sort(equiposSencillosFaltantes2);
+        setEquiposSencillosFaltantes(equiposSencillosPrestados);
         return equiposSencillosFaltantes;
     }
 
@@ -226,11 +230,11 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public void setEquiposSencillosFaltantes(Set<EquipoSencillo> equiposSencillosFaltantes) {
         this.equiposSencillosFaltantes = new HashSet<>();
-        //System.out.println(">>>>>>>>>>>>>>>>>>>><si entro al set");
+        System.out.println(">>>>>>>>>>>>>>>>>>>><si entro al set");
         if (equiposSencillosFaltantes != null) {
-            //System.out.println(Arrays.toString(equiposSencillosFaltantes.toArray()));
-            for (EquipoSencillo es : equiposSencillosPrestados) {
-                //System.out.println("si esta en el for "+es.getNombre()+" "+es.getCantidadTotal());
+            System.out.println(Arrays.toString(equiposSencillosFaltantes.toArray()));
+            for (EquipoSencillo es : equiposSencillosFaltantes) {
+                System.out.println("si esta en el for "+es.getNombre()+" "+es.getCantidadTotal());
                 if (es.getCantidadTotal() > 0) {
                     this.equiposSencillosFaltantes.add(es);
                 }
