@@ -23,6 +23,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.validation.constraints.Size;
+import org.primefaces.component.wizard.Wizard;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.FlowEvent;
 
 /**
@@ -156,6 +158,11 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             showPanelInformacionModelo = false;
             showPanelRegistroModelo = false;
             showPanelRegistroExitoso = true;
+            reset=true;
+            //para actualizar el wizard
+            Wizard wizard = (Wizard) FacesContext.getCurrentInstance().getViewRoot().findComponent("registro:wiz");
+            wizard.setStep("WInfoModelo");
+            RequestContext.getCurrentInstance().update("registro");
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
@@ -169,6 +176,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             showPanelInformacionModelo = false;
             showPanelRegistroModelo = false;
             showPanelRegistroExitoso = true;
+            reset=true;
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
@@ -441,7 +449,8 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     //// Wizard
     public String onFlowProcessRegistro(FlowEvent event) {
         String pag = event.getNewStep();
-        if (pag.equalsIgnoreCase("WInfoEquipo") && showPanelRegistroModelo) {
+        //System.out.println("flow: "+pag);
+        if (pag!=null && pag.equalsIgnoreCase("WInfoEquipo") && showPanelRegistroModelo) {
             try {
                 modelo = new Modelo(vidaUtil, nombre, marca, fotografia, clase, valorComercial);
                 modelo.setDescripcion(descripcion);
@@ -453,11 +462,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             }
 
         }
-        if(pag.equalsIgnoreCase("WInfoEquipo")){
-            //System.out.println("reset es false");
-            reset=false;
-        }
-        else if(pag.equalsIgnoreCase("WConfirm")){
+        else if(pag!=null && pag.equalsIgnoreCase("WConfirm")){
             //System.out.println("entro a crear");
              try {
                 ordenCompra = new OrdenCompra();
@@ -486,11 +491,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
                 pag = "WInfoEquipo";
             }      
         }
-        /*if(reset){
-            //oncomplete="PF(':registro:W').loadStep('WInfoModelo', false)"
-            System.out.println("entro al reset: "+pag);
-            pag="WInfoModelo";
-        }*/
         return pag;
     }
 

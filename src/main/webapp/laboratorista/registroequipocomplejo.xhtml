@@ -28,7 +28,7 @@
             <br/>
         </h:form>
         <h:form id="registro">
-            <p:wizard id="W" widgetVar="wiz" style="margin-bottom:40px" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo() or RegistroEquiposComplejos.showPanelRegistroModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessRegistro}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
+            <p:wizard id="wiz" widgetVar="wiz" style="margin-bottom:40px" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo() or RegistroEquiposComplejos.showPanelRegistroModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessRegistro}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
                 <p:tab id="WInfoModelo">
                     <p:panel header="Información Modelo" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo()}">
                         <p:panelGrid  columns="2" >
@@ -183,8 +183,8 @@
                                 </p:panelGrid>
                             </p:panel>
                         </p:panelGrid>
-                        <br/><center/><p:commandButton value="Registrar" actionListener="#{RegistroEquiposComplejos.registrarEquipo()}" update=":registro :exitoso" icon="ui-icon-plusthick" oncomplete="wiz.loadStep (wiz.cfg.steps [0], true)" />
                     </p:panel>
+                    <br/><center/><p:commandButton value="Registrar" action="#{RegistroEquiposComplejos.registrarEquipo()}"  icon="ui-icon-plusthick" process="@this" oncomplete="PF('wiz').loadStep(PF('wiz').cfg.steps [0], true)" update=":registro :exitoso"  ajax="true"  />
                 </p:tab>
             </p:wizard>
             <br/>
