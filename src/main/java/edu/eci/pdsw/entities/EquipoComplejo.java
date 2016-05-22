@@ -5,7 +5,6 @@
  */
 package edu.eci.pdsw.entities;
 
-import java.math.BigInteger;
 import java.util.Objects;
 
 /**
@@ -77,10 +76,10 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (modelo_Eq == null) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         }
-        if (serial.length() <= 0) {
+        if (serial==null || serial.length() <= 0) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         }
-        if (placa.length()==0) {
+        if (placa==null || placa.length()==0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }
         if (dg == null) {
