@@ -14,7 +14,7 @@ import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -72,11 +72,13 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     ////////Mostrar paneles
     private boolean showPanelRegistroModelo=false;
     private boolean showPanelInformacionModelo=false;
+    private boolean showPanelRegistroExitoso=false;
 
     /**
      * Constructor del Bean
      */
     public RegistroEquipoComplejoManagedBean() {
+        this.fechaAdquisicion = new Date();
         SERVICIOS = ServiciosEquipoComplejo.getInstance();
     }
 
@@ -162,6 +164,9 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             equipo.setEstado("en almacen");
             SERVICIOS.registrarEquipoComplejo(equipo);
             facesInfo("El equipo ha sido registrado satisfactoriamente");
+            showPanelInformacionModelo=false;
+            showPanelRegistroModelo=false;
+            showPanelRegistroExitoso=true;
         } catch (ExcepcionServicios | EquipoException ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
@@ -432,11 +437,13 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     
     //// Wizard
     public String onFlowProcessRegistro(FlowEvent event) {
-        System.out.println(event.getNewStep());
-        return event.getNewStep();
+        String pag=event.getNewStep();
+        if(pag.equals("W1InfoEquipo")){
+            
+        }
+        return pag;
     }
        public String onFlowProcessInformacion(FlowEvent event) {
-        System.out.println(event.getNewStep());
         return event.getNewStep();
     }
 ////////Mostrar paneles
@@ -452,5 +459,11 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
      */
     public boolean showPanelInformacionModelo() {
         return showPanelInformacionModelo;
+    }
+    /**
+     * @return the showPanelConsultaModelo
+     */
+    public boolean showPanelRegistroExitoso() {
+        return showPanelRegistroExitoso;
     }
 }
