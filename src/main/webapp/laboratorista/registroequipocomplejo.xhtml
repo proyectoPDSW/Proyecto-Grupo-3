@@ -65,7 +65,7 @@
                                 <h:outputLabel value="Serial: (*)" />
                                 <h:inputText  value="#{RegistroEquiposComplejos.serial}" />
                                 <h:outputLabel value="Placa: (*)" />
-                                <p:spinner value="#{RegistroEquiposComplejos.placa}" min="1" max="1000000000" />
+                                <h:inputText value="#{RegistroEquiposComplejos.placa}" />
                                 <h:outputLabel value="¿Se encuentra asegurado?" />
                                 <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
                             </p:panelGrid> 
@@ -79,9 +79,9 @@
                                 <h:outputLabel value="Proveedor: (*)" />
                                 <h:inputText value="#{RegistroEquiposComplejos.proveedor}" />
                                 <h:outputLabel value="Fecha adquisición: (*)" />
-                                <p:calendar value="#{RegistroEquiposComplejos.fechaAdquisicion}" pattern="yyyy-mm-dd" mask="true" navigator="true" mindate="#{RegistroEquiposComplejos.fechaAdquisicion}" />
+                                <p:calendar value="#{RegistroEquiposComplejos.fechaAdquisicion}" pattern="yyyy-MM-dd" mask="true" navigator="true" mindate="#{RegistroEquiposComplejos.fechaAdquisicion}" />
                                 <h:outputLabel value="Fecha garantía: (*)" />
-                                <p:calendar value="#{RegistroEquiposComplejos.fechaGarantia}" pattern="yyyy-mm-dd" mask="true" navigator="true"  mindate="#{RegistroEquiposComplejos.fechaAdquisicion}"/>
+                                <p:calendar value="#{RegistroEquiposComplejos.fechaGarantia}" pattern="yyyy-MM-dd" mask="true" navigator="true"  mindate="#{RegistroEquiposComplejos.fechaAdquisicion}"/>
                             </p:panelGrid> 
                         </p:panel>
                     </p:panelGrid>
