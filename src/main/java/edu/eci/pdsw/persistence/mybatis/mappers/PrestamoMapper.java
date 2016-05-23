@@ -111,7 +111,10 @@ public interface PrestamoMapper {
      *
      * @return lista de Prestamos
      */
-    public List<Prestamo> loadMorosos();
+    public List<Prestamo> loadMorososComplejo();
+    
+    
+    public List<Prestamo> loadMorososSencillo();
 
     /**
      *

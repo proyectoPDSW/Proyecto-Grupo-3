@@ -33,6 +33,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     @Override
     public boolean equals(Object obj) {
+        if(obj==null) return false;
         Prestamo p = (Prestamo) obj;
         boolean check;
         check = fechaInicio.equals(p.getFechaInicio());
@@ -86,7 +87,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         if (equiposComplejosFaltantes == null) {
             equiposComplejosFaltantes = new HashSet<>();
         }
-        setEquiposComplejosFaltantes(equiposComplejosPrestados);
+        setEquiposComplejosFaltantes(equiposComplejosFaltantes);
         return equiposComplejosFaltantes;
     }
 

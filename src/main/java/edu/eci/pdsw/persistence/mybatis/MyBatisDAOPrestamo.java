@@ -15,6 +15,8 @@ import edu.eci.pdsw.persistence.mybatis.mappers.EquipoSencilloMapper;
 import edu.eci.pdsw.persistence.mybatis.mappers.PersonaMapper;
 import edu.eci.pdsw.persistence.mybatis.mappers.PrestamoMapper;
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
@@ -137,7 +139,39 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
     @Override
     public List<Prestamo> loadMorosos() throws PersistenceException {
         //System.out.println(Arrays.toString(pmap.loadMorosos().toArray()));
-        return pmap.loadMorosos();
+        List<Prestamo> enviar = new LinkedList<>();
+        List<Prestamo> m = pmap.loadMorososComplejo();
+        List<Prestamo> n = pmap.loadMorososSencillo();
+        boolean another=false;
+        for (Prestamo prestamo : n) {
+            boolean check=false;
+            for (Prestamo prestamo1 : m) {
+                if(prestamo.getElQuePideElPrestamo().getCarnet().equals(prestamo1.getElQuePideElPrestamo().getCarnet()) && prestamo.getFechaInicio().equals(prestamo1.getFechaInicio())){
+                    prestamo1.setEquiposSencillosPrestados(prestamo.getEquiposSencillosPrestados());
+                    
+                    check=true;
+                }
+                enviar.add(prestamo1);
+            }
+            if(!check) enviar.add(prestamo);
+            another=true;
+        }
+        if(!another){
+            for (Prestamo prestamo : m) {
+                boolean check=false;
+                for (Prestamo prestamo1 : n) {
+                    if(prestamo.getElQuePideElPrestamo().getCarnet().equals(prestamo1.getElQuePideElPrestamo().getCarnet()) && prestamo.getFechaInicio().equals(prestamo1.getFechaInicio())){
+                        prestamo1.setEquiposSencillosPrestados(prestamo.getEquiposSencillosPrestados());
+
+                        check=true;
+                    }
+                    enviar.add(prestamo1);
+                }
+                if(!check) enviar.add(prestamo);
+            }
+        }
+        System.out.println(Arrays.toString(enviar.toArray()));
+        return enviar;
     }
 
     @Override

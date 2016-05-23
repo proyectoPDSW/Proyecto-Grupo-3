@@ -355,7 +355,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                     (select Prestamos_persona from Equipo_prestamo_complejo where 
                     Equipos_Complejos_serial= #{Eq_Complejo.serial} and Equipos_Complejos_modelo = #{Eq_Complejo.modelo_Eq.nombre})
     </select>
-    <select id='loadMorosos' parameterType='map' resultMap='PrestamoResult'>
+    <select id='loadMorososComplejo' parameterType='map' resultMap='PrestamoResult'>
         select 
                 Prestamos.fecha_inicio as fecha_inicio, 
                 Prestamos.fecha_fin_estimada as fecha_estimada,
@@ -380,6 +380,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Informacion_Compra.fecha_garantia as eqco_ord_garantia,
                 Informacion_Compra.codigo_orden_compra AS ord_codigo_orden_compra,
                 Informacion_Compra.codigo_activo AS ord_codigo_activo,
+                Personas.carne as per_carne,
+                Personas.nombre as per_nombre,
+                Personas.apellido as per_apellido,
+                Personas.email as per_email,
+                Personas.telefono as per_telefono,
+                Rol_Persona.Rol_rol as per_Rl_rol,
+                Rol_Persona.contrasena as per_Rl_contrasena,
+                Rol_Persona.sal as per_Rl_sal
+        from
+                Prestamos
+                left join Personas on Prestamos.persona = Personas.carne
+                left join Rol_Persona on Personas.carne = Rol_Persona.Personas_carne
+                left join Rol on Rol.rol = Rol_Persona.Rol_rol
+                left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona 
+                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
+                left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
+                left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
+        where
+                Prestamos.fecha_fin_real is null and Prestamos.fecha_fin_estimada &lt;  now()
+                and Equipo_prestamo_complejo.estado = 'Activo'
+        order by
+                Prestamos.fecha_fin_estimada asc
+    </select>
+    <select id='loadMorososSencillo' parameterType='map' resultMap='PrestamoResult'>
+        select 
+                Prestamos.fecha_inicio as fecha_inicio, 
+                Prestamos.fecha_fin_estimada as fecha_estimada,
+                Prestamos.fecha_fin_real as fecha_real,
+                Prestamos.tipo_prestamo as tipo_prestamo,
                 Equipos_Sencillos.nombre as eqse_nombre,
                 Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta as eqse_cantidad,
                 Equipos_Sencillos.clase as eqse_clase,
@@ -398,15 +427,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 left join Personas on Prestamos.persona = Personas.carne
                 left join Rol_Persona on Personas.carne = Rol_Persona.Personas_carne
                 left join Rol on Rol.rol = Rol_Persona.Rol_rol
-                left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona 
-                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
-                left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
                 left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
                 left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
-                left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
         where
-                Prestamos.fecha_fin_real is null and Prestamos.fecha_fin_estimada &lt;  now()
-                and (Equipo_prestamo_complejo.estado = 'Activo' or Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta &gt; 0)
+                Prestamos.fecha_fin_real is null and Prestamos.fecha_fin_estimada &lt; now()
+                and Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta &gt; 0
         order by
                 Prestamos.fecha_fin_estimada asc
     </select>
