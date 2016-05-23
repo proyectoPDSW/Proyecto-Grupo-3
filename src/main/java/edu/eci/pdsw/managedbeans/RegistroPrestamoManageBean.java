@@ -50,8 +50,6 @@ public class RegistroPrestamoManageBean implements Serializable {
     private Timestamp fechaEstimadaDeEntrega;
     //Consultar persona
     private String carne;
-    //Equipo Complejo prestamo termino fijo
-    private EquipoComplejo selectEquipoComplejo;
     //Equipo Sencillo prestamo termino fijo
     private EquipoSencillo selectEquipoSencillo;
 
@@ -76,8 +74,6 @@ public class RegistroPrestamoManageBean implements Serializable {
     private boolean showPanelOtroRegistro=false;
     private String selectEqSe;
 
-    // Lista de equipo complejo para consultar los equipos prestamo termino fijo
-    private List<EquipoComplejo> eqC;
     //Lista de equipo sencillo para consultar los equipos prestamo termino fijo
     private List<EquipoSencillo> eqS;
     //Mapa de los tiempos que posee un prestamo, equipo complejo prestamo termino fijo
@@ -175,28 +171,11 @@ public class RegistroPrestamoManageBean implements Serializable {
         }
     }
 
-    public List<EquipoComplejo> sacarEqC() {
-        return eqC;
-    }
 
     public List<EquipoSencillo> sacarEqS() {
         return eqS;
     }
 
-    /**
-     * Consulta la lista de equipos complejos que tengan un modelo especifico
-     *
-     */
-    public void consultarEqPlacaDisponible() {
-        List<EquipoComplejo> equipos = new ArrayList<>();
-        try {
-            equipos.add(EQCOMPLEJO.consultarEquipoEnAlmacenPorPlaca(placa));
-
-        } catch (ExcepcionServicios ex) {
-            facesError(ex.getMessage());
-        }
-        eqC = equipos;
-    }
 
     /**
      * Consulta un equipo sencillo por su nombre
@@ -218,16 +197,18 @@ public class RegistroPrestamoManageBean implements Serializable {
      * Agrega equipos complejos al prestamo termino fijo
      */
     public void agregarEquipoC() {
-        if (selectEquipoComplejo != null) {
-            if(fechaTipoPrestamo== null || fechaTipoPrestamo.length()==0){
-                facesError("Favor seleccionar un tipo de prestamo");
-            }else{
-            selectEquipoComplejo.setEstado(fechaTipoPrestamo);
-            actualizarEquipoComplejo(selectEquipoComplejo);
-            //consultarEqPlacaDisponible();
-            equiposComplejosPrestados.add(selectEquipoComplejo);
-            //registrarPrestamo();
-            }
+       if(fechaTipoPrestamo== null || fechaTipoPrestamo.length()==0){
+            facesError("Favor seleccionar un tipo de prestamo");
+       }else{
+            EquipoComplejo ec;
+            try{
+                ec=EQCOMPLEJO.consultarEquipoEnAlmacenPorPlaca(placa);
+                ec.setEstado(fechaTipoPrestamo);
+                equiposComplejosPrestados.add(ec);
+                actualizarEquipoComplejo(ec);
+            }catch(ExcepcionServicios ex){
+                facesError(ex.getMessage());
+            }             
         }
     }
     
@@ -521,21 +502,6 @@ public class RegistroPrestamoManageBean implements Serializable {
         this.selectEquipoSencillo = equiS;
     }
     
-
-    /**
-     * @return the selectEqC
-     */
-    public EquipoComplejo getSelectEquipoComplejo() {
-        return selectEquipoComplejo;
-    }
-
-    /**
-     * @param selectEqC the selectEqC to set
-     */
-    public void setSelectEquipoComplejo(EquipoComplejo selectEqC) {
-        this.selectEquipoComplejo = selectEqC;
-    }
-
     /**
      * @return the cantidad
      */
