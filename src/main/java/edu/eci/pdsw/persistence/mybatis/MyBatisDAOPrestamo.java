@@ -203,4 +203,9 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         return pmap.loadPrestamoActualEquipo(equipo);
     }
 
+    @Override
+    public long diffHours(Prestamo prestamo) {
+        return pmap.diffHours(prestamo);
+    }
+
 }

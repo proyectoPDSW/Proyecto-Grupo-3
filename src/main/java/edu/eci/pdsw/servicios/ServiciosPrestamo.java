@@ -104,4 +104,12 @@ public abstract class ServiciosPrestamo {
      * @throws ExcepcionServicios 
      */
     public abstract void actualizarPrestamo(Prestamo p) throws ExcepcionServicios;
+    
+    /**
+     * Calcula la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
+     * 
+     * @param prestamo el prestamo que se usará para consultar
+     * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
+     */
+    public abstract long diffHours(Prestamo prestamo);
 }

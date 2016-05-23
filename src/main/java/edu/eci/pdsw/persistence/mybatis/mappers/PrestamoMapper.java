@@ -148,4 +148,12 @@ public interface PrestamoMapper {
      * @return el prestamo actual de ese equipo
      */
     public Prestamo loadPrestamoActualEquipo(@Param("Equipo")EquipoComplejo equipo);
+    
+    /**
+     * Calcula la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
+     * 
+     * @param pres el prestamo que se usará para consultar
+     * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
+     */
+    public long diffHours(@Param("Prestamo") Prestamo pres);
 }

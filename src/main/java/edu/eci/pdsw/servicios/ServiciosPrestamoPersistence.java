@@ -313,4 +313,14 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
 
     }
 
+    @Override
+    public long diffHours(Prestamo prestamo) {
+        long diff;
+        daoF.beginSession();
+        basePaciente =daoF.getDaoPrestamo();
+        diff=basePaciente.diffHours(prestamo);
+        daoF.endSession();
+        return diff;
+    }
+
 }

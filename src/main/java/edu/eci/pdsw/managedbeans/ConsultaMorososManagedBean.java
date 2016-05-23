@@ -51,18 +51,13 @@ public class ConsultaMorososManagedBean implements Serializable {
     }
 
     /**
-     * halla la diferencia en horas entre d y la hora actual
-     *
-     * @param d la hora con la que se quiere comparar la fecha actual
-     * @return la diferencia en horas entre d y la hora actual
+     * Calcula la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
+     * 
+     * @param prestamo el prestamo que se usará para consultar
+     * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
      */
-    public int diffHoras(Timestamp d) {
-        Timestamp curr = sp.currDate();
-        //Timestamp curr=new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("Europe/Budapest")).getTime().getTime());
-        int hoursCurr = curr.getHours() + curr.getDay() * 24 + curr.getMonth() * 30 * 24 + curr.getYear() * 12 * 30 * 24;
-        int hoursD = d.getHours() + d.getDay() * 24 + d.getMonth() * 30 * 24 + d.getYear() * 12 * 30 * 24;
-        //System.out.println(curr+" "+d+" "+hoursCurr+" "+hoursD);
-        return hoursCurr - hoursD;
+    public long diffHoras(Prestamo prestamo) {
+        return sp.diffHours(prestamo);
     }
 
     /**

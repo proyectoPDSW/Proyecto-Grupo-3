@@ -111,4 +111,12 @@ public interface DAOPrestamo {
      * @throws PersistenceException si no hay prestamos activos o el equipo no existe
      */
     public Prestamo loadPrestamoActual(EquipoComplejo equipo)throws PersistenceException;
+    
+    /**
+     * Calcula la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
+     * 
+     * @param prestamo el prestamo que se usará para consultar
+     * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
+     */
+    public long diffHours(Prestamo prestamo);
 }

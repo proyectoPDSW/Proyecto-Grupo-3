@@ -517,4 +517,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Equipos_Complejos.modelo = #{Equipo.modelo_Eq.nombre} and
                 Equipo_prestamo_complejo.estado = 'Activo'
     </select>
+    <select id="diffHours" parameterType="map" resultType="java.lang.Long">
+        select TIMESTAMPDIFF(HOUR,fecha_fin_estimada,now()) 
+        from Prestamos where fecha_inicio=#{Prestamo.fechaInicio} and persona=#{Prestamo.elQuePideElPrestamo.carnet}
+    </select>
 </mapper>
