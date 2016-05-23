@@ -142,18 +142,21 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         List<Prestamo> enviar = new LinkedList<>();
         List<Prestamo> m = pmap.loadMorososComplejo();
         List<Prestamo> n = pmap.loadMorososSencillo();
+        /*System.out.println("Equipos complejos");
+        System.out.println(Arrays.toString(m.toArray()));
+        System.out.println("Equipos Sencillo");
+        System.out.println(Arrays.toString(n.toArray()));*/
         boolean another=false;
         for (Prestamo prestamo : n) {
             boolean check=false;
             for (Prestamo prestamo1 : m) {
                 if(prestamo.getElQuePideElPrestamo().getCarnet().equals(prestamo1.getElQuePideElPrestamo().getCarnet()) && prestamo.getFechaInicio().equals(prestamo1.getFechaInicio())){
-                    prestamo1.setEquiposSencillosPrestados(prestamo.getEquiposSencillosPrestados());
-                    
+                    prestamo1.setEquiposSencillosPrestados(prestamo.getEquiposSencillosPrestados());                    
                     check=true;
                 }
                 enviar.add(prestamo1);
             }
-            if(!check) enviar.add(prestamo);
+            if(!check && !enviar.contains(prestamo)) enviar.add(prestamo);
             another=true;
         }
         if(!another){
@@ -161,16 +164,18 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
                 boolean check=false;
                 for (Prestamo prestamo1 : n) {
                     if(prestamo.getElQuePideElPrestamo().getCarnet().equals(prestamo1.getElQuePideElPrestamo().getCarnet()) && prestamo.getFechaInicio().equals(prestamo1.getFechaInicio())){
-                        prestamo1.setEquiposSencillosPrestados(prestamo.getEquiposSencillosPrestados());
-
+                        prestamo1.setEquiposComplejosPrestados(prestamo.getEquiposComplejosPrestados());
                         check=true;
                     }
                     enviar.add(prestamo1);
                 }
-                if(!check) enviar.add(prestamo);
+                if(!check && !enviar.contains(prestamo)) enviar.add(prestamo);
             }
         }
-        System.out.println(Arrays.toString(enviar.toArray()));
+        for(Prestamo ult:enviar){
+            ult.getEquiposComplejosFaltantes();
+            ult.getEquiposSencillosFaltantes();
+        }
         return enviar;
     }
 
