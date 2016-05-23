@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeSet;
 import org.apache.ibatis.session.SqlSession;
 
 /**
@@ -172,11 +173,13 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
                 if(!check && !enviar.contains(prestamo)) enviar.add(prestamo);
             }
         }
+        LinkedList<Prestamo>desespero2=new LinkedList<>();
         for(Prestamo ult:enviar){
             ult.getEquiposComplejosFaltantes();
             ult.getEquiposSencillosFaltantes();
+            if(!desespero2.contains(ult))desespero2.add(ult);
         }
-        return enviar;
+        return desespero2;
     }
 
     @Override
