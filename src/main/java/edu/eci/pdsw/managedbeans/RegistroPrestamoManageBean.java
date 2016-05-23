@@ -127,6 +127,23 @@ public class RegistroPrestamoManageBean implements Serializable {
         tipoPrestamo.put(EquipoComplejo.indefinido, EquipoComplejo.indefinido);
         es = new ArrayList<>();
     }
+    
+    /**
+     * Revisa si una persona tiene algún prestamo moroso
+     * @param revisar
+     * @return true si tiene un prestamo moroso de lo contrario false
+     */
+    public boolean revisarMoroso(List<Prestamo> revisar){
+        boolean res=false;
+        boolean ban=true;
+        for(int i=0;i<revisar.size() && ban==true;i++){
+            if(revisar.get(i).prestamoMoroso()){
+                res=true;
+                ban=false;
+            }
+        }
+        return res;
+    }
 
     /**
      * Consulta una persona por su carne para realizar un prestamo hacia el
@@ -135,35 +152,42 @@ public class RegistroPrestamoManageBean implements Serializable {
         try {
             registrarOtroPrestamo();
             elQuePideElPrestamo = PRESTAMO.personaCarne(carne);
+            List<Prestamo> prestados=PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getCarnet());
             showPanelPersona=true;
             showPanelInfo=true;
-            if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getCarnet()).isEmpty()){
-                pres=true;
-                showPanelRegistro = true;
-            }else{
-                List<Prestamo> prestados=PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getCarnet());
-                boolean ban=true;
-                for(int i=0;i<prestados.size() && ban==true;i++){
-                    if(prestados.get(i).prestamoActivo()){
-                        showPanelOtroRegistro=true;
-                        pres=false;
-                        setPrestamoAgregarle(prestados.get(i));
-                        equiposComplejosPrestados=prestamoAgregarle.getEquiposComplejosPrestados();
-                        equiposSencillosPrestados=prestamoAgregarle.getEquiposSencillosPrestados();
-                        for(EquipoComplejo ecp:equiposComplejosPrestados){
-                            if(ecp.getEstado()!=null){
-                                fechaTipoPrestamo=ecp.getEstado();
-                                break;
-                            }
-                        }
-                        ban=false;                        
-                    }
-                }
-                if(ban){
+            if(revisarMoroso(prestados)){
+                facesError("La persona con nombre "+ elQuePideElPrestamo.getNombre() +" y con carné "+ elQuePideElPrestamo.getCarnet() +" tiene un prestamo moroso");
+                showPanelRegistro=false;
+                showPanelOtroRegistro=false;
+            }
+            else{
+                if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getCarnet()).isEmpty()){
                     pres=true;
                     showPanelRegistro = true;
-                }
-          }  
+                }else{
+                    boolean ban=true;
+                    for(int i=0;i<prestados.size() && ban==true;i++){
+                        if(prestados.get(i).prestamoActivo()){
+                            showPanelOtroRegistro=true;
+                            pres=false;
+                            setPrestamoAgregarle(prestados.get(i));
+                            equiposComplejosPrestados=prestamoAgregarle.getEquiposComplejosPrestados();
+                            equiposSencillosPrestados=prestamoAgregarle.getEquiposSencillosPrestados();
+                            for(EquipoComplejo ecp:equiposComplejosPrestados){
+                                if(ecp.getEstado()!=null){
+                                    fechaTipoPrestamo=ecp.getEstado();
+                                    break;
+                                }
+                            }
+                            ban=false;                        
+                        }
+                    }
+                    if(ban){
+                        pres=true;
+                        showPanelRegistro = true;
+                    }
+              }
+            }  
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             showPanelInfo = false;

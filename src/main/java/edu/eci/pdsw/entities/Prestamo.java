@@ -390,4 +390,16 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         } 
         return res;
     }
+    
+    /**
+     * Revisa si un prestamo esta en mora
+     * @return truen si esta en mora, de lo contrario false
+     */
+    public boolean prestamoMoroso(){
+        boolean res=false;
+        if(fechaRealEntregada==null && fechaEstimadaDeEntrega.compareTo(currDate()) < 0 ){
+            res=true;
+        }
+        return res;
+    }
 }
