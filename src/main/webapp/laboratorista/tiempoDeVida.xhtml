@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <br></br><b><title>Reporte de tiempo de vida</title></b>
+    </h:head>
+    <body>
+        <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
+        <center><b><h1>Reporte de tiempo de vida</h1></b></center>
+        <p:dataTable var="equipo" value="#{tiempoVida.equipos}">
+            <p:column headerText="Modelo">
+                <h:outputText value="#{equipo.modelo_Eq.nombre}"/>
+            </p:column>
+            <p:column headerText="Serial">
+                <h:outputText value="#{equipo.serial}"/>
+            </p:column>
+            <p:column headerText="Estado">
+                <h:outputText value="#{equipo.estado}"/>
+            </p:column>
+            <p:column headerText="Tiempo de vida">
+                <h:outputText value="#{equipo.modelo_Eq.vidaUtil}"/>
+            </p:column>
+            <p:column headerText="Vida restante">
+                <h:outputText value="#{equipo.tiempoRestante}"/>
+            </p:column>
+            <p:column>
+                <p:graphicImage value="#{equipo.modelo_Eq.fotografia}" height="100px" width="100px"/>
+            </p:column>
+        </p:dataTable>
+    </body>
+</html>

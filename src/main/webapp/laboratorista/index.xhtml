@@ -12,14 +12,15 @@
         <h:form id="index">
             <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
             <p:panel id="registrarEquipo" >
-                <br/><p:commandButton value="Consulta morosos" action="consultaMorosos"  />
-                <br/><p:commandButton value="Registro herramienta" action="registroequiposencillo" />
-                <br/><p:commandButton value="Registro equipo" action="registroequipocomplejo" />
+                <p:commandButton value="Consulta morosos" action="consultaMorosos"  />
+                <p:commandButton value="Registro herramienta" action="registroequiposencillo" />
+                <p:commandButton value="Registro equipo" action="registroequipocomplejo" />
                 <!--br/><p:commandButton value="Registro equipos " action="registroequipos" /-->
                 <!--br/><p:commandButton value="Consultar modelo" action="consultarmodelo" /-->
                 <br/><p:commandButton value="Registrar préstamo" action="registroprestamos" />
                 <br/><p:commandButton value="Registrar una devolución" action="registroDevolucion" />
                 <br/><p:commandButton value="Consultar equipo" action="fichaEquipo" />
+                <p:commandButton value="Reporte de equipos" action="tiempoDeVida"/>
                 <br/>
                 <h:outputLink value="/logout">Salir</h:outputLink>
                 <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">

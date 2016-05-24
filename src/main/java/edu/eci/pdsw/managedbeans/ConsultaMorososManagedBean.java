@@ -5,10 +5,8 @@
  */
 package edu.eci.pdsw.managedbeans;
 
-import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.log.Registro;
-import edu.eci.pdsw.persistence.PersistenceException;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosPersona;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
@@ -17,7 +15,6 @@ import java.sql.Timestamp;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 
 /**
  *
@@ -35,10 +32,10 @@ public class ConsultaMorososManagedBean implements Serializable {
     /**
      * Consulta los prestamos en mora
      *
-     * @return the morosos, いいえ。
+     * @return the morosos
      */
     public List<Prestamo> getMorosos() {
-        if (morosos == null || morosos.size() == 0) {
+        if (morosos == null || morosos.isEmpty()) {
             morosos = null;
             try {
                 morosos = sp.consultarPrestamosMorosos();
