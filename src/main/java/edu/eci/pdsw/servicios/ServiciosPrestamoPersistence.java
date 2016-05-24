@@ -34,7 +34,7 @@ import java.util.logging.Logger;
  */
 public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
 
-    private DAOPrestamo basePaciente;
+    private DAOPrestamo prestamoDao;
     private DAOFactory daoF;
 
     public ServiciosPrestamoPersistence() {
@@ -56,8 +56,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         List<Prestamo> morosos;
         try {
             daoF.beginSession();
-            basePaciente = daoF.getDaoPrestamo();
-            morosos = basePaciente.loadMorosos();
+            prestamoDao = daoF.getDaoPrestamo();
+            morosos = prestamoDao.loadMorosos();
             return morosos;
         } catch (PersistenceException e) {
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
@@ -72,8 +72,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         List<Prestamo> prestamos;
         try {
             daoF.beginSession();
-            basePaciente = daoF.getDaoPrestamo();
-            prestamos = basePaciente.loadByCarne(p);
+            prestamoDao = daoF.getDaoPrestamo();
+            prestamos = prestamoDao.loadByCarne(p);
             return prestamos;
         } catch (PersistenceException e) {
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
@@ -88,8 +88,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         List<Prestamo> prestamos;
         try {
             daoF.beginSession();
-            basePaciente = daoF.getDaoPrestamo();
-            prestamos = basePaciente.loadByEquipoComplejo(ec);
+            prestamoDao = daoF.getDaoPrestamo();
+            prestamos = prestamoDao.loadByEquipoComplejo(ec);
             return prestamos;
         } catch (PersistenceException e) {
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
@@ -104,8 +104,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         List<Prestamo> prestamos;
         try {
             daoF.beginSession();
-            basePaciente = daoF.getDaoPrestamo();
-            prestamos = basePaciente.loadAll();
+            prestamoDao = daoF.getDaoPrestamo();
+            prestamos = prestamoDao.loadAll();
             return prestamos;
         } catch (PersistenceException e) {
             throw new ExcepcionServicios(e, e.getLocalizedMessage());
@@ -118,51 +118,11 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     public void registrarPrestamo(Prestamo pres) throws ExcepcionServicios {
         try {
             daoF.beginSession();
-            basePaciente = daoF.getDaoPrestamo();
+            prestamoDao = daoF.getDaoPrestamo();
             if (pres == null)throw new ExcepcionServicios("El prestamo no puede ser nulo");
-            Prestamo m = basePaciente.load(pres.getFechaInicio(), pres.getElQuePideElPrestamo().getCarnet());
+            Prestamo m = prestamoDao.load(pres.getFechaInicio(), pres.getElQuePideElPrestamo().getCarnet());
             if(m!=null) throw new ExcepcionServicios("El prestamo ya existe.");
-            /*
-            Set<EquipoComplejo> equiposC = new HashSet<>(pres.getEquiposComplejosPrestados());
-            Set<EquipoSencillo> equiposS = new HashSet<>(pres.getEquiposSencillosPrestados());
-            boolean fp = true;
-            int cant = equiposC.size();
-            while (cant != 0) {
-                EquipoComplejo ec = null;
-                Set<EquipoComplejo> aAgregar = new HashSet<>();
-                boolean first = true;
-                for (EquipoComplejo e : equiposC) {
-                    if (first) {
-                        ec = e;
-                        aAgregar.add(e);
-                        first = false;
-                    } else if (e.getEstado().equals(ec.getEstado())) {
-                        aAgregar.add(e);
-                    }
-                }
-                for (EquipoComplejo e : aAgregar) {
-                    equiposC.remove(e);
-                }
-                Prestamo guardar = null;
-                if (ec.getEstado().equalsIgnoreCase(EquipoComplejo.indefinido)) {
-                    guardar = new PrestamoIndefinido(pres.getElQuePideElPrestamo(), aAgregar, null);
-                } else {
-                    guardar = new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(), aAgregar, null, Prestamo.calcularFechaEstimada(ec.getEstado()), ec.getEstado());
-                }
-                if (fp) {
-                    guardar.setEquiposSencillosPrestados(equiposS);
-                    fp = false;
-                }
-                basePaciente.save(guardar);
-                Thread.sleep(1000);
-                cant = equiposC.size();
-            }
-            if (fp) {
-                Prestamo guardar = new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(), null, equiposS, Prestamo.calcularFechaEstimada(EquipoComplejo.p24h), EquipoComplejo.p24h);
-                basePaciente.save(guardar);
-                Thread.sleep(1000);
-            }*/
-            basePaciente.save(pres);
+            prestamoDao.save(pres);
             daoF.commitTransaction();
         } catch (PersistenceException e) {
             daoF.rollbackTransaction();
@@ -178,10 +138,10 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         try {
             daoF.beginSession();
             DAOEquipoSencillo des = daoF.getDaoEquipoSencillo();
-            basePaciente = daoF.getDaoPrestamo();
+            prestamoDao = daoF.getDaoPrestamo();
             EquipoSencillo loaded = des.load(equipo);
             //Cargo a la persona que pidio el prestamo y sus prestamos
-            List<Prestamo> cargadosDePersona = basePaciente.loadByCarne(persona);
+            List<Prestamo> cargadosDePersona = prestamoDao.loadByCarne(persona);
             for (int i = 0; i < cargadosDePersona.size() && cantidad > 0; i++) {
                 //Para cada prestamo donde me falte entregar algo del equipo lo entrego
                 //Asi hasta que la cantidad que estoy entregando es 0
@@ -198,7 +158,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                     //Despues de cambiar el equipo que cargue del prestamo, actualizo los
                     //Faltantes a ver si ya deja de serlo, luego actualizo en la DB
                     cargadosDePersona.get(i).getEquiposSencillosFaltantes();
-                    basePaciente.update(cargadosDePersona.get(i));
+                    prestamoDao.update(cargadosDePersona.get(i));
                 }
             }
             //Deben haberse devuelto todos los equipos sencillos
@@ -219,7 +179,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
         try {
             daoF.beginSession();
             DAOEquipoComplejo dec = daoF.getDaoEquipoComplejo();
-            basePaciente = daoF.getDaoPrestamo();
+            prestamoDao = daoF.getDaoPrestamo();
             //Cargo el equipo a partir de su placa
             EquipoComplejo loaded = dec.load(equipo);
             String[] estadosValidos = {EquipoComplejo.diario, EquipoComplejo.p24h, EquipoComplejo.indefinido, EquipoComplejo.semestre};
@@ -229,7 +189,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                 throw new ExcepcionServicios("El equipo no esta prestado");
             }
             //Cargo el prestamo actual de ese equipo
-            Prestamo prestamoActualEquipoCargado = basePaciente.loadPrestamoActual(loaded);
+            Prestamo prestamoActualEquipoCargado = prestamoDao.loadPrestamoActual(loaded);
             //Cambio el equipo para que se pueda volver a prestar
             loaded.setEstado(EquipoComplejo.almacen);
             loaded.setDisponibilidad(true);
@@ -241,7 +201,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             prestamoActualEquipoCargado.updateEquipoComplejo(loaded);
             //Actualizo el equipo y el prestamo en la base de datos
             dec.update(loaded);
-            basePaciente.update(prestamoActualEquipoCargado);
+            prestamoDao.update(prestamoActualEquipoCargado);
             daoF.commitTransaction();
         } catch (PersistenceException |PrestamoException e) {
             daoF.rollbackTransaction();
@@ -270,8 +230,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     public Timestamp currDate() {
         Timestamp now = null;
         daoF.beginSession();
-        basePaciente = daoF.getDaoPrestamo();
-        now = basePaciente.currDate();
+        prestamoDao = daoF.getDaoPrestamo();
+        now = prestamoDao.currDate();
         daoF.endSession();
         return now;
 
@@ -284,8 +244,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                 throw new ExcepcionServicios("El prestamo a consultar no debe ser nulo");
             }
             daoF.beginSession();
-            basePaciente = daoF.getDaoPrestamo();
-            Prestamo p1 = basePaciente.load(p.getFechaInicio(), p.getElQuePideElPrestamo().getCarnet());
+            prestamoDao = daoF.getDaoPrestamo();
+            Prestamo p1 = prestamoDao.load(p.getFechaInicio(), p.getElQuePideElPrestamo().getCarnet());
             return p1;
         } catch (PersistenceException ex) {
             throw new ExcepcionServicios(ex, ex.getLocalizedMessage());
@@ -298,8 +258,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     public void actualizarPrestamo(Prestamo p) throws ExcepcionServicios {
         try {
             daoF.beginSession();
-            basePaciente = daoF.getDaoPrestamo();
-            basePaciente.update(p);
+            prestamoDao = daoF.getDaoPrestamo();
+            prestamoDao.update(p);
             daoF.commitTransaction();
         } catch (PersistenceException ex) {
             throw new ExcepcionServicios(ex, ex.getLocalizedMessage());
@@ -313,8 +273,8 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     public long diffHours(Prestamo prestamo) {
         long diff;
         daoF.beginSession();
-        basePaciente =daoF.getDaoPrestamo();
-        diff=basePaciente.diffHours(prestamo);
+        prestamoDao =daoF.getDaoPrestamo();
+        diff=prestamoDao.diffHours(prestamo);
         daoF.endSession();
         return diff;
     }
