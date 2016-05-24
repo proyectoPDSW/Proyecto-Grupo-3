@@ -29,6 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='fechaInicio' column='fecha_inicio'/>
         <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
         <result property='fechaRealEntregada' column='fecha_real'/>
+        <result property='tipo_prestamo' column='tipo_prestamo'/>
         <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
         <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
         <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>
@@ -38,6 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property='fechaInicio' column='fecha_inicio'/>
         <result property='fechaEstimadaDeEntrega' column='fecha_estimada'/>
         <result property='fechaRealEntregada' column='fecha_real'/>
+        <result property='tipo_prestamo' column='tipo_prestamo'/>
         <collection property='equiposComplejosPrestados' resultMap='EquipoComplejoResult' columnPrefix='eqco_'/>
         <collection property='equiposSencillosPrestados' resultMap='EquipoSencilloResult' columnPrefix='eqse_'/>
         <collection property='elQuePideElPrestamo' resultMap='PersonaResult' columnPrefix='per_'/>

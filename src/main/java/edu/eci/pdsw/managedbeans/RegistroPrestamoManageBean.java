@@ -182,14 +182,15 @@ public class RegistroPrestamoManageBean implements Serializable {
                             showPanelOtroRegistro=true;
                             pres=false;
                             setPrestamoAgregarle(prestados.get(i));
-                            equiposComplejosPrestados=prestamoAgregarle.getEquiposComplejosPrestados();
+                            /*equiposComplejosPrestados=prestamoAgregarle.getEquiposComplejosPrestados();
                             equiposSencillosPrestados=prestamoAgregarle.getEquiposSencillosPrestados();
                             for(EquipoComplejo ecp:equiposComplejosPrestados){
                                 if(ecp.getEstado()!=null){
                                     fechaTipoPrestamo=ecp.getEstado();
                                     break;
                                 }
-                            }
+                            }*/
+                            fechaTipoPrestamo=prestamoAgregarle.getTipo_prestamo();
                             ban=false;                        
                         }
                     }
