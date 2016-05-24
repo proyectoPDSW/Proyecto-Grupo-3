@@ -124,8 +124,8 @@ public class DevolucionesTest {
             daof.commitTransaction();
             Prestamo loaded=dapr.load(pr.getFechaInicio(), pr.getElQuePideElPrestamo().getCarnet());
             Timestamp curr=Prestamo.currDate();
-            System.out.println(curr);
-            System.out.println(loaded.getFechaRealEntregada());
+            System.out.println("curr "+curr);
+            System.out.println("real db: "+loaded.getFechaRealEntregada());
             Assert.assertTrue("La fecha de fin real no es la correcta",(new Timestamp(curr.getTime()+20)).after(loaded.getFechaRealEntregada()));
         }catch(EquipoException| PersistenceException e){
             Assert.fail("lanza excepcion actualizando el prestamo");
