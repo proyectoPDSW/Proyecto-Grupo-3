@@ -385,9 +385,9 @@ public class PrestamosTest {
             Prestamo p = new PrestamoIndefinido(per, null, null);
             prestamo.save(p);
             daof.commitTransaction();
-            Assert.fail("No debio continuar");
+            Assert.fail("No debio registrar un prestamo indefinido sin equipos");
         } catch (PersistenceException ex) {
-            Assert.assertEquals("La excepcion lanzada no es la correcta","Los equipos no pueden ser nulos", ex.getMessage());
+            Assert.assertEquals("La excepcion lanzada no es la correcta al registrar un prestamo indefinido sin equipos","Los equipos no pueden ser nulos", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -427,9 +427,9 @@ public class PrestamosTest {
             Prestamo p = new PrestamoIndefinido(null, lec, les);
             prestamo.save(p);
             daof.commitTransaction();
-            Assert.fail("No debio continuar");
+            Assert.fail("No debio registrar un prestamo indefinido sin persona");
         } catch (PersistenceException | PrestamoException ex) {
-            Assert.assertEquals("La excepcion lanzada no es la correcta","La persona no puede ser nulo", ex.getMessage());
+            Assert.assertEquals("La excepcion lanzada no es la correcta al registrar un prestamo indefinido sin persona","La persona no puede ser nulo", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -752,10 +752,10 @@ public class PrestamosTest {
             Prestamo p = new PrestamoTerminoFijo(per, null, null, time,EquipoComplejo.diario);
             prestamo.save(p);
             daof.commitTransaction();
-            Assert.fail("Siguio y no debia");
+            Assert.fail("Siguio y no debia al registrar un prestamo Termino Fijo sin equipos");
             
         } catch (PersistenceException ex) {
-            Assert.assertEquals("La excepcion lanzada no es la correcta","Los equipos no pueden ser nulos", ex.getMessage());
+            Assert.assertEquals("La excepcion lanzada no es la correcta al registrar un prestamo Termino Fijo sin equipos","Los equipos no pueden ser nulos", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -794,10 +794,10 @@ public class PrestamosTest {
             Prestamo p = new PrestamoTerminoFijo(null, lec, les, time,EquipoComplejo.diario);
             prestamo.save(p);
             daof.commitTransaction();
-            Assert.fail("Siguio y no debia");
+            Assert.fail("Siguio y no debia al registrar un prestamo Termino Fijo sin persona");
             
         } catch (PersistenceException | PrestamoException ex) {
-            Assert.assertEquals("La excepcion lanzada no es la correcta","La persona no puede ser nulo", ex.getMessage());
+            Assert.assertEquals("La excepcion lanzada no es la correcta al registrar un prestamo Termino Fijo sin persona","La persona no puede ser nulo", ex.getMessage());
         }finally{
             daof.endSession();
         }
