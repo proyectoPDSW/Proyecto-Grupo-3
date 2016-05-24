@@ -62,7 +62,7 @@ public interface EquipoSencilloMapper {
      * @param nombre
      * @return
      */
-    public int consultarEquipoSencilloCantidadDisponible(@Param("Eq_Nombre") String nombre);
+    public Integer consultarEquipoSencilloCantidadDisponible(@Param("Eq_Nombre") String nombre);
         
     /**
      * Consulta los nombres de herramientas que contengan una cadena

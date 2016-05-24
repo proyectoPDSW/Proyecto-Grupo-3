@@ -23,13 +23,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      </insert>
     
     <select id='loadEquipoByNombreDisponibilidad' parameterType='map' resultMap='EquipoSencilloResult'>
-         select es.nombre as nombre, es.cantidad_total as cantidad_total, 
-         es.clase as clase, es.fotografia as fotografia,
-         es.valor_comercial as valor_comercial from Equipos_Sencillos as es 
-         left join Equipo_prestamo_sencillo as eps on es.nombre=eps.equipo
-         where es.nombre=#{Eq_Nombre} and (select (es.cantidad_total-sum(eps.cantidad)+sum(eps.cantidad_devuelta)) 
+        select es.nombre as nombre, es.cantidad_total as cantidad_total, 
+        es.clase as clase, es.fotografia as fotografia,
+        es.valor_comercial as valor_comercial from Equipos_Sencillos as es 
+        where es.nombre=#{Eq_Nombre} and 
+	((es.cantidad_total &gt; 0 and 
+            (select esp.cantidad_devuelta from Equipo_prestamo_sencillo as esp where equipo=#{Eq_Nombre}) is null) 
+        or ((select (es.cantidad_total-sum(eps.cantidad)+sum(eps.cantidad_devuelta)) 
         as cantidad_disponible from Equipos_Sencillos as es left join Equipo_prestamo_sencillo as eps on 
-        es.nombre=eps.equipo where es.nombre=#{Eq_Nombre}) &gt; 0 group by nombre
+        es.nombre=eps.equipo where es.nombre=#{Eq_Nombre}) &gt; 0))
+        group by nombre
     </select>
     
     <select id='loadAll'  resultMap='EquipoSencilloResult'>
@@ -46,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
     
     
-    <select id='consultarEquipoSencilloCantidadDisponible' parameterType='map' resultType='int'>
+    <select id='consultarEquipoSencilloCantidadDisponible' parameterType='map' resultType='java.lang.Integer'>
         select cantidad_total -(select sum(cantidad -cantidad_devuelta) from Equipo_prestamo_sencillo where equipo=#{Eq_Nombre})
         from Equipos_Sencillos where nombre=#{Eq_Nombre}
     </select>
