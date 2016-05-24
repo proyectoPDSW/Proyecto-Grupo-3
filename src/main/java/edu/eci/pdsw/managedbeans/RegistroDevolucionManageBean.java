@@ -99,7 +99,8 @@ public class RegistroDevolucionManageBean implements Serializable{
     
     public void registroDevolucionTodo() {
         try {
-            Prestamo p = PRESTAMO.devolverTodo(laPersona);
+            Prestamo p =PRESTAMO.cargarPrestamoPersona(laPersona);
+            PRESTAMO.devolverTodo(laPersona);
             elQuePideElPrestamo=p.getElQuePideElPrestamo();
             equiposComplejosPrestados=p.getEquiposComplejosPrestados();
             equiposSencillosPrestados=p.getEquiposSencillosPrestados();

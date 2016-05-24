@@ -10,6 +10,7 @@ import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import edu.eci.pdsw.entities.PrestamoException;
+import edu.eci.pdsw.entities.PrestamoTerminoFijo;
 import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.persistence.DAOEquipoComplejo;
 import edu.eci.pdsw.persistence.DAOEquipoSencillo;
@@ -285,13 +286,12 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public Prestamo devolverTodo(String carnet) throws ExcepcionServicios {
+    public void devolverTodo(String carnet) throws ExcepcionServicios {
         try {
             daoF.beginSession();
             DAOEquipoComplejo dec = daoF.getDaoEquipoComplejo();
             DAOEquipoSencillo des = daoF.getDaoEquipoSencillo();
             prestamoDao = daoF.getDaoPrestamo();
-            Prestamo p2 =prestamoDao.loadActualPersona(carnet);
             Prestamo p = prestamoDao.loadActualPersona(carnet);
             for (EquipoComplejo ec : p.getEquiposComplejosFaltantes()) {
                 ec.setEstado(EquipoComplejo.almacen);
@@ -310,7 +310,6 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                 prestamoDao.update(p);
             }
             daoF.commitTransaction();
-            return p2;
         } catch (PersistenceException | PrestamoException ex) {
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(ex, ex.getLocalizedMessage());
@@ -318,5 +317,22 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             daoF.endSession();
         }
     }
+    @Override
+    public Prestamo cargarPrestamoPersona(String carnet) throws ExcepcionServicios {
+        try {
+            daoF.beginSession();
+            DAOEquipoComplejo dec = daoF.getDaoEquipoComplejo();
+            DAOEquipoSencillo des = daoF.getDaoEquipoSencillo();
+            prestamoDao = daoF.getDaoPrestamo();
+            Prestamo p = prestamoDao.loadActualPersona(carnet);
+            return p;
+        } catch (PersistenceException  ex) {
+            daoF.rollbackTransaction();
+            throw new ExcepcionServicios(ex, ex.getLocalizedMessage());
+        } finally {
+            daoF.endSession();
+        }
+    }
+    
 
 }

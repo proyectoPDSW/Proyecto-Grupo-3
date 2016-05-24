@@ -397,4 +397,12 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         }
         return res;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+     
+    
+    
 }
