@@ -157,11 +157,10 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             showPanelRegistroModelo = false;
             showPanelRegistroExitoso = true;
             reset=true;
-            //para actualizar el wizard
+            facesInfo("El equipo ha sido registrado satisfactoriamente");
             Wizard wizard = (Wizard) FacesContext.getCurrentInstance().getViewRoot().findComponent("registro:wiz");
             wizard.setStep("WInfoModelo");
             RequestContext.getCurrentInstance().update("registro");
-            facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
@@ -599,7 +598,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
                         aseguradoEquipo="No";
                     }
                 }else{
-                    facesError("Por favor ingresar una fecha valida");
+                    facesError("Por favor ingresar una fecha válida");
                     pag = "WInfoEquipo";
                 }
                 
