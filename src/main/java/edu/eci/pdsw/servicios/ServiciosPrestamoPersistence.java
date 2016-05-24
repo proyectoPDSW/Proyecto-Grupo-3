@@ -342,6 +342,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                 des.update(loaded);
                 prestamoDao.update(p);
             }
+            daoF.commitTransaction();
             return p;
         } catch (PersistenceException | PrestamoException ex) {
             daoF.rollbackTransaction();
