@@ -60,10 +60,11 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      */
     public static Timestamp currDate() {
         Timestamp timestamp = new Timestamp(Calendar.getInstance(TimeZone.getTimeZone("GMT-5")).getTimeInMillis());
-        SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss.SS");
+        SimpleDateFormat fmt = new SimpleDateFormat("YY-MM-dd HH:mm:ss.SS");
 
         fmt.setTimeZone(TimeZone.getTimeZone("GMT-5"));
         return Timestamp.valueOf("20"+fmt.format(timestamp).toString());
+        //return timestamp;
     }
 
     @Override
