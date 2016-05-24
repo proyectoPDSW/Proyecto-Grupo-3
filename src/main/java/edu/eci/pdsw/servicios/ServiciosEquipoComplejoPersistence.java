@@ -215,11 +215,13 @@ public class ServiciosEquipoComplejoPersistence extends ServiciosEquipoComplejo 
     }
 
     @Override
-    public Date currDate() {
+    public Date currDate() throws ExcepcionServicios {
         dao.beginSession();
         complejoPersistencia=dao.getDaoEquipoComplejo();
         Date fecha=complejoPersistencia.currDate();
         dao.endSession();
+        if(fecha==null)
+            throw new ExcepcionServicios("No se ha podido calcular la fecha actual");
         return fecha;
     }
 

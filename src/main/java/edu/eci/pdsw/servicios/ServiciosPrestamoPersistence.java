@@ -126,46 +126,6 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             if (m != null) {
                 throw new ExcepcionServicios("El prestamo ya existe.");
             }
-            /*
-            Set<EquipoComplejo> equiposC = new HashSet<>(pres.getEquiposComplejosPrestados());
-            Set<EquipoSencillo> equiposS = new HashSet<>(pres.getEquiposSencillosPrestados());
-            boolean fp = true;
-            int cant = equiposC.size();
-            while (cant != 0) {
-                EquipoComplejo ec = null;
-                Set<EquipoComplejo> aAgregar = new HashSet<>();
-                boolean first = true;
-                for (EquipoComplejo e : equiposC) {
-                    if (first) {
-                        ec = e;
-                        aAgregar.add(e);
-                        first = false;
-                    } else if (e.getEstado().equals(ec.getEstado())) {
-                        aAgregar.add(e);
-                    }
-                }
-                for (EquipoComplejo e : aAgregar) {
-                    equiposC.remove(e);
-                }
-                Prestamo guardar = null;
-                if (ec.getEstado().equalsIgnoreCase(EquipoComplejo.indefinido)) {
-                    guardar = new PrestamoIndefinido(pres.getElQuePideElPrestamo(), aAgregar, null);
-                } else {
-                    guardar = new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(), aAgregar, null, Prestamo.calcularFechaEstimada(ec.getEstado()), ec.getEstado());
-                }
-                if (fp) {
-                    guardar.setEquiposSencillosPrestados(equiposS);
-                    fp = false;
-                }
-                prestamoDao.save(guardar);
-                Thread.sleep(1000);
-                cant = equiposC.size();
-            }
-            if (fp) {
-                Prestamo guardar = new PrestamoTerminoFijo(pres.getElQuePideElPrestamo(), null, equiposS, Prestamo.calcularFechaEstimada(EquipoComplejo.p24h), EquipoComplejo.p24h);
-                prestamoDao.save(guardar);
-                Thread.sleep(1000);
-            }*/
             prestamoDao.save(pres);
             daoF.commitTransaction();
         } catch (PersistenceException e) {
@@ -266,12 +226,15 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public Timestamp currDate() {
+    public Timestamp currDate() throws ExcepcionServicios{
         Timestamp now = null;
         daoF.beginSession();
         prestamoDao = daoF.getDaoPrestamo();
         now = prestamoDao.currDate();
         daoF.endSession();
+        if(now==null){
+            throw new ExcepcionServicios("No se ha podido calcular la fecha actual");
+        }
         return now;
 
     }
@@ -309,12 +272,15 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public long diffHours(Prestamo prestamo) {
+    public long diffHours(Prestamo prestamo) throws ExcepcionServicios{
         long diff;
         daoF.beginSession();
         prestamoDao = daoF.getDaoPrestamo();
         diff = prestamoDao.diffHours(prestamo);
         daoF.endSession();
+        if (diff<0){
+            throw new ExcepcionServicios("El tiempo en mora no puede ser negativo");
+        }
         return diff;
     }
 
