@@ -13,8 +13,6 @@ import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -29,7 +27,7 @@ import javax.faces.context.FacesContext;
 public class ConsultaMorososManagedBean implements Serializable {
 
     private final ServiciosPrestamo sp = ServiciosPrestamo.getInstance();
-    private final ServiciosPersona sper=ServiciosPersona.getInstance();
+    private final ServiciosPersona sper = ServiciosPersona.getInstance();
 
     public List<Prestamo> morosos;
 
@@ -52,16 +50,18 @@ public class ConsultaMorososManagedBean implements Serializable {
     }
 
     /**
-     * Calcula la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
-     * 
+     * Calcula la diferencia en horas entre la fecha actual y la fecha de fin
+     * estimada del prestamo
+     *
      * @param prestamo el prestamo que se usará para consultar
-     * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
+     * @return la diferencia en horas entre la fecha actual y la fecha de fin
+     * estimada del prestamo
      */
     public long diffHoras(Prestamo prestamo) {
-        long diff=0;
-        
+        long diff = 0;
+
         try {
-            diff=sp.diffHours(prestamo);
+            diff = sp.diffHours(prestamo);
         } catch (ExcepcionServicios ex) {
             Registro.anotar(ex);
             facesFatal("Ups! ha ocurrido un error inesperado");
@@ -75,27 +75,33 @@ public class ConsultaMorososManagedBean implements Serializable {
      * @return
      */
     public Timestamp currDate() {
-        Timestamp now=null;
+        Timestamp now = null;
         try {
-            now= sp.currDate();
+            now = sp.currDate();
         } catch (ExcepcionServicios ex) {
             Registro.anotar(ex);
             facesFatal("Ups! ha ocurrido un error inesperado");
         }
         return now;
     }
-    
-    public int cantMoras(String carnet){
-        int moras=0;
-        try{
-            moras=sper.calcMoras(carnet);
-        }catch(ExcepcionServicios e){
+
+    /**
+     * Carga la cantidad de moras de una persona
+     *
+     * @param carnet de la persona
+     * @return la cantidad de moras de una persona
+     */
+    public int cantMoras(String carnet) {
+        int moras = 0;
+        try {
+            moras = sper.calcMoras(carnet);
+        } catch (ExcepcionServicios e) {
             Registro.anotar(e);
             facesFatal("Ups! ha ocurrido un error inesperado");
         }
         return moras;
     }
-    
+
     /**
      * Muestra un mensaje de error en la vista
      *
