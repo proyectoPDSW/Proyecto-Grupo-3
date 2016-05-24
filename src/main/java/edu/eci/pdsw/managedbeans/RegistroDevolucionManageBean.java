@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -51,13 +49,25 @@ public class RegistroDevolucionManageBean implements Serializable{
     private boolean showPanelInfoPrestamista=false;
     private boolean showPanelInfoPrestamista2=false;
     
+    
+    /**
+     * Me dice si hay que mostrar la informacion
+     * @return si hay que mostrar la informacion
+     */
     public boolean showPanelInfo(){
         return showPanelInfoPrestamista;
     }
+    /**
+     * Me dice si hay que mostrar la informacion
+     * @return si hay que mostrar la informacion
+     */
     public boolean showPanelInfo2(){
         return showPanelInfoPrestamista2;
     }
     
+    /**
+     * Creador
+     */
     public RegistroDevolucionManageBean() {
         PRESTAMO = ServiciosPrestamo.getInstance();
         EQCOMPLEJO = ServiciosEquipoComplejoPersistence.getInstance();
@@ -65,6 +75,10 @@ public class RegistroDevolucionManageBean implements Serializable{
         equiposComplejosFaltantes=new HashSet<>();
     }
     
+    /**
+     * Muestra la lista de equipos sencillos
+     * @return los equipos sencillos a mostrar
+     */
     public List<String> mostrarListaEquipoSencillo() {
         es = new ArrayList<>();
         List<String> es2 = new ArrayList<>();
@@ -88,6 +102,9 @@ public class RegistroDevolucionManageBean implements Serializable{
         return es2;
     }
     
+    /**
+     * Registra una devolucion de equipo sencillo
+     */
     public void registroDevolucionEquipoSencillo() {
         try {
             PRESTAMO.registarDevolucion(laPersona, selectEqSe, cantidad);
@@ -96,7 +113,9 @@ public class RegistroDevolucionManageBean implements Serializable{
             facesError(ex.getMessage());
         }
     }
-    
+    /**
+     * Registra la devolucion completa
+     */
     public void registroDevolucionTodo() {
         try {
             Prestamo p =PRESTAMO.cargarPrestamoPersona(laPersona);
@@ -112,6 +131,9 @@ public class RegistroDevolucionManageBean implements Serializable{
         }
     }
 
+    /**
+     * Registra una devolucion de equipo complejo
+     */
     public void registroDevolucionEquipoComplejo() {
         try {
             boolean check=false;
@@ -146,46 +168,89 @@ public class RegistroDevolucionManageBean implements Serializable{
         }
     }
     
+    /**
+     * Resetea y no muestra la informacion de prestamista
+     */
     public void reset(){
         showPanelInfoPrestamista=false;
     }
 
+    /**
+     * Obtener es
+     * @return es
+     */
     public List<EquipoSencillo> getEs() {
         return es;
     }
 
+    /**
+     * Setear es
+     * @param es 
+     */
     public void setEs(List<EquipoSencillo> es) {
         this.es = es;
     }
 
+    /**
+     * Obtener la cantidad disponible
+     * @return la cantidad disponible
+     */
     public int getCantidadDisponible() {
         return cantidadDisponible;
     }
 
+    /**
+     * Setear la cantidad disponible
+     * @param cantidadDisponible 
+     */
     public void setCantidadDisponible(int cantidadDisponible) {
         this.cantidadDisponible = cantidadDisponible;
     }
 
+    /**
+     * Obtener el prestamo
+     * @return 
+     */
     public Prestamo getPrestamo() {
         return prestamo;
     }
 
+    /**
+     * Setear el prestamo
+     * @param prestamo 
+     */
     public void setPrestamo(Prestamo prestamo) {
         this.prestamo = prestamo;
     }
 
+    /**
+     * Obtener el carnet de la persona
+     * @return el carnet de la persona
+     */
     public String getLaPersona() {
         return laPersona;
     }
 
+    /**
+     * Setear el carnet de la persona
+     * @param laPersona 
+     */
     public void setLaPersona(String laPersona) {
         this.laPersona = laPersona;
     }
 
+    /**
+     * Obtener la placa
+     * @return la placa
+     */
     public String getPlaca() {
         return placa;
     }
 
+    /**
+     * Setear la placa
+     * @param placa 
+     */
     public void setPlaca(String placa) {
         this.placa = placa;
     }

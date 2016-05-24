@@ -11,12 +11,9 @@ import edu.eci.pdsw.log.Registro;
 import edu.eci.pdsw.servicios.ExcepcionServicios;
 import edu.eci.pdsw.servicios.ServiciosEquipoComplejo;
 import edu.eci.pdsw.servicios.ServiciosPrestamo;
-import edu.eci.pdsw.servicios.ServiciosPrestamoPersistence;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -29,41 +26,52 @@ import javax.faces.context.FacesContext;
 @ManagedBean(name = "FichaEquipo")
 @SessionScoped
 public class FichaEquipoManagedBean implements Serializable {
+
     private String placaAConsultar;
-    private ServiciosEquipoComplejo SEC=ServiciosEquipoComplejo.getInstance();
-    private ServiciosPrestamo SEP=ServiciosPrestamo.getInstance();
+    private ServiciosEquipoComplejo SEC = ServiciosEquipoComplejo.getInstance();
+    private ServiciosPrestamo SEP = ServiciosPrestamo.getInstance();
     private EquipoComplejo consultado;
     private boolean consulto;
     private Timestamp fecha;
-    public void ConsultarEquipoByPlaca(){
-        if(getPlacaAConsultar()!=null && getPlacaAConsultar().length()>0){
-            
+
+    /**
+     * Consulta un equipo por placa, se usa la paca guardada
+     */
+    public void ConsultarEquipoByPlaca() {
+        if (getPlacaAConsultar() != null && getPlacaAConsultar().length() > 0) {
+
             try {
                 setConsultado(SEC.consultarPorPlaca(getPlacaAConsultar()));
             } catch (ExcepcionServicios ex) {
                 facesError(ex.getMessage());
             }
-            if(getConsultado()!=null){
+            if (getConsultado() != null) {
                 setConsulto(true);
                 setFecha(currDate());
-            }
-            else
+            } else {
                 facesError("La placa no corresponde a ningún equipo registrado");
-        }else{
+            }
+        } else {
             facesError("Por favor coloque una placa para consultar");
         }
     }
-    
-    public List<Prestamo> consultarPrestamosEquipo(){
-        List<Prestamo> lista=null;
+
+    /**
+     * Consulta los prestamos de un equipo
+     *
+     * @return los prestamos de un equipo
+     */
+    public List<Prestamo> consultarPrestamosEquipo() {
+        List<Prestamo> lista = null;
         try {
-            lista= SEP.consultarPrestamosEquipoComplejo(consultado);
+            lista = SEP.consultarPrestamosEquipoComplejo(consultado);
         } catch (ExcepcionServicios ex) {
             Registro.anotar(ex);
             facesFatal("Ups! ha ocurrido un error inesperado");
         }
         return lista;
     }
+
     /**
      * Muestra un mensaje de error en la vista
      *
@@ -141,11 +149,11 @@ public class FichaEquipoManagedBean implements Serializable {
     public void setConsultado(EquipoComplejo consultado) {
         this.consultado = consultado;
     }
-    
+
     public Timestamp currDate() {
-        Timestamp now=null;
+        Timestamp now = null;
         try {
-            now= SEP.currDate();
+            now = SEP.currDate();
         } catch (ExcepcionServicios ex) {
             Registro.anotar(ex);
             facesFatal("Ups! ha ocurrido un error inesperado");
@@ -166,6 +174,5 @@ public class FichaEquipoManagedBean implements Serializable {
     public void setFecha(Timestamp fecha) {
         this.fecha = fecha;
     }
-
 
 }

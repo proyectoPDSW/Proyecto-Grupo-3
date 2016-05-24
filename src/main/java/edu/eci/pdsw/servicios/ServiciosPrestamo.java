@@ -6,7 +6,6 @@
 package edu.eci.pdsw.servicios;
 
 import edu.eci.pdsw.entities.EquipoComplejo;
-import edu.eci.pdsw.entities.EquipoSencillo;
 import edu.eci.pdsw.entities.Persona;
 import edu.eci.pdsw.entities.Prestamo;
 import java.sql.Timestamp;
@@ -110,6 +109,7 @@ public abstract class ServiciosPrestamo {
      * 
      * @param prestamo el prestamo que se usará para consultar
      * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
+     * @throws edu.eci.pdsw.servicios.ExcepcionServicios
      */
     public abstract long diffHours(Prestamo prestamo) throws ExcepcionServicios;
     
@@ -125,6 +125,7 @@ public abstract class ServiciosPrestamo {
      * Carga el prestamo activo de una persona
      * 
      * @param carnet de la persona
+     * @return 
      * @throws ExcepcionServicios si la persona no existe
      */
     public abstract Prestamo cargarPrestamoPersona(String carnet) throws ExcepcionServicios;

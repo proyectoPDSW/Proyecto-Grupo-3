@@ -203,7 +203,7 @@
                         <p:panelGrid id="modeloconsultadoRE" columns="2" >
 
                             <f:facet name="header">
-                                <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" height="200px" width="200px"/>
+                                <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" height="1px" width="100px"/>
                             </f:facet>
 
                             <h:outputLabel value="Nombre:" />
@@ -248,9 +248,9 @@
                     </p:panel>
                     <p:panel header="Información Orden Compra">
                         <p:panelGrid columns="2" >
-                            <h:outputLabel value="Código orden compra: " />
+                            <h:outputLabel value="Código orden compra: (*) " />
                             <h:outputText  value="#{RegistroEquiposComplejos.ordenCompra.codigo}" />
-                            <h:outputLabel value="Código Activo: " />
+                            <h:outputLabel value="Código Activo: (*) " />
                             <h:outputText value="#{RegistroEquiposComplejos.ordenCompra.activo}" />
                             <h:outputLabel value="Proveedor: (*)" />
                             <h:outputText value="#{RegistroEquiposComplejos.ordenCompra.proveedor}" />
