@@ -121,6 +121,6 @@ public abstract class ServiciosEquipoComplejo {
      * calcula la fecha actual
      * @return la fecha actual
      */
-    public abstract Date currDate();
+    public abstract Date currDate() throws ExcepcionServicios;
     
 }

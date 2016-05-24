@@ -60,6 +60,7 @@ public class FichaEquipoManagedBean implements Serializable {
             lista= SEP.consultarPrestamosEquipoComplejo(consultado);
         } catch (ExcepcionServicios ex) {
             Registro.anotar(ex);
+            facesFatal("Ups! ha ocurrido un error inesperado");
         }
         return lista;
     }
@@ -142,7 +143,14 @@ public class FichaEquipoManagedBean implements Serializable {
     }
     
     public Timestamp currDate() {
-        return SEP.currDate();
+        Timestamp now=null;
+        try {
+            now= SEP.currDate();
+        } catch (ExcepcionServicios ex) {
+            Registro.anotar(ex);
+            facesFatal("Ups! ha ocurrido un error inesperado");
+        }
+        return now;
     }
 
     /**

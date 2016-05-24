@@ -13,8 +13,12 @@ import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -41,6 +45,7 @@ public class ConsultaMorososManagedBean implements Serializable {
                 morosos = sp.consultarPrestamosMorosos();
             } catch (ExcepcionServicios ex) {
                 Registro.anotar(ex);
+                facesFatal("Ups! ha ocurrido un error inesperado");
             }
         }
         return morosos;
@@ -53,7 +58,15 @@ public class ConsultaMorososManagedBean implements Serializable {
      * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
      */
     public long diffHoras(Prestamo prestamo) {
-        return sp.diffHours(prestamo);
+        long diff=0;
+        
+        try {
+            diff=sp.diffHours(prestamo);
+        } catch (ExcepcionServicios ex) {
+            Registro.anotar(ex);
+            facesFatal("Ups! ha ocurrido un error inesperado");
+        }
+        return diff;
     }
 
     /**
@@ -62,7 +75,14 @@ public class ConsultaMorososManagedBean implements Serializable {
      * @return
      */
     public Timestamp currDate() {
-        return sp.currDate();
+        Timestamp now=null;
+        try {
+            now= sp.currDate();
+        } catch (ExcepcionServicios ex) {
+            Registro.anotar(ex);
+            facesFatal("Ups! ha ocurrido un error inesperado");
+        }
+        return now;
     }
     
     public int cantMoras(String carnet){
@@ -71,7 +91,44 @@ public class ConsultaMorososManagedBean implements Serializable {
             moras=sper.calcMoras(carnet);
         }catch(ExcepcionServicios e){
             Registro.anotar(e);
+            facesFatal("Ups! ha ocurrido un error inesperado");
         }
         return moras;
+    }
+    
+    /**
+     * Muestra un mensaje de error en la vista
+     *
+     * @param message Mensaje de error
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error: " + message, null));
+    }
+
+    /**
+     * Muestra un mensaje de informacion en la vista
+     *
+     * @param message Mensaje de informativo
+     */
+    public void facesInfo(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
+
+    /**
+     * Muestra un mensaje de alarma en la vista
+     *
+     * @param message Mensaje de Alarma
+     */
+    public void facesWarn(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, message, null));
+    }
+
+    /**
+     * Muestra un mensaje de error grave en la vista
+     *
+     * @param message Mensaje fatal
+     */
+    public void facesFatal(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, message, null));
     }
 }

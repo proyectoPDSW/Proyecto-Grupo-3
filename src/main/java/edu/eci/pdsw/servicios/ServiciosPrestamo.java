@@ -96,7 +96,7 @@ public abstract class ServiciosPrestamo {
      * carga la fecha actual
      * @return la fecha actual
      */
-    public abstract Timestamp currDate();
+    public abstract Timestamp currDate() throws ExcepcionServicios;
     
     /**
      * Actualiza un prestamo
@@ -111,7 +111,7 @@ public abstract class ServiciosPrestamo {
      * @param prestamo el prestamo que se usará para consultar
      * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
      */
-    public abstract long diffHours(Prestamo prestamo);
+    public abstract long diffHours(Prestamo prestamo) throws ExcepcionServicios;
     
     /**
      * Devuelve todos los prestamos de una persona
