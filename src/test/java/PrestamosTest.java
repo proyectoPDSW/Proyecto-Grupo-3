@@ -111,6 +111,8 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
+        System.out.println("creado: "+p);
+        System.out.println("extraido: "+check);
         Assert.assertTrue(p.equals(check));
         
     }
