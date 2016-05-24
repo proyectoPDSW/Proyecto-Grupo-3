@@ -111,7 +111,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo indefinido de un equipo complejo no es igual al cargarlo por la identificacion de la persona",p.equals(check));
         
     }
     /**
@@ -155,7 +155,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo indefinido de un equipo sencillo no es igual al cargarlo por la fecha del prestamo",p.equals(check));
         
     }
     /**
@@ -202,7 +202,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo indefinido de muchos equipos complejos no es igual al cargarlo por un equipo complejo",p.equals(check));
         
     }
     /**
@@ -247,7 +247,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo indefinido de muchos equipos sencillos no es igual al cargarlo por la identificacion de la persona",p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido por muchos equipos sencillos y muchos equipos complejos.
@@ -297,7 +297,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo indefinido de muchos equipos complejos y muchos equipos sencillos no es igual al cargarlo por la identificacion de la persona",p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido por 1 equipo sencillo y 1 equipo complejo.
@@ -346,7 +346,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo indefinido de un equipo complejo y un equipo sencillo no es igual al cargarlo por la identificacion de la persona",p.equals(check));
     }
     /**
      * Clase de Equivalencia: no deberia registrar un prestamo indefinido sin equipos.
@@ -387,7 +387,7 @@ public class PrestamosTest {
             daof.commitTransaction();
             Assert.fail("No debio continuar");
         } catch (PersistenceException ex) {
-            Assert.assertEquals("Los equipos no pueden ser nulos", ex.getMessage());
+            Assert.assertEquals("La excepcion lanzada no es la correcta","Los equipos no pueden ser nulos", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -428,10 +428,8 @@ public class PrestamosTest {
             prestamo.save(p);
             daof.commitTransaction();
             Assert.fail("No debio continuar");
-        } catch (PersistenceException ex) {
-            Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
-        } catch (PrestamoException ex) {
-            Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
+        } catch (PersistenceException | PrestamoException ex) {
+            Assert.assertEquals("La excepcion lanzada no es la correcta","La persona no puede ser nulo", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -478,7 +476,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo termino fijo de un equipo complejo no es igual al cargarlo por morosos",p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo 1 Equipo Sencillo .
@@ -523,7 +521,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo termino fijo de un equipo sencillo no es igual al cargarlo por la identificacion de la persona",p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo muchos Equipos Complejos .
@@ -572,7 +570,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo termino fijo de muchos equipos complejos no es igual al cargarlo por un equipo complejo",p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo muchos Equipos Sencillos.
@@ -619,7 +617,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo termino fijo de muchos equipos sencillos no es igual al cargarlo por la fecha del prestamo",p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo muchos Equipos Complejos y muchos Equipos Sencillos.
@@ -670,7 +668,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo termino fijo de muchos equipos complejos y muchos equipos sencillos no es igual al cargarlo por la fecha del prestamo",p.equals(check));
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo Termino Fijo 1 Equipo Complejo y 1 Equipo Sencillo.
@@ -721,7 +719,7 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        Assert.assertTrue(p.equals(check));
+        Assert.assertTrue("El prestamo termino fijo de un equipo complejo y un equipo sencillo no es igual al cargarlo por la fecha del prestamo",p.equals(check));
     }
     /**
      * Clase de Equivalencia: no deberia registrar un prestamo Termino Fijo sin equipos.
@@ -757,7 +755,7 @@ public class PrestamosTest {
             Assert.fail("Siguio y no debia");
             
         } catch (PersistenceException ex) {
-            Assert.assertEquals("Los equipos no pueden ser nulos", ex.getMessage());
+            Assert.assertEquals("La excepcion lanzada no es la correcta","Los equipos no pueden ser nulos", ex.getMessage());
         }finally{
             daof.endSession();
         }
@@ -798,10 +796,8 @@ public class PrestamosTest {
             daof.commitTransaction();
             Assert.fail("Siguio y no debia");
             
-        } catch (PersistenceException ex) {
-            Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
-        } catch (PrestamoException ex) {
-            Assert.assertEquals("La persona no puede ser nulo", ex.getMessage());
+        } catch (PersistenceException | PrestamoException ex) {
+            Assert.assertEquals("La excepcion lanzada no es la correcta","La persona no puede ser nulo", ex.getMessage());
         }finally{
             daof.endSession();
         }
