@@ -12,11 +12,11 @@
         <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
         <center><b><h1>Registro Equipo</h1></b></center>
         <h:form id="formularioEquipoComplejo">
-            <p:panel id="consultaModelo" header="Consultar Modelo" style="margin-bottom:10px" >
-                <b><p:outputLabel for="nombreModelo" value="Nombre: (*)"/></b>
-                <br></br><b><p:autoComplete id="nombreModelo" dropdown="true" value="#{RegistroEquiposComplejos.nombreModelo}" completeMethod="#{RegistroEquiposComplejos.modelosAproximados}"/></b>
-                <br></br>
-                <br></br><p:commandButton  value="Consultar modelo" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update=":registro" icon="ui-icon-search" />
+                <p:panel id="consultaModelo" header="Consultar  Modelo " style="margin-bottom:10px" >
+                    <center><b><p:outputLabel for="nombreModelo" value="Nombre: (*) "/></b>
+                <b><p:autoComplete id="nombreModelo" dropdown="true" value="#{RegistroEquiposComplejos.nombreModelo}" completeMethod="#{RegistroEquiposComplejos.modelosAproximados}"/></b>
+                <p:spacer>                                                                                                                                                         .                                   .                                             ..                .                    
+                </p:spacer><p:commandButton  value="Consultar modelo" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update=":registro" icon="ui-icon-search" />   
                 <space> </space><p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
                 <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
@@ -24,17 +24,18 @@
                         <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
                     </f:facet>
                 </p:ajaxStatus>
-            </p:panel>
+                </center>
+                </p:panel>
             <br/>
         </h:form>
         <h:form id="registro">
-            <p:wizard id="wiz" widgetVar="wiz" style="margin-bottom:40px" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo() or RegistroEquiposComplejos.showPanelRegistroModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessRegistro}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
+            <p:wizard id="wiz" widgetVar="wiz" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo() or RegistroEquiposComplejos.showPanelRegistroModelo()}" flowListener="#{RegistroEquiposComplejos.onFlowProcessRegistro}" backLabel="Anterior" nextLabel="Siguiente" showNavBar="true">
                 <p:tab id="WInfoModelo">
                     <p:panel header="Información Modelo" rendered="#{RegistroEquiposComplejos.showPanelInformacionModelo()}">
                         <p:panelGrid  columns="2" >
 
                             <f:facet name="header">
-                                <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" height="200px" width="200px"/>
+                                <p:graphicImage value="#{RegistroEquiposComplejos.modelo.fotografia}" height="100px" width="100px"/>
                             </f:facet>
 
                             <h:outputLabel value="Nombre:" />
@@ -96,7 +97,7 @@
                                 <h:outputLabel value="Placa: (*)" />
                                 <h:inputText value="#{RegistroEquiposComplejos.placa}" />
                                 <h:outputLabel value="Tiempo de uso en horas: (*)" />
-                                <h:inputText value="#{RegistroEquiposComplejos.tiempoDeUso}" />
+                                <p:spinner value="#{RegistroEquiposComplejos.tiempoDeUso}" min="0"/>
                                 <h:outputLabel value="¿Se encuentra asegurado?" />
                                 <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
                             </p:panelGrid>
@@ -157,8 +158,8 @@
 
                                     <h:outputLabel value="Placa:" />
                                     <h:outputText value="#{RegistroEquiposComplejos.equipo.placa}"/>
-                                    
-                                    <h:outputLabel value="Tiempo de uso en horas: (*)" />
+
+                                    <h:outputLabel value="Tiempo restante en horas: (*)" />
                                     <h:outputText value="#{RegistroEquiposComplejos.equipo.tiempoRestante}" />
 
                                     <h:outputLabel value="Asegurado: " />
@@ -195,6 +196,7 @@
             <br/>
         </h:form>
         <h:form id="exitoso">
+            <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
             <p:panel id="exito" header="Registro equipo " rendered="#{RegistroEquiposComplejos.showPanelRegistroExitoso()}">
                 <p:panelGrid columns="2" >
                     <p:panel header="Información Modelo">
@@ -242,6 +244,20 @@
 
                             <h:outputLabel value="Estado: " />
                             <h:outputText value="#{RegistroEquiposComplejos.equipo.estado}"/>
+                        </p:panelGrid>
+                    </p:panel>
+                    <p:panel header="Información Orden Compra">
+                        <p:panelGrid columns="2" >
+                            <h:outputLabel value="Código orden compra: " />
+                            <h:outputText  value="#{RegistroEquiposComplejos.ordenCompra.codigo}" />
+                            <h:outputLabel value="Código Activo: " />
+                            <h:outputText value="#{RegistroEquiposComplejos.ordenCompra.activo}" />
+                            <h:outputLabel value="Proveedor: (*)" />
+                            <h:outputText value="#{RegistroEquiposComplejos.ordenCompra.proveedor}" />
+                            <h:outputLabel value="Fecha adquisición: (*)" />
+                            <h:outputLabel value="#{RegistroEquiposComplejos.ordenCompra.adquisicion}"/>
+                            <h:outputLabel value="Fecha garantía: (*)" />
+                            <h:outputLabel value="#{RegistroEquiposComplejos.ordenCompra.garantia}"/>
                         </p:panelGrid>
                     </p:panel>
                 </p:panelGrid>
