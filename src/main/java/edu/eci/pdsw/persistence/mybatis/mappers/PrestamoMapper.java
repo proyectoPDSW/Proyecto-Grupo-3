@@ -110,11 +110,8 @@ public interface PrestamoMapper {
      * Se cargan los prestamos que estan en mora
      *
      * @return lista de Prestamos
-     */
-    public List<Prestamo> loadMorososComplejo();
-    
-    
-    public List<Prestamo> loadMorososSencillo();
+     */  
+    public List<Prestamo> loadMorosos();
 
     /**
      *

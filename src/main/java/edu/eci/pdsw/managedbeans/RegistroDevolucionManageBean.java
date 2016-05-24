@@ -68,11 +68,8 @@ public class RegistroDevolucionManageBean implements Serializable{
             try {
                 List<Prestamo> p = PRESTAMO.consultarPrestamosPersona(laPersona);
                 for (Prestamo p1 : p){
-                    System.out.println("Entro 2 "+p1.toString());
                     if (!p1.terminado()){
-                        System.out.println("Entro");
                         for (EquipoSencillo es1 : p1.getEquiposSencillosFaltantes()){
-                            System.out.println(es1.toString());
                             if(!es.contains(es1)) es.add(es1);
                         }
                     }

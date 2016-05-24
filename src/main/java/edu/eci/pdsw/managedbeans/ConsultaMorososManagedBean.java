@@ -39,7 +39,6 @@ public class ConsultaMorososManagedBean implements Serializable {
             morosos = null;
             try {
                 morosos = sp.consultarPrestamosMorosos();
-                //System.out.println(Arrays.toString(morosos.toArray()));
             } catch (ExcepcionServicios ex) {
                 Registro.anotar(ex);
             }

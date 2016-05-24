@@ -152,7 +152,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipo() {
         try {
-            System.out.println(equipo.toString());
             SERVICIOS.registrarEquipoComplejo(equipo);
             facesInfo("El equipo ha sido registrado satisfactoriamente");
             showPanelInformacionModelo = false;
@@ -449,7 +448,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     //// Wizard
     public String onFlowProcessRegistro(FlowEvent event) {
         String pag = event.getNewStep();
-        //System.out.println("flow: "+pag);
         if (pag!=null && pag.equalsIgnoreCase("WInfoEquipo") && showPanelRegistroModelo) {
             try {
                 modelo = new Modelo(vidaUtil, nombre, marca, fotografia, clase, valorComercial);
@@ -463,12 +461,10 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
         }
         else if(pag!=null && pag.equalsIgnoreCase("WConfirm")){
-            //System.out.println("entro a crear");
              try {
                 if(fechaAdquisicion!=null && fechaGarantia!=null){
                     ordenCompra = new OrdenCompra();
                     equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
-                     //System.out.println("creo");
                     equipo.setAsegurado(asegurado);
                     equipo.setPlaca(placa);
                     equipo.setDisponibilidad(true);
@@ -501,8 +497,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public String onFlowProcessInformacion(FlowEvent event) {
         String pag = event.getNewStep();
-        if(pag==null){
-        System.out.println(pag);}
         if (pag.equals("Wconfirm")) {
             try {
                 if(fechaAdquisicion!=null && fechaGarantia!=null){
@@ -514,7 +508,6 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
                     equipo.setEstado("en almacen");
                     ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
                     equipo.setOrdenCompra(ordenCompra);
-                    System.out.println(equipo.toString());
                     if(disponibilidad){
                         disponibilidadEquipo="Disponible";
                     }else{

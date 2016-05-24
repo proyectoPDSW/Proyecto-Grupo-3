@@ -96,6 +96,7 @@ public class PrestamoTerminoFijo extends Prestamo {
         StringBuffer sb = new StringBuffer();
         sb.append(fechaInicio + "\n ");
         sb.append(fechaEstimadaDeEntrega + "\n ");
+        sb.append(fechaRealEntregada + "\n ");
         sb.append(getElQuePideElPrestamo().toString() + "\n ");
         sb.append("Los Equipos que posee el prestamo completamente" + "\n ");
         if (equiposComplejosPrestados != null) {

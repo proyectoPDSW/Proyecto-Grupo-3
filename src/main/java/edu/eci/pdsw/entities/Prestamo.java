@@ -63,10 +63,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss.SS");
 
         fmt.setTimeZone(TimeZone.getTimeZone("GMT-5"));
-
-        //System.out.println(fmt.format(timestamp));
-        //timestamp=timestamp.valueOf(fmt.format(timestamp));
-        return timestamp;
+        return Timestamp.valueOf("20"+fmt.format(timestamp).toString());
     }
 
     @Override
@@ -155,7 +152,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the elQuePideElPrestamo
      */
     public Persona getElQuePideElPrestamo() {
-        return elQuePideElPrestamo;
+        return elQuePideElPrestamo;        //Collections.sort(equiposSencillosFaltantes2);
     }
 
     /**
@@ -188,7 +185,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         equiposSencillosP.addAll(tmp);
         this.equiposSencillosPrestados = equiposSencillosP;
         setEquiposSencillosFaltantes(equiposSencillosPrestados);
-        //Collections.sort(equiposSencillosFaltantes2);
     }
 
     /**
@@ -218,7 +214,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         if (equiposSencillosFaltantes == null) {
             equiposSencillosFaltantes = new HashSet<>();
         }
-        //Collections.sort(equiposSencillosFaltantes2);
         setEquiposSencillosFaltantes(equiposSencillosPrestados);
         return equiposSencillosFaltantes;
     }
@@ -260,7 +255,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         if (equiposComplejosFaltantes == null) {
             equiposComplejosFaltantes = new HashSet<>();
         }
-        return equiposComplejosFaltantes.isEmpty() && equiposSencillosFaltantes.isEmpty();
+        return getEquiposComplejosFaltantes().isEmpty() && getEquiposSencillosFaltantes().isEmpty();
     }
 
     /**
