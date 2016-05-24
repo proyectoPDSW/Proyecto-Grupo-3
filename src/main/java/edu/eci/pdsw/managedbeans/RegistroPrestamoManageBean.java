@@ -22,14 +22,11 @@ import edu.eci.pdsw.servicios.ServiciosPrestamo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -72,6 +69,7 @@ public class RegistroPrestamoManageBean implements Serializable {
     private boolean showPanelPersona = true;
     private boolean showPanelInfo = false;
     private boolean showPanelOtroRegistro=false;
+    private boolean showPanelMoroso=true;
     private String selectEqSe;
 
     //Lista de equipo sencillo para consultar los equipos prestamo termino fijo
@@ -126,6 +124,7 @@ public class RegistroPrestamoManageBean implements Serializable {
         tipoPrestamo.put(EquipoComplejo.semestre, EquipoComplejo.semestre);
         tipoPrestamo.put(EquipoComplejo.indefinido, EquipoComplejo.indefinido);
         es = new ArrayList<>();
+        eqS=new ArrayList<>();
     }
     
     /**
@@ -159,9 +158,10 @@ public class RegistroPrestamoManageBean implements Serializable {
                 facesError("La persona con nombre "+ elQuePideElPrestamo.getNombre() +" y con carné "+ elQuePideElPrestamo.getCarnet() +" tiene un prestamo moroso");
                 showPanelRegistro=false;
                 showPanelOtroRegistro=false;
+                showPanelMoroso=false;
             }
             else{
-                if(PRESTAMO.consultarPrestamosPersona(elQuePideElPrestamo.getCarnet()).isEmpty()){
+                if(prestados.isEmpty()){
                     pres=true;
                     showPanelRegistro = true;
                 }else{
@@ -222,14 +222,12 @@ public class RegistroPrestamoManageBean implements Serializable {
      */
     public void agregarEquipoC() {
        if(fechaTipoPrestamo== null || fechaTipoPrestamo.length()==0){
-            facesError("Favor seleccionar un tipo de prestamo");
+            facesError("Favor seleccionar un tipo de préstamo");
        }else{
             EquipoComplejo ec;
             try{
                 ec=EQCOMPLEJO.consultarEquipoEnAlmacenPorPlaca(placa);
-                ec.setEstado(fechaTipoPrestamo);
                 equiposComplejosPrestados.add(ec);
-                actualizarEquipoComplejo(ec);
             }catch(ExcepcionServicios ex){
                 facesError(ex.getMessage());
             }             
@@ -279,6 +277,7 @@ public class RegistroPrestamoManageBean implements Serializable {
     public void superSeteo(){
         for (EquipoComplejo equiposComplejosPrestado : equiposComplejosPrestados) {
             equiposComplejosPrestado.setEstado(fechaTipoPrestamo);
+            actualizarEquipoComplejo(equiposComplejosPrestado);
         }
     }
     /**
@@ -338,18 +337,30 @@ public class RegistroPrestamoManageBean implements Serializable {
         showPanelRegistro = false;
         showPanelRegistrado = false;
         showPanelOtroRegistro=false;
+        showPanelMoroso=true;
         fechaTipoPrestamo = "";
         cantidad = 0;
+        eqS.clear();
     }
-
-    public boolean ShowPanelRegistro() {
+     /**
+     * @return the showPanelRegistro
+     */
+    public boolean showPanelRegistro() {
         return showPanelRegistro;
     }
-
+     /**
+     * @return the showPanelRegistrado
+     */
     public boolean showPanelRegistrado() {
         return showPanelRegistrado;
     }
 
+    /**
+     * @return the showPanelMoroso
+     */
+    public boolean showPanelMoroso() {
+        return showPanelMoroso;
+    }
     /**
      * restriccion(); Muestra un mensaje de error en la vista
      *

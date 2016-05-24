@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">  
+    <h:head>
+        <br/><b><title>Registro Prestamo</title></b>
+    </h:head>
+    <h:body>
+        <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
+        <h:form id="consultaPersona">
+            <p:focus context="consultaPersona"/>
+            <p:panel header="Consultar Persona">
+                <h:panelGrid columns="3" cellpadding="5" rendered="#{RegistroPrestamo.showPanelPersona}">
+                    <h:outputLabel value="Carné : (*) " />
+                    <p:inputText id="persona" value="#{RegistroPrestamo.carne}"/>
+                    <p:commandButton value="Consultar" actionListener="#{RegistroPrestamo.consultarPersona()}" update=":prestamos" ajax="false" icon="ui-icon-search"/>
+                    <br/>
+                    <p:panelGrid columns="2" rendered="#{RegistroPrestamo.showPanelInformacion()}">
+                        <h:outputLabel value="Nombre :"  />
+                        <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.nombre}" />
+                        <h:outputLabel value="Apellido:" />
+                        <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.apellido}" />
+                        <h:outputLabel value="Rol:" />
+                        <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.rolMasValioso()}" />
+                    </p:panelGrid>
+                </h:panelGrid>
+            </p:panel>
+            <p:messages id="messages1" autoUpdate="false" closable="true" />
+            <center><p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
+                <p:commandButton value="Realizar Préstamo" rendered="#{RegistroPrestamo.showPanelMoroso()}" update=":prestamos" ajax="false" actionListener="#{RegistroPrestamo.registrarPrestamo()}"  icon="ui-icon-plusthick"/>
+                <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                    <f:facet name="start">
+                        <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
+                    </f:facet>
+                </p:ajaxStatus>
+            </center>
+        </h:form>
+        <h:form id="prestamos">
+            <p:focus context="prestamos"/>
+            <p:panel header="Información Préstamo" rendered="#{RegistroPrestamo.showPanelRegistro()}">
+                <center><h:outputLabel value="Tipo de préstamo: (*)  "/>
+                    <p:selectOneMenu id="TPrestamo" value="#{RegistroPrestamo.fechaTipoPrestamo}">
+                        <f:selectItem itemLabel="Seleccione uno" itemValue="" />
+                        <f:selectItems value="#{RegistroPrestamo.elQuePideElPrestamo.rolMasValioso2}" />
+                    </p:selectOneMenu>
+                </center>
+                <p:panelGrid columns="2">
+                    <p:panel>
+                        <h:outputLabel id="equipoPlaca" value="Placa : (*)   " />
+                        <p:inputText value="#{RegistroPrestamo.placa}"/>
+                        <space>     </space><p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
+                        <p:panel id="tablas">
+                            <p:dataTable id="EquiposPrestar1" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
+                                </p:column>
+                                <p:column headerText="Placa">
+                                    <h:outputText value="#{equipoC1.placa}" />
+                                </p:column>
+                            </p:dataTable>       
+                        </p:panel>   
+                    </p:panel>
+                    <p:panel>
+                        <center><h:outputLabel value="Nombre de la herramienta : (*)  " />
+                            <p:inputText id="nombreEq" value="#{RegistroPrestamo.nombre}" />
+                            <br/><br/><p:commandButton value="Consultar Herramientas" update=":tablas2" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre()}" icon="ui-icon-search"/></center>
+                        <br/><p:panel id="tablas2" rendered="#{RegistroPrestamo.showPanelRegistro()}">
+                            <h:outputLabel value="Herramienta consultada: "/>
+                            <br/><p:dataTable id="EquiposNombre3" var="equipoS1" value="#{RegistroPrestamo.sacarEqS()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoSencillo}" rowKey="#{equipoS1.nombre}" >
+                                <p:column headerText="Nombre">      
+                                    <h:outputText value="#{equipoS1.nombre}" />
+                                </p:column>
+                                <p:column headerText="Cantidad Total">
+                                    <h:outputText value="#{equipoS1.cantidadTotal}" />
+                                </p:column>
+                                <p:column headerText="Cantidad Disponible">
+                                    <h:outputText value="#{RegistroPrestamo.cantidadDisponible}" />
+                                </p:column>
+                                <p:column headerText="Clase">
+                                    <h:outputText value="#{equipoS1.clase}" />
+                                </p:column>
+                                <p:column headerText="Cantidad A Prestar">
+                                    <p:spinner id="minMax" value="#{RegistroPrestamo.cantidad}" size="5" min="1" max="#{RegistroPrestamo.cantidadDisponible}" />
+                                </p:column>
+                            </p:dataTable><br/>
+                            <center><p:commandButton value="Agregar Herramienta" update=":tablas2" actionListener="#{RegistroPrestamo.agregarEquipoS()}" ajax="false" icon="ui-icon-plusthick"/></center>
+                            <p:separator />
+                            <h:outputLabel value="Herramientas agregadas: "/>
+                            <br/><p:dataTable id="EquiposSPrestar1" var="equipoS1" value="#{RegistroPrestamo.equiposSencillosPrestados}"  >
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{equipoS1.nombre}" />
+                                </p:column>
+                                <p:column headerText="Cantidad Total">
+                                    <h:outputText value="#{equipoS1.cantidadTotal}" />
+                                </p:column>
+                                <p:column headerText="Clase">
+                                    <h:outputText value="#{equipoS1.clase}" />
+                                </p:column>
+                            </p:dataTable>       
+                        </p:panel>
+                    </p:panel>
+                </p:panelGrid>
+            </p:panel>
+            <p:panel header="Agregar equipos a préstamo activo" rendered="#{RegistroPrestamo.getShowPanelOtroRegistro()}">
+                <p:panelGrid columns="2">
+                    <p:panel>
+                        <h:outputLabel value="Placa : (*)   " />
+                        <p:inputText value="#{RegistroPrestamo.placa}"/>
+                        <space>     </space><p:commandButton value="Agregar Equipo" update=":tablasActivo" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
+                        <p:panel id="tablasActivo">
+                            <p:dataTable id="EquiposPrestar3" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
+                                </p:column>
+                                <p:column headerText="Placa">
+                                    <h:outputText value="#{equipoC1.placa}" />
+                                </p:column>
+                            </p:dataTable>       
+                        </p:panel>   
+                    </p:panel>
+                    <p:panel>
+                        <center><h:outputLabel value="Nombre de la herramienta : (*)  " />
+                            <p:inputText value="#{RegistroPrestamo.nombre}" />
+                            <br/><br/><p:commandButton value="Consultar Herramientas" update=":tablas3" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre()}" icon="ui-icon-search"/></center>
+                        <br/><p:panel id="tablas3" >
+                            <h:outputLabel value="Herramienta consultada: "/>
+                            <br/><p:dataTable id="EquiposNombre4" var="equipoS1" value="#{RegistroPrestamo.sacarEqS()}" selectionMode="single" selection="#{RegistroPrestamo.selectEquipoSencillo}" rowKey="#{equipoS1.nombre}" >
+                                <p:column headerText="Nombre">      
+                                    <h:outputText value="#{equipoS1.nombre}" />
+                                </p:column>
+                                <p:column headerText="Cantidad Total">
+                                    <h:outputText value="#{equipoS1.cantidadTotal}" />
+                                </p:column>
+                                <p:column headerText="Cantidad Disponible">
+                                    <h:outputText value="#{RegistroPrestamo.cantidadDisponible}" />
+                                </p:column>
+                                <p:column headerText="Clase">
+                                    <h:outputText value="#{equipoS1.clase}" />
+                                </p:column>
+                                <p:column headerText="Cantidad A Prestar">
+                                    <p:spinner id="minMax2" value="#{RegistroPrestamo.cantidad}" size="5" min="1" max="#{RegistroPrestamo.cantidadDisponible}" />
+                                </p:column>
+                            </p:dataTable><br/>
+                            <center><p:commandButton value="Agregar Herramienta" update=":tablas2" actionListener="#{RegistroPrestamo.agregarEquipoS()}" ajax="false" icon="ui-icon-plusthick"/></center>
+                            <p:separator />
+                            <h:outputLabel value="Herramientas agregadas: "/>
+                            <br/><p:dataTable id="EquiposSPrestar4" var="equipoS1" value="#{RegistroPrestamo.equiposSencillosPrestados}"  >
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{equipoS1.nombre}" />
+                                </p:column>
+                                <p:column headerText="Cantidad Total">
+                                    <h:outputText value="#{equipoS1.cantidadTotal}" />
+                                </p:column>
+                                <p:column headerText="Clase">
+                                    <h:outputText value="#{equipoS1.clase}" />
+                                </p:column>
+                            </p:dataTable>       
+                        </p:panel>
+                    </p:panel>
+                </p:panelGrid>
+            </p:panel>
+            <p:panel header="Información Préstamo Realizado" rendered="#{RegistroPrestamo.showPanelRegistrado()}">
+                    <br/><h:outputLabel value="Nombre: " />
+                    <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.nombre}" /><br/>
+                    <br/><h:outputLabel value="Apellido: " />
+                    <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.apellido}" /><br/>
+                    <br/><h:outputLabel value="Carné: " />
+                    <p:outputLabel value="#{RegistroPrestamo.elQuePideElPrestamo.carnet}" /><br/>
+                    <br/><h:outputLabel value="Fecha estimada de entrega: " />
+                    <p:outputLabel value="#{RegistroPrestamo.fechaEstimadaDeEntrega}" /><br/>
+                    <br/><h:outputLabel value="Equipos prestados: " /><br/>
+                    <br/>
+                    <p:dataTable id="EquiposCPrestados" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
+                        </p:column>
+                        <p:column headerText="Placa">
+                            <h:outputText value="#{equipoC1.placa}" />
+                        </p:column>
+                    </p:dataTable>
+                    <br/><h:outputLabel value="Herramioentas prestadas: " /><br/>
+                    <br/>
+                    <p:dataTable id="EquiposSPrestados" var="equipoS1" value="#{RegistroPrestamo.equiposSencillosPrestados}"  >
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{equipoS1.nombre}" />
+                        </p:column>
+                        <p:column headerText="Cantidad Total">
+                            <h:outputText value="#{equipoS1.cantidadTotal}" />
+                        </p:column>
+                        <p:column headerText="Clase">
+                            <h:outputText value="#{equipoS1.clase}" />
+                        </p:column>
+                    </p:dataTable>   
+            </p:panel>            
+        </h:form>
+    </h:body>
+</html>
