@@ -33,9 +33,11 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     @Override
     public boolean equals(Object obj) {
+        System.out.println("en el equals:");
         if(obj==null) return false;
         Prestamo p = (Prestamo) obj;
         boolean check;
+        System.out.println("fecha creado: "+fechaInicio+" fecha extraido: "+p.getFechaInicio());
         check = fechaInicio.equals(p.getFechaInicio());
         check = check && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
         if(getEquiposComplejosPrestados()!=null && p.getEquiposComplejosPrestados()!=null && check){
