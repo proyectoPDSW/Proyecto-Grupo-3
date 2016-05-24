@@ -112,7 +112,7 @@ public class PrestamosTest {
             check = prestamo1;
         }
         Assert.assertTrue("El prestamo indefinido de un equipo complejo no es igual al cargarlo por la identificacion de la persona",p.equals(check));
-        
+
     }
     /**
      * Clase de Equivalencia: deberia registrar un prestamo indefinido con 1 Equipo Sencillo.

@@ -93,17 +93,17 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
      * Resetea todos los parametros
      */
     public void limpiar() {
-        vidaUtil = 0;
-        nombre = "";
-        clase = "";
-        valorComercial = 0;
-        fotografia = "";
-        descripcion = "";
-        accesorios = "";
-        serial = "";
-        placa = "";
-        marca = "";
-        tiempoDeUso = 0;
+        setVidaUtil(0);
+        setNombre("");
+        setClase("");
+        setValorComercial(0);
+        setFotografia("");
+        setDescripcion("");
+        setAccesorios("");
+        setSerial("");
+        setPlaca("");
+        setMarca("");
+        setTiempoDeUso(0);
         proveedor="";
         codOrdenCompra="";
         codActivo="";
@@ -137,7 +137,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
      */
     public void consultarModelo() {
         try {
-            modelo = SERVICIOS.consultarModelo(nombreModelo);
+            setModelo(SERVICIOS.consultarModelo(nombreModelo));
             showPanelRegistroModelo = false;
             showPanelInformacionModelo = true;
         } catch (ExcepcionServicios ex) {
@@ -146,14 +146,13 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             facesInfo("Por favor, registre el modelo!");
             showPanelRegistroModelo = true;
             showPanelInformacionModelo = false;
-            nombre=nombreModelo;
+            setNombre(nombreModelo);
         }
     }
 
     public void registrarEquipo() {
         try {
-            SERVICIOS.registrarEquipoComplejo(equipo);
-            facesInfo("El equipo ha sido registrado satisfactoriamente");
+            SERVICIOS.registrarEquipoComplejo(getEquipo());
             showPanelInformacionModelo = false;
             showPanelRegistroModelo = false;
             showPanelRegistroExitoso = true;
@@ -162,6 +161,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             Wizard wizard = (Wizard) FacesContext.getCurrentInstance().getViewRoot().findComponent("registro:wiz");
             wizard.setStep("WInfoModelo");
             RequestContext.getCurrentInstance().update("registro");
+            facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
@@ -170,7 +170,7 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
 
     public void registrarEquipoModelo() {
         try {
-            SERVICIOS.registrarEquipoComplejo(equipo);
+            SERVICIOS.registrarEquipoComplejo(getEquipo());
             facesInfo("El equipo ha sido registrado satisfactoriamente");
             showPanelInformacionModelo = false;
             showPanelRegistroModelo = false;
@@ -183,127 +183,244 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     }
 
     //////////////////////informacion Modelo
-    public int getVidaUtil() {
-        return vidaUtil;
-    }
 
-    public void setVidaUtil(int vidaUtil) {
-        this.vidaUtil = vidaUtil;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getClase() {
-        return clase;
-    }
-
-    public void setClase(String clase) {
-        this.clase = clase;
-    }
-
-    public long getValorComercial() {
-        return valorComercial;
-    }
-
-    public void setValorComercial(long valorComercial) {
-        this.valorComercial = valorComercial;
-    }
-
-    public String getFotografia() {
-        return fotografia;
-    }
-
-    public void setFotografia(String fotografia) {
-        this.fotografia = fotografia;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getAccesorios() {
-        return accesorios;
-    }
-
-    public void setAccesorios(String accesorios) {
-        this.accesorios = accesorios;
-
-    }
-
+    /**
+     * @return the modelo
+     */
     public Modelo getModelo() {
         return modelo;
     }
 
-    //////////////////Informacion consulta
-    public void setNombreModelo(String nombreModelo) {
-        this.nombreModelo = nombreModelo;
+    /**
+     * @param modelo the modelo to set
+     */
+    public void setModelo(Modelo modelo) {
+        this.modelo = modelo;
     }
 
-    public String getNombreModelo() {
-        return nombreModelo;
-    }
-/////////////////////////////////////////////////informacion Equipo
-
-    public EquipoComplejo getEquipo() {
-        return equipo;
+    /**
+     * @return the vidaUtil
+     */
+    public int getVidaUtil() {
+        return vidaUtil;
     }
 
-    public boolean isAsegurado() {
-        return asegurado;
+    /**
+     * @param vidaUtil the vidaUtil to set
+     */
+    public void setVidaUtil(int vidaUtil) {
+        this.vidaUtil = vidaUtil;
     }
 
-    public void setAsegurado(boolean asegurado) {
-        this.asegurado = asegurado;
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
     }
 
-    public boolean isDisponibilidad() {
-        return disponibilidad;
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
+    /**
+     * @return the clase
+     */
+    public String getClase() {
+        return clase;
     }
 
-    public String getEstado() {
-        return estado;
+    /**
+     * @param clase the clase to set
+     */
+    public void setClase(String clase) {
+        this.clase = clase;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getSerial() {
-        return serial;
-    }
-
-    public void setSerial(String serial) {
-        this.serial = serial;
-    }
-
-    public String getPlaca() {
-        return placa;
-    }
-
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
+    /**
+     * @return the marca
+     */
     public String getMarca() {
         return marca;
     }
 
+    /**
+     * @param marca the marca to set
+     */
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    /**
+     * @return the valorComercial
+     */
+    public long getValorComercial() {
+        return valorComercial;
+    }
+
+    /**
+     * @param valorComercial the valorComercial to set
+     */
+    public void setValorComercial(long valorComercial) {
+        this.valorComercial = valorComercial;
+    }
+
+    /**
+     * @return the fotografia
+     */
+    public String getFotografia() {
+        return fotografia;
+    }
+
+    /**
+     * @param fotografia the fotografia to set
+     */
+    public void setFotografia(String fotografia) {
+        this.fotografia = fotografia;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the accesorios
+     */
+    public String getAccesorios() {
+        return accesorios;
+    }
+
+    /**
+     * @param accesorios the accesorios to set
+     */
+    public void setAccesorios(String accesorios) {
+        this.accesorios = accesorios;
+    }
+
+    //////////////////Informacion consulta
+    /**
+     * @param nombreModelo the nombreModelo to set
+     */
+    public void setNombreModelo(String nombreModelo) {
+        this.nombreModelo = nombreModelo;
+    }
+    /**
+     * @return the nombreModelo
+     */
+    public String getNombreModelo() {
+        return nombreModelo;
+    }
+/////////////////////////////////////////////////informacion Equipo
+    
+    /**
+     * @return the equipo
+     */
+    public EquipoComplejo getEquipo() {
+        return equipo;
+    }
+
+    /**
+     * @param equipo the equipo to set
+     */
+    public void setEquipo(EquipoComplejo equipo) {
+        this.equipo = equipo;
+    }
+ 
+    /**
+     * @return the asegurado
+     */
+    public boolean isAsegurado() {
+        return asegurado;
+    }
+
+    /**
+     * @param asegurado the asegurado to set
+     */
+    public void setAsegurado(boolean asegurado) {
+        this.asegurado = asegurado;
+    }
+
+    /**
+     * @return the disponibilidad
+     */
+    public boolean isDisponibilidad() {
+        return disponibilidad;
+    }
+
+    /**
+     * @param disponibilidad the disponibilidad to set
+     */
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    /**
+     * @return the serial
+     */
+    public String getSerial() {
+        return serial;
+    }
+
+    /**
+     * @param serial the serial to set
+     */
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
+    /**
+     * @return the placa
+     */
+    public String getPlaca() {
+        return placa;
+    }
+
+    /**
+     * @param placa the placa to set
+     */
+    public void setPlaca(String placa) {
+        this.placa = placa;
+    }
+    
+    /**
+     * @return the tiempoDeUso
+     */
+    public int getTiempoDeUso() {
+        return tiempoDeUso;
+    }
+
+    /**
+     * @param tiempoDeUso the tiempoDeUso to set
+     */
+    public void setTiempoDeUso(int tiempoDeUso) {
+        this.tiempoDeUso = tiempoDeUso;
     }
 ///////////////////Informacion orden compra
 
@@ -450,9 +567,9 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
         String pag = event.getNewStep();
         if (pag!=null && pag.equalsIgnoreCase("WInfoEquipo") && showPanelRegistroModelo) {
             try {
-                modelo = new Modelo(vidaUtil, nombre, marca, fotografia, clase, valorComercial);
-                modelo.setDescripcion(descripcion);
-                modelo.setAccesorios(accesorios);
+                setModelo(new Modelo(getVidaUtil(), getNombre(), getMarca(), getFotografia(), getClase(), getValorComercial()));
+                getModelo().setDescripcion(getDescripcion());
+                getModelo().setAccesorios(getAccesorios());
             } catch (EquipoException ex) {
                 Registro.anotar(ex);
                 facesError(ex.getMessage());
@@ -464,19 +581,19 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
              try {
                 if(fechaAdquisicion!=null && fechaGarantia!=null){
                     ordenCompra = new OrdenCompra();
-                    equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
-                    equipo.setAsegurado(asegurado);
-                    equipo.setPlaca(placa);
-                    equipo.setDisponibilidad(true);
-                    equipo.setEstado("en almacen");
+                    setEquipo(new EquipoComplejo(getModelo(), getSerial(), getPlaca(), ordenCompra, getTiempoDeUso()));
+                    getEquipo().setAsegurado(isAsegurado());
+                    getEquipo().setPlaca(getPlaca());
+                    getEquipo().setDisponibilidad(true);
+                    getEquipo().setEstado("en almacen");
                     ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
-                    equipo.setOrdenCompra(ordenCompra);
-                    if(disponibilidad){
+                    getEquipo().setOrdenCompra(ordenCompra);
+                    if(isDisponibilidad()){
                         disponibilidadEquipo="Disponible";
                     }else{
                         disponibilidadEquipo="No disponible";
                     }
-                    if(asegurado){
+                    if(isAsegurado()){
                         aseguradoEquipo="Sí";
                     }else{
                         aseguradoEquipo="No";
@@ -501,19 +618,19 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
             try {
                 if(fechaAdquisicion!=null && fechaGarantia!=null){
                     ordenCompra = new OrdenCompra();
-                    equipo = new EquipoComplejo(modelo, serial, placa, ordenCompra, tiempoDeUso);
-                    equipo.setAsegurado(asegurado);
-                    equipo.setPlaca(placa);
-                    equipo.setDisponibilidad(true);
-                    equipo.setEstado("en almacen");
+                    setEquipo(new EquipoComplejo(getModelo(), getSerial(), getPlaca(), ordenCompra, getTiempoDeUso()));
+                    getEquipo().setAsegurado(isAsegurado());
+                    getEquipo().setPlaca(getPlaca());
+                    getEquipo().setDisponibilidad(true);
+                    getEquipo().setEstado("en almacen");
                     ordenCompra = new OrdenCompra(new Timestamp(fechaAdquisicion.getTime()), new Timestamp(fechaGarantia.getTime()), proveedor, codActivo, codOrdenCompra);
-                    equipo.setOrdenCompra(ordenCompra);
-                    if(disponibilidad){
+                    getEquipo().setOrdenCompra(ordenCompra);
+                    if(isDisponibilidad()){
                         disponibilidadEquipo="Disponible";
                     }else{
                         disponibilidadEquipo="No disponible";
                     }
-                    if(asegurado){
+                    if(isAsegurado()){
                         aseguradoEquipo="Sí";
                     }else{
                         aseguradoEquipo="No";
