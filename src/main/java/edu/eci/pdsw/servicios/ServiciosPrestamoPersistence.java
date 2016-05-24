@@ -319,7 +319,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
     }
 
     @Override
-    public void devolverTodo(String carnet) throws ExcepcionServicios {
+    public Prestamo devolverTodo(String carnet) throws ExcepcionServicios {
         try {
             daoF.beginSession();
             DAOEquipoComplejo dec = daoF.getDaoEquipoComplejo();
@@ -342,6 +342,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                 des.update(loaded);
                 prestamoDao.update(p);
             }
+            return p;
         } catch (PersistenceException | PrestamoException ex) {
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(ex, ex.getLocalizedMessage());

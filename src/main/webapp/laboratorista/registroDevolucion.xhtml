@@ -82,6 +82,49 @@ and open the template in the editor.
                             </center>
                         </h:panelGrid>
                     </p:tab>
+                    <p:tab title="Devolver Todo">
+                        <h:panelGrid id="devEqutod" columns="8" cellpadding="5">
+                            <center>Carné del prestamista
+                                <p:inputText id="carnet2" value="#{RegistroDevolucion.laPersona}" >
+                                    <p:ajax event="change"/>
+                                </p:inputText>
+                            </center>
+                            <center>
+                                <p:commandButton value="Aceptar devolución" action="#{RegistroDevolucion.registroDevolucionTodo()}" update="devEqutod"></p:commandButton>
+                            </center>
+                            <p:panel rendered="#{RegistroDevolucion.showPanelInfo2()}">
+
+                                <br/><h:outputLabel value="Nombre: " />
+                                <p:outputLabel value="#{RegistroDevolucion.elQuePideElPrestamo.nombre}" /><br/>
+                                <br/><h:outputLabel value="Apellido: " />
+                                <p:outputLabel value="#{RegistroDevolucion.elQuePideElPrestamo.apellido}" /><br/>
+                                <br/><h:outputLabel value="Carne: " />
+                                <p:outputLabel value="#{RegistroDevolucion.elQuePideElPrestamo.carnet}" /><br/>
+                                <br/>
+                                <h:outputLabel value="Equipos devueltos: "></h:outputLabel><br/>
+                                <p:dataTable id="EquiposCPrestados" var="equipoC1" value="#{RegistroDevolucion.equiposComplejosPrestados}"  >
+                                    <p:column headerText="Placa">
+                                        <h:outputText value="#{equipoC1.placa}" />
+                                    </p:column>
+                                    <p:column headerText="Serial">
+                                        <h:outputText value="#{equipoC1.serial}" />
+                                    </p:column>
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{equipoC1.modelo_Eq.nombre}" />
+                                    </p:column>
+                                </p:dataTable>
+                                <p:dataTable id="EquiposSPrestados" var="equipoS1" value="#{RegistroDevolucion.equiposSencillosPrestados}"  >
+                                    <p:column headerText="Nombre">
+                                        <h:outputText value="#{equipoS1.nombre}" />
+                                    </p:column>
+                                    <p:column headerText="Cantidad">
+                                        <h:outputText value="#{equipoS1.cantidadTotal}" />
+                                    </p:column>
+                                </p:dataTable>
+                                <br/>
+                            </p:panel>
+                        </h:panelGrid>
+                    </p:tab>
                     <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
                         <f:facet name="start">
                             <p:graphicImage url="../resource/loading.gif" height="20" width="20" />

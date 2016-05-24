@@ -119,5 +119,5 @@ public abstract class ServiciosPrestamo {
      * @param carnet de la persona
      * @throws ExcepcionServicios si la persona no existe
      */
-    public abstract void devolverTodo(String carnet)throws ExcepcionServicios;
+    public abstract Prestamo devolverTodo(String carnet)throws ExcepcionServicios;
 }

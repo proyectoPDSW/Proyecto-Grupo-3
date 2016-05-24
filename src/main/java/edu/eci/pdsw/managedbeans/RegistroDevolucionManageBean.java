@@ -45,13 +45,17 @@ public class RegistroDevolucionManageBean implements Serializable{
     private int cantidad;
     private Persona elQuePideElPrestamo;
     private Set<EquipoComplejo> equiposComplejosPrestados;
+    private Set<EquipoSencillo> equiposSencillosPrestados;
     private Set<EquipoComplejo> equiposComplejosFaltantes;
     
     private boolean showPanelInfoPrestamista=false;
-    
+    private boolean showPanelInfoPrestamista2=false;
     
     public boolean showPanelInfo(){
         return showPanelInfoPrestamista;
+    }
+    public boolean showPanelInfo2(){
+        return showPanelInfoPrestamista2;
     }
     
     public RegistroDevolucionManageBean() {
@@ -90,6 +94,20 @@ public class RegistroDevolucionManageBean implements Serializable{
             facesInfo("Se realizo con exito la devolución");
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
+        }
+    }
+    
+    public void registroDevolucionTodo() {
+        try {
+            Prestamo p = PRESTAMO.devolverTodo(laPersona);
+            elQuePideElPrestamo=p.getElQuePideElPrestamo();
+            equiposComplejosPrestados=p.getEquiposComplejosFaltantes();
+            equiposSencillosPrestados=p.getEquiposSencillosFaltantes();
+            facesInfo("Se realizo con exito la devolución");
+            showPanelInfoPrestamista2=true;
+        } catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+            showPanelInfoPrestamista2=false;
         }
     }
 
@@ -211,6 +229,14 @@ public class RegistroDevolucionManageBean implements Serializable{
         this.showPanelInfoPrestamista = showPanelInfoPrestamista;
     }
 
+    public boolean isShowPanelInfoPrestamista2() {
+        return showPanelInfoPrestamista2;
+    }
+
+    public void setShowPanelInfoPrestamista2(boolean showPanelInfoPrestamista2) {
+        this.showPanelInfoPrestamista2 = showPanelInfoPrestamista2;
+    }
+    
     public Set<EquipoComplejo> getEquiposComplejosPrestados() {
         return equiposComplejosPrestados;
     }
@@ -225,6 +251,14 @@ public class RegistroDevolucionManageBean implements Serializable{
 
     public void setEquiposComplejosFaltantes(Set<EquipoComplejo> equiposComplejosFaltantes) {
         this.equiposComplejosFaltantes = equiposComplejosFaltantes;
+    }
+
+    public Set<EquipoSencillo> getEquiposSencillosPrestados() {
+        return equiposSencillosPrestados;
+    }
+
+    public void setEquiposSencillosPrestados(Set<EquipoSencillo> equiposSencillosPrestados) {
+        this.equiposSencillosPrestados = equiposSencillosPrestados;
     }
     
     /**
