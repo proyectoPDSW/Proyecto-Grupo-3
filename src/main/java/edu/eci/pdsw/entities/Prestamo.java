@@ -33,29 +33,23 @@ public abstract class Prestamo implements Comparable<Prestamo> {
 
     @Override
     public boolean equals(Object obj) {
-        System.out.println("en el equals:");
         if(obj==null) return false;
         Prestamo p = (Prestamo) obj;
         boolean check;
-        System.out.println("fecha creado: "+fechaInicio+" fecha extraido: "+p.getFechaInicio());
         check = fechaInicio.equals(p.getFechaInicio());
-        System.out.println("luego de fechas: "+check);
         check = check && elQuePideElPrestamo.equals(p.getElQuePideElPrestamo());
-        System.out.println("luego de prestamista: "+check);
         if(getEquiposComplejosPrestados()!=null && p.getEquiposComplejosPrestados()!=null && check){
             check=check && getEquiposComplejosPrestados().size()==p.getEquiposComplejosPrestados().size();
             for (EquipoComplejo ec : getEquiposComplejosPrestados()) {
                 check=check && p.getEquiposComplejosPrestados().contains(ec);
             }
         }
-        System.out.println("luego de ec: "+check);
         if(getEquiposSencillosPrestados()!=null && p.getEquiposSencillosPrestados()!=null && check){
             check=check && getEquiposSencillosPrestados().size()==p.getEquiposSencillosPrestados().size();
             for (EquipoSencillo es : getEquiposSencillosPrestados()) {
                 check=check && p.getEquiposSencillosPrestados().contains(es);
             }
         }
-        System.out.println("luego de es: "+check);
         return check;
     }
 
