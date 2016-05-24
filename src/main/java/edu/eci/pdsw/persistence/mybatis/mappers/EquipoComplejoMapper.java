@@ -40,8 +40,8 @@ public interface EquipoComplejoMapper {
      * @param serial
      * @param m
      */
-    public void insertOrdenCompra(@Param("orden") OrdenCompra orden,@Param("serial") String serial, @Param("modelo") Modelo m);
-    
+    public void insertOrdenCompra(@Param("orden") OrdenCompra orden, @Param("serial") String serial, @Param("modelo") Modelo m);
+
     /**
      * Consulta todos los equipos complejos que esten disponibles
      *
@@ -121,25 +121,28 @@ public interface EquipoComplejoMapper {
      * @return una lista que contiene los modelos que contienen una cadena
      */
     public List<String> loadModelosAproximados(@Param("Aproximado") String toSearch);
-    
+
     /**
      * Cargar la orden de compra de un equipo complejo dado su serial
-     *@param serial, el serial del equipo complejo 
-     * @param modelo 
-     *@return la orden de compra del equipo complejo
+     *
+     * @param serial, el serial del equipo complejo
+     * @param modelo
+     * @return la orden de compra del equipo complejo
      */
     public OrdenCompra loadOrdenCompraBySerial(@Param("serial") String serial, @Param("modelo") String modelo);
-    
+
     /**
      * Consulta un equipo complejo con una placa especifica que este en almacen
      * es decir que este disponible para prestar
+     *
      * @param placa
-     * @return 
+     * @return
      */
     public EquipoComplejo loadEquipoDisponibleByPlaca(@Param("Eq_Placa") String placa);
-    
+
     /**
      * calcula la fecha actual de la base de datos
+     *
      * @return la fecha actual de la base de datos
      */
     public Date currDate();

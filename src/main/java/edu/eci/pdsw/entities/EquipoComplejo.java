@@ -34,15 +34,14 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      * @param tiempoDeUso cuanto tiempo ha sido usado el equipo
      * @throws EquipoException
      */
-
     public EquipoComplejo(Modelo mod, String ser, String plac, OrdenCompra dg, long tiempoDeUso) throws EquipoException {
         if (mod == null) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         }
-        if (ser==null || ser.length() <= 0) {
+        if (ser == null || ser.length() <= 0) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         }
-        if (plac==null || plac.length()==0) {
+        if (plac == null || plac.length() == 0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }
         if (dg == null) {
@@ -56,7 +55,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         this.serial = ser;
         this.modelo_Eq = mod;
         this.placa = plac;
-        this.ordenCompra_Eq= dg;
+        this.ordenCompra_Eq = dg;
     }
 
     /**
@@ -76,13 +75,13 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
         if (modelo_Eq == null) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_MODELO);
         }
-        if (serial==null || serial.length() <= 0) {
+        if (serial == null || serial.length() <= 0) {
             throw new EquipoException(EquipoException.EQUIPOC_SIN_SERIAL);
         }
-        if (estado==null || estado.length()==0) {
+        if (estado == null || estado.length() == 0) {
             throw new EquipoException("El estado no puede ser nulo o vacio");
         }
-        if (placa==null || placa.length()==0) {
+        if (placa == null || placa.length() == 0) {
             throw new EquipoException(EquipoException.EUIPOC_SIN_PLACA);
         }
         if (dg == null) {
@@ -105,21 +104,44 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
     public EquipoComplejo() {
     }
 
+    /**
+     * Obtener la orden de compra
+     *
+     * @return la orden de compra
+     */
     public OrdenCompra getOrdenCompra() {
         return ordenCompra_Eq;
     }
 
+    /**
+     * Setear la orden de compra
+     *
+     * @param ordenCompra
+     */
     public void setOrdenCompra(OrdenCompra ordenCompra) {
         this.ordenCompra_Eq = ordenCompra;
     }
 
+    /**
+     * Obtener la vida util restante
+     *
+     * @return la vida util restante
+     */
     public long getTiempoRestante() {
         return tiempoRestante;
     }
 
+    /**
+     * Setea el tiempo restante
+     *
+     * @param tiempoRestante
+     */
     public void setTiempoRestante(long tiempoRestante) {
-        if (tiempoRestante<0)this.tiempoRestante=0;
-        else this.tiempoRestante = tiempoRestante;
+        if (tiempoRestante < 0) {
+            this.tiempoRestante = 0;
+        } else {
+            this.tiempoRestante = tiempoRestante;
+        }
     }
 
     /**
@@ -227,7 +249,7 @@ public class EquipoComplejo implements Comparable<EquipoComplejo> {
      */
     @Override
     public String toString() {
-        String res = "EquipoComplejo:[" + asegurado + "," + disponibilidad + "," + estado + "," + serial + "," + placa +"]\n";
+        String res = "EquipoComplejo:[" + asegurado + "," + disponibilidad + "," + estado + "," + serial + "," + placa + "]\n";
         res += modelo_Eq.toString();
         return res;
     }

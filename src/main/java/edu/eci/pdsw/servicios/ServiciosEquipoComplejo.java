@@ -9,7 +9,6 @@ import edu.eci.pdsw.entities.EquipoComplejo;
 import edu.eci.pdsw.entities.Modelo;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -25,102 +24,117 @@ public abstract class ServiciosEquipoComplejo {
 
     /**
      * Registra un modelo
+     *
      * @param model a registrar
      * @throws ExcepcionServicios si el modelo ya esta registrado
      */
-    public abstract void registrarModelo(Modelo model)throws ExcepcionServicios;
+    public abstract void registrarModelo(Modelo model) throws ExcepcionServicios;
 
     /**
      * Registra un equipo complejo
+     *
      * @param equipo a registrar
      * @throws ExcepcionServicios si el equipo ya esta registrado
      */
-    public abstract void registrarEquipoComplejo(EquipoComplejo equipo)throws ExcepcionServicios;
+    public abstract void registrarEquipoComplejo(EquipoComplejo equipo) throws ExcepcionServicios;
 
     /**
      * Consulta todos los equipos registrados
+     *
      * @return Una lista con los equipos registrados
      * @throws ExcepcionServicios si no se pudo consultar
      */
-    public abstract List<EquipoComplejo> consultarTodo()throws ExcepcionServicios;
+    public abstract List<EquipoComplejo> consultarTodo() throws ExcepcionServicios;
 
     /**
      * Consulta todos los equipos que sean de cierto modelo
+     *
      * @param modelo del que se buscaran los equipos
      * @return Los equipos que son de cierto modelo
      * @throws ExcepcionServicios Si el modelo no existe
      */
-    public abstract List<EquipoComplejo> consultarPorModelo(String modelo)throws ExcepcionServicios;
+    public abstract List<EquipoComplejo> consultarPorModelo(String modelo) throws ExcepcionServicios;
 
     /**
      * Consulta el equipo de placa numPlaca
+     *
      * @param numPlaca que posee el equipo a consultar
      * @return El equipo que posee esa placa
      * @throws ExcepcionServicios si la placa no esta registrada
      */
-    public abstract EquipoComplejo consultarPorPlaca(String numPlaca)throws ExcepcionServicios;
+    public abstract EquipoComplejo consultarPorPlaca(String numPlaca) throws ExcepcionServicios;
 
     /**
      * Consulta el equipo que tenga cierto serial
+     *
      * @param serial que posee el equipo a consultar
      * @param modelo del equipo a buscar
      * @return El equipo que contiene ese serial
      * @throws ExcepcionServicios Si el serial no esta registrado
      */
-    public abstract EquipoComplejo consultarPorSerial(String modelo,String serial)throws ExcepcionServicios;
+    public abstract EquipoComplejo consultarPorSerial(String modelo, String serial) throws ExcepcionServicios;
 
     /**
      * Consulta los equipos que se pueden prestar
+     *
      * @return Una lista que contiene los equipos que se pueden prestar
      * @throws ExcepcionServicios si existe un error cargando
      */
-    public abstract List<EquipoComplejo> consultarDisponibles()throws ExcepcionServicios;
+    public abstract List<EquipoComplejo> consultarDisponibles() throws ExcepcionServicios;
 
     /**
      * Actualiza un equipo
+     *
      * @param toUpdate el equipo actualizado que se guardara de nuevo
      * @throws ExcepcionServicios Si el equipo no esta registrado
      */
-    public abstract void actualizarEquipo(EquipoComplejo toUpdate)throws ExcepcionServicios;
+    public abstract void actualizarEquipo(EquipoComplejo toUpdate) throws ExcepcionServicios;
 
     /**
      * Consulta un modelo basado en el nombre
+     *
      * @param nombre del modelo
      * @return Modelo cargado
-     * @throws ExcepcionServicios Si el modelo no esta registrado o Si la cadena esta vacia
+     * @throws ExcepcionServicios Si el modelo no esta registrado o Si la cadena
+     * esta vacia
      */
-    public abstract Modelo consultarModelo(String nombre)throws ExcepcionServicios;
-    
+    public abstract Modelo consultarModelo(String nombre) throws ExcepcionServicios;
+
     /**
      * Consulta todos los modelos que contengan cierta cadena
+     *
      * @param cadena a buscar
      * @return todos los equipos que contengan la cadena
      * @throws ExcepcionServicios si la cadena está vacia
      */
-    public abstract List<String> consultarAproximado(String cadena)throws ExcepcionServicios;
-    
+    public abstract List<String> consultarAproximado(String cadena) throws ExcepcionServicios;
+
     /**
-     * Consulta los equipos complejos que tengan un modelo en comun
-     * y ademas esten disponibles para prestar
+     * Consulta los equipos complejos que tengan un modelo en comun y ademas
+     * esten disponibles para prestar
+     *
      * @param modelo
      * @return lista de equipos complejos para prestar
-     * @throws ExcepcionServicios 
+     * @throws ExcepcionServicios
      */
     public abstract List<EquipoComplejo> consultarEnAlmacenModelo(String modelo) throws ExcepcionServicios;
-    
+
     /**
-     * Consulta un equipo complejo con una placa especifica y que ademas este en almacen
-     * es decir que este disponible para prestar
+     * Consulta un equipo complejo con una placa especifica y que ademas este en
+     * almacen es decir que este disponible para prestar
+     *
      * @param placa
      * @return
-     * @throws ExcepcionServicios 
+     * @throws ExcepcionServicios
      */
     public abstract EquipoComplejo consultarEquipoEnAlmacenPorPlaca(String placa) throws ExcepcionServicios;
-    
+
     /**
      * calcula la fecha actual
+     *
      * @return la fecha actual
+     * @throws ExcepcionServicios
      */
     public abstract Date currDate() throws ExcepcionServicios;
-    
+
 }

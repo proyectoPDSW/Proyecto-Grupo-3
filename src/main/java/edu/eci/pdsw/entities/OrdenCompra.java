@@ -7,35 +7,57 @@ package edu.eci.pdsw.entities;
 
 import java.sql.Timestamp;
 
-
 /**
  *
  * @author German
  */
-    public class OrdenCompra implements Comparable<OrdenCompra>{
+public class OrdenCompra implements Comparable<OrdenCompra> {
+
     private Timestamp adquisicion;
     private Timestamp garantia;
     private String proveedor;
     private String activo;
     private String codigo;
-    
-    public OrdenCompra(){
+
+    public OrdenCompra() {
     }
-    
-    public OrdenCompra(Timestamp adq,Timestamp gar,String provee,String act,String cod) throws EquipoException{
-        if(cod==null || cod.length()==0) throw new EquipoException("Favor colocar un código de orden de compra adecuado");
-        if(act==null || act.length()==0) throw new EquipoException("Favor colocar un código activo adecuado");
-        if(provee==null || provee.length()==0) throw new EquipoException("Favor colocar un proveedor en la orden de compra del equipo adecuado");
-        if(adq==null) throw new EquipoException("Favor colocar una fecha de adquisición adecuada");
-        if(gar==null) throw new EquipoException("Favor colocar una fecha de garantía adecuada");
-        if(gar.before(adq)) throw new EquipoException("Fecha de garatía inválida");
-        this.adquisicion=adq;
-        this.garantia=gar;
-        this.proveedor=provee;
-        this.activo=act;
-        this.codigo=cod;
+
+    /**
+     * Constructor de orden de compra
+     *
+     * @param adq
+     * @param gar
+     * @param provee
+     * @param act
+     * @param cod
+     * @throws EquipoException
+     */
+    public OrdenCompra(Timestamp adq, Timestamp gar, String provee, String act, String cod) throws EquipoException {
+        if (cod == null || cod.length() == 0) {
+            throw new EquipoException("Favor colocar un código de orden de compra adecuado");
+        }
+        if (act == null || act.length() == 0) {
+            throw new EquipoException("Favor colocar un código activo adecuado");
+        }
+        if (provee == null || provee.length() == 0) {
+            throw new EquipoException("Favor colocar un proveedor en la orden de compra del equipo adecuado");
+        }
+        if (adq == null) {
+            throw new EquipoException("Favor colocar una fecha de adquisición adecuada");
+        }
+        if (gar == null) {
+            throw new EquipoException("Favor colocar una fecha de garantía adecuada");
+        }
+        if (gar.before(adq)) {
+            throw new EquipoException("Fecha de garatía inválida");
+        }
+        this.adquisicion = adq;
+        this.garantia = gar;
+        this.proveedor = provee;
+        this.activo = act;
+        this.codigo = cod;
     }
-    
+
     //Por implementar 
     @Override
     public int compareTo(OrdenCompra o) {
@@ -44,11 +66,10 @@ import java.sql.Timestamp;
 
     @Override
     public boolean equals(Object obj) {
-        OrdenCompra oc = (OrdenCompra)obj;
+        OrdenCompra oc = (OrdenCompra) obj;
         return oc.getAdquisicion().equals(adquisicion) && oc.getGarantia().equals(garantia) && oc.getProveedor().equals(proveedor) && oc.getCodigo().equals(codigo) && oc.getActivo().equals(activo);
     }
 
-    
     /**
      * @return the adquisicion
      */
@@ -91,11 +112,10 @@ import java.sql.Timestamp;
         this.proveedor = proveedor;
     }
 
-
     @Override
     public String toString() {
-        String res = "Datos Generales:[" + adquisicion + "," + garantia + "," + proveedor 
-                + ","+ activo +","+ codigo +"]\n";
+        String res = "Datos Generales:[" + adquisicion + "," + garantia + "," + proveedor
+                + "," + activo + "," + codigo + "]\n";
         return res;
     }
 
@@ -125,7 +145,6 @@ import java.sql.Timestamp;
      */
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }   
-    
-    
+    }
+
 }
