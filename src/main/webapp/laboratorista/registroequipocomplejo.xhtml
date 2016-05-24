@@ -18,7 +18,7 @@
                 <p:spacer>                                                                                                                                                         .                                   .                                             ..                .                    
                 </p:spacer><p:commandButton  value="Consultar modelo" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update=":registro" icon="ui-icon-search" />   
                 <space> </space><p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
-                <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
+                <br></br><p:messages id="messages" autoUpdate="false" closable="true" />
                 <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
                     <f:facet name="start">
                         <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
@@ -190,7 +190,7 @@
                             </p:panel>
                         </p:panelGrid>
                     </p:panel>
-                    <br/><center/><p:commandButton value="Registrar" action="#{RegistroEquiposComplejos.registrarEquipo()}"  icon="ui-icon-plusthick" process="@this" oncomplete="PF('wiz').loadStep(PF('wiz').cfg.steps [0], true)" update=":registro :exitoso"  ajax="true"  />
+                    <br/><center/><p:commandButton value="Registrar" action="#{RegistroEquiposComplejos.registrarEquipo()}"  icon="ui-icon-plusthick" process="@this" oncomplete="PF('wiz').loadStep(PF('wiz').cfg.steps [0], true)" update=":registro :exitoso :formularioEquipoComplejo:messages"  ajax="true"  />
                 </p:tab>
             </p:wizard>
             <br/>

@@ -63,7 +63,6 @@ public abstract class Prestamo implements Comparable<Prestamo> {
         SimpleDateFormat fmt = new SimpleDateFormat("YY-MM-dd HH:mm:ss.S");
 
         fmt.setTimeZone(TimeZone.getTimeZone("GMT-5"));
-        //System.out.println(Timestamp.valueOf("20"+fmt.format(timestamp).toString()));
         return Timestamp.valueOf("20"+fmt.format(timestamp).toString());
     }
 
