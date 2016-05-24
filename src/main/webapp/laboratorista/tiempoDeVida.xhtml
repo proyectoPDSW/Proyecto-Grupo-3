@@ -14,25 +14,28 @@ and open the template in the editor.
     <body>
         <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
         <center><b><h1>Reporte de tiempo de vida</h1></b></center>
-        <p:dataTable var="equipo" value="#{tiempoVida.equipos}">
-            <p:column headerText="Modelo">
-                <h:outputText value="#{equipo.modelo_Eq.nombre}"/>
-            </p:column>
-            <p:column headerText="Serial">
-                <h:outputText value="#{equipo.serial}"/>
-            </p:column>
-            <p:column headerText="Estado">
-                <h:outputText value="#{equipo.estado}"/>
-            </p:column>
-            <p:column headerText="Tiempo de vida">
-                <h:outputText value="#{equipo.modelo_Eq.vidaUtil}"/>
-            </p:column>
-            <p:column headerText="Vida restante">
-                <h:outputText value="#{equipo.tiempoRestante}"/>
-            </p:column>
-            <p:column>
-                <p:graphicImage value="#{equipo.modelo_Eq.fotografia}" height="100px" width="100px"/>
-            </p:column>
-        </p:dataTable>
+        <h:form id="tiempoDeVidaForm">
+            <p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
+            <p:dataTable var="equipo" value="#{tiempoVida.equipos}">
+                <p:column headerText="Modelo">
+                    <h:outputText value="#{equipo.modelo_Eq.nombre}"/>
+                </p:column>
+                <p:column headerText="Serial">
+                    <h:outputText value="#{equipo.serial}"/>
+                </p:column>
+                <p:column headerText="Estado">
+                    <h:outputText value="#{equipo.estado}"/>
+                </p:column>
+                <p:column headerText="Tiempo de vida">
+                    <h:outputText value="#{equipo.modelo_Eq.vidaUtil}"/>
+                </p:column>
+                <p:column headerText="Vida restante">
+                    <h:outputText value="#{equipo.tiempoRestante}"/>
+                </p:column>
+                <p:column>
+                    <p:graphicImage value="#{equipo.modelo_Eq.fotografia}" height="100px" width="100px"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </body>
 </html>
