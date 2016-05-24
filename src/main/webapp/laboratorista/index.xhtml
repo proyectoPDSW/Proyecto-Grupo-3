@@ -11,22 +11,40 @@
     <h:body>
         <h:form id="index">
             <center><p:graphicImage value="../resource/ImagenInicio.jpg"/></center>
-            <p:panel id="registrarEquipo" >
-                <br/><p:commandButton value="Consulta morosos" action="consultaMorosos"  />
-                <br/><p:commandButton value="Registro herramienta" action="registroequiposencillo" />
-                <br/><p:commandButton value="Registro equipo" action="registroequipocomplejo" />
-                <br/><p:commandButton value="Registrar préstamo" action="registroprestamos" />
-                <br/><p:commandButton value="Registrar una devolución" action="registroDevolucion" />
-                <br/><p:commandButton value="Consultar equipo" action="fichaEquipo" />
-                <p:commandButton value="Reporte de equipos" action="tiempoDeVida"/>
-                <br/>
-                <h:outputLink value="/logout">Salir</h:outputLink>
+            <p:fieldset legend ="Préstamos" toggleable="true">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:commandButton value="Consulta morosos" action="consultaMorosos"/>
+                    <h:outputText value="Desde aqui se redirige a la consulta de los morosos, se puede ordenar de menor a mayor por precio y tiempo de mora"/>
+
+                    <p:commandButton value="Registrar préstamo" action="registroprestamos"/>
+                    <h:outputText value="Desde aqui se redirige a el registro de préstamos, el cual permite crear un nuevo préstamo o añadir equipos o herramientas a uno existente"/>
+
+                    <p:commandButton value="Registrar devolución" action="registroDevolucion"/>
+                    <h:outputText value="Desde aqui se redirige a registrar una devolución, para equipos se hace con la placa, para herramientas con el carnet de la persona, el nombre y la cantidad a devolver de esa herramienta"/>
+                </h:panelGrid>
+            </p:fieldset>
+            <p:fieldset legend ="Equipos" toggleable="true">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:commandButton value="Registrar un equipo" action="registroequipocomplejo"/>
+                    <h:outputText value="Desde aqui se redirige a el registro de un equipo"/>
+
+                    <p:commandButton value="Registro herramienta" action="registroequiposencillo"/>
+                    <h:outputText value="Desde aqui se redirige a el registro de herramientas (Equipos que por sus características no tiene serial ni placa)"/>
+
+                    <p:commandButton value="Consultar un equipo" action="fichaEquipo"/>
+                    <h:outputText value="Desde aqui se redirige a la ficha del equipo, la cual contiene toda la información relevante del mismo y permite imprimirla"/>
+
+                    <p:commandButton value="Reporte de equipos" action="tiempoDeVida"/>
+                    <h:outputText value="Desde aqui se redirige al reporte de equipos, que permite verlos de los mas críticos a los menos críticos (En términos de horas restantes de vida util)"/>
+                </h:panelGrid>
+            </p:fieldset>
+            <center><h:outputLink value="/logout">Salir</h:outputLink>
                 <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
                     <f:facet name="start">
                         <p:graphicImage url="../resource/loading.gif" height="20" width="20" />
                     </f:facet>
-                </p:ajaxStatus>
-            </p:panel>
+                </p:ajaxStatus></center>
+
         </h:form>
     </h:body>
 </html>
