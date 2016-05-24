@@ -325,6 +325,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
             DAOEquipoComplejo dec = daoF.getDaoEquipoComplejo();
             DAOEquipoSencillo des = daoF.getDaoEquipoSencillo();
             prestamoDao = daoF.getDaoPrestamo();
+            Prestamo p2 =prestamoDao.loadActualPersona(carnet);
             Prestamo p = prestamoDao.loadActualPersona(carnet);
             for (EquipoComplejo ec : p.getEquiposComplejosFaltantes()) {
                 ec.setEstado(EquipoComplejo.almacen);
@@ -343,7 +344,7 @@ public class ServiciosPrestamoPersistence extends ServiciosPrestamo {
                 prestamoDao.update(p);
             }
             daoF.commitTransaction();
-            return p;
+            return p2;
         } catch (PersistenceException | PrestamoException ex) {
             daoF.rollbackTransaction();
             throw new ExcepcionServicios(ex, ex.getLocalizedMessage());

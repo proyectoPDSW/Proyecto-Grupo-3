@@ -101,8 +101,8 @@ public class RegistroDevolucionManageBean implements Serializable{
         try {
             Prestamo p = PRESTAMO.devolverTodo(laPersona);
             elQuePideElPrestamo=p.getElQuePideElPrestamo();
-            equiposComplejosPrestados=p.getEquiposComplejosFaltantes();
-            equiposSencillosPrestados=p.getEquiposSencillosFaltantes();
+            equiposComplejosPrestados=p.getEquiposComplejosPrestados();
+            equiposSencillosPrestados=p.getEquiposSencillosPrestados();
             facesInfo("Se realizo con exito la devolución");
             showPanelInfoPrestamista2=true;
         } catch (ExcepcionServicios ex) {
