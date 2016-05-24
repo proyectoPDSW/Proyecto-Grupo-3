@@ -49,8 +49,9 @@
                 </center>
                 <p:panelGrid columns="2">
                     <p:panel>
+                        <p:focus context="ingPlaca"/>
                         <h:outputLabel id="equipoPlaca" value="Placa : (*)   " />
-                        <p:inputText value="#{RegistroPrestamo.placa}"/>
+                        <p:inputText id="ingPlaca" value="#{RegistroPrestamo.placa}"/>
                         <space>     </space><p:commandButton value="Agregar Equipo" update=":tablas" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
                         <p:panel id="tablas">
                             <p:dataTable id="EquiposPrestar1" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
@@ -65,7 +66,8 @@
                     </p:panel>
                     <p:panel>
                         <center><h:outputLabel value="Nombre de la herramienta : (*)  " />
-                            <p:inputText id="nombreEq" value="#{RegistroPrestamo.nombre}" />
+                            <p:autoComplete id="nombreEq" dropdown="false" value="#{RegistroPrestamo.nombre}" completeMethod="#{RegistroPrestamo.herramientasAproximadas}"/>
+                            <!--p:inputText id="nombreEq" value="#{RegistroPrestamo.nombre}" /-->
                             <br/><br/><p:commandButton value="Consultar Herramientas" update=":tablas2" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre()}" icon="ui-icon-search"/></center>
                         <br/><p:panel id="tablas2" rendered="#{RegistroPrestamo.showPanelRegistro()}">
                             <h:outputLabel value="Herramienta consultada: "/>
@@ -107,8 +109,9 @@
             <p:panel header="Agregar equipos a préstamo activo" rendered="#{RegistroPrestamo.getShowPanelOtroRegistro()}">
                 <p:panelGrid columns="2">
                     <p:panel>
+                        <p:focus context="ingPlaca1"/>
                         <h:outputLabel value="Placa : (*)   " />
-                        <p:inputText value="#{RegistroPrestamo.placa}"/>
+                        <p:inputText id="ingPlaca1" value="#{RegistroPrestamo.placa}"/>
                         <space>     </space><p:commandButton value="Agregar Equipo" update=":tablasActivo" actionListener="#{RegistroPrestamo.agregarEquipoC()}" ajax="false" icon="ui-icon-plusthick"/>
                         <p:panel id="tablasActivo">
                             <p:dataTable id="EquiposPrestar3" var="equipoC1" value="#{RegistroPrestamo.equiposComplejosPrestados}"  >
@@ -123,7 +126,8 @@
                     </p:panel>
                     <p:panel>
                         <center><h:outputLabel value="Nombre de la herramienta : (*)  " />
-                            <p:inputText value="#{RegistroPrestamo.nombre}" />
+                            <p:autoComplete id="nombreEq1" dropdown="false" value="#{RegistroPrestamo.nombre}" completeMethod="#{RegistroPrestamo.herramientasAproximadas}"/>
+                            <!--p:inputText value="#{RegistroPrestamo.nombre}" /-->
                             <br/><br/><p:commandButton value="Consultar Herramientas" update=":tablas3" ajax="false" actionListener="#{RegistroPrestamo.consultarEqSNombre()}" icon="ui-icon-search"/></center>
                         <br/><p:panel id="tablas3" >
                             <h:outputLabel value="Herramienta consultada: "/>

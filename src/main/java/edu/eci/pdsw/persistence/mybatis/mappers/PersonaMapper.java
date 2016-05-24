@@ -56,15 +56,15 @@ public interface PersonaMapper {
     /**
      * Carga una persona por carnet
      *
-     * @param carne
-     * @return
+     * @param carne de la persona
+     * @return la persona con carnet carne
      */
     public Persona load(@Param("carne") String carne);
 
     /**
      *
      * @param carne de la persona
-     * @return
+     * @return la persona con carnet carne
      */
     public Persona loadPersRoles(@Param("carne") String carne);
 

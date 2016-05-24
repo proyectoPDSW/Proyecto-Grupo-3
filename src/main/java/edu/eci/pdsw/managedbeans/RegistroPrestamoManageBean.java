@@ -105,6 +105,17 @@ public class RegistroPrestamoManageBean implements Serializable {
         }
         return aproximados;
     }
+    
+    public List<String> herramientasAproximadas(String query){
+        List<String> aproximados = new ArrayList<>();
+        try {
+            aproximados = EQSENCILLO.consultarPorNombreAproximado(query);
+        } catch (ExcepcionServicios ex) {
+            facesError(ex.getMessage());
+            Registro.anotar(ex);
+        }
+        return aproximados;
+    }
 
     public RegistroPrestamoManageBean() {
 
