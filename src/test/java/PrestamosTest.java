@@ -155,9 +155,6 @@ public class PrestamosTest {
         for (Prestamo prestamo1 : lp) {
             check = prestamo1;
         }
-        System.out.println("._._._._._.PRUEBA QUE FALLA");
-        System.out.println("creado: "+p);
-        System.out.println("extraido: "+check);
         Assert.assertTrue("El prestamo indefinido de un equipo sencillo no es igual al cargarlo por la fecha del prestamo",p.equals(check));
         
     }
