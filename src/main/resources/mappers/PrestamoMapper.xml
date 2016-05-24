@@ -369,7 +369,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         values(#{Prestamo_id.fechaInicio},#{Prestamo_id.elQuePideElPrestamo.carnet},#{Equipo_id.nombre},#{Equipo_id.cantidadTotal},0);
     </insert>
     <update id='updatePrestamo' parameterType='map'>
-        update Prestamos set fecha_fin_real=CURRENT_TIMESTAMP where fecha_inicio=#{Prestamo.fechaInicio} and persona=#{Prestamo.elQuePideElPrestamo.carnet}
+        update Prestamos set fecha_fin_real=now() where fecha_inicio=#{Prestamo.fechaInicio} and persona=#{Prestamo.elQuePideElPrestamo.carnet}
     </update>
     <update id='updateEquipoComplejo' parameterType='map'>
         update Equipo_prestamo_complejo set estado='No activo' where
