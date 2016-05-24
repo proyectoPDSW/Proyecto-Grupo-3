@@ -153,20 +153,18 @@ public class RegistroEquipoComplejoManagedBean implements Serializable {
     public void registrarEquipo() {
         try {
             SERVICIOS.registrarEquipoComplejo(getEquipo());
-            facesInfo("El equipo ha sido registrado satisfactoriamente");
             showPanelInformacionModelo = false;
             showPanelRegistroModelo = false;
             showPanelRegistroExitoso = true;
             reset=true;
+            facesInfo("El equipo ha sido registrado satisfactoriamente");
             Wizard wizard = (Wizard) FacesContext.getCurrentInstance().getViewRoot().findComponent("registro:wiz");
             wizard.setStep("WInfoModelo");
             RequestContext.getCurrentInstance().update("registro");
-            facesInfo("El equipo ha sido registrado satisfactoriamente");
         } catch (ExcepcionServicios ex) {
             facesError(ex.getMessage());
             Registro.anotar(ex);
         }
-        facesInfo("El equipo ha sido registrado satisfactoriamente");
     }
 
     public void registrarEquipoModelo() {
