@@ -499,4 +499,59 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Prestamos.fecha_fin_estimada
 	
     </select>
+    <select id="loadActualDePersona" parameterType='map' resultMap='PrestamoResult'>
+            select 
+                Prestamos.fecha_inicio as fecha_inicio, 
+                Prestamos.fecha_fin_estimada as fecha_estimada,
+                Prestamos.fecha_fin_real as fecha_real,
+                Prestamos.tipo_prestamo as tipo_prestamo,
+                Equipos_Complejos.serial as eqco_serial,
+                Equipos_Complejos.num_placa as eqco_placa,
+                Equipos_Complejos.disponibilidad as eqco_disponibilidad,
+                Equipos_Complejos.estado as eqco_estado,
+                Equipos_Complejos.asegurado as eqco_asegurado,
+                Equipos_Complejos.vida_restante as eqco_vida_restante,
+                Modelos.marca as eqco_mo_marca,
+                Modelos.nombre as eqco_mo_nombre,
+                Modelos.vida_util as eqco_mo_vida_util,
+                Modelos.fotografia as eqco_mo_fotografia,
+                Modelos.valor_comercial as eqco_mo_valor_comercial,
+                Modelos.clase as eqco_mo_clase,
+                Modelos.descripcion as eqco_mo_descripcion,
+                Modelos.accesorios as eqco_mo_accesorios,
+                Informacion_Compra.proveedor as eqco_ord_proveedor,
+                Informacion_Compra.fecha_compra as eqco_ord_adquisicion,
+                Informacion_Compra.fecha_garantia as eqco_ord_garantia,
+                Informacion_Compra.codigo_orden_compra AS ord_codigo_orden_compra,
+                Informacion_Compra.codigo_activo AS ord_codigo_activo,
+                Equipos_Sencillos.nombre as eqse_nombre,
+                Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta as eqse_cantidad,
+                Equipos_Sencillos.clase as eqse_clase,
+                Equipos_Sencillos.fotografia as eqse_fotografia,
+                Equipos_Sencillos.valor_comercial as eqse_valor_comercial,
+                Personas.carne as per_carne,
+                Personas.nombre as per_nombre,
+                Personas.apellido as per_apellido,
+                Personas.email as per_email,
+                Personas.telefono as per_telefono,
+                Rol_Persona.Rol_rol as per_Rl_rol,
+                Rol_Persona.contrasena as per_Rl_contrasena,
+                Rol_Persona.sal as per_Rl_sal
+        from
+                Prestamos
+                left join Personas on Prestamos.persona = Personas.carne
+                left join Rol_Persona on Personas.carne = Rol_Persona.Personas_carne
+                left join Rol on Rol.rol = Rol_Persona.Rol_rol
+                left join Equipo_prestamo_complejo on Equipo_prestamo_complejo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_complejo.Prestamos_persona = Prestamos.persona 
+                left join Equipos_Complejos on Equipo_prestamo_complejo.Equipos_Complejos_serial = Equipos_Complejos.serial and Equipo_prestamo_complejo.Equipos_Complejos_modelo = Equipos_Complejos.modelo 
+                left join Modelos on Equipos_Complejos.modelo = Modelos.nombre 
+                left join Equipo_prestamo_sencillo on Equipo_prestamo_sencillo.Prestamos_fecha_inicio = Prestamos.fecha_inicio and Equipo_prestamo_sencillo.Prestamos_persona = Prestamos.persona 
+                left join Equipos_Sencillos on Equipo_prestamo_sencillo.equipo = Equipos_Sencillos.nombre
+                left join Informacion_Compra on Equipos_Complejos.serial=Informacion_Compra.Equipos_Complejos_serial AND Equipos_Complejos.modelo=Informacion_Compra.Equipos_Complejos_modelo
+        where
+                Prestamos.persona = #{carnet}   
+                and Prestamos.fecha_fin_real is null and ((Equipo_prestamo_complejo.estado = 'Activo' and Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta &gt; 0) 
+                or  (Equipo_prestamo_complejo.estado = 'Activo' and Equipo_prestamo_sencillo.cantidad is null) 
+                or  (Equipo_prestamo_complejo.estado is null and Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta > 0))
+    </select>
 </mapper>

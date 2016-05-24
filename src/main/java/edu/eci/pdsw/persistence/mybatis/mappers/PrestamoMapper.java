@@ -153,4 +153,12 @@ public interface PrestamoMapper {
      * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
      */
     public long diffHours(@Param("Prestamo") Prestamo pres);
+    
+    /**
+     * Carga el prestamo actual de la persona
+     * 
+     * @param carnet de la persona
+     * @return el prestamo activo de esa persona
+     */
+    public Prestamo loadActualDePersona(String carnet);
 }
