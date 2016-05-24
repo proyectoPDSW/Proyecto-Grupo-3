@@ -119,4 +119,13 @@ public interface DAOPrestamo {
      * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
      */
     public long diffHours(Prestamo prestamo);
+    
+    /**
+     * Carga el prestamo actual de una persona
+     * 
+     * @param carnet de la persona
+     * @return el prestamo activo de esa persona
+     * @throws PersistenceException si la persona no existe o no tiene prestamo activo
+     */
+    public Prestamo loadActualPersona(String carnet)throws PersistenceException;
 }

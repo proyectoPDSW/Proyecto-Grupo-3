@@ -168,4 +168,11 @@ public class MyBatisDAOPrestamo implements DAOPrestamo {
         return pmap.diffHours(prestamo);
     }
 
+    @Override
+    public Prestamo loadActualPersona(String carnet) throws PersistenceException {
+        if(ppmp.load(carnet)==null)throw new PersistenceException("La persona no existe");
+        if(pmap.loadActualDePersona(carnet)==null)throw new PersistenceException("La persona no tiene prestamo activo");
+        return pmap.loadActualDePersona(carnet);
+    }
+
 }

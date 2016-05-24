@@ -112,4 +112,12 @@ public abstract class ServiciosPrestamo {
      * @return la diferencia en horas entre la fecha actual y la fecha de fin estimada del prestamo
      */
     public abstract long diffHours(Prestamo prestamo);
+    
+    /**
+     * Devuelve todos los prestamos de una persona
+     * 
+     * @param carnet de la persona
+     * @throws ExcepcionServicios si la persona no existe
+     */
+    public abstract void devolverTodo(String carnet)throws ExcepcionServicios;
 }
