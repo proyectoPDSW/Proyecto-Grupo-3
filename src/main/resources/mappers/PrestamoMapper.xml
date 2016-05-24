@@ -494,7 +494,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Prestamos.fecha_fin_real is null and Prestamos.fecha_fin_estimada &lt;  now()
                 and ((Equipo_prestamo_complejo.estado = 'Activo' and Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta &gt; 0) 
                     or  (Equipo_prestamo_complejo.estado = 'Activo' and Equipo_prestamo_sencillo.cantidad is null) 
-                    or  (Equipo_prestamo_complejo.estado is null and Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta > 0))
+                    or  (Equipo_prestamo_complejo.estado is null and Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta &gt; 0))
         order by
                 Prestamos.fecha_fin_estimada
 	
@@ -552,6 +552,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 Prestamos.persona = #{carnet}   
                 and Prestamos.fecha_fin_real is null and ((Equipo_prestamo_complejo.estado = 'Activo' and Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta &gt; 0) 
                 or  (Equipo_prestamo_complejo.estado = 'Activo' and Equipo_prestamo_sencillo.cantidad is null) 
-                or  (Equipo_prestamo_complejo.estado is null and Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta > 0))
+                or  (Equipo_prestamo_complejo.estado is null and Equipo_prestamo_sencillo.cantidad-Equipo_prestamo_sencillo.cantidad_devuelta &gt; 0))
     </select>
 </mapper>
