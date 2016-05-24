@@ -16,7 +16,7 @@
                 <b><p:outputLabel for="nombreModelo" value="Nombre: (*)"/></b>
                 <br></br><b><p:autoComplete id="nombreModelo" dropdown="true" value="#{RegistroEquiposComplejos.nombreModelo}" completeMethod="#{RegistroEquiposComplejos.modelosAproximados}"/></b>
                 <br></br>
-                <br></br><p:commandButton  value="Consultar modelo y registrar equipo" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update=":registro" icon="ui-icon-search" />
+                <br></br><p:commandButton  value="Consultar modelo" actionListener="#{RegistroEquiposComplejos.consultarModelo()}" update=":registro" icon="ui-icon-search" />
                 <space> </space><p:commandButton value="Volver Inicio" action="index" ajax="false" icon="ui-icon-arrowthick-1-w"/>
                 <br></br><p:messages id="messages" autoUpdate="true" closable="true" />
                 <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
@@ -95,6 +95,8 @@
                                 <h:inputText  value="#{RegistroEquiposComplejos.serial}" />
                                 <h:outputLabel value="Placa: (*)" />
                                 <h:inputText value="#{RegistroEquiposComplejos.placa}" />
+                                <h:outputLabel value="Tiempo de uso en horas: (*)" />
+                                <h:inputText value="#{RegistroEquiposComplejos.tiempoDeUso}" />
                                 <h:outputLabel value="¿Se encuentra asegurado?" />
                                 <p:selectBooleanButton  value="#{RegistroEquiposComplejos.asegurado}" onLabel="Si" offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-close" style="width:80px"/>
                             </p:panelGrid>
@@ -155,6 +157,9 @@
 
                                     <h:outputLabel value="Placa:" />
                                     <h:outputText value="#{RegistroEquiposComplejos.equipo.placa}"/>
+                                    
+                                    <h:outputLabel value="Tiempo de uso en horas: (*)" />
+                                    <h:outputText value="#{RegistroEquiposComplejos.equipo.tiempoRestante}" />
 
                                     <h:outputLabel value="Asegurado: " />
                                     <h:outputText value="#{RegistroEquiposComplejos.aseguradoEquipo}"/>
