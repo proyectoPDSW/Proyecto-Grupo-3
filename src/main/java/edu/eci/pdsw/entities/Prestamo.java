@@ -153,7 +153,7 @@ public abstract class Prestamo implements Comparable<Prestamo> {
      * @return the elQuePideElPrestamo
      */
     public Persona getElQuePideElPrestamo() {
-        return elQuePideElPrestamo;        //Collections.sort(equiposSencillosFaltantes2);
+        return elQuePideElPrestamo;
     }
 
     /**
