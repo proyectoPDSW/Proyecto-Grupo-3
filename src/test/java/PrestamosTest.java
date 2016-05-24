@@ -149,7 +149,7 @@ public class PrestamosTest {
         Prestamo p = new PrestamoIndefinido(per,null,les);
         prestamo.save(p);
         daof.commitTransaction();
-        List<Prestamo> lp = prestamo.loadByFecha(new Timestamp(new Date().getTime()));
+        List<Prestamo> lp = prestamo.loadByFecha(p.getFechaInicio());
         daof.endSession();
         Prestamo check=null;
         for (Prestamo prestamo1 : lp) {
